@@ -21,6 +21,7 @@ import javax.ws.rs.QueryParam;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 @RequestScoped
 @Path("/v1")
@@ -36,18 +37,18 @@ public class EndpointsArticles {
 	@GET
 	@Path("/get")
 	@APIResponses(value = {
-			@APIResponse(
-		      responseCode = "404",
-		      description = "Article Not Found"
-		    ),
-		    @APIResponse(
-		      responseCode = "200",
-		      description = "Article with requested id",
-		      content = @Content(
-		        mediaType = "application/json",
-		        schema = @Schema(implementation = Article.class)
-		      )
-		    )
+		@APIResponse(
+	      responseCode = "404",
+	      description = "Article Not Found"
+	    ),
+	    @APIResponse(
+	      responseCode = "200",
+	      description = "Article with requested id",
+	      content = @Content(
+	        mediaType = "application/json",
+	        schema = @Schema(implementation = Article.class)
+	      )
+	    )
 	})
 	@Operation(
 		    summary = "Get specific article",
@@ -75,56 +76,54 @@ public class EndpointsArticles {
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	@APIResponses(value = {
-		    @APIResponse(
-		      responseCode = "200",
-		      description = "All articles",
-		      content = @Content(
-		        mediaType = "application/json",
-		        schema = @Schema(implementation = Article[].class)
-		      )
-		    )
+	    @APIResponse(
+	      responseCode = "200",
+	      description = "All articles",
+	      content = @Content(
+	        mediaType = "application/json",
+	        schema = @Schema(type = SchemaType.ARRAY, implementation = Article.class)
+	      )
+	    )
 	})
 	@Operation(
 		    summary = "Get all articles",
 		    description = "Get all articles"
 	)
-	public JsonArray getArticles() {
+	public Response getArticles() {
 		System.out.println("EndpointsArticles.getArticles");
 
-		return coreService.getArticles().stream().map(this::buildResponse).collect(JsonCollectors.toJsonArray());
+		return Response.ok(coreService.getArticles().stream().map(this::buildResponse).collect(JsonCollectors.toJsonArray())).build();
 	}
 
 	@POST
 	@Path("/create")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@APIResponses(value = {
-			@APIResponse(
-		      responseCode = "204",
-		      description = "Input not valid (no title)"
-		    ),
-		    @APIResponse(
-		      responseCode = "201",
-		      description = "Article has been created",
-		      content = @Content(
-		        mediaType = "application/json",
-		        schema = @Schema(implementation = Article.class)
-		      )
-		    )
+		@APIResponse(
+	      responseCode = "204",
+	      description = "Input not valid (no title)"
+	    ),
+	    @APIResponse(
+	      responseCode = "201",
+	      description = "Article has been created",
+	      content = @Content(
+	        mediaType = "application/json",
+	        schema = @Schema(implementation = Article.class)
+	      )
+	    )
 	})
 	@Operation(
 		    summary = "Create a new article",
 		    description = "Create a new article"
 	)
-	public Response addArticle(@Parameter(
-            description = "The new article",
-            required = true,
-            example = "{\"title\":\"Title\"}",
-            schema = @Schema(implementation = Article.class))
-			JsonObject jsonObject) {
+	public Response addArticle(@RequestBody(description = "New article", required = true,
+            content = @Content(schema = @Schema(implementation = Article.class))) Article newArticle) {
 		System.out.println("EndpointsArticles.addArticle");
 
-		String title = jsonObject.getString("title", null);
-		String url = jsonObject.getString("url", null);
-		String author = jsonObject.getString("author", null);
+		String title = newArticle.title;
+		String url = newArticle.url;
+		String author = newArticle.author;
 
 		Article article;
 		try {

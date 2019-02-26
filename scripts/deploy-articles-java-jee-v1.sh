@@ -21,10 +21,13 @@ function setup() {
   kubectl apply -f deployment/kubernetes.yaml
   kubectl apply -f deployment/istio.yaml
 
-  _out Minikube IP: $(minikube ip)
-  _out NodePort: $(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
+  minikubeip=$(minikube ip)
+  nodeport=$(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
+  _out Minikube IP: ${minikubeip}
+  _out NodePort: ${nodeport}
   
   _out Done deploying articles-java-jee-v1
+  _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
 }
 
 setup

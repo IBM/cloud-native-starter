@@ -67,20 +67,20 @@ $ kubectl delete -f deployment/istio.yaml
 
 curl [minikubeip]:[articlesnodeport]/health -i
 
-curl 192.168.99.100:31573/health -i
+curl 192.168.99.100:30497/health -i
 
 curl [minikubeip]:[articlesnodeport]/articles/v1/create -i -XPOST \
   -H 'Content-Type: application/json' \
   -d '{"title":"Title 1","author":"Author 1","url":"http://heidloff.net"}'
 
-curl 192.168.99.100:31573/articles/v1/create -i -XPOST \
+curl 192.168.99.100:30497/articles/v1/create -i -XPOST \
   -H 'Content-Type: application/json' \
   -d '{"title":"Title 1","author":"Author 1","url":"http://heidloff.net"}'
 
 curl [minikubeip]:[articlesnodeport]/articles/v1/all -i
 
-curl 192.168.99.100:31573/articles/v1/all -i
+curl 192.168.99.100:30497/articles/v1/all -i
 
-http://192.168.99.100:31573/openapi/ui/
+http://192.168.99.100:30497/openapi/ui/
 
-http://192.168.99.100:31573/openapi/
+http://192.168.99.100:30497/openapi/
