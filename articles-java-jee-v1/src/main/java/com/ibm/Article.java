@@ -1,14 +1,16 @@
 package com.ibm;
 
-import java.util.Date;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
+@Schema(name="Article", description="POJO that represents a single article")
 public class Article {
 
-    public String url;
+	@Schema(required = true)
+	public String title;
+	
+	public String url;
     public String author;
     public String id;
-    public String title;
-    public Date publicationDate;
 
     public Article() {
     }
