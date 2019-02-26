@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: articles-core
+  name: articles
   labels:
-    app: articles-core
+    app: articles
 spec:
   selector:
-    app: articles-core
+    app: articles
   ports:
     - port: 9080
       name: http
@@ -16,18 +16,18 @@ spec:
 kind: Deployment
 apiVersion: apps/v1beta1
 metadata:
-  name: articles-core
+  name: articles
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: articles-core
+        app: articles
         version: v1
     spec:
       containers:
-      - name: articles-core
-        image: articles-core:1
+      - name: articles
+        image: articles:1
         ports:
         - containerPort: 9080
         livenessProbe:
@@ -36,7 +36,7 @@ spec:
           initialDelaySeconds: 20
         readinessProbe:
           exec:
-            command: ["sh", "-c", "curl -s http://localhost:9080/health | grep -q articles-core"]
+            command: ["sh", "-c", "curl -s http://localhost:9080/health | grep -q articles"]
           initialDelaySeconds: 40
       restartPolicy: Always
 ---

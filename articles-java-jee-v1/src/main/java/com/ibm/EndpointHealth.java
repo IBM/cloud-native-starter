@@ -12,6 +12,6 @@ public class EndpointHealth implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        return HealthCheckResponse.named("articles-core").withData("articles-core", "ok").up().build();
+        return HealthCheckResponse.named("articles").withData("articles", "ok").up().build();
     }
 }

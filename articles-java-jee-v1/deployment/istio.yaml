@@ -1,23 +1,23 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: articles-core
+  name: articles
 spec:
   hosts:
-  - articles-core
+  - articles
   http:
   - route:
     - destination:
-        host: articles-core
+        host: articles
         subset: v1
 ---
 
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: articles-core
+  name: articles
 spec:
-  host: articles-core
+  host: articles
   subsets:
   - name: v1
     labels:

@@ -6,4 +6,4 @@ RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
 
 COPY liberty/server.xml /config/
 
-ADD target/articles-core.war /config/dropins/
+ADD target/articles.war /config/dropins/

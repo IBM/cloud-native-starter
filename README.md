@@ -45,9 +45,9 @@ http://localhost:9090
 ### Deployment
 
 ```
-$ cd articles-core-java-jee-v1
+$ cd articles-java-jee-v1
 $ mvn package
-$ docker build -t articles-core:1 .
+$ docker build -t articles:1 .
 ```
 
 ```
@@ -61,3 +61,23 @@ Delete:
 $ kubectl delete -f deployment/kubernetes.yaml
 $ kubectl delete -f deployment/istio.yaml
 ```
+
+
+### Run the Demo
+
+curl [minikubeip]:[articlesnodeport]/health -i
+
+curl 192.168.99.100:30943/health -i
+
+curl [minikubeip]:[articlesnodeport]/articles/resources/articles/1 -i -XPUT \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Title 1"}'
+
+curl 192.168.99.100:30943/articles/resources/articles/1 -i -XPUT \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Title 1"}'
+
+curl [minikubeip]:[articlesnodeport]/articles/resources/articles/1 -i
+
+curl 192.168.99.100:30943/articles/resources/articles/1 -i
+
