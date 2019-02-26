@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: cloudant
+spec:
+  hosts:
+  - "*.cloudant.com"
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: cloudant
+spec:
+  hosts:
+  - "*.cloudant.com"
+  tls:
+  - match:
+    - port: 443
+      sni_hosts:
+      - "*.cloudant.com"
+    route:
+    - destination:
+        host: "*.cloudant.com"
+        port:
+          number: 443
+      weight: 100
