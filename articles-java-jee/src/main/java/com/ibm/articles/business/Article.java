@@ -1,4 +1,4 @@
-package com.ibm;
+package com.ibm.articles.business;
 
 public class Article {
 
@@ -7,5 +7,4 @@ public class Article {
     public String author;
     public String id;
 
-    public Article() {}
 }

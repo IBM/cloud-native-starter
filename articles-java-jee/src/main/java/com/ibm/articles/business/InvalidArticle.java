@@ -1,4 +1,4 @@
-package com.ibm;
+package com.ibm.articles.business;
 
 public class InvalidArticle extends Exception {
 

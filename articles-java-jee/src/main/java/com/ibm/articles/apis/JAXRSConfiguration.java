@@ -1,4 +1,4 @@
-package com.ibm;
+package com.ibm.articles.apis;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

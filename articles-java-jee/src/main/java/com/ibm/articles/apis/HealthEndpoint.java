@@ -1,4 +1,4 @@
-package com.ibm;
+package com.ibm.articles.apis;
 
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Health
 @ApplicationScoped
-public class EndpointHealth implements HealthCheck {
+public class HealthEndpoint implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {

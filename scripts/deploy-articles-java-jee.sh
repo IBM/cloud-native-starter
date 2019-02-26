@@ -9,12 +9,13 @@ function _out() {
 }
 
 function setup() {
-  _out Deploying articles-java-jee-v1
+  _out Deploying articles-java-jee
   
-  cd ${root_folder}/articles-java-jee-v1
+  cd ${root_folder}/articles-java-jee
   kubectl delete -f deployment/kubernetes.yaml
   kubectl delete -f deployment/istio.yaml
 
+  mvn clean
   mvn package
   docker build -t articles:1 .
 
@@ -26,7 +27,7 @@ function setup() {
   _out Minikube IP: ${minikubeip}
   _out NodePort: ${nodeport}
   
-  _out Done deploying articles-java-jee-v1
+  _out Done deploying articles-java-jee
   _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
 }
 
