@@ -9,12 +9,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryDataAccess implements DataAccess {
+public class HttpDataAccess implements DataAccess {
 
     private Map<String, Article> articles;
 
      
-    public InMemoryDataAccess() {
+    public HttpDataAccess() {
 		articles = new ConcurrentHashMap<>();
     }
 

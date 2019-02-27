@@ -2,7 +2,7 @@ package com.ibm.articles.business;
 
 import com.ibm.articles.data.DataAccess;
 import com.ibm.articles.data.DataAccessManager;
-import com.ibm.articles.data.InMemoryDataAccess;
+import com.ibm.articles.data.HttpDataAccess;
 import com.ibm.articles.data.NoConnectivity;
 import java.util.ArrayList;
 import java.util.Collections;

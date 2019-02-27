@@ -1,4 +1,4 @@
-package com.ibm.articles.data;
+package com.ibm.webapi.data;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -7,7 +7,7 @@ public class DataAccessManager {
 	
 	public static DataAccess getDataAccess() { 
         if (singleton == null) { 
-        	singleton = new HttpDataAccess(); 
+        	singleton = new InMemoryDataAccess(); 
         } 
         return singleton; 
     } 

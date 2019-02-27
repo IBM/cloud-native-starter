@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="OpenLiberty Server">
+	
+    <featureManager>
+        <feature>webProfile-8.0</feature>
+        <feature>microProfile-2.1</feature>
+        <feature>usr:opentracingZipkin-0.31</feature>     
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="9080" httpsPort="9443"/>
+
+    <keyStore id="defaultKeyStore" password="Liberty"/>
+
+    <basicRegistry id="basic" realm="MicroProfileMetrics">
+        <user name="admin" password="adminadmin"/>
+        <user name="nonadmin" password="guest"/>
+    </basicRegistry>
+
+    <administrator-role>
+        <user>admin</user>
+    </administrator-role>
+
+</server>
