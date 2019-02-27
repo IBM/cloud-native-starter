@@ -72,9 +72,9 @@ curl 192.168.99.100:31695/articles/v1/create -i -XPOST \
   -H 'Content-Type: application/json' \
   -d '{"title":"Title 1","author":"Author 1","url":"http://heidloff.net"}'
 
-curl [minikubeip]:[articlesnodeport]/articles/v1/all -i
+curl [minikubeip]:[articlesnodeport]/articles/v1/getmultiple?amount=10 -i
 
-curl 192.168.99.100:31695/articles/v1/all -i
+curl 192.168.99.100:31180/articles/v1/getmultiple?amount=10 -i
 
 http://192.168.99.100:31695/openapi/ui/
 

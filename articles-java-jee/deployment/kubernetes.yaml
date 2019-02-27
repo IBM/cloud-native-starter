@@ -30,6 +30,12 @@ spec:
         image: articles:1
         ports:
         - containerPort: 9080
+        env:
+        - name: samplescreation
+          valueFrom:
+            configMapKeyRef:
+              name: articles-config
+              key: samplescreation
         livenessProbe:
           exec:
             command: ["sh", "-c", "curl -s http://localhost:9080/"]
@@ -39,4 +45,12 @@ spec:
             command: ["sh", "-c", "curl -s http://localhost:9080/health | grep -q articles"]
           initialDelaySeconds: 40
       restartPolicy: Always
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: articles-config
+data:
+  samplescreation: CREATE
 ---

@@ -1,17 +1,21 @@
 package com.ibm.articles.data;
 
 import com.ibm.articles.business.Article;
+import javax.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import com.ibm.articles.business.ArticleDoesNotExist;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InMemoryDataAccess implements DataAccess {
 
     private Map<String, Article> articles;
-    
+
+     
     public InMemoryDataAccess() {
-    	articles = new ConcurrentHashMap<>();
+		articles = new ConcurrentHashMap<>();
     }
 
     public Article addArticle(Article article) throws NoConnectivity {
@@ -28,7 +32,7 @@ public class InMemoryDataAccess implements DataAccess {
         return article;
     }
 
-    public Collection<Article> getArticles() throws NoConnectivity {  	        
-        return articles.values();
+    public List<Article> getArticles() throws NoConnectivity {  	        
+        return new ArrayList<Article>(articles.values());
     }
 }

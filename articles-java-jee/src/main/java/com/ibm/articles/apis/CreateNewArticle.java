@@ -34,9 +34,6 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 public class CreateNewArticle {
 
 	@Inject
-	Service coreService;
-	
-	@Inject
 	ArticleAsJson articleAsJson;
 
 	@POST
@@ -67,7 +64,7 @@ public class CreateNewArticle {
 	)
 	public Response addArticle(@RequestBody(description = "New article", required = true,
             content = @Content(schema = @Schema(implementation = Article.class))) Article newArticle) {
-		System.out.println("EndpointsArticles.addArticle");
+		System.out.println("com.ibm.articles.apis.EndpointsArticles.addArticle");
 
 		String title = newArticle.title;
 		String url = newArticle.url;
@@ -75,7 +72,7 @@ public class CreateNewArticle {
 
 		Article article;
 		try {
-			article = coreService.addArticle(title, url, author);
+			article = Service.getService().addArticle(title, url, author);
 
 			return Response.status(Response.Status.CREATED).entity(articleAsJson.createJson(article)).build();
 		} catch (InvalidArticle excpetion) {

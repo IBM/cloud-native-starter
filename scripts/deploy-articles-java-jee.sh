@@ -17,7 +17,16 @@ function setup() {
 
   mvn clean
   mvn package
-  docker build -t articles:1 .
+
+  file="${root_folder}/articles-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"
+  if [ -f "$file" ]
+  then
+	  echo "$file found"
+  else
+	  curl -L -o $file https://github.com/WASdev/sample.opentracing.zipkintracer/releases/download/1.2/liberty-opentracing-zipkintracer-1.2-sample.zip
+  fi
+  
+  docker build -f Dockerfile.previousdownload -t articles:1 .
 
   kubectl apply -f deployment/kubernetes.yaml
   kubectl apply -f deployment/istio.yaml

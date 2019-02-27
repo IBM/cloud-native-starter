@@ -34,13 +34,10 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 public class GetArticle {
 
 	@Inject
-	Service coreService;
-	
-	@Inject
 	ArticleAsJson articleAsJson;
 
 	@GET
-	@Path("/get")
+	@Path("/getone")
 	@APIResponses(value = {
 		@APIResponse(
 	      responseCode = "404",
@@ -69,11 +66,11 @@ public class GetArticle {
             example = "1551176445313",
             schema = @Schema(type = SchemaType.STRING))
 			@QueryParam("id") String id) {
-		System.out.println("EndpointsArticles.getArticle");
+		System.out.println("com.ibm.articles.apis.EndpointsArticles.getArticle");
 
 		Article article;
 		try {
-			article = coreService.getArticle(id);
+			article = Service.getService().getArticle(id);
 			return Response.ok(articleAsJson.createJson(article)).build();
 		} catch (ArticleDoesNotExist exception) {
 			return Response.status(Response.Status.NOT_FOUND).build();
