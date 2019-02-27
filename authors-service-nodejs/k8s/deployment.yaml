@@ -1,0 +1,45 @@
+apiVersion: apps/v1beta2 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: authors-service
+  labels:
+    app: authors-service
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: authors-service
+      version: v1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: authors-service
+        version: v1
+    spec:
+      containers:
+      - image: authors-service:1.0.0
+        name: authors-service
+        env:
+        - name: CLOUDANT_URL
+          value: '#######REPLACE ME WITH https://user:password:host.cloudant.com#####'
+        ports:
+        - containerPort: 3000
+          name: authors-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authors-service
+  labels:
+    app: authors-service
+spec:
+  type: NodePort
+  ports:
+    - port: 3000  
+      protocol: TCP
+      name: http
+  selector:
+    app: authors-service
+---

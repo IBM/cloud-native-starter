@@ -1,0 +1,53 @@
+swagger: '2.0'
+
+info:
+  version: "1.0.0"
+  title: Authors Service API
+
+consumes:
+  - text/plain
+
+produces:
+  - application/json
+
+paths:
+
+  /api/v1/getauthor:
+    get:
+      summary: Read author information from Cloudant database
+      description: Query with full name, result is JSON object with full name, twitter handle, and blog URL
+      parameters:
+        - name: name
+          type: string
+          required: yes
+          in: query
+          description: Full name (first name SPACE last name)
+      responses: 
+        204:
+          description: 204 No result
+        200:
+          description: 200 OK 
+          schema:
+            $ref: "#/definitions/getauthorResponse"   
+
+  /health:
+    get:
+      operationId: get
+      description: Get health status of nodejsmicroservicewithexpressjsovhdg
+      responses:
+        200:
+          description: "Health check response"
+          schema:
+            $ref: "#/definitions/healthResponse"
+          examples:
+            application/json: { "status": "UP"}
+
+definitions:
+  healthResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+  getauthorResponse:
+    type: "object"
+    example: {"name": "First Last", "twitter": "@handle", "blog": "URL"}     

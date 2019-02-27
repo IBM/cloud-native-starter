@@ -1,0 +1,58 @@
+# The container name used for the run container
+container-name-run : "nodejsmicroservicewithexpressjsovhdg-express-run"
+# The container name used for the tools container
+container-name-tools : "nodejsmicroservicewithexpressjsovhdg-express-tools"
+
+# The project root on the host for the run container to mount to container-path-run
+host-path-run : "."
+# The project root on the host for the tools container to mount to container-path-tools
+host-path-tools : "."
+
+# The project root in the run container to mount to host-path-run
+container-path-run : "/app"
+# The project root in the tools container that will be mounted to host-path-tools
+container-path-tools : "/app"
+
+# The port mappings between the host and the container in the form [host:container]
+container-port-map : "3000:3000"
+# The port mappings between the host and the container for the debug port in the form [host:container]
+container-port-map-debug : "9229:9229"
+
+# The list of additional mounts between the host and the run container in the form [host_path:container_path]
+container-mounts-run:
+   - "./node_modules_linux": "/app/node_modules"
+# The list of additional mounts between the host and the tools container in the form [host_path:container_path]
+container-mounts-tools:
+   - "./node_modules_linux": "/app/node_modules"
+# The name for the dockerfile for the run container
+dockerfile-run : "Dockerfile"
+# The name for the dockerfile for the tools container
+dockerfile-tools : "Dockerfile-tools"
+
+# The name of image to create from dockerfile-run
+image-name-run : "nodejsmicroservicewithexpressjsovhdg-express-run"
+# The name of image to create from dockerfile-tools
+image-name-tools : "nodejsmicroservicewithexpressjsovhdg-express-tools"
+
+# The command to build the code and docker image for RUN
+build-cmd-run : "npm install"
+# The command to execute tests for the code in the tools container
+test-cmd : "npm run test"
+# The command to build the code and docker image for DEBUG
+build-cmd-debug : "npm install"
+
+# The command to run the code in the run container
+run-cmd : ""
+# The command to execute debug of the code in the tools container
+debug-cmd : "npm run debug"
+# The command to stop the code
+stop-cmd : "npm stop"
+
+# The relative path to the helm chart used for Kubernetes deployment
+chart-path : "chart/nodejsmicroservicewithexpressjsovhdg"
+
+# The IBM version of this configuration
+version : "0.0.3"
+ibm-generated-id : "635fb8ac-24fb-45ca-b3bf-fe35741161ab"
+ibm-cloud-app-id : "fe1ac912-b977-4cb2-8e32-50d21b8c6346"
+credentials-filepath : "server/localdev-config.json, vcap-local.js, credentials.json, localdev-config.json"

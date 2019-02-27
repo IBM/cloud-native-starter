@@ -1,0 +1,3 @@
+#!/bin/bash
+# Simple shell script to run application in dev mode
+npm run dev
