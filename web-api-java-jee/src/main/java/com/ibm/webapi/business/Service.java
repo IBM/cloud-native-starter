@@ -1,5 +1,6 @@
 package com.ibm.webapi.business;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import com.ibm.webapi.data.DataAccessManager;
@@ -20,7 +21,7 @@ public class Service {
 	private Service() {
 	}
 
-	public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
+	public CoreArticle addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
 		if (title == null)
 			throw new InvalidArticle();
 
@@ -32,14 +33,14 @@ public class Service {
 		if (author == null)
 			author = "Unknown";
 
-		Article article = new Article();
+		CoreArticle article = new CoreArticle();
 		article.title = title;
 		article.id = idAsString;
 		article.url = url;
 		article.author = author;
 
 		try {
-			DataAccessManager.getDataAccess().addArticle(article);
+			DataAccessManager.getArticlesDataAccess().addArticle(article);
 			return article;
 		} catch (NoConnectivity e) {
 			e.printStackTrace();
@@ -48,14 +49,36 @@ public class Service {
 	}
 
 	public List<Article> getArticles() throws NoDataAccess {
+		List<Article> articles = new ArrayList<Article>();	
+		List<CoreArticle> coreArticles = new ArrayList<CoreArticle>();	
 		
 		int requestedAmount = 5; // change to 10 for v2
 				
 		try {
-			return DataAccessManager.getDataAccess().getArticles(requestedAmount);			
+			coreArticles = DataAccessManager.getArticlesDataAccess().getArticles(requestedAmount);								
 		} catch (NoConnectivity e) {
 			e.printStackTrace();
 			throw new NoDataAccess(e);
+		}		
+		
+		for (int index = 0; index < coreArticles.size(); index++) {
+			CoreArticle coreArticle = coreArticles.get(index);
+			Article article = new Article();
+			article.id = coreArticle.id;
+			article.title = coreArticle.title;
+			article.url = coreArticle.url;
+			article.authorName = coreArticle.author;
+			try {
+				Author author = DataAccessManager.getAuthorsDataAccess().getAuthor(coreArticle.author);
+				article.authorBlog = author.blog;
+				article.authorTwitter = author.twitter;
+			} catch (NoConnectivity | NonexistentAuthor e) {	
+				article.authorBlog = "";
+				article.authorTwitter = "";
+			}
+			articles.add(article);
 		}
+				
+		return articles;
 	}
 }

@@ -1,6 +1,6 @@
 package com.ibm.webapi.data;
 
-import com.ibm.webapi.business.Article;
+import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.InvalidArticle;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
@@ -19,18 +19,18 @@ import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.ws.rs.ProcessingException;
 
-public class ArticlesServiceDataAccess implements DataAccess {
+public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 	
 	static final String BASE_URL = "http://articles:9080/articles/v1/";
 	
 	public ArticlesServiceDataAccess() {
 	}	
 
-	public List<Article> getArticles(int amount) throws NoConnectivity {		
+	public List<CoreArticle> getArticles(int amount) throws NoConnectivity {		
 		try {
 			URL apiUrl = new URL(BASE_URL + "getmultiple?amount=" + amount);
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
-					.register(ExceptionMapper.class).build(ArticlesService.class);
+					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
 			
 			// I could not figure out how to get Article objects returned automatically from MicroProfile
 			List output = customRestClient.getArticlesFromService();
@@ -43,13 +43,13 @@ public class ArticlesServiceDataAccess implements DataAccess {
 		}
 	}
 	
-	public Article addArticle(Article article) throws NoConnectivity, InvalidArticle {
+	public CoreArticle addArticle(CoreArticle article) throws NoConnectivity, InvalidArticle {
 		try {
 			URL apiUrl = new URL(BASE_URL + "create");
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
-					.register(ExceptionMapper.class).build(ArticlesService.class);
+					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
 			
-			Article output = customRestClient.addArticle(article);
+			CoreArticle output = customRestClient.addArticle(article);
 			return output;
 	
 		} catch (MalformedURLException e) {
@@ -62,8 +62,8 @@ public class ArticlesServiceDataAccess implements DataAccess {
 		}
 	}
 	
-	private Article convertToArticle(HashMap object) {
-		Article article = new Article();
+	private CoreArticle convertToArticle(HashMap object) {
+		CoreArticle article = new CoreArticle();
 		article.id = object.get("id").toString();
 		article.title = object.get("title").toString();
 		article.author = object.get("author").toString();
@@ -71,8 +71,8 @@ public class ArticlesServiceDataAccess implements DataAccess {
 		return article;
 	}	
 	
-	private List<Article> convertToArticleList(List<HashMap> objects) {
-		ArrayList<Article> output = new ArrayList<Article>();
+	private List<CoreArticle> convertToArticleList(List<HashMap> objects) {
+		ArrayList<CoreArticle> output = new ArrayList<CoreArticle>();
 		objects.stream().forEach(object -> output.add(convertToArticle(object)));
 		return output;
 	}

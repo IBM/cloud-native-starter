@@ -1,6 +1,6 @@
 package com.ibm.webapi.business;
 
-public class Article {
+public class CoreArticle {
 
 	public String title;
 	public String url;

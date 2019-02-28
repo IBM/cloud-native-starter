@@ -5,12 +5,21 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class DataAccessManager {
 	
-	public static DataAccess getDataAccess() { 
-        if (singleton == null) { 
-        	singleton = new ArticlesServiceDataAccess(); 
+	public static ArticlesDataAccess getArticlesDataAccess() { 
+        if (singletonArticles == null) { 
+        	singletonArticles = new ArticlesServiceDataAccess(); 
         } 
-        return singleton; 
+        return singletonArticles; 
     } 
 	
-	private static DataAccess singleton = null; 
+	private static ArticlesDataAccess singletonArticles = null; 
+	
+	public static AuthorsDataAccess getAuthorsDataAccess() { 
+        if (singletonAuthors == null) { 
+        	singletonAuthors = new AuthorsServiceDataAccess(); 
+        } 
+        return singletonAuthors; 
+    } 
+	
+	private static AuthorsDataAccess singletonAuthors = null; 
 }

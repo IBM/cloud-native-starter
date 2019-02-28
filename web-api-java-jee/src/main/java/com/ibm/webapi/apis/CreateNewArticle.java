@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-import com.ibm.webapi.business.Article;
+import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.InvalidArticle;
 import com.ibm.webapi.business.NoDataAccess;
 import com.ibm.webapi.business.Service;
@@ -37,7 +37,7 @@ public class CreateNewArticle {
 	      description = "Article has been created",
 	      content = @Content(
 	        mediaType = "application/json",
-	        schema = @Schema(implementation = Article.class)
+	        schema = @Schema(implementation = CoreArticle.class)
 	      )
 	    ),
 	    @APIResponse(
@@ -50,18 +50,18 @@ public class CreateNewArticle {
 		    description = "Create a new article"
 	)
 	public Response addArticle(@RequestBody(description = "New article", required = true,
-            content = @Content(schema = @Schema(implementation = Article.class))) Article newArticle) {
+            content = @Content(schema = @Schema(implementation = CoreArticle.class))) CoreArticle newArticle) {
 		System.out.println("com.ibm.web-api.apis.CreateNewArticle.addArticle");
 
 		String title = newArticle.title;
 		String url = newArticle.url;
 		String author = newArticle.author;
 
-		Article article;
+		CoreArticle article;
 		try {
 			article = Service.getService().addArticle(title, url, author);
 
-			return Response.status(Response.Status.CREATED).entity(articleAsJson.createJson(article)).build();
+			return Response.status(Response.Status.CREATED).entity(articleAsJson.createJsonCoreArticle(article)).build();
 		} catch (InvalidArticle excpetion) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		} catch (NoDataAccess e) {

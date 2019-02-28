@@ -16,7 +16,9 @@ import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+
 import com.ibm.webapi.business.Article;
+import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.NoDataAccess;
 import com.ibm.webapi.business.Service;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
@@ -40,13 +42,13 @@ public class GetArticles {
 			@APIResponse(responseCode = "500", description = "Internal service error") })
 	@Operation(summary = "Get most recently added articles", description = "Get most recently added articles")
 	public Response getArticles() {
-		System.out.println("com.ibm.web-api.apis.GetArticles.addArticle");
+		System.out.println("com.ibm.web-api.apis.GetArticles.getArticles");
 		JsonArray jsonArray;
 		try {
 			List<Article> articles = Service.getService().getArticles();
 			Stream<Article> streamArticles = articles.stream();
 			Stream<JsonObject> streamJsonObjects = streamArticles.map(article -> {
-				JsonObject output = articleAsJson.createJson(article);
+				JsonObject output = articleAsJson.createJsonArticle(article);
 				return output;
 			});
 			jsonArray = streamJsonObjects.collect(JsonCollectors.toJsonArray());

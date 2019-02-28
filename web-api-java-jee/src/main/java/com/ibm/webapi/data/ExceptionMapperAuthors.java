@@ -4,10 +4,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import org.eclipse.microprofile.rest.client.ext.ResponseExceptionMapper;
-import com.ibm.webapi.business.InvalidArticle;
+import com.ibm.webapi.business.NonexistentAuthor;
 
 @Provider
-public class ExceptionMapperArticles implements ResponseExceptionMapper<InvalidArticle> {
+public class ExceptionMapperAuthors implements ResponseExceptionMapper<NonexistentAuthor> {
 
 	@Override
 	public boolean handles(int status, MultivaluedMap<String, Object> headers) {
@@ -15,10 +15,10 @@ public class ExceptionMapperArticles implements ResponseExceptionMapper<InvalidA
 	}
 
 	@Override
-	public InvalidArticle toThrowable(Response response) {
+	public NonexistentAuthor toThrowable(Response response) {
 		switch (response.getStatus()) {
 		case 204:
-			return new InvalidArticle();
+			return new NonexistentAuthor();
 		}
 		return null;
 	}
