@@ -4,7 +4,7 @@ const appName = require('./../package').name;
 const logger = log4js.getLogger(appName);
 logger.level = process.env.LOG_LEVEL || 'info';
 
-const cloudant1 = 'https://e5417d38-080e-45be-b11a-c0c7a13b79a8-bluemix:2bb7d088fe6824ce2a4d6ace53c87c7ebfdf0a511f27b310b54188aae79d974e@e5417d38-080e-45be-b11a-c0c7a13b79a8-bluemix.cloudant.com';
+const cloudant1 = '';
 
 if (process.env.CLOUDANT_URL) {
     var cloudant_db = require('@cloudant/cloudant')(process.env.CLOUDANT_URL); 
