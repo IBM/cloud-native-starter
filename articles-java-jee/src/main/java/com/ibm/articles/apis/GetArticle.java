@@ -66,7 +66,7 @@ public class GetArticle {
             example = "1551176445313",
             schema = @Schema(type = SchemaType.STRING))
 			@QueryParam("id") String id) {
-		System.out.println("com.ibm.articles.apis.EndpointsArticles.getArticle");
+		System.out.println("com.ibm.articles.apis.GetArticle.getArticle");
 
 		Article article;
 		try {

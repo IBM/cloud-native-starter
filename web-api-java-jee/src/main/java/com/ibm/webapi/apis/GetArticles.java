@@ -1,8 +1,11 @@
 package com.ibm.webapi.apis;
 
+import java.util.List;
+import java.util.stream.Stream;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.stream.JsonCollectors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -37,14 +40,21 @@ public class GetArticles {
 			@APIResponse(responseCode = "500", description = "Internal service error") })
 	@Operation(summary = "Get most recently added articles", description = "Get most recently added articles")
 	public Response getArticles() {
-		System.out.println("com.ibm.articles.apis.EndpointsArticles.getArticles");
-		
+		System.out.println("com.ibm.web-api.apis.GetArticles.addArticle");
 		JsonArray jsonArray;
 		try {
-			jsonArray = Service.getService().getArticles().stream()
-					.map(article -> articleAsJson.createJson(article)).collect(JsonCollectors.toJsonArray());
+			List<Article> articles = Service.getService().getArticles();
+			Stream<Article> streamArticles = articles.stream();
+			Stream<JsonObject> streamJsonObjects = streamArticles.map(article -> {
+				JsonObject output = articleAsJson.createJson(article);
+				return output;
+			});
+			jsonArray = streamJsonObjects.collect(JsonCollectors.toJsonArray());
 			return Response.ok(jsonArray).build();
 		} catch (NoDataAccess e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		} 

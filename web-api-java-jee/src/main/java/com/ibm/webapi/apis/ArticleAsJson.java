@@ -12,7 +12,8 @@ public class ArticleAsJson {
 	public ArticleAsJson() {}
 	
 	public JsonObject createJson(Article article) {
-		return Json.createObjectBuilder().add("id", article.id).add("title", article.title).add("url", article.url)
+		JsonObject output = Json.createObjectBuilder().add("id", article.id).add("title", article.title).add("url", article.url)
 				.add("author", article.author).build();
+		return output;
 	}
 }

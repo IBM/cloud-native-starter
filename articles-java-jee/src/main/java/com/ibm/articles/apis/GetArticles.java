@@ -42,7 +42,7 @@ public class GetArticles {
 	@Operation(summary = "Get most recently added articles", description = "Get most recently added articles")
 	public Response getArticles(
 			@Parameter(description = "The amount of articles", required = true, example = "10", schema = @Schema(type = SchemaType.INTEGER)) @QueryParam("amount") int amount) {
-		System.out.println("com.ibm.articles.apis.EndpointsArticles.getArticles");
+		System.out.println("com.ibm.articles.apis.GetArticles.getArticles");
 
 		JsonArray jsonArray;
 		try {

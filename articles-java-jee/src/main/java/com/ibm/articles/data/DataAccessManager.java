@@ -7,7 +7,7 @@ public class DataAccessManager {
 	
 	public static DataAccess getDataAccess() { 
         if (singleton == null) { 
-        	singleton = new HttpDataAccess(); 
+        	singleton = new InMemoryDataAccess(); 
         } 
         return singleton; 
     } 
