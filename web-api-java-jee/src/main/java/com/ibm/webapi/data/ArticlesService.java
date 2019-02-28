@@ -3,6 +3,7 @@ package com.ibm.webapi.data;
 import java.util.List;
 
 import javax.json.JsonObject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
@@ -19,6 +20,7 @@ public interface ArticlesService {
   public List getArticlesFromService();
   
   @POST
+  @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Article addArticle(Article article) throws InvalidArticle;
 }
