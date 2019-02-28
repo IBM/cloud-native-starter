@@ -10,4 +10,8 @@ public class InvalidArticle extends Exception {
 	public InvalidArticle(String message) {
 		super(message);
 	}
+	
+	public InvalidArticle(Throwable cause) {
+		super(cause);
+	}
 }

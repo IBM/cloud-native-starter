@@ -10,4 +10,8 @@ public class NoConnectivity extends Exception {
 	public NoConnectivity(String message) {
 		super(message);
 	}
+	
+	public NoConnectivity(Throwable cause) {
+		super(cause);
+	}
 }

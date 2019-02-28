@@ -64,7 +64,7 @@ public class CreateNewArticle {
 	)
 	public Response addArticle(@RequestBody(description = "New article", required = true,
             content = @Content(schema = @Schema(implementation = Article.class))) Article newArticle) {
-		System.out.println("com.ibm.articles.apis.EndpointsArticles.addArticle");
+		System.out.println("com.ibm.articles.apis.CreateNewArticle.addArticle");
 
 		String title = newArticle.title;
 		String url = newArticle.url;

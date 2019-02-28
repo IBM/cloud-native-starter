@@ -1,16 +1,8 @@
 package com.ibm.webapi.business;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import com.ibm.webapi.data.DataAccess;
 import com.ibm.webapi.data.DataAccessManager;
-import com.ibm.webapi.data.InMemoryDataAccess;
 import com.ibm.webapi.data.NoConnectivity;
 
 @ApplicationScoped
@@ -57,35 +49,10 @@ public class Service {
 
 	public List<Article> getArticles() throws NoDataAccess {
 		
-		int requestedAmount = 5;
-		
-		List<Article> articles;
+		int requestedAmount = 5; // change to 10 for v2
+				
 		try {
-			articles = DataAccessManager.getDataAccess().getArticles();
-			Comparator<Article> comparator = new Comparator<Article>() {
-				@Override
-				public int compare(Article left, Article right) {
-					try {
-						int leftDate = Integer.valueOf(left.id.substring(6));
-						int rightDate = Integer.valueOf(right.id.substring(6));
-						return rightDate - leftDate;
-					} catch (NumberFormatException e) {
-						return 0;
-					}
-				}
-			};
-			Collections.sort(articles, comparator);
-
-			int amount = articles.size();
-			if (amount > requestedAmount) {
-				amount = requestedAmount;
-				List<Article> output = new ArrayList<Article>(amount);
-				for (int index = 0; index < amount; index++) {
-					output.add(articles.get(index));
-				}
-				articles = output;
-			}
-			return articles;
+			return DataAccessManager.getDataAccess().getArticles(requestedAmount);			
 		} catch (NoConnectivity e) {
 			e.printStackTrace();
 			throw new NoDataAccess(e);
