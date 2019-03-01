@@ -3,20 +3,20 @@ const log4js = require('log4js');
 const appName = require('./../package').name;
 const logger = log4js.getLogger(appName);
 logger.level = process.env.LOG_LEVEL || 'info';
+const localConfig = require('../config.json');
 
-const cloudant1 = '';
 
 if (process.env.CLOUDANT_URL) {
     var cloudant_db = require('@cloudant/cloudant')(process.env.CLOUDANT_URL); 
 } else {
-    var cloudant_db = require('@cloudant/cloudant')(cloudant1);
-    logger.info("Using DB: " + cloudant1);
+    var cloudant_db = require('@cloudant/cloudant')(localConfig.CLOUDANT_URL);
+    logger.info("Using DB: " + localConfig.CLOUDANT_URL);
 }
 
 const authors = cloudant_db.use("authors");
 
-// debug since db.create does not give a meaningful error message
-// read hiscore db and print rows count to console.log
+
+// Test read authors db and print rows count to console.log
 authors.view("authorview", "data_by_name", function (err, body, header) { 
     if (err) { 
         logger.error('Cloudant: ' + err ); } 
@@ -30,7 +30,6 @@ authors.view("authorview", "data_by_name", function (err, body, header) {
 });
 
 // Display details of single author
-// Read a record
 //
 // GET w/ query
 //

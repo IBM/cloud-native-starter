@@ -18,15 +18,15 @@ metadata:
   name: cloudant
 spec:
   hosts:
-  - "*.cloudant.com"
+  - "*.cloudantnosqldb.appdomain.cloud"
   tls:
   - match:
     - port: 443
       sni_hosts:
-      - "*.cloudant.com"
+      - "*.cloudantnosqldb.appdomain.cloud"
     route:
     - destination:
-        host: "*.cloudant.com"
+        host: "*.cloudantnosqldb.appdomain.cloud"
         port:
           number: 443
       weight: 100
