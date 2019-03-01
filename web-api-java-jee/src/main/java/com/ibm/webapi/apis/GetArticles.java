@@ -10,6 +10,10 @@ import javax.json.stream.JsonCollectors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -34,6 +38,18 @@ public class GetArticles {
 	@Inject
 	ArticleAsJson articleAsJson;
 
+	@Timed(name = "getArticlesTimed",
+	        absolute = true,
+	        displayName = "web-api /getmultiple timer",
+	        description = "Time taken by com.ibm.webapi.apis.GetArticles.getArticles")
+	@Counted(name = "getArticlesCounted",
+	        absolute = true,
+	        displayName = "web-api /getmultiple count",
+	        description = "Number of times com.ibm.webapi.apis.GetArticles.getArticles has been invoked",
+	        monotonic = true)
+	@Metered(name = "getArticlesMetered",
+	        displayName = "web-api /getmultiple frequency",
+	        description = "Rate the throughput of com.ibm.webapi.apis.GetArticles.getArticles")
 	@GET
 	@Path("/getmultiple")
 	@Produces(MediaType.APPLICATION_JSON)
