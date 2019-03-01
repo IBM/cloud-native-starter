@@ -42,7 +42,7 @@ exports.author_get = function(req, res, next) {
         if (err) { 
             res.writeHead(500, { "Content-Type": "application/json" }); 
             res.end('{"error": "' + err +  '"}');
-            logger.error('Cloudant read failed ' + err); 
+            logger.error('500 - Cloudant read failed. ' + err); 
         } else {
             if ( JSON.stringify(body.rows.length) > 0 ) {  //do we have a result?
                 var _n = body.rows[0].value.name;
@@ -51,11 +51,11 @@ exports.author_get = function(req, res, next) {
                 var authorData = JSON.stringify({'name': _n, 'twitter': _t, 'blog': _b});
                 res.writeHead(200, { "Content-Type": "application/json" }); 
                 res.end(authorData); 
-                logger.info('Cloudant read successful'); 
+                logger.info('200 - Cloudant read successful'); 
             } else {
                 res.writeHead(204, { "Content-Type": "application/json" }); 
                 res.end('{"msg": "no result"}');
-                logger.info('Cloudant read successful but no results'); 
+                logger.info('204 - Cloudant read successful but returned no results'); 
             }
         } 
     });       

@@ -4,7 +4,7 @@ metadata:
   name: cloudant
 spec:
   hosts:
-  - "*.cloudant.com"
+  - "*.cloudantnosqldb.appdomain.cloud"
   ports:
   - number: 443
     name: https
