@@ -4,7 +4,7 @@ metadata:
   name: cloudant
 spec:
   hosts:
-  - 37e183d2-64fa-4d17-961f-7d4dad874f2a-bluemix.cloudantnosqldb.appdomain.cloud
+  - <HOST>
   ports:
   - number: 443
     name: https
@@ -18,15 +18,15 @@ metadata:
   name: cloudant
 spec:
   hosts:
-  - 37e183d2-64fa-4d17-961f-7d4dad874f2a-bluemix.cloudantnosqldb.appdomain.cloud
+  - <HOST>
   tls:
   - match:
     - port: 443
       sni_hosts:
-      - 37e183d2-64fa-4d17-961f-7d4dad874f2a-bluemix.cloudantnosqldb.appdomain.cloud
+      - <HOST>
     route:
     - destination:
-        host: 37e183d2-64fa-4d17-961f-7d4dad874f2a-bluemix.cloudantnosqldb.appdomain.cloud
+        host: <HOST>
         port:
           number: 443
       weight: 100

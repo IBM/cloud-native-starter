@@ -8,7 +8,7 @@ Without automatic istio envoy injection:
 
 * istio-egress-cloudant.yaml
 
-Istio ServiceEntry and VirtualService to access any Cloudant DB on IBM Cloud using https through generic URL 
+Istio ServiceEntry and VirtualService to access the Cloudant DB on IBM Cloud using https through generic URL, you need to specify the host-part of the Cloudant URL (without user:password@) in 4 different places.
 
 `istioctl create -f istio-egress-cloudant.yaml`
 

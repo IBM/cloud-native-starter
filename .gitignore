@@ -5,3 +5,6 @@ target
 nik.txt
 liberty-opentracing-zipkintracer-1.2-sample.zip
 authors-service-nodejs/config.json
+scripts/deploy-authors-nodejs.cfg
+authors-nodejs/deployment/deployment.yaml
+authors-nodejs/deployment/istio-egress-cloudant.yaml

@@ -23,7 +23,7 @@ spec:
         name: authors-service
         env:
         - name: CLOUDANT_URL
-          value: '#######REPLACE ME WITH https://user:password:host.cloudant.com#####'
+          value: '<URL>'
         ports:
         - containerPort: 3000
           name: authors-service

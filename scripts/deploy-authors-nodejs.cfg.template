@@ -1,0 +1,3 @@
+# Enter the Cloudant URL in the form "https://[user]:[password]@[user].cloudantnosqldb.appdomain.cloud"
+# Can be foun dunder Credentials in the IBM Cloud Dashboard for Cloudant
+CLOUDANTURL=""
