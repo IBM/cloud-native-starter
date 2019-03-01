@@ -1,2 +1,5 @@
 node_modules/
 node_modules_linux/
+config.json
+package.1.json
+yarn*
