@@ -1,0 +1,6 @@
+node_modules
+node_modules_linux
+yarn*.log
+mydeployment.yaml
+package.1.json
+config.json
