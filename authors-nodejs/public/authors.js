@@ -8,6 +8,7 @@ const localConfig = require('../config.json');
 
 if (process.env.CLOUDANT_URL) {
     var cloudant_db = require('@cloudant/cloudant')(process.env.CLOUDANT_URL); 
+    logger.info("Using DB: " + cloudant_db);
 } else {
     var cloudant_db = require('@cloudant/cloudant')(localConfig.CLOUDANT_URL);
     logger.info("Using DB: " + localConfig.CLOUDANT_URL);

@@ -19,7 +19,7 @@ spec:
         version: v1
     spec:
       containers:
-      - image: authors-service:1.0.0
+      - image: authors-service:1
         name: authors-service
         env:
         - name: CLOUDANT_URL

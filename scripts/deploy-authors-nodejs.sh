@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 root_folder=$(cd $(dirname $0); cd ..; pwd)
 
@@ -13,6 +13,7 @@ function templates() {
 
   cfgfile=deploy-authors-nodejs.cfg
 
+set -e
   if [ -f $cfgfile ]
   then
       source $cfgfile
@@ -27,32 +28,31 @@ function templates() {
     echo The config file $cfgfile does not exist!
     exit 1
   fi
-
-
+set +e  
 }
 
 function setup() {
-  _out Deploying authors-nodejs
-  
+
   cd ${root_folder}/authors-nodejs
 
   _out Clean-up Minikube
-  #istioctl delete serviceentry cloudant
-  #istioctl delete virtualservice cloudant
-  #kubectl delete all -l app=authors-service
-
-
+  istioctl delete serviceentry cloudant
+  istioctl delete virtualservice cloudant
+  kubectl delete all -l app=authors-service
   
   _out Build Docker Image
   eval $(minikube docker-env)
-  #docker build -f Dockerfile.previousdownload -t articles:1 .
+  docker build -f Dockerfile -t  authors-service:1 .
 
-  #kubectl apply -f deployment/kubernetes.yaml
-  #kubectl apply -f deployment/istio.yaml
+  _out Deploy to Minikube
+  cd deployment
+  kubectl apply -f <(istioctl kube-inject -f deployment.yaml)
+  istioctl create -f istio-egress-cloudant.yaml
 
-  
   _out Done deploying authors-nodejs
   }
 
+echo ""
+_out Deploying authors-nodejs
 templates
 setup
