@@ -31,6 +31,9 @@ public class GetArticles {
 
 	@Inject
 	ArticleAsJson articleAsJson;
+	
+	@Inject 
+	Service service;
 
 	@GET
 	@Path("/getmultiple")
@@ -46,7 +49,7 @@ public class GetArticles {
 
 		JsonArray jsonArray;
 		try {
-			jsonArray = Service.getService().getArticles(amount).stream()
+			jsonArray = service.getArticles(amount).stream()
 					.map(article -> articleAsJson.createJson(article)).collect(JsonCollectors.toJsonArray());
 			return Response.ok(jsonArray).build();
 		} catch (NoDataAccess e) {

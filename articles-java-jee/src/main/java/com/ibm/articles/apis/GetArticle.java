@@ -35,6 +35,9 @@ public class GetArticle {
 
 	@Inject
 	ArticleAsJson articleAsJson;
+	
+	@Inject 
+	Service service;
 
 	@GET
 	@Path("/getone")
@@ -70,7 +73,7 @@ public class GetArticle {
 
 		Article article;
 		try {
-			article = Service.getService().getArticle(id);
+			article = service.getArticle(id);
 			return Response.ok(articleAsJson.createJson(article)).build();
 		} catch (ArticleDoesNotExist exception) {
 			return Response.status(Response.Status.NOT_FOUND).build();

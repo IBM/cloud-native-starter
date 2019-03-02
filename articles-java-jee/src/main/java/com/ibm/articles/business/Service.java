@@ -15,14 +15,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class Service {
 
-	public static Service getService() {
-		if (singleton == null) {
-			singleton = new Service();
-		}
-		return singleton;
-	}
-
-	private static Service singleton = null;
+	boolean created = false;
 
 	private static final String CREATE_SAMPLES = "CREATE";
 
@@ -30,13 +23,13 @@ public class Service {
 	@ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
 	private String samplescreation;
 
-	private Service() {
-		// MicroProfile doesn't work. Accessing env variable directly as workaround
-		samplescreation = System.getenv("samplescreation");
+	public Service() {
 		if (samplescreation != null) {
 			if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
 				addSampleArticles();
 		}
+		created = false;
+		System.out.println("created " + created);
 	}
 
 	public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {

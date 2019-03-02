@@ -35,6 +35,9 @@ public class CreateNewArticle {
 
 	@Inject
 	ArticleAsJson articleAsJson;
+	
+	@Inject 
+	Service service;
 
 	@POST
 	@Path("/create")
@@ -72,7 +75,7 @@ public class CreateNewArticle {
 
 		Article article;
 		try {
-			article = Service.getService().addArticle(title, url, author);
+			article = service.addArticle(title, url, author);
 
 			return Response.status(Response.Status.CREATED).entity(articleAsJson.createJson(article)).build();
 		} catch (InvalidArticle excpetion) {
