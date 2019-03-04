@@ -19,7 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.ArticleDoesNotExist;
 import com.ibm.articles.business.NoDataAccess;
-import com.ibm.articles.business.Service;
+import com.ibm.articles.business.CoreService;
 
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -37,7 +37,7 @@ public class GetArticle {
 	ArticleAsJson articleAsJson;
 	
 	@Inject 
-	Service service;
+	com.ibm.articles.business.CoreService coreService;
 
 	@GET
 	@Path("/getone")
@@ -73,7 +73,7 @@ public class GetArticle {
 
 		Article article;
 		try {
-			article = service.getArticle(id);
+			article = coreService.getArticle(id);
 			return Response.ok(articleAsJson.createJson(article)).build();
 		} catch (ArticleDoesNotExist exception) {
 			return Response.status(Response.Status.NOT_FOUND).build();

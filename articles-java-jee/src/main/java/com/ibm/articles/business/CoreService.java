@@ -1,8 +1,6 @@
 package com.ibm.articles.business;
 
-import com.ibm.articles.data.DataAccess;
 import com.ibm.articles.data.DataAccessManager;
-import com.ibm.articles.data.InMemoryDataAccess;
 import com.ibm.articles.data.NoConnectivity;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +11,7 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
-public class Service {
-
-	boolean created = false;
+public class CoreService {
 
 	private static final String CREATE_SAMPLES = "CREATE";
 
@@ -23,13 +19,18 @@ public class Service {
 	@ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
 	private String samplescreation;
 
-	public Service() {
+	public CoreService() {
 		if (samplescreation != null) {
 			if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
 				addSampleArticles();
+		} else {
+			// sometimes MicroProfile does not work. as a workaround the config is read from an environment variable directly
+			samplescreation = System.getenv("samplescreation");
+			if (samplescreation != null) {
+				if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
+					addSampleArticles();
+			}
 		}
-		created = false;
-		System.out.println("created " + created);
 	}
 
 	public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {

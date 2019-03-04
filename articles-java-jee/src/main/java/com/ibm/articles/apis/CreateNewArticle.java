@@ -19,7 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.InvalidArticle;
 import com.ibm.articles.business.NoDataAccess;
-import com.ibm.articles.business.Service;
+import com.ibm.articles.business.CoreService;
 
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -37,7 +37,7 @@ public class CreateNewArticle {
 	ArticleAsJson articleAsJson;
 	
 	@Inject 
-	Service service;
+	com.ibm.articles.business.CoreService coreService;
 
 	@POST
 	@Path("/create")
@@ -75,7 +75,7 @@ public class CreateNewArticle {
 
 		Article article;
 		try {
-			article = service.addArticle(title, url, author);
+			article = coreService.addArticle(title, url, author);
 
 			return Response.status(Response.Status.CREATED).entity(articleAsJson.createJson(article)).build();
 		} catch (InvalidArticle excpetion) {

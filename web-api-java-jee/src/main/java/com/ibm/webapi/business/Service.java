@@ -5,20 +5,14 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import com.ibm.webapi.data.DataAccessManager;
 import com.ibm.webapi.data.NoConnectivity;
+import org.eclipse.microprofile.faulttolerance.Fallback;
 
 @ApplicationScoped
 public class Service {
 
-	public static Service getService() {
-		if (singleton == null) {
-			singleton = new Service();
-		}
-		return singleton;
-	}
+	private List<Article> lastReadArticles;
 
-	private static Service singleton = null;
-
-	private Service() {
+	public Service() {
 	}
 
 	public CoreArticle addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
@@ -48,6 +42,7 @@ public class Service {
 		}
 	}
 
+	@Fallback(fallbackMethod = "fallbackNoArticlesService")
 	public List<Article> getArticles() throws NoDataAccess {
 		List<Article> articles = new ArrayList<Article>();	
 		List<CoreArticle> coreArticles = new ArrayList<CoreArticle>();	
@@ -55,9 +50,9 @@ public class Service {
 		int requestedAmount = 5; // change to 10 for v2
 				
 		try {
-			coreArticles = DataAccessManager.getArticlesDataAccess().getArticles(requestedAmount);								
+			coreArticles = DataAccessManager.getArticlesDataAccess().getArticles(requestedAmount);							
 		} catch (NoConnectivity e) {
-			e.printStackTrace();
+			System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to articles service");
 			throw new NoDataAccess(e);
 		}		
 		
@@ -72,13 +67,24 @@ public class Service {
 				Author author = DataAccessManager.getAuthorsDataAccess().getAuthor(coreArticle.author);
 				article.authorBlog = author.blog;
 				article.authorTwitter = author.twitter;
-			} catch (NoConnectivity | NonexistentAuthor e) {	
+			} catch (NoConnectivity e) {	
+				System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to authors service");
+				article.authorBlog = "";
+				article.authorTwitter = "";
+			} catch (NonexistentAuthor e) {	
 				article.authorBlog = "";
 				article.authorTwitter = "";
 			}
 			articles.add(article);
 		}
+		lastReadArticles = articles;
 				
 		return articles;
+	}
+
+	public List<Article> fallbackNoArticlesService() {
+		System.err.println("com.ibm.webapi.business.fallbackNoArticlesService: Cannot connect to articles service");
+		if (lastReadArticles == null) lastReadArticles = new ArrayList<Article>();
+		return lastReadArticles;
 	}
 }

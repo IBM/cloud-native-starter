@@ -36,6 +36,9 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 public class GetArticles {
 
 	@Inject
+	com.ibm.webapi.business.Service service;
+	
+	@Inject
 	ArticleAsJson articleAsJson;
 
 	@Timed(name = "getArticlesTimed",
@@ -61,7 +64,7 @@ public class GetArticles {
 		System.out.println("com.ibm.web-api.apis.GetArticles.getArticles");
 		JsonArray jsonArray;
 		try {
-			List<Article> articles = Service.getService().getArticles();
+			List<Article> articles = service.getArticles();
 			Stream<Article> streamArticles = articles.stream();
 			Stream<JsonObject> streamJsonObjects = streamArticles.map(article -> {
 				JsonObject output = articleAsJson.createJsonArticle(article);

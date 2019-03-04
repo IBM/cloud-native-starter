@@ -21,6 +21,9 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 public class CreateNewArticle {
 
 	@Inject
+	com.ibm.webapi.business.Service service;
+	
+	@Inject
 	ArticleAsJson articleAsJson;
 
 	@POST
@@ -59,7 +62,7 @@ public class CreateNewArticle {
 
 		CoreArticle article;
 		try {
-			article = Service.getService().addArticle(title, url, author);
+			article = service.addArticle(title, url, author);
 
 			return Response.status(Response.Status.CREATED).entity(articleAsJson.createJsonCoreArticle(article)).build();
 		} catch (InvalidArticle excpetion) {

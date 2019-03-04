@@ -17,7 +17,7 @@ import com.ibm.articles.business.Article;
 import com.ibm.articles.business.InvalidArticle;
 import com.ibm.articles.business.InvalidInputParamters;
 import com.ibm.articles.business.NoDataAccess;
-import com.ibm.articles.business.Service;
+import com.ibm.articles.business.CoreService;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -33,7 +33,7 @@ public class GetArticles {
 	ArticleAsJson articleAsJson;
 	
 	@Inject 
-	Service service;
+	com.ibm.articles.business.CoreService coreService;
 
 	@GET
 	@Path("/getmultiple")
@@ -49,7 +49,7 @@ public class GetArticles {
 
 		JsonArray jsonArray;
 		try {
-			jsonArray = service.getArticles(amount).stream()
+			jsonArray = coreService.getArticles(amount).stream()
 					.map(article -> articleAsJson.createJson(article)).collect(JsonCollectors.toJsonArray());
 			return Response.ok(jsonArray).build();
 		} catch (NoDataAccess e) {
