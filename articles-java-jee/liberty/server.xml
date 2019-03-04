@@ -2,7 +2,7 @@
 <server description="OpenLiberty Server">
 	
     <featureManager>
-        <feature>webProfile-8.0</feature>
+        <feature>webProfile-8.0</feature> <!-- javaee-8.0 does not work in MicroProfile 2.1, but should work in 2.2: https://github.com/OpenLiberty/open-liberty/issues/5099 -->
         <feature>microProfile-2.1</feature>
         <feature>usr:opentracingZipkin-0.31</feature>     
     </featureManager>
