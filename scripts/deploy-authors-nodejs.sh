@@ -11,7 +11,7 @@ function _out() {
 function templates() {
   _out Preparing YAML files for Kubernetes Deployment
 
-  cfgfile=deploy-authors-nodejs.cfg
+  cfgfile=${root_folder}/scripts/deploy-authors-nodejs.cfg
 
 set -e
   if [ -f $cfgfile ]
