@@ -26,7 +26,7 @@ function setup() {
 	  curl -L -o $file https://github.com/WASdev/sample.opentracing.zipkintracer/releases/download/1.2/liberty-opentracing-zipkintracer-1.2-sample.zip
   fi
   
-  eval $(minikube docker-env)
+  eval $(minikube docker-env) 
   docker build -f Dockerfile.previousdownload -t web-api:1 .
 
   kubectl apply -f deployment/kubernetes.yaml
