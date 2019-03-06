@@ -15,9 +15,6 @@ function setup() {
   kubectl delete -f deployment/kubernetes.yaml
   kubectl delete -f deployment/istio.yaml
 
-  mvn clean
-  mvn package
-
   file="${root_folder}/web-api-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"
   if [ -f "$file" ]
   then
@@ -27,7 +24,7 @@ function setup() {
   fi
   
   eval $(minikube docker-env) 
-  docker build -f Dockerfile.previousdownload -t web-api:1 .
+  docker build -f Dockerfile.nojava -t web-api:1 .
 
   kubectl apply -f deployment/kubernetes.yaml
   kubectl apply -f deployment/istio.yaml
