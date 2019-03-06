@@ -13,7 +13,7 @@ function templates() {
 
   cfgfile=${root_folder}/scripts/deploy-authors-nodejs.cfg
 
-set -e
+set -e   # Abort on error
   if [ -f $cfgfile ]
   then
       source $cfgfile
@@ -24,6 +24,8 @@ set -e
       cd ${root_folder}/authors-nodejs/deployment
       sed "s|<URL>|$CLOUDANTURL|g" deployment.yaml.template > deployment.yaml
       sed "s|<HOST>|$CLOUDANTHOST|g" istio-egress-cloudant.yaml.template > istio-egress-cloudant.yaml
+      cd ${root_folder}/authors-nodejs
+      sed "s|<URL>|$CLOUDANTURL|g" config.json.template > config.json
   else
     echo The config file $cfgfile does not exist!
     exit 1

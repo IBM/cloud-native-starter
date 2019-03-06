@@ -1,6 +1,5 @@
 node_modules
 node_modules_linux
 yarn*.log
-mydeployment.yaml
+yarn.lock
 package.1.json
-config.json

@@ -1,4 +1,3 @@
 {
-  "CLOUDANT_URL": "",
-  "CLOUDANT_HOST": ""
+  "CLOUDANT_URL": "<URL>"
 }
