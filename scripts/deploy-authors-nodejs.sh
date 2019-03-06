@@ -17,7 +17,7 @@ set -e   # Abort on error
   if [ -f $cfgfile ]
   then
       source $cfgfile
-      echo $CLOUDANTURL
+      echo "Cloudant URL is " $CLOUDANTURL
       # CLOUDANTURL is read from cfgfile
       # '##*@' removes everything up to and including the @ sign
       CLOUDANTHOST=${CLOUDANTURL##*@}
