@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div style="margin-top:30px" v-if="articles.length == 0">
+    <div style="margin-top:30px" v-if="(articles.length == 0) && (loading == false)">
       <div>There are no articles</div>
     </div>
     <div style="margin-top:30px" v-if="error != ''">
@@ -51,13 +51,14 @@ export default {
   name: "Home",
   data() {
     return {
-      webApiUrl: "http://192.168.99.100:30775/web-api/v1/getmultiple",
+      webApiUrl: "http://192.168.99.100:30184/web-api/v1/getmultiple",
       articles: [],
       loading: false,
       error: ""
     };
   },
   mounted() {
+    this.loading = true;
     const axiosService = axios.create({
       timeout: 5000,
       headers: {
