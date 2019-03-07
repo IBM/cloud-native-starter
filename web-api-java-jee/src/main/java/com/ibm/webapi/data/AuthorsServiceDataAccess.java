@@ -25,7 +25,7 @@ import javax.ws.rs.ProcessingException;
 
 public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 	
-	static final String BASE_URL = "http://authors-service:3000/api/v1/";
+	static final String BASE_URL = "http://authors:3000/api/v1/";
 	
 	public AuthorsServiceDataAccess() {
 	}	
