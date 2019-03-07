@@ -33,7 +33,7 @@ paths:
   /health:
     get:
       operationId: get
-      description: Get health status of nodejsmicroservicewithexpressjsovhdg
+      description: Get health status of Authors service
       responses:
         200:
           description: "Health check response"
