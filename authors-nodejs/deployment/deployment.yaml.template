@@ -27,10 +27,6 @@ spec:
         ports:
         - containerPort: 3000
           name: authors-service
-        livenessProbe:
-          exec:
-            command: ["sh", "-c", "curl -s http://localhost:3000/health"]
-          initialDelaySeconds: 10  
       restartPolicy: Always    
 ---
 apiVersion: v1
