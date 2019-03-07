@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div style="margin-top:30px" v-if="(articles.length == 0) && (loading == false)">
+    <div style="margin-top:30px" v-if="(articles.length == 0) && (loading == false) && (error == '')">
       <div>There are no articles</div>
     </div>
     <div style="margin-top:30px" v-if="error != ''">

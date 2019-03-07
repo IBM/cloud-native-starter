@@ -14,7 +14,7 @@ authors-nodejs/deployment/istio-egress-cloudant.yaml
 yarn.lock
 .DS_Store
 node_modules
-/dist
+dist
 .env.local
 .env.*.local
 npm-debug.log*
@@ -27,3 +27,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
