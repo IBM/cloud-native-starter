@@ -9,15 +9,9 @@ function _out() {
 }
 
 function setup() {
-  _out Deploying web-api-java-jee v1
+  _out Deploying web-api-java-jee v2
   
   cd ${root_folder}/web-api-java-jee
-  kubectl delete -f deployment/kubernetes-service.yaml
-  kubectl delete -f deployment/kubernetes-deployment-v1.yaml
-  kubectl delete -f deployment/kubernetes-deployment-v2.yaml
-  kubectl delete -f deployment/istio-ingress.yaml
-  kubectl delete -f deployment/istio-service-v1.yaml
-  kubectl delete -f deployment/istio-service-v1.yaml
 
   file="${root_folder}/web-api-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"
   if [ -f "$file" ]
@@ -28,19 +22,17 @@ function setup() {
   fi
   
   eval $(minikube docker-env) 
-  docker build -f Dockerfile.nojava -t web-api:1 .
+  docker build -f Dockerfile.nojava -t web-api:2 .
 
-  kubectl apply -f deployment/kubernetes-service.yaml
-  kubectl apply -f deployment/kubernetes-deployment-v1.yaml
-  kubectl apply -f deployment/istio-ingress.yaml
-  kubectl apply -f deployment/istio-service-v1.yaml
+  kubectl apply -f deployment/kubernetes-deployment-v2.yaml
+  kubectl apply -f deployment/istio-service-v2.yaml
 
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')
   _out Minikube IP: ${minikubeip}
   _out NodePort: ${nodeport}
   
-  _out Done deploying web-api-java-jee v1
+  _out Done deploying web-api-java-jee v2
   _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
 }
 

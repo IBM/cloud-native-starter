@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: web-api-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-api
+        version: v2
+    spec:
+      containers:
+      - name: web-api
+        image: web-api:2
+        ports:
+        - containerPort: 9080
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:9080/"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:9080/health | grep -q web-api"]
+          initialDelaySeconds: 40
+      restartPolicy: Always
+---
