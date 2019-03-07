@@ -12,15 +12,14 @@ The local "in-memory" database uses json-query, the data set is in cloud-native-
 ## Deployment
 
 * Go to the cloud-native-starter/scripts directory.
-* Copy _deploy-authors-nodejs.cfg.template_ as _deploy-authors-nodejs.cfg_ and edit:
-  * If you want to use a local in-memory database, change DB to "local", leave CLOUDANTURL empty
+* Edit _deploy-authors-nodejs.cfg_ if necessary:
   * If you want to use Cloudant on IBM Cloud, change DB to "cloud", enter the CLOUDANTURL ###############
 * Make sure Minikube is started
 * Run deploy-authors-nodejs.sh
 
 ## Usage
 
-GET http://<minikube-IP:authors-service-svcNodePort/api/v1/getauthor?name=Harald%20Uebele
+GET http://<minikube-IP:authors-svcNodePort/api/v1/getauthor?name=Harald%20Uebele
 
 Result
 200 OK

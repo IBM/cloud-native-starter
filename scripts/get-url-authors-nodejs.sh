@@ -11,7 +11,7 @@ function _out() {
 function setup() {
   
   ip=$(minikube ip)
-  port=$(kubectl get svc authors-service -o jsonpath='{.spec.ports[0].nodePort}')
+  port=$(kubectl get svc authors -o jsonpath='{.spec.ports[0].nodePort}')
 
   url='http://'$ip:$port'/api/v1/getauthor?name='
   echo $url

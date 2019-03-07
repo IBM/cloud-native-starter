@@ -23,14 +23,14 @@ if ( process.env.DATABASE=="local" || localConfig.DATABASE=="local" ) {
     exports.author_get = function(req, res) {  
         var name = req.query.name;
         logger.info('Query for: ' + name);
-        var result = JSON.stringify(jsonQuery('authors[name=' + name + ']', {data: author}).value);
+        var result = jsonQuery('authors[name=' + name + ']', {data: author}).value;
         if (result == null) {
             res.writeHead(204, { "Content-Type": "application/json" }); 
             res.end('{"Msg": "No result"}'); 
         } else  {   
             res.writeHead(200, { "Content-Type": "application/json" });  
-            res.end(result); 
-            logger.info(result); 
+            res.end(JSON.stringify(result)); 
+            logger.info(JSON.stringify(result)); 
         };    
     };        
 } else {
