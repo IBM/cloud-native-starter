@@ -35,19 +35,19 @@ set +e
 
 function setup() {
 
-  cd ${root_folder}/authors-nodejs
-
   _out Clean-up Minikube
   istioctl delete serviceentry cloudant
   istioctl delete virtualservice cloudant
   kubectl delete all -l app=authors-service
+
   
   _out Build Docker Image
+  cd ${root_folder}/authors-nodejs
   eval $(minikube docker-env)
   docker build -f Dockerfile -t  authors-service:1 .
 
   _out Deploy to Minikube
-  cd deployment
+  cd ${root_folder}/authors-nodejs/deployment
   kubectl apply -f <(istioctl kube-inject -f deployment.yaml)
   istioctl create -f istio-egress-cloudant.yaml
 
