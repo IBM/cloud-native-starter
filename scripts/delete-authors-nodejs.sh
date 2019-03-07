@@ -10,9 +10,6 @@ function _out() {
 
 function setup() {
 
-  cfgfile=${root_folder}/scripts/deploy-authors-nodejs.cfg
-  source $cfgfile
-
   _out Clean-up Minikube
   
   kubectl delete serviceentry cloudant
