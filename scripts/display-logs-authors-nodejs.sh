@@ -10,9 +10,9 @@ function _out() {
 
 function setup() {
   
-  pod=$(kubectl get pods | grep authors-service | awk ' {print $1} ')
+  pod=$(kubectl get pods | grep authors | awk ' {print $1} ')
   _out $pod
-  kubectl logs $pod authors-service
+  kubectl logs $pod authors
   
 }
 

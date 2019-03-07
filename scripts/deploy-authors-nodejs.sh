@@ -42,13 +42,13 @@ function setup() {
      istioctl delete virtualservice cloudant
   fi
 
-  kubectl delete all -l app=authors-service
+  kubectl delete all -l app=authors
 
   
   _out Build Docker Image
   cd ${root_folder}/authors-nodejs
   eval $(minikube docker-env)
-  docker build -f Dockerfile -t  authors-service:1 .
+  docker build -f Dockerfile -t  authors:1 .
 
   _out Deploy to Minikube
   cd ${root_folder}/authors-nodejs/deployment
