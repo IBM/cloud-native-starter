@@ -5,3 +5,4 @@ yarn.lock
 package.1.json
 deployment/istio-ingress.yaml
 deployment/istio-ingress-vs.yaml
+public/authors.js.CLOUDANT

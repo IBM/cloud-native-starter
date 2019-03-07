@@ -1,23 +1,26 @@
 # Authors Service
 
 ## Description
-This is a Node.js application that allows to read authors information (Twitter handle, Blog URL) from an IBM Cloudant Database.
+This is a Node.js application that allows to read authors information (Twitter handle, Blog URL) from an IBM Cloudant Database or from a local "in-memory" database. With the local database everything can run in Minikube without relying on external services.
 
 ## Implementation
 Node.js with Express, based on the "Node.js Microservice with Express.js" starter kit on IBM Cloud.
 The app runs on Minikube or IBM Cloud Kubernetes Service.
 
-## Docker image
-`eval $(minikube docker-env)`
-`docker build -t authors-service:1.0.0 .`
+The local "in-memory" database uses json-query, the data set is in cloud-native-starter/authors-nodejs/public/authors.json.
 
-## Kubernetes
+## Deployment
 
-deployment.yaml must contain the CouchDB URL as environment variable 
+* Go to the cloud-native-starter/scripts directory.
+* Copy _deploy-authors-nodejs.cfg.template_ as _deploy-authors-nodejs.cfg_ and edit:
+  * If you want to use a local in-memory database, change DB to "local", leave CLOUDANTURL empty
+  * If you want to use Cloudant on IBM Cloud, change DB to "cloud", enter the CLOUDANTURL ###############
+* Make sure Minikube is started
+* Run deploy-authors-nodejs.sh
 
 ## Usage
 
-GET http://<inikube-IP:authors-service-svcNodePort/api/v1/getauthor?name=Harald%20Uebele
+GET http://<minikube-IP:authors-service-svcNodePort/api/v1/getauthor?name=Harald%20Uebele
 
 Result
 200 OK

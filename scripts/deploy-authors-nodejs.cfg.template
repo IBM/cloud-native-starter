@@ -1,3 +1,10 @@
-# Enter the Cloudant URL in the form "https://[user]:[password]@[user].cloudantnosqldb.appdomain.cloud"
+# Make a copy of this file, name it deploy-authors-nodejs.cfg
+
+# If you want to use a local "in-memory" database, set DB="local"
+# If you want use Cloudant on the IBM Cloud, set DB="cloud" 
+DB="local|cloud"
+
+# If you do not use Cloudant, leave CLOUDANTURL="", otherwise enter the Cloudant URL in the form
+#  "https://[user]:[password]@[user].cloudantnosqldb.appdomain.cloud"
 # Can be found under Credentials in the IBM Cloud Dashboard for Cloudant
 CLOUDANTURL=""
