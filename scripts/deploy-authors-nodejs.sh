@@ -11,27 +11,24 @@ function _out() {
 function templates() {
   _out Preparing YAML files for Kubernetes Deployment
 
+  # Check if config file exists, in this case it will have been modified
+  template=${root_folder}/scripts/template.deploy-authors-nodejs.cfg
   cfgfile=${root_folder}/scripts/deploy-authors-nodejs.cfg
+  if [ ! -f $cfgfile ]; then
+     cp $template $cfgfile
+  fi   
 
-set -e   # Abort on error
-  if [ -f $cfgfile ]
-  then
-      source $cfgfile
-      echo "DB is " $DB
-      echo "Cloudant URL is " $CLOUDANTURL
-      # CLOUDANTURL is read from cfgfile
-      # '##*@' removes everything up to and including the @ sign
-      CLOUDANTHOST=${CLOUDANTURL##*@}
-      cd ${root_folder}/authors-nodejs/deployment
-      sed -e "s|<URL>|$CLOUDANTURL|g" -e "s|<DB>|$DB|g" deployment.yaml.template > deployment.yaml
-      sed "s|<HOST>|$CLOUDANTHOST|g" istio-egress-cloudant.yaml.template > istio-egress-cloudant.yaml
-      cd ${root_folder}/authors-nodejs
-      sed -e "s|<URL>|$CLOUDANTURL|g" -e "s|<DB>|$DB|g" config.json.template > config.json
-  else
-    echo The config file $cfgfile does not exist!
-    exit 1
-  fi
-set +e  
+  source $cfgfile
+  #echo "DB is " $DB
+  #echo "Cloudant URL is " $CLOUDANTURL
+  # CLOUDANTURL is read from cfgfile
+  # '##*@' removes everything up to and including the @ sign
+  CLOUDANTHOST=${CLOUDANTURL##*@}
+  cd ${root_folder}/authors-nodejs/deployment
+  sed -e "s|<URL>|$CLOUDANTURL|g" -e "s|<DB>|$DB|g" deployment.yaml.template > deployment.yaml
+  sed "s|<HOST>|$CLOUDANTHOST|g" istio-egress-cloudant.yaml.template > istio-egress-cloudant.yaml
+  cd ${root_folder}/authors-nodejs
+  sed -e "s|<URL>|$CLOUDANTURL|g" -e "s|<DB>|$DB|g" config.json.template > config.json
 }
 
 function setup() {
