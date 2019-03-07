@@ -47,7 +47,9 @@ public class Service {
 		List<Article> articles = new ArrayList<Article>();	
 		List<CoreArticle> coreArticles = new ArrayList<CoreArticle>();	
 		
-		int requestedAmount = 5; // change to 10 for v2
+		// v1 requests five articles
+		// v2 requests ten articles
+		int requestedAmount = 5; 
 				
 		try {
 			coreArticles = DataAccessManager.getArticlesDataAccess().getArticles(requestedAmount);							

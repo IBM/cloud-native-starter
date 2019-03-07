@@ -8,7 +8,7 @@ spec:
   selector:
     app: web-app
   ports:
-    - port: 8080
+    - port: 80
       name: http
   type: NodePort
 ---
@@ -29,6 +29,6 @@ spec:
       - name: web-app
         image: web-app:1
         ports:
-        - containerPort: 8080
+        - containerPort: 80
       restartPolicy: Always
 ---

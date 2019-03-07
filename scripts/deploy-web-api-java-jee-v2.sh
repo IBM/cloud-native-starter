@@ -20,6 +20,10 @@ function setup() {
   else
 	  curl -L -o $file https://github.com/WASdev/sample.opentracing.zipkintracer/releases/download/1.2/liberty-opentracing-zipkintracer-1.2-sample.zip
   fi
+
+  sed 's/5/10/' src/main/java/com/ibm/webapi/business/Service.java > src/main/java/com/ibm/webapi/business/Service2.java
+  rm src/main/java/com/ibm/webapi/business/Service.java
+  mv src/main/java/com/ibm/webapi/business/Service2.java src/main/java/com/ibm/webapi/business/Service.java
   
   eval $(minikube docker-env) 
   docker build -f Dockerfile.nojava -t web-api:2 .
