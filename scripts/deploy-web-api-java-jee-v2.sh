@@ -24,6 +24,7 @@ function setup() {
   eval $(minikube docker-env) 
   docker build -f Dockerfile.nojava -t web-api:2 .
 
+  kubectl delete -f deployment/istio-service-v1.yaml
   kubectl apply -f deployment/kubernetes-deployment-v2.yaml
   kubectl apply -f deployment/istio-service-v2.yaml
 
