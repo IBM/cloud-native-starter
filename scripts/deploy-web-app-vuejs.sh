@@ -12,17 +12,17 @@ function setup() {
   _out Deploying web-app-vuejs
   
   cd ${root_folder}/web-app-vuejs
-  #kubectl delete -f deployment/kubernetes.yaml
-  #kubectl delete -f deployment/istio.yaml
+  kubectl delete -f deployment/kubernetes.yaml
+  kubectl delete -f deployment/istio.yaml
 
   eval $(minikube docker-env) 
   docker build -f Dockerfile -t web-app:1 .
 
-  #kubectl apply -f deployment/kubernetes.yaml
-  #kubectl apply -f deployment/istio.yaml
+  kubectl apply -f deployment/kubernetes.yaml
+  kubectl apply -f deployment/istio.yaml
 
-  #minikubeip=$(minikube ip)
-  #nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')
+  minikubeip=$(minikube ip)
+  nodeport=$(kubectl get svc web-app --output 'jsonpath={.spec.ports[*].nodePort}')
   _out Minikube IP: ${minikubeip}
   _out NodePort: ${nodeport}
   
