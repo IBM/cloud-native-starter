@@ -22,6 +22,8 @@ spec:
       - image: authors-service:1
         name: authors-service
         env:
+        - name: DATABASE
+          value: '<DB>'
         - name: CLOUDANT_URL
           value: '<URL>'
         ports:

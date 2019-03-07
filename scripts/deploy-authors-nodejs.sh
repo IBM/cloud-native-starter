@@ -17,15 +17,16 @@ set -e   # Abort on error
   if [ -f $cfgfile ]
   then
       source $cfgfile
+      echo "DB is " $DB
       echo "Cloudant URL is " $CLOUDANTURL
       # CLOUDANTURL is read from cfgfile
       # '##*@' removes everything up to and including the @ sign
       CLOUDANTHOST=${CLOUDANTURL##*@}
       cd ${root_folder}/authors-nodejs/deployment
-      sed "s|<URL>|$CLOUDANTURL|g" deployment.yaml.template > deployment.yaml
+      sed -e "s|<URL>|$CLOUDANTURL|g" -e "s|<DB>|$DB|g" deployment.yaml.template > deployment.yaml
       sed "s|<HOST>|$CLOUDANTHOST|g" istio-egress-cloudant.yaml.template > istio-egress-cloudant.yaml
       cd ${root_folder}/authors-nodejs
-      sed "s|<URL>|$CLOUDANTURL|g" config.json.template > config.json
+      sed -e "s|<URL>|$CLOUDANTURL|g" -e "s|<DB>|$DB|g" config.json.template > config.json
   else
     echo The config file $cfgfile does not exist!
     exit 1
@@ -36,8 +37,11 @@ set +e
 function setup() {
 
   _out Clean-up Minikube
-  istioctl delete serviceentry cloudant
-  istioctl delete virtualservice cloudant
+  if [ $DB != "local" ]; then
+     istioctl delete serviceentry cloudant
+     istioctl delete virtualservice cloudant
+  fi
+
   kubectl delete all -l app=authors-service
 
   
@@ -49,7 +53,10 @@ function setup() {
   _out Deploy to Minikube
   cd ${root_folder}/authors-nodejs/deployment
   kubectl apply -f <(istioctl kube-inject -f deployment.yaml)
-  istioctl create -f istio-egress-cloudant.yaml
+
+  if [ $DB != "local" ]; then
+     kubectl create -f istio-egress-cloudant.yaml
+  fi
 
   _out Done deploying authors-nodejs
   }

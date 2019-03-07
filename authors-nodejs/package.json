@@ -18,9 +18,10 @@
     }
   },
   "dependencies": {
+    "@cloudant/cloudant": "^1.10.0",
     "appmetrics-zipkin": "^1.1.1",
     "express": "^4.16.4",
-    "log4js": "^4.0.2",
-    "@cloudant/cloudant": "^1.10.0"
+    "json-query": "^2.2.2",
+    "log4js": "^4.0.2"
   }
 }

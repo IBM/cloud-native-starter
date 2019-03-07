@@ -7,8 +7,6 @@ module.exports = function(app){
   
   router.get('/getauthor', author.author_get);
 
-  router.get('/list', author.author_list);
-
   app.use('/api/v1', router);
 }
 
