@@ -49,9 +49,31 @@ $ scripts/deploy-web-app-vuejs.sh
 
 ### Run the Demo
 
-After installing the web-api, you get an URL like http://192.168.99.100:31695/openapi/ui/ in the terminal to open the OpenAPI explorer.
+After installing the web-api, you get an URL like http://192.168.99.100:31380/openapi/ui/ in the terminal to open the OpenAPI explorer. Note: The port '31380' is always the same one since Istio Ingress is used. The IP address is the IP of your Minikube cluster.
 
 After installing the web-app, you get an URL like http://192.168.99.100:31696 in the terminal to open the web application.
+
+*Traffic Routing*
+
+In order to demonstrate traffic routing you can run this command. Every other web-api API request to read articles will now return 10 instead of 5 articles.
+
+```
+$ scripts/deploy-web-api-java-jee-v2.sh
+```
+
+*Resiliency*
+
+In order to demonstrate resiliency you can run the following command to delete the authors service:
+
+```
+$ scripts/delete-authors-nodejs.sh
+```
+
+In the next step delete the articles service:
+
+```
+$ scripts/delete-web-api-java-jee.sh
+```
 
 
 ### Documentation
