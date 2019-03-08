@@ -27,4 +27,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-
+istio-1.0.6
+deploy-kiali-to-kubernetes.sh
