@@ -49,7 +49,7 @@ public class Service {
 		
 		// v1 requests five articles
 		// v2 requests ten articles
-		int requestedAmount = 5; 
+		int requestedAmount = 10; 
 				
 		try {
 			coreArticles = DataAccessManager.getArticlesDataAccess().getArticles(requestedAmount);							
