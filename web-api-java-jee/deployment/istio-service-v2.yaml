@@ -20,9 +20,9 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: articles
+  name: web-api
 spec:
-  host: articles
+  host: web-api
   subsets:
   - name: v1
     labels:
