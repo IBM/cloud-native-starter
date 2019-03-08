@@ -16,3 +16,18 @@ spec:
         subset: v2
       weight: 50
 ---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: articles
+spec:
+  host: articles
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+---
