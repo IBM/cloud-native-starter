@@ -49,7 +49,7 @@ function setup() {
 
   _out Deploy to Minikube
   cd ${root_folder}/authors-nodejs/deployment
-  kubectl apply -f <(istioctl kube-inject -f deployment.yaml)
+  kubectl apply -f deployment.yaml
 
   if [ $DB != "local" ]; then
      kubectl create -f istio-egress-cloudant.yaml
