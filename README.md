@@ -15,6 +15,15 @@ The project showcases the following functionality:
 * Configuration
 * Deployments (helm, yaml)
 
+This diagram shows the key components:
+
+![alt text](images/architecture.png "architecture diagram")
+
+The next screenshot shows the web application. More screenshots are in the [images](images) folder.
+
+![alt text](images/web-app-1.png "web app")
+
+
 ### Work in Progress
 
 Stay tuned for more ...
@@ -33,12 +42,16 @@ Deploy and redeploy:
 $ scripts/check-prerequisites.sh
 $ scripts/deploy-articles-java-jee.sh
 $ scripts/deploy-web-api-java-jee.sh
+$ scripts/deploy-authors-nodejs.sh
+$ scripts/deploy-web-app-vuejs.sh
 ```
 
 
 ### Run the Demo
 
-After installing the web-api, you get an URL like http://192.168.99.100:31695/openapi/ui/ in the terminal that you can use to open the OpenAPI explorer.
+After installing the web-api, you get an URL like http://192.168.99.100:31695/openapi/ui/ in the terminal to open the OpenAPI explorer.
+
+After installing the web-app, you get an URL like http://192.168.99.100:31696 in the terminal to open the web application.
 
 
 ### Documentation
@@ -48,13 +61,13 @@ Here is a series of blog entries about this project:
 * [Setup of a Local Kubernetes and Istio Dev Environment](http://heidloff.net/article/setup-local-development-kubernetes-istio)
 * [Debugging Microservices running in Kubernetes](http://heidloff.net/article/debugging-microservices-kubernetes)
 * [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
-* to be done: Traffic Management
-* to be done: APIs including documentation
-* to be done: Invoking REST APIs
-* to be done: Distributed logging
-* to be done: Monitoring and metrics
-* to be done: Authentication and authorization
-* to be done: Configuration
+* Traffic Management (functionality: almost done / blog: to be done)
+* APIs including documentation (functionality: done / blog: to be done)
+* Invoking REST APIs (functionality: done / blog: to be done)
+* Distributed logging (functionality: almost done / blog: to be done)
+* Monitoring and metrics (functionality: to be done / blog: to be done)
+* Authentication and authorization (functionality: to be done / blog: to be done)
+* Configuration (functionality: almost done / blog: to be done)
 
 Here is more information about Microservices, MicroProfile and Istio:
 
