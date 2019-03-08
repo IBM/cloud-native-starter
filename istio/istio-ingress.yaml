@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: default-gateway
+  name: default-gateway-ingress
 spec:
   selector:
     istio: ingressgateway # use Istio default gateway implementation
@@ -17,19 +17,19 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: authors
+  name: virtualservice-ingress
 spec:
   hosts:
   - "*"
   gateways:
-  - default-gateway
+  - default-gateway-ingress
   http:
   - match:
     - uri:
-        prefix: /api/v1/getauthor
+        prefix: /web-api/v1/getmultiple 
     route:
     - destination:
         port:
-          number: 3000
-        host: authors
+          number: 9080
+        host: web-api
 ---        
