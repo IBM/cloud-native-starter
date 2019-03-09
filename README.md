@@ -18,11 +18,11 @@ The project showcases the following functionality:
 
 This diagram shows the key components:
 
-![alt text](images/architecture-small.jpeg "architecture diagram")
+<kbd><img src="images/architecture-small.jpeg" /></kbd>
 
 The next screenshot shows the web application. More screenshots are in the [images](images) folder.
 
-![alt text](images/web-app-small.jpeg "web app")
+<kbd><img src="images/web-app-small.jpeg" /></kbd>
 
 ### Local Environment Setup
 
@@ -56,7 +56,7 @@ $ scripts/show-urls.sh
 
 After running the scripts above, you will get a list of all URLs in the terminal.
 
-![alt text](images/urls-small.jpeg "urls")
+<kbd><img src="images/urls-small.jpeg" /></kbd>
 
 Example URL to open the web app: http://192.168.99.100:31380
 
@@ -71,7 +71,7 @@ In order to demonstrate traffic routing you can run the following command. Every
 $ scripts/deploy-web-api-java-jee-v2.sh
 ```
 
-![alt text](images/traffic-management-2.jpeg "traffic")
+<kbd><img src="images/traffic-management-2.jpeg" /></kbd>
 
 *Resiliency*
 
