@@ -32,4 +32,28 @@ spec:
         port:
           number: 9080
         host: web-api
+  - match:
+    - uri:
+        prefix: /openapi/ui/ 
+    route:
+    - destination:
+        port:
+          number: 9080
+        host: web-api
+  - match:
+    - uri:
+        prefix: /openapi
+    route:
+    - destination:
+        port:
+          number: 9080
+        host: web-api
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: web-app
 ---        

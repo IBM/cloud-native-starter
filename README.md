@@ -1,19 +1,20 @@
 # Cloud Native Starter for Java and Node.js
 
-This project contains sample code that shows how to build cloud-native applications with Java and Node.js and deploy them to Kubernetes and Istio.
+This project contains sample code that shows how to build cloud-native applications with JavaEE and Node.js and deploy them to Kubernetes and Istio.
 
 The project showcases the following functionality:
 
-* Chained invocations
-* Traffic management (A/B, canary)
-* Polyglot Java and JavaScript microservices
-* Circuit breaker and fallbacks
+* JavaEE (with MicroProfile) and Node.js microservices
+* Distributed tracing
+* Traffic management
+* Resiliency via fallbacks and circuit breakers
+* REST APIs implementations incl. documentation
+* REST API invocations
 * Distributed logging
 * Metrics
 * Authentication and authorization
-* APIs incl. documentation
 * Configuration
-* Deployments (helm, yaml)
+* Deployments
 
 This diagram shows the key components:
 
@@ -21,22 +22,25 @@ This diagram shows the key components:
 
 The next screenshot shows the web application. More screenshots are in the [images](images) folder.
 
-![alt text](images/web-app-1.png "web app")
-
-
-### Work in Progress
-
-Stay tuned for more ...
-
+![alt text](images/web-app.png "web app")
 
 ### Local Environment Setup
 
-Follow these [instructions](LocalEnvironment.md) to set up the local environment.
+Follow these [instructions](LocalEnvironment.md) to set up the local environment with Minikube and Istio. This should not take longer than 30 minutes.
 
 
 ### Deployment
 
-Deploy and redeploy:
+Prerequisites:
+
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
+* [curl](https://curl.haxx.se/download.html)
+* sed
+* [docker](https://docs.docker.com/install/)
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* [minikube](https://kubernetes.io/docs/setup/minikube/) 
+
+Deploy (and redeploy):
 
 ```
 $ scripts/check-prerequisites.sh
@@ -44,18 +48,24 @@ $ scripts/deploy-articles-java-jee.sh
 $ scripts/deploy-web-api-java-jee.sh
 $ scripts/deploy-authors-nodejs.sh
 $ scripts/deploy-web-app-vuejs.sh
+$ scripts/show-urls.sh
 ```
 
 
 ### Run the Demo
 
-After installing the web-api, you get an URL like http://192.168.99.100:31380/openapi/ui/ in the terminal to open the OpenAPI explorer. Note: The port '31380' is always the same one since Istio Ingress is used. The IP address is the IP of your Minikube cluster.
+After running the scripts above, you will get a list of all URLs in the terminal.
 
-After installing the web-app, you get an URL like http://192.168.99.100:31696 in the terminal to open the web application.
+![alt text](images/urls.png "urls")
+
+Example URL to open the web app: http://192.168.99.100:31380
+
+Example API endpoint: http://192.168.99.100:31380/web-api/v1/getmultiple
+
 
 *Traffic Routing*
 
-In order to demonstrate traffic routing you can run this command. Every other web-api API request to read articles will now return 10 instead of 5 articles.
+In order to demonstrate traffic routing you can run the following command. Every other web-api API request to read articles will now return 10 instead of 5 articles.
 
 ```
 $ scripts/deploy-web-api-java-jee-v2.sh
@@ -75,6 +85,17 @@ In the next step delete the articles service:
 $ scripts/delete-web-api-java-jee.sh
 ```
 
+*Cleanup*
+
+Run these commands to delete the cloud native starter components:
+
+```
+$ scripts/delete-articles-java-jee.sh
+$ scripts/delete-web-api-java-jee.sh
+$ scripts/delete-authors-nodejs.sh
+$ scripts/delete-web-app-vuejs.sh
+```
+
 
 ### Documentation
 
@@ -83,7 +104,7 @@ Here is a series of blog entries about this project:
 * [Setup of a Local Kubernetes and Istio Dev Environment](http://heidloff.net/article/setup-local-development-kubernetes-istio)
 * [Debugging Microservices running in Kubernetes](http://heidloff.net/article/debugging-microservices-kubernetes)
 * [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
-* Traffic Management (functionality: almost done / blog: to be done)
+* Traffic Management (functionality: done / blog: to be done)
 * APIs including documentation (functionality: done / blog: to be done)
 * Invoking REST APIs (functionality: done / blog: to be done)
 * Distributed logging (functionality: almost done / blog: to be done)

@@ -7,7 +7,7 @@ After following these instructions you will be able to use the Kubernetes dashbo
 
 ### Minikube
 
-Follow the [instructios](https://kubernetes.io/docs/setup/minikube/) to install Minikube. After this run these commands:
+Follow the [instructions](https://kubernetes.io/docs/setup/minikube/) to install Minikube. After this run these commands:
 
 ```
 $ minikube config set cpus 4

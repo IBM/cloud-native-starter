@@ -1,7 +1,9 @@
 package com.ibm.webapi.apis;
 
-import java.io.IOException;
+// this class is only needed when using NodePorts
+// when using Istio Ingress the port is always the same one as the one used by the web-app
 
+import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
