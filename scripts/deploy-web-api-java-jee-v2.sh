@@ -32,6 +32,10 @@ function setup() {
   kubectl apply -f deployment/kubernetes-deployment-v2.yaml
   kubectl apply -f deployment/istio-service-v2.yaml
 
+  sed 's/10/5/' src/main/java/com/ibm/webapi/business/Service.java > src/main/java/com/ibm/webapi/business/Service2.java
+  rm src/main/java/com/ibm/webapi/business/Service.java
+  mv src/main/java/com/ibm/webapi/business/Service2.java src/main/java/com/ibm/webapi/business/Service.java
+
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')
   _out Minikube IP: ${minikubeip}
