@@ -29,8 +29,9 @@ require('./routers/index')(app, server);
 const port = process.env.PORT || 3000;
 server.listen(port, function(){
   logger.info(`Nodejs-Microservice listening on http://localhost:${port}/`);
-  logger.info(`OpenAPI (Swagger) spec is available at http://localhost:${port}/swagger/api`);
-  logger.info(`Swagger UI is available at http://localhost:${port}/explorer`);
+  // swagger removed
+  //logger.info(`OpenAPI (Swagger) spec is available at http://localhost:${port}/swagger/api`);
+  //logger.info(`Swagger UI is available at http://localhost:${port}/explorer`);
 });
 
 app.use(function (req, res, next) {

@@ -14,7 +14,10 @@ function setup() {
   
   kubectl delete serviceentry cloudant
   kubectl delete virtualservice cloudant
-  kubectl delete all -l app=authors
+  cd ${root_folder}/authors-nodejs/deployment
+  kubectl delete -f deployment.yaml
+  kubectl delete -f istio.yaml
+
 
   _out Done deleting authors-nodejs
   }
