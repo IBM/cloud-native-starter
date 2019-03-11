@@ -72,6 +72,7 @@ In order to demonstrate traffic routing you can run the following commands. 20 %
 $ scripts/deploy-web-api-java-jee-v2.sh
 $ scripts/deploy-istio-ingress-v1-v2.sh
 ```
+**BILD STIMMT NICHT MEHR**
 
 <kbd><img src="images/traffic-management-2.jpeg" /></kbd>
 
