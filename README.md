@@ -43,6 +43,8 @@ Prerequisites:
 Deploy (and redeploy):
 
 ```
+$ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ cd cloud-native-starter
 $ scripts/check-prerequisites.sh
 $ scripts/deploy-articles-java-jee.sh
 $ scripts/deploy-web-api-java-jee.sh

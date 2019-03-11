@@ -1,0 +1,48 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: articles
+  labels:
+    app: articles
+spec:
+  selector:
+    app: articles
+  ports:
+    - port: 8080
+      name: http
+  type: NodePort
+---
+
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: articles
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: articles
+        version: v1
+    spec:
+      containers:
+      - name: articles
+        image: articles:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: samplescreation
+          valueFrom:
+            configMapKeyRef:
+              name: articles-config
+              key: samplescreation
+      restartPolicy: Always
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: articles-config
+data:
+  samplescreation: CREATE
+---
