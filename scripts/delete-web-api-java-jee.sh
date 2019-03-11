@@ -15,8 +15,6 @@ function setup() {
   kubectl delete -f deployment/kubernetes-service.yaml
   kubectl delete -f deployment/kubernetes-deployment-v1.yaml
   kubectl delete -f deployment/kubernetes-deployment-v2.yaml
-  kubectl delete -f deployment/istio-ingress.yaml
-  kubectl delete -f deployment/istio-service-v1.yaml
   kubectl delete -f deployment/istio-service-v2.yaml
 
   sed 's/10/5/' src/main/java/com/ibm/webapi/business/Service.java > src/main/java/com/ibm/webapi/business/Service2.java

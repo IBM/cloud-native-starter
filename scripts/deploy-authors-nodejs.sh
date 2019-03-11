@@ -35,8 +35,8 @@ function setup() {
 
   _out Clean-up Minikube
   if [ $DB != "local" ]; then
-     istioctl delete serviceentry cloudant
-     istioctl delete virtualservice cloudant
+     kubectl delete serviceentry cloudant
+     kubectl delete virtualservice cloudant
   fi
 
   kubectl delete all -l app=authors
@@ -50,6 +50,7 @@ function setup() {
   _out Deploy to Minikube
   cd ${root_folder}/authors-nodejs/deployment
   kubectl apply -f deployment.yaml
+  kubectl apply -f istio.yaml
 
   if [ $DB != "local" ]; then
      kubectl create -f istio-egress-cloudant.yaml
