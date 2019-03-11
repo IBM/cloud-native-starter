@@ -24,7 +24,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
   nodeport=$(kubectl get svc authors --output 'jsonpath={.spec.ports[*].nodePort}')
   _out authors
-  _out API explorer: http://${minikubeip}:${nodeport}/explorer
   _out Sample API:   curl http://${minikubeip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
   _out ------------------------------------------------------------------------------------
   _out web-api
