@@ -112,6 +112,7 @@ Here is a series of blog entries about this project:
 * [Setup of a Local Kubernetes and Istio Dev Environment](http://heidloff.net/article/setup-local-development-kubernetes-istio)
 * [Debugging Microservices running in Kubernetes](http://heidloff.net/article/debugging-microservices-kubernetes)
 * [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
+* [Developing resilient Microservices with Istio and MicroProfile](http://heidloff.net/article/resiliency-microservice-microprofile-java-istio)
 * Traffic Management (functionality: done / blog: to be done)
 * APIs including documentation (functionality: done / blog: to be done)
 * Invoking REST APIs (functionality: done / blog: to be done)
