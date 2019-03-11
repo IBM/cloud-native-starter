@@ -4,6 +4,7 @@ target
 .project
 nik.txt
 liberty-opentracing-zipkintracer-1.2-sample.zip
+istio/istio.pptx
 scripts/deploy-authors-nodejs.cfg
 authors-nodejs/config.json
 authors-nodejs/deployment/deployment.yaml
