@@ -21,7 +21,7 @@ import javax.ws.rs.ProcessingException;
 
 public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 	
-	static final String BASE_URL = "http://articles:9080/articles/v1/";
+	static final String BASE_URL = "http://articles:8080/articles/v1/";
 	
 	public ArticlesServiceDataAccess() {
 	}	

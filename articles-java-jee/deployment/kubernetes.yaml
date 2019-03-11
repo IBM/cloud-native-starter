@@ -8,7 +8,7 @@ spec:
   selector:
     app: articles
   ports:
-    - port: 9080
+    - port: 8080
       name: http
   type: NodePort
 ---
@@ -29,7 +29,7 @@ spec:
       - name: articles
         image: articles:1
         ports:
-        - containerPort: 9080
+        - containerPort: 8080
         env:
         - name: samplescreation
           valueFrom:
@@ -38,11 +38,11 @@ spec:
               key: samplescreation
         livenessProbe:
           exec:
-            command: ["sh", "-c", "curl -s http://localhost:9080/"]
+            command: ["sh", "-c", "curl -s http://localhost:8080/"]
           initialDelaySeconds: 20
         readinessProbe:
           exec:
-            command: ["sh", "-c", "curl -s http://localhost:9080/health | grep -q articles"]
+            command: ["sh", "-c", "curl -s http://localhost:8080/health | grep -q articles"]
           initialDelaySeconds: 40
       restartPolicy: Always
 ---

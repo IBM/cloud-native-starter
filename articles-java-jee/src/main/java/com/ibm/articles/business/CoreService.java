@@ -35,30 +35,7 @@ public class CoreService {
 	}
 
 	public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
-		if (title == null)
-			throw new InvalidArticle();
-
-		long id = new java.util.Date().getTime();
-		String idAsString = String.valueOf(id);
-
-		if (url == null)
-			url = "Unknown";
-		if (author == null)
-			author = "Unknown";
-
-		Article article = new Article();
-		article.title = title;
-		article.id = idAsString;
-		article.url = url;
-		article.author = author;
-
-		try {
-			DataAccessManager.getDataAccess().addArticle(article);
-			return article;
-		} catch (NoConnectivity e) {
-			e.printStackTrace();
-			throw new NoDataAccess(e);
-		}
+		return CoreService.addArticleStatic(title, url, author);
 	}
 
 	public Article getArticle(String id) throws NoDataAccess, ArticleDoesNotExist {
@@ -110,41 +87,67 @@ public class CoreService {
 
 	private void addSampleArticles() {
 		System.out.println("com.ibm.articles.business.Service.addSampleArticles");
-
 		try {
-			addArticle("Blue Cloud Mirror — (Don’t) Open The Doors!",
+			CoreService.addArticleStatic("Blue Cloud Mirror — (Don’t) Open The Doors!",
 					"https://haralduebele.blog/2019/02/17/blue-cloud-mirror-dont-open-the-doors/", "Harald Uebele");
 			Thread.sleep(5);
-			addArticle("Recent Java Updates from IBM", "http://heidloff.net/article/recent-java-updates-from-ibm",
+			CoreService.addArticleStatic("Recent Java Updates from IBM", "http://heidloff.net/article/recent-java-updates-from-ibm",
 					"Niklas Heidloff");
 			Thread.sleep(5);
-			addArticle("Developing and debugging Microservices with Java",
+			CoreService.addArticleStatic("Developing and debugging Microservices with Java",
 					"http://heidloff.net/article/debugging-microservices-java-kubernetes", "Niklas Heidloff");
 			Thread.sleep(5);
-			addArticle("IBM announced Managed Istio and Managed Knative",
+			CoreService.addArticleStatic("IBM announced Managed Istio and Managed Knative",
 					"http://heidloff.net/article/managed-istio-managed-knative", "Niklas Heidloff");
 			Thread.sleep(5);
-			addArticle("Three Minutes Demo of Blue Cloud Mirror", "http://heidloff.net/article/blue-cloud-mirror-demo-video",
+			CoreService.addArticleStatic("Three Minutes Demo of Blue Cloud Mirror", "http://heidloff.net/article/blue-cloud-mirror-demo-video",
 					"Niklas Heidloff");
 			Thread.sleep(5);
-			addArticle("Blue Cloud Mirror Architecture Diagrams",
+			CoreService.addArticleStatic("Blue Cloud Mirror Architecture Diagrams",
 					"http://heidloff.net/article/blue-cloud-mirror-architecture-diagrams", "Niklas Heidloff");
 			Thread.sleep(5);
-			addArticle("Three awesome TensorFlow.js Models for Visual Recognition",
+			CoreService.addArticleStatic("Three awesome TensorFlow.js Models for Visual Recognition",
 					"http://heidloff.net/article/tensorflowjs-visual-recognition", "Niklas Heidloff");
 			Thread.sleep(5);
-			addArticle("Install Istio and Kiali on IBM Cloud or Minikube",
+			CoreService.addArticleStatic("Install Istio and Kiali on IBM Cloud or Minikube",
 					"https://haralduebele.blog/2019/02/22/install-istio-and-kiali-on-ibm-cloud-or-minikube/", "Harald Uebele");
 			Thread.sleep(5);
-			addArticle("Dockerizing Java MicroProfile Applications",
+			CoreService.addArticleStatic("Dockerizing Java MicroProfile Applications",
 					"http://heidloff.net/article/dockerizing-container-java-microprofile", "Niklas Heidloff");
 			Thread.sleep(5);
-			addArticle("Debugging Microservices running in Kubernetes",
-					"http://heidloff.net/article/debugging-microservices-kubernetes", "Niklas Heidloff");
+			CoreService.addArticleStatic("Debugging Microservices running in Kubernetes",
+					"http://heidloff.net/article/debugging-microservices-kubernetes", "Niklas Heidloff");				
 			System.out.println("com.ibm.articles.business.Service.addSampleArticles: Sample articles have been created");
 		} catch (NoDataAccess | InvalidArticle | InterruptedException e) {
 			System.out.println("com.ibm.articles.business.Service.addSampleArticles: Sample articles have NOT been created");
 			e.printStackTrace();
+		}
+	}
+
+	public static Article addArticleStatic(String title, String url, String author) throws NoDataAccess, InvalidArticle {
+		if (title == null)
+			throw new InvalidArticle();
+
+		long id = new java.util.Date().getTime();
+		String idAsString = String.valueOf(id);
+
+		if (url == null)
+			url = "Unknown";
+		if (author == null)
+			author = "Unknown";
+
+		Article article = new Article();
+		article.title = title;
+		article.id = idAsString;
+		article.url = url;
+		article.author = author;
+
+		try {
+			DataAccessManager.getDataAccess().addArticle(article);
+			return article;
+		} catch (NoConnectivity e) {
+			e.printStackTrace();
+			throw new NoDataAccess(e);
 		}
 	}
 }
