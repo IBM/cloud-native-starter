@@ -66,7 +66,7 @@ Example API endpoint: http://192.168.99.100:31380/web-api/v1/getmultiple
 
 *Traffic Routing*
 
-In order to demonstrate traffic routing you can run the following commands. 20 % of the web-api API request to read articles will now return 10 instead of 5 articles.
+In order to demonstrate traffic routing you can run the following commands. 20 % of the web-api API request to read articles will now return 10 instead of 5 articles which is version 2. 80 % of the requests are still showing only 5 articles which is version 1. This distribution is set in `istio/istio-ingress-service-web-api-v1-v2-80-20.yaml` (weight: 80 vs. weight: 20).
 
 ```
 $ scripts/deploy-web-api-java-jee-v2.sh
