@@ -114,7 +114,7 @@ Here is a series of blog entries about this project:
 * [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
 * [Developing resilient Microservices with Istio and MicroProfile](http://heidloff.net/article/resiliency-microservice-microprofile-java-istio)
 * [Using Quarkus to run Java Apps on Kubernetes](http://heidloff.net/article/quarkus-javaee-microprofile-kubernetes)
-* Traffic Management (functionality: done / blog: to be done)
+* [Managing Microservices Traffic with Istio](https://haralduebele.blog/2019/03/11/managing-microservices-traffic-with-istio/)
 * APIs including documentation (functionality: done / blog: to be done)
 * Invoking REST APIs (functionality: done / blog: to be done)
 * Distributed logging (functionality: almost done / blog: to be done)
