@@ -115,7 +115,7 @@ Here is a series of blog entries about this project:
 * [Using Quarkus to run Java Apps on Kubernetes](http://heidloff.net/article/quarkus-javaee-microprofile-kubernetes)
 * [Managing Microservices Traffic with Istio](https://haralduebele.blog/2019/03/11/managing-microservices-traffic-with-istio/)
 * [Implementing and documenting REST APIs with JavaEE](http://heidloff.net/article/rest-apis-microprofile-javaee-jaxrs)
-* Invoking REST APIs (functionality: done / blog: to be done)
+* [Invoking REST APIs from Java Microservices](http://heidloff.net/invoke-rest-apis-java-microprofile-microservice)
 * Distributed logging (functionality: almost done / blog: to be done)
 * Monitoring and metrics (functionality: to be done / blog: to be done)
 * Authentication and authorization (functionality: to be done / blog: to be done)
