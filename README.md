@@ -18,11 +18,11 @@ The project showcases the following functionality:
 
 This diagram shows the key components:
 
-<kbd><img src="images/architecture-small.jpeg" /></kbd>
+<kbd><img src="images/architecture.png" /></kbd>
 
 The next screenshot shows the web application. More screenshots are in the [images](images) folder.
 
-<kbd><img src="images/web-app-small.jpeg" /></kbd>
+<kbd><img src="images/web-app.png" /></kbd>
 
 ### Local Environment Setup
 
@@ -59,7 +59,7 @@ $ scripts/show-urls.sh
 
 After running the scripts above, you will get a list of all URLs in the terminal.
 
-<kbd><img src="images/urls-small.jpeg" /></kbd>
+<kbd><img src="images/urls.png" /></kbd>
 
 Example URL to open the web app: http://192.168.99.100:31380
 
@@ -75,7 +75,7 @@ $ scripts/deploy-web-api-java-jee-v2.sh
 $ scripts/deploy-istio-ingress-v1-v2.sh
 ```
 
-<kbd><img src="images/traffic-management-2.jpeg" /></kbd>
+<kbd><img src="images/traffic-management-1.png" /></kbd>
 
 *Resiliency*
 
