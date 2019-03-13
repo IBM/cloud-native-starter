@@ -120,6 +120,7 @@ Here is a series of blog entries about this project:
 * Monitoring and metrics (functionality: to be done / blog: to be done)
 * Authentication and authorization (functionality: to be done / blog: to be done)
 * Configuration (functionality: almost done / blog: to be done)
+* Deployment to IBM Cloud
 
 Here is more information about Microservices, MicroProfile and Istio:
 
