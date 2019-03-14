@@ -12,7 +12,7 @@ function checkPrerequisites() {
     MISSING_TOOLS=""
     git --version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} git"
     curl --version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} curl"
-    sed --version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} sed"
+    which sed &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} sed"
     docker -v &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} docker"
     kubectl version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} kubectl"
     minikube version || MISSING_TOOLS="${MISSING_TOOLS} minikube"
