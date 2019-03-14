@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: default-gateway-ingress
+  name: default-gateway-ingress-http
 spec:
   selector:
     istio: ingressgateway # use Istio default gateway implementation
