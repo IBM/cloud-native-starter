@@ -13,8 +13,8 @@ Follow the [instructions](https://kubernetes.io/docs/setup/minikube/) to install
 $ minikube config set cpus 4
 $ minikube config set memory 8192
 $ minikube config set disk-size 50g
-$ minikube addons enable ingress 
 $ minikube start
+$ minikube addons enable ingress 
 $ eval $(minikube docker-env)
 ```
 
