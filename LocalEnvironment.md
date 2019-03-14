@@ -58,7 +58,7 @@ $ kubectl label namespace default istio-injection=enabled
 
 After this you can use the following tools:
 
-**Jaeger Dashboard**
+[**Jaeger Dashboard**](https://www.jaegertracing.io/docs/1.6/getting-started/)
 
 ```
 $ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686
@@ -66,7 +66,7 @@ $ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=
 
 http://localhost:16686
 
-**Grafana Dashboard**
+[**Grafana Dashboard**](https://grafana.com/dashboards)
 
 ```
 $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &
@@ -74,7 +74,7 @@ $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=
 
 http://localhost:3000/dashboard/db/istio-mesh-dashboard
 
-**Prometheus Dashboard**
+[**Prometheus Dashboard**](https://prometheus.io/docs/practices/consoles/)
 
 ```
 $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &
@@ -83,7 +83,7 @@ $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=
 http://localhost:9090
 
 
-### Kiali
+### [Kiali](https://www.kiali.io/)
 
 Run the following command to install Kiali:
 
@@ -91,10 +91,11 @@ Run the following command to install Kiali:
 $ bash <(curl -L http://git.io/getLatestKialiKubernetes)
 $ kubectl get svc -n istio-system
 ```
-
-```
-$ bash <(curl -L http://git.io/getLatestKialiKubernetes)
-```
+_Note:_ 
+You maybe get on Mac following message: 
+_ERROR: You do not have 'envsubst' in your PATH. Please install it and retry.
+If you are on MacOS, you can get this by installing the gettext package_
+Follow steps in [stackoverflow entery](https://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8) this fixed my installation on Mac.
 
 Get the ip address and port:
 
