@@ -127,7 +127,7 @@ $ minikube ip
 192.168.99.107
 ```
 
-Your browser and insert the information:
+Open your browser and insert the information:
 
 https://*[minikube-ip]*:*[kiali-nodeport]*/kiali 
 In my sample https://192.168.99.107:31790/kiali
