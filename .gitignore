@@ -34,4 +34,5 @@ deploy-kiali-to-kubernetes.sh
 install-minikube-mac.sh
 open-monitoring*.log
 deploy*.log
+create*.log
 
