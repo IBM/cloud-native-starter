@@ -14,7 +14,6 @@ $ minikube config set cpus 4
 $ minikube config set memory 8192
 $ minikube config set disk-size 50g
 $ minikube start
-$ minikube addons enable ingress 
 $ eval $(minikube docker-env)
 ```
 
