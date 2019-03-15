@@ -6,7 +6,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - default-gateway-ingress
+  - default-gateway-ingress-http
   http:
   - match:
     - uri:
