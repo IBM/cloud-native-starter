@@ -100,7 +100,7 @@ ERROR: You do not have 'envsubst' in your PATH. Please install it and retry.
 If you are on MacOS, you can get this by installing the gettext package
 ```
 
-Just follow steps in [stackoverflow entery](https://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8), this fixed my installation problem on Mac OS.
+Just follow steps in [stackoverflow entry](https://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8), this fixed my installation problem on Mac OS.
 
 * If you get this output, don't worry just following the next steps, Kiali should be available.
 ```
