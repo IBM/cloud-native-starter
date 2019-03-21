@@ -36,3 +36,4 @@ open-monitoring*.log
 deploy*.log
 create*.log
 
+web-app-vuejs/src/components/Home.vue
