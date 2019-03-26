@@ -35,5 +35,5 @@ install-minikube-mac.sh
 open-monitoring*.log
 deploy*.log
 create*.log
-
+trace.log
 web-app-vuejs/src/components/Home.vue

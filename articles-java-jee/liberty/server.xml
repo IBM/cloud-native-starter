@@ -9,4 +9,7 @@
 
     <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="8080" httpsPort="9443"/>
 
+    <logging traceSpecification="*=info:JCDI=all:com.ibm.ws.webbeans*=all:org.jboss.weld*=all:com.ibm.ws.cdi*=all:com.ibm.ws.microrprofile.config*=all"
+        traceFileName="trace.log"
+        traceFormat="BASIC" />
 </server>

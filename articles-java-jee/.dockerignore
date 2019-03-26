@@ -1,0 +1,15 @@
+.apt_generated
+.apt_generated_tests
+.settings
+deployment
+target/articles
+target/classes
+target/generated-sources
+target/lib
+target/maven-archiver
+target/maven-status
+target/reports
+target/test-classes
+target/transformed-classes
+target/wiring-classes
+target/wiring-devmode
