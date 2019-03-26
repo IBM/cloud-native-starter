@@ -2,18 +2,6 @@
 
 root_folder=$(cd $(dirname $0); cd ..; pwd)
 
-logname="deploy-web-app-vuejs.log"
-
-function setupLog(){
- cd "${root_folder}/scripts"
- readonly LOG_FILE="${root_folder}/scripts/$logname"
- touch $LOG_FILE
- exec 3>&1 # Save stdout
- exec 4>&2 # Save stderr
- exec 1>$LOG_FILE 2>&1
- exec 3>&1
-}
-
 function _out() {
   echo "$(date +'%F %H:%M:%S') $@"
 }
