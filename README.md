@@ -35,7 +35,6 @@ Prerequisites:
 
 * [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
 * [curl](https://curl.haxx.se/download.html)
-* sed
 * [docker](https://docs.docker.com/install/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * [minikube](LocalEnvironment.md) and Istio and Kiali
@@ -55,7 +54,7 @@ $ scripts/show-urls.sh
 ```
 
 
-### Run the Demo
+### Demo - Web Application
 
 After running the scripts above, you will get a list of all URLs in the terminal.
 
@@ -66,7 +65,7 @@ Example URL to open the web app: http://192.168.99.100:31380
 Example API endpoint: http://192.168.99.100:31380/web-api/v1/getmultiple
 
 
-*Traffic Routing*
+### Demo - Traffic Routing
 
 In order to demonstrate traffic routing you can run the following commands. 20 % of the web-api API request to read articles will now return 10 instead of 5 articles which is version 2. 80 % of the requests are still showing only 5 articles which is version 1. This distribution is set in `istio/istio-ingress-service-web-api-v1-v2-80-20.yaml` (weight: 80 vs. weight: 20).
 
@@ -77,7 +76,7 @@ $ scripts/deploy-istio-ingress-v1-v2.sh
 
 <kbd><img src="images/traffic-management-1.png" /></kbd>
 
-*Resiliency*
+### Demo - Resiliency
 
 In order to demonstrate resiliency you can run the following command to delete the authors service:
 
@@ -91,7 +90,7 @@ In the next step delete the articles service:
 $ scripts/delete-web-api-java-jee.sh
 ```
 
-*Metrics*
+### Demo - Metrics
 
 The web-api service [produces](https://github.com/nheidloff/cloud-native-starter/blob/master/web-api-java-jee/src/main/java/com/ibm/webapi/apis/GetArticles.java) some application specific metrics. 
 
@@ -109,7 +108,7 @@ The metrics are displayed in the Prometheus UI (http://localhost:9090) when you 
 
 For example the [amount](images/prometheus-1.png) of times /web-api/v1/getmultiple has been invoked can be displayed as well as the [duration](images/prometheus-2.png) of these requests.
 
-*Cleanup*
+### Cleanup
 
 Run these commands to delete the cloud native starter components:
 
