@@ -38,7 +38,7 @@ Prerequisites:
 * sed
 * [docker](https://docs.docker.com/install/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [minikube](https://kubernetes.io/docs/setup/minikube/) 
+* [minikube](LocalEnvironment.md) and Istio and Kiali
 
 Deploy (and redeploy):
 
@@ -114,6 +114,7 @@ Here is a series of blog entries about this project:
 * [Developing resilient Microservices with Istio and MicroProfile](http://heidloff.net/article/resiliency-microservice-microprofile-java-istio)
 * [Using Quarkus to run Java Apps on Kubernetes](http://heidloff.net/article/quarkus-javaee-microprofile-kubernetes)
 * [Managing Microservices Traffic with Istio](https://haralduebele.blog/2019/03/11/managing-microservices-traffic-with-istio/)
+* [Web Application to demo Traffic Management with Istio](http://heidloff.net/article/sample-app-manage-microservices-traffic-istio)
 * [Implementing and documenting REST APIs with JavaEE](http://heidloff.net/article/rest-apis-microprofile-javaee-jaxrs)
 * [Invoking REST APIs from Java Microservices](http://heidloff.net/invoke-rest-apis-java-microprofile-microservice)
 * Distributed logging (functionality: almost done / blog: to be done)
