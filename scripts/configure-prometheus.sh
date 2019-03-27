@@ -20,9 +20,10 @@ function setup() {
   
   sed -e '/kind: ConfigMap/r ./prometheus-config.yaml' -e '/kind: ConfigMap/d' ${root_folder}/istio/prometheus-config-org.yaml > ${root_folder}/istio/prometheus-config-new.yaml
 
-  kubectl replace --force -f ${root_folder}prometheus-config.yaml
+  kubectl replace --force -f ${root_folder}/istio/prometheus-config-new.yaml
 
-  kubectl delete pod prometheus -n istio-system
+  pod=$(kubectl get pods -n istio-system | grep prometheus | awk ' {print $1} ')
+  kubectl delete pod $pod -n istio-system
 
   _out Done configuring Prometheus
 

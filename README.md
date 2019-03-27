@@ -91,6 +91,24 @@ In the next step delete the articles service:
 $ scripts/delete-web-api-java-jee.sh
 ```
 
+*Metrics*
+
+The web-api service [produces](https://github.com/nheidloff/cloud-native-starter/blob/master/web-api-java-jee/src/main/java/com/ibm/webapi/apis/GetArticles.java) some application specific metrics. 
+
+Run 'scripts/show-urls.sh' to get the URL to display the [unformatted](images/prometheus-3.png) metrics of this microservice (for example http://192.168.99.100:31223/metrics/application) as well as the URL to generate load (for example http://192.168.99.100:31223/web-api/v1/getmultiple).
+
+In order to display the metrics with the Prometheus UI, Prometheus needs to be configured first:
+
+```
+$ scripts/configure-prometheus.sh
+```
+
+After this wait until the Prometheus pod has been restarted. Then run the command to forward the Prometheus port which is displayed as result of 'scripts/configure-prometheus.sh'.
+
+The metrics are displayed in the Prometheus UI (http://localhost:9090) when you search for 'web-api' or 'articles'.
+
+For example the [amount](images/prometheus-1.png) of times /web-api/v1/getmultiple has been invoked can be displayed as well as the [duration](images/prometheus-2.png) of these requests.
+
 *Cleanup*
 
 Run these commands to delete the cloud native starter components:
