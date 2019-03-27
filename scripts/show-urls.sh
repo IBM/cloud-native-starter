@@ -16,7 +16,6 @@ function setup() {
   nodeport=$(kubectl get svc -n istio-system kiali --output 'jsonpath={.spec.ports[*].nodePort}')
   _out kiali
   _out Web app:      https://${minikubeip}:${nodeport}/kiali
-  nodeport=$(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
   _out ------------------------------------------------------------------------------------
 
   _out prometheus
@@ -41,24 +40,54 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out articles
-  _out API explorer: http://${minikubeip}:${nodeport}/openapi/ui/
-  _out Sample API: curl http://${minikubeip}:${nodeport}/articles/v1/getmultiple?amount=10
+  nodeport=$(kubectl get svc articles --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+  if [ -z "$nodeport" ]; then
+    _out articles is not available. Run 'scripts/deploy-articles-java-jee.sh'
+  else 
+    _out API explorer: http://${minikubeip}:${nodeport}/openapi/ui/
+    _out Sample API: curl http://${minikubeip}:${nodeport}/articles/v1/getmultiple?amount=10
+  fi
   _out ------------------------------------------------------------------------------------
-  nodeport=$(kubectl get svc authors --output 'jsonpath={.spec.ports[*].nodePort}')
-  
+
   _out authors
-  _out Sample API: curl http://${minikubeip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+  nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+  if [ -z "$nodeport" ]; then
+    _out authors is not available. Run 'scripts/deploy-authors-nodejs.sh'
+  else 
+    _out Sample API: curl http://${minikubeip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+  fi
   _out ------------------------------------------------------------------------------------
-  nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')
   
   _out web-api
-  _out API explorer: http://${minikubeip}:31380/openapi/ui/
-  _out Metrics: http://${minikubeip}:${nodeport}/metrics/application
-  _out Sample API: curl http://${minikubeip}:31380/web-api/v1/getmultiple
+  nodeport=$(kubectl get svc web-api --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+  if [ -z "$nodeport" ]; then
+    _out web-api is not available. Run 'scripts/deploy-web-api-java-jee.sh'
+  else 
+    ingress=$(kubectl get gateway --ignore-not-found default-gateway-ingress-http --output 'jsonpath={.spec}')
+    if [ -z "$ingress" ]; then
+      _out API explorer: http://${minikubeip}:${nodeport}/openapi/ui/
+      _out Metrics: http://${minikubeip}:${nodeport}/metrics/application
+      _out Sample API: curl http://${minikubeip}:${nodeport}/web-api/v1/getmultiple
+    else 
+      _out API explorer: http://${minikubeip}:31380/openapi/ui/
+      _out Metrics: http://${minikubeip}:${nodeport}/metrics/application
+      _out Sample API: curl http://${minikubeip}:31380/web-api/v1/getmultiple
+    fi
+  fi
   _out ------------------------------------------------------------------------------------
   
   _out web-app
-  _out Web app: http://${minikubeip}:31380/
+  nodeport=$(kubectl get svc web-app --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+  if [ -z "$nodeport" ]; then
+    _out web-app is not available. Run 'scripts/deploy-web-app-vuejs.sh'
+  else 
+    ingress=$(kubectl get gateway --ignore-not-found default-gateway-ingress-http --output 'jsonpath={.spec}')
+    if [ -z "$ingress" ]; then
+      _out Ingress not available. Run 'scripts/deploy-istio-ingress-v1.sh'
+    else
+      _out Web app: http://${minikubeip}:31380/
+    fi
+  fi
   _out ------------------------------------------------------------------------------------
 
 }
