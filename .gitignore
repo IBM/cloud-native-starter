@@ -19,6 +19,9 @@ node_modules
 dist
 .env.local
 .env.*.local
+local.env
+cloud-native-starter.json
+k8s-setup.sh
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
