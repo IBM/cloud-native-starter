@@ -1,6 +1,8 @@
 kind: Service
 apiVersion: v1
 metadata:
+  annotations:
+    webapi: "true"
   name: web-api
   labels:
     app: web-api

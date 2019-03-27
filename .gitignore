@@ -37,3 +37,5 @@ deploy*.log
 create*.log
 trace.log
 web-app-vuejs/src/components/Home.vue
+istio/prometheus-config-org.yaml
+istio/prometheus-config-new.yaml

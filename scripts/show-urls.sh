@@ -26,8 +26,10 @@ function setup() {
   _out authors
   _out Sample API:   curl http://${minikubeip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
   _out ------------------------------------------------------------------------------------
+  nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')
   _out web-api
   _out API explorer: http://${minikubeip}:31380/openapi/ui/
+  _out Metrics: http://${minikubeip}:${nodeport}/metrics/application
   _out Sample API:   curl http://${minikubeip}:31380/web-api/v1/getmultiple
   _out ------------------------------------------------------------------------------------
   _out web-app
