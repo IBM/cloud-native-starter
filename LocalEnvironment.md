@@ -33,7 +33,7 @@ $ minikube stop
 
 ### Istio
 
-To install Istio, run these commands:
+[To install Istio, run these commands](https://istio.io/docs/setup/kubernetes/install/kubernetes/)
 
 ```
 $ curl -L https://git.io/getLatestIstio | sh -
