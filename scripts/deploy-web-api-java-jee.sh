@@ -12,10 +12,10 @@ function setup() {
   _out Deploying web-api-java-jee v1
   
   cd ${root_folder}/web-api-java-jee
-  kubectl delete -f deployment/kubernetes-service.yaml
-  kubectl delete -f deployment/kubernetes-deployment-v1.yaml
-  kubectl delete -f deployment/kubernetes-deployment-v2.yaml
-  kubectl delete -f deployment/istio-service-v2.yaml
+  kubectl delete -f deployment/kubernetes-service.yaml --ignore-not-found
+  kubectl delete -f deployment/kubernetes-deployment-v1.yaml --ignore-not-found
+  kubectl delete -f deployment/kubernetes-deployment-v2.yaml --ignore-not-found
+  kubectl delete -f deployment/istio-service-v2.yaml --ignore-not-found
 
   file="${root_folder}/web-api-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"
   if [ -f "$file" ]
@@ -43,6 +43,7 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying web-api-java-jee v1
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep web-api"
   _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
 }
 

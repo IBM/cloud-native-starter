@@ -28,7 +28,7 @@ function setup() {
   eval $(minikube docker-env) 
   docker build -f Dockerfile.nojava -t web-api:2 .
 
-  kubectl delete -f deployment/istio-service-v1.yaml
+  kubectl delete -f deployment/istio-service-v1.yaml --ignore-not-found
   kubectl apply -f deployment/kubernetes-deployment-v2.yaml
   kubectl apply -f deployment/istio-service-v2.yaml
 
@@ -42,6 +42,7 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying web-api-java-jee v2
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep web-api"
   _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
 }
 

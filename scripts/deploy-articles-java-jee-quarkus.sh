@@ -12,8 +12,8 @@ function setup() {
   _out Deploying articles-java-jee quarkus
   
   cd ${root_folder}/articles-java-jee
-  kubectl delete -f deployment/kubernetes-quarkus.yaml
-  kubectl delete -f deployment/istio-quarkus.yaml
+  kubectl delete -f deployment/kubernetes-quarkus.yaml --ignore-not-found
+  kubectl delete -f deployment/istio-quarkus.yaml --ignore-not-found
   
   eval $(minikube docker-env) 
   mvn -f ${root_folder}/articles-java-jee/pom-quarkus.xml package -Pnative -Dnative-image.docker-build=true
@@ -29,7 +29,7 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying articles-java-jee quarkus
-  _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep articles"
 }
 
 setup

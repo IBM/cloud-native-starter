@@ -110,10 +110,17 @@ For example the [amount](images/prometheus-1.png) of times /web-api/v1/getmultip
 
 ### Cleanup
 
-Run these commands to delete the cloud native starter components:
+Run the following command to delete all cloud-native-starter components from Istio.
+
+```
+$ scripts/delete-all.sh
+```
+
+You can also delete single components:
 
 ```
 $ scripts/delete-articles-java-jee.sh
+$ scripts/delete-articles-java-jee-quarkus.sh
 $ scripts/delete-web-api-java-jee.sh
 $ scripts/delete-authors-nodejs.sh
 $ scripts/delete-web-app-vuejs.sh
@@ -134,11 +141,23 @@ Here is a series of blog entries about this project:
 * [Web Application to demo Traffic Management with Istio](http://heidloff.net/article/sample-app-manage-microservices-traffic-istio)
 * [Implementing and documenting REST APIs with JavaEE](http://heidloff.net/article/rest-apis-microprofile-javaee-jaxrs)
 * [Invoking REST APIs from Java Microservices](http://heidloff.net/invoke-rest-apis-java-microprofile-microservice)
-* Distributed logging (functionality: almost done / blog: to be done)
-* Monitoring and metrics (functionality: to be done / blog: to be done)
-* Authentication and authorization (functionality: to be done / blog: to be done)
-* Configuration (functionality: almost done / blog: to be done)
+* [Prometheus Metrics for MicroProfile Microservices in Istio](http://heidloff.net/article/prometheus-metrics-microprofile-microservices-istio/)
 * Deployment to IBM Cloud
+* Distributed logging with IBM Log Analysis with LogDNA
+* Monitoring with IBM Cloud Monitoring with Sysdig
+* Istio Healthchecks for MicroProfile Microservices 
+* Sample Quarkus Microservices with and without GraalVM
+* cf push-like Deployments of Microservices via Scripts
+* Template to create new Java EE Microservice
+* Clean-ish Architecture for Java EE Microservices
+* Configuration of MicroProfile Microservices in Istio
+* Authentication and Authorization
+* Displaying Metrics in Grafana and Kiali
+* SQL PersistenceSQL via JPA and JDBC
+* Reducing the Size of the Open Liberty Images
+* Sample stateful Microservice
+* Lightweight API Management
+* Sample Microservices with Spring and Micronaut
 
 Here is more information about Microservices, MicroProfile and Istio:
 

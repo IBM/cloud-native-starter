@@ -24,8 +24,8 @@ function setup() {
   _out Deploying web-app-vuejs
   
   cd ${root_folder}/web-app-vuejs
-  kubectl delete -f deployment/kubernetes.yaml
-  kubectl delete -f deployment/istio.yaml
+  kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
+  kubectl delete -f deployment/istio.yaml --ignore-not-found
   
   configureVUEminikubeIP
 
@@ -41,6 +41,7 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying web-app-vuejs
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep web-app"
   _out Open the app: http://${minikubeip}:${nodeport}/
 }
 
