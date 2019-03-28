@@ -38,7 +38,7 @@ To install Istio, run these commands:
 ```
 $ curl -L https://git.io/getLatestIstio | sh -
 # follow the instruction to set the path
-# change into the Istio directory, at the time of this writing it was istio-1.1.1
+# then change into the Istio directory, at the time of this writing it was istio-1.1.1
 $ cd istio-1.1.1
 $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
 # wait a few seconds before issuing the next command
