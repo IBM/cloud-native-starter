@@ -35,11 +35,11 @@ function setup() {
 
   _out Clean-up Minikube
   if [ $DB != "local" ]; then
-     kubectl delete serviceentry cloudant
-     kubectl delete virtualservice cloudant
+     kubectl delete serviceentry cloudant --ignore-not-found
+     kubectl delete virtualservice cloudant --ignore-not-found
   fi
 
-  kubectl delete all -l app=authors
+  kubectl delete all -l app=authors --ignore-not-found
 
   
   _out Build Docker Image
@@ -59,7 +59,6 @@ function setup() {
   _out Done deploying authors-nodejs
   }
 
-echo ""
 _out Deploying authors-nodejs
 templates
 setup

@@ -12,8 +12,8 @@ function setup() {
   _out Deleting Istio Ingress definitions
   
   cd ${root_folder}/istio
-  kubectl delete -f istio-ingress-gateway.yaml
-  kubectl delete -f istio-ingress-service-web-api-v1-v2-80-20.yaml
+  kubectl delete -f istio-ingress-gateway.yaml --ignore-not-found
+  kubectl delete -f istio-ingress-service-web-api-v1-v2-80-20.yaml --ignore-not-found
   
   _out Done deleting Istio Ingress definitions
 }

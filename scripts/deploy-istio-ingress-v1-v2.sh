@@ -13,7 +13,7 @@ function setup() {
 
   cd ${root_folder}/istio
   kubectl apply -f istio-ingress-gateway.yaml
-  kubectl delete -f istio-ingress-service-web-api-v1-only.yaml
+  kubectl delete -f istio-ingress-service-web-api-v1-only.yaml --ignore-not-found
   kubectl apply -f istio-ingress-service-web-api-v1-v2-80-20.yaml
   
   _out Done deploying Istio Ingress definitions

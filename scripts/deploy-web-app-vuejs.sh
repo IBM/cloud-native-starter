@@ -24,8 +24,8 @@ function setup() {
   _out Deploying web-app-vuejs
   
   cd ${root_folder}/web-app-vuejs
-  kubectl delete -f deployment/kubernetes.yaml
-  kubectl delete -f deployment/istio.yaml
+  kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
+  kubectl delete -f deployment/istio.yaml --ignore-not-found
   
   configureVUEminikubeIP
 

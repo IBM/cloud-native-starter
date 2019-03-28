@@ -10,17 +10,15 @@ function _out() {
 
 function setup() {
 
-  _out Clean-up Minikube
+  _out Deleting authors-nodejs
   
-  kubectl delete serviceentry cloudant
-  kubectl delete virtualservice cloudant
+  kubectl delete serviceentry cloudant --ignore-not-found
+  kubectl delete virtualservice cloudant --ignore-not-found
   cd ${root_folder}/authors-nodejs/deployment
-  kubectl delete -f deployment.yaml
-  kubectl delete -f istio.yaml
-
+  kubectl delete -f deployment.yaml --ignore-not-found
+  kubectl delete -f istio.yaml --ignore-not-found
 
   _out Done deleting authors-nodejs
   }
 
-_out Deleting authors-nodejs
 setup

@@ -12,8 +12,8 @@ function setup() {
   _out Deploying articles-java-jee
   
   cd ${root_folder}/articles-java-jee
-  kubectl delete -f deployment/kubernetes.yaml
-  kubectl delete -f deployment/istio.yaml
+  kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
+  kubectl delete -f deployment/istio.yaml --ignore-not-found
 
   file="${root_folder}/articles-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"
   if [ -f "$file" ]

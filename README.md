@@ -110,10 +110,17 @@ For example the [amount](images/prometheus-1.png) of times /web-api/v1/getmultip
 
 ### Cleanup
 
-Run these commands to delete the cloud native starter components:
+Run the following command to delete all cloud-native-starter components from Istio.
+
+```
+$ scripts/delete-all.sh
+```
+
+You can also delete single components:
 
 ```
 $ scripts/delete-articles-java-jee.sh
+$ scripts/delete-articles-java-jee-quarkus.sh
 $ scripts/delete-web-api-java-jee.sh
 $ scripts/delete-authors-nodejs.sh
 $ scripts/delete-web-app-vuejs.sh
@@ -146,6 +153,7 @@ Here is a series of blog entries about this project:
 * Configuration of MicroProfile Microservices in Istio
 * Authentication and Authorization
 * SQL PersistenceSQL via JPA and JDBC
+* Sample stateful Microservice
 * Lightweight API Management
 * Sample Microservices with Spring and Micronaut
 
