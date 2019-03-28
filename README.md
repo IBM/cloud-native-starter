@@ -141,7 +141,7 @@ Here is a series of blog entries about this project:
 * [Web Application to demo Traffic Management with Istio](http://heidloff.net/article/sample-app-manage-microservices-traffic-istio)
 * [Implementing and documenting REST APIs with JavaEE](http://heidloff.net/article/rest-apis-microprofile-javaee-jaxrs)
 * [Invoking REST APIs from Java Microservices](http://heidloff.net/invoke-rest-apis-java-microprofile-microservice)
-* Prometheus Metrics for MicroProfile Microservices in Istio
+* [Prometheus Metrics for MicroProfile Microservices in Istio](http://heidloff.net/article/prometheus-metrics-microprofile-microservices-istio/)
 * Deployment to IBM Cloud
 * Distributed logging with IBM Log Analysis with LogDNA
 * Monitoring with IBM Cloud Monitoring with Sysdig
@@ -152,7 +152,9 @@ Here is a series of blog entries about this project:
 * Clean-ish Architecture for Java EE Microservices
 * Configuration of MicroProfile Microservices in Istio
 * Authentication and Authorization
+* Displaying Metrics in Grafana and Kiali
 * SQL PersistenceSQL via JPA and JDBC
+* Reducing the Size of the Open Liberty Images
 * Sample stateful Microservice
 * Lightweight API Management
 * Sample Microservices with Spring and Micronaut
