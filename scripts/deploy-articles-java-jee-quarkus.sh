@@ -29,7 +29,8 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying articles-java-jee quarkus
-  _out Wait until the pod has been started: "kubectl get pod --watch | grep articles"
+  _out Sample API: curl http://${minikubeip}:${nodeport}/v1/getmultiple?amount=10
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep articles-quarkus"
 }
 
 setup

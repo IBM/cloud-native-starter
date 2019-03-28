@@ -146,7 +146,6 @@ Here is a series of blog entries about this project:
 * Distributed logging with IBM Log Analysis with LogDNA
 * Monitoring with IBM Cloud Monitoring with Sysdig
 * Istio Healthchecks for MicroProfile Microservices 
-* Sample Quarkus Microservices with and without GraalVM
 * cf push-like Deployments of Microservices via Scripts
 * Template to create new Java EE Microservice
 * Clean-ish Architecture for Java EE Microservices
