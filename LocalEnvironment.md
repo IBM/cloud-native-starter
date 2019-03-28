@@ -38,8 +38,10 @@ To install Istio, run these commands:
 ```
 $ curl -L https://git.io/getLatestIstio | sh -
 # follow the instruction to set the path
-$ cd istio-1.0.6
-$ kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
+# change into the Istio directory, at the time of this writing it was istio-1.1.1
+$ cd istio-1.1.1
+$ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
+# wait a few seconds before issuing the next command
 $ kubectl apply -f install/kubernetes/istio-demo.yaml
 ```
 
@@ -56,6 +58,18 @@ $ kubectl label namespace default istio-injection=enabled
 ```
 
 After this you can use the following tools:
+
+[**Kiali Dashboard**](https://www.kiali.io/gettingstarted/)
+
+With Istio 1.1.1 demo installation (this is what we used to setup Istio), Kiali is automatically installed.
+
+```
+kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
+```
+
+http://localhost:20001/kiali/console
+
+(User: admin, Password: admin)
 
 [**Jaeger Dashboard**](https://www.jaegertracing.io/docs/1.6/getting-started/)
 
@@ -82,57 +96,4 @@ $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=
 http://localhost:9090
 
 
-### [Kiali](https://www.kiali.io/)
 
-Run the following command to install Kiali:
-
-```
-$ bash <(curl -L http://git.io/getLatestKialiKubernetes)
-```
-
-_Notes:_ 
-
-* You maybe get on Mac following message:
-
-```
-ERROR: You do not have 'envsubst' in your PATH. Please install it and retry.
-If you are on MacOS, you can get this by installing the gettext package
-```
-
-Just follow steps in [stackoverflow entry](https://stackoverflow.com/questions/23620827/envsubst-command-not-found-on-mac-os-x-10-8), this fixed my installation problem on Mac OS.
-
-* If you get this output, don't worry just following the next steps, Kiali should be available.
-```
-=== Dashboards to install ===
-404: Not Found
-=============================
-Applying YAML from URL via: curl -s https://raw.githubusercontent.com/kiali/kiali/v0.15.0/deploy/dashboards/404:
-error: error validating "STDIN": error validating data: [apiVersion not set, kind not set]; if you choose to ignore these errors, turn validation off with --validate=false
-NOTE: Could not deploy runtimes dashboard [404:]. Dashboards are not mandatory and won't prevent Kiali to work.
-```
-
-List the istio system and get the port information from Kiali.
-
-```
-$ kubectl get svc -n istio-system
-NAME                     TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)
-kiali                    NodePort       10.97.190.154    <none>        20001:31790/TCP                                                                                                           20m
-```
-
-Get the ip address from your minikube instance:
-
-```
-$ minikube ip
-192.168.99.107
-```
-
-Open your browser and insert the information:
-
-https://*[minikube-ip]*:*[kiali-nodeport]*/kiali 
-In my sample https://192.168.99.107:31790/kiali
-
-Logon to Kiali with you defined user and password, you used during the installation.
-
-![Kiali running](images/kiali-running.png)
-
-You are ready to use Kiali.
