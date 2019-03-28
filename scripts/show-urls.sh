@@ -13,9 +13,11 @@ function setup() {
   minikubeip=$(minikube ip)
 
   _out ------------------------------------------------------------------------------------
-  nodeport=$(kubectl get svc -n istio-system kiali --output 'jsonpath={.spec.ports[*].nodePort}')
-  _out kiali
-  _out Web app:      https://${minikubeip}:${nodeport}/kiali
+  out kiali
+  command1="kubectl -n istio-system port-forward $"
+  command2="(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001"
+  _out Run the command: ${command1}${command2}
+  _out Then open http://localhost:20001/kiali/console with username: admin, password: admin
   _out ------------------------------------------------------------------------------------
 
   _out prometheus
