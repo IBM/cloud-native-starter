@@ -27,6 +27,8 @@ function setup() {
 
   _out Done configuring Prometheus
 
+  _out Wait until the pod has been started: "kubectl get pod -n istio-system --watch | grep prometheus"
+
   command1="kubectl -n istio-system port-forward $"
   command2="(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &"
   _out Run the command: ${command1}${command2}

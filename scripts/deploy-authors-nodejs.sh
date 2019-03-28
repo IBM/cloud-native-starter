@@ -57,7 +57,8 @@ function setup() {
   fi
 
   _out Done deploying authors-nodejs
-  }
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep authors"
+}
 
 _out Deploying authors-nodejs
 templates

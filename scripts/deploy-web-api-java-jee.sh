@@ -43,6 +43,7 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying web-api-java-jee v1
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep web-api"
   _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
 }
 

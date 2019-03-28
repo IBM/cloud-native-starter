@@ -29,7 +29,7 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying articles-java-jee quarkus
-  _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep articles"
 }
 
 setup

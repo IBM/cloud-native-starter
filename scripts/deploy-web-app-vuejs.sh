@@ -41,6 +41,7 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying web-app-vuejs
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep web-app"
   _out Open the app: http://${minikubeip}:${nodeport}/
 }
 
