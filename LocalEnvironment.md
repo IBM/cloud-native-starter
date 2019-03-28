@@ -61,7 +61,7 @@ After this you can use the following tools:
 
 [**Kiali Dashboard**](https://www.kiali.io/gettingstarted/)
 
-With Istio 1.1.1 demo installation (this is what we used to setup Istio), Kiali is automatically installed.
+With an Istio 1.1.1 demo installation (this is what we used to setup Istio), Kiali is automatically installed.
 
 ```
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
