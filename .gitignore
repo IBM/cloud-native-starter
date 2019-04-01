@@ -44,3 +44,5 @@ istio/prometheus-config-org.yaml
 istio/prometheus-config-new.yaml
 iks-scripts/*.log
 iks-scripts/cluster-config.sh
+IKS*.yaml
+Home.vue

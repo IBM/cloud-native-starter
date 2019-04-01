@@ -2,6 +2,10 @@
 
 root_folder=$(cd $(dirname $0); cd ..; pwd)
 
+# Check if IKS deployment, set kubectl environment and IKS deployment options in local.env
+if [[ -e "iks-scripts/cluster-config.sh" ]]; then source iks-scripts/cluster-config.sh; fi
+if [[ -e "local.env" ]]; then source local.env; fi
+
 exec 3>&1
 
 function _out() {
@@ -10,14 +14,20 @@ function _out() {
 
 function setup() {
 
-  minikubeip=$(minikube ip)
+  clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2}')
 
+  _out ------------------------------------------------------------------------------------
+  _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
+  _out To set the kubectl environment correctly for the IBM Kubernetes Service 
+  _out alwas run this command FIRST. It is only required once in a shell.
+  _out source iks-scripts/cluster-config.sh
+  _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
   _out ------------------------------------------------------------------------------------
   _out kiali
   command1="kubectl -n istio-system port-forward $"
   command2="(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001"
   _out Run the command: ${command1}${command2}
-  _out Then open http://localhost:20001/kiali/console with username: admin, password: admin
+  _out Then open http://localhost:20001 with username: admin, password: admin
   _out ------------------------------------------------------------------------------------
 
   _out prometheus
@@ -46,8 +56,8 @@ function setup() {
   if [ -z "$nodeport" ]; then
     _out articles is not available. Run 'scripts/deploy-articles-java-jee.sh'
   else 
-    _out API explorer: http://${minikubeip}:${nodeport}/openapi/ui/
-    _out Sample API: curl http://${minikubeip}:${nodeport}/articles/v1/getmultiple?amount=10
+    _out API explorer: http://${clusterip}:${nodeport}/openapi/ui/
+    _out Sample API: curl http://${clusterip}:${nodeport}/articles/v1/getmultiple?amount=10
   fi
   _out ------------------------------------------------------------------------------------
 
@@ -56,7 +66,7 @@ function setup() {
   if [ -z "$nodeport" ]; then
     _out authors is not available. Run 'scripts/deploy-authors-nodejs.sh'
   else 
-    _out Sample API: curl http://${minikubeip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+    _out Sample API: curl http://${clusterip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
   fi
   _out ------------------------------------------------------------------------------------
   
@@ -67,13 +77,13 @@ function setup() {
   else 
     ingress=$(kubectl get gateway --ignore-not-found default-gateway-ingress-http --output 'jsonpath={.spec}')
     if [ -z "$ingress" ]; then
-      _out API explorer: http://${minikubeip}:${nodeport}/openapi/ui/
-      _out Metrics: http://${minikubeip}:${nodeport}/metrics/application
-      _out Sample API: curl http://${minikubeip}:${nodeport}/web-api/v1/getmultiple
+      _out API explorer: http://${clusterip}:${nodeport}/openapi/ui/
+      _out Metrics: http://${clusterip}:${nodeport}/metrics/application
+      _out Sample API: curl http://${clusterip}:${nodeport}/web-api/v1/getmultiple
     else 
-      _out API explorer: http://${minikubeip}:31380/openapi/ui/
-      _out Metrics: http://${minikubeip}:${nodeport}/metrics/application
-      _out Sample API: curl http://${minikubeip}:31380/web-api/v1/getmultiple
+      _out API explorer: http://${clusterip}:31380/openapi/ui/
+      _out Metrics: http://${clusterip}:${nodeport}/metrics/application
+      _out Sample API: curl http://${clusterip}:31380/web-api/v1/getmultiple
     fi
   fi
   _out ------------------------------------------------------------------------------------
@@ -87,7 +97,7 @@ function setup() {
     if [ -z "$ingress" ]; then
       _out Ingress not available. Run 'scripts/deploy-istio-ingress-v1.sh'
     else
-      _out Web app: http://${minikubeip}:31380/
+      _out Web app: http://${clusterip}:31380/
     fi
   fi
   _out ------------------------------------------------------------------------------------

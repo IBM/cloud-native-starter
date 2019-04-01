@@ -57,7 +57,7 @@ function add_istio() {
 
   _out Istio is installed on your cluster
   _out Please check if the Istio pods are all up with
-  _out $ source cluster-config.sh  -- this is only needed once
+  _out $ source iks-scripts/cluster-config.sh  -- this is only needed once
   _out $ kubectl get pod -n istio-system
   _out before continuing with the next script iks-sripts/create-registry.sh
 
