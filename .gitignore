@@ -46,3 +46,8 @@ auth-java-jee
 auth-java-jee-ref
 auth-nodejs
 auth-nodejs2
+istio/web-api.*
+iks-scripts/*.log
+iks-scripts/cluster-config.sh
+IKS*.yaml
+Home.vue

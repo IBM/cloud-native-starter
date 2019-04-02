@@ -33,17 +33,36 @@ $ minikube stop
 
 ### Istio
 
-[To install Istio, run these commands](https://istio.io/docs/setup/kubernetes/install/kubernetes/)
+To install Istio, follow these instructions. We use Istio 1.1.1 for this project.
 
-```
-$ curl -L https://git.io/getLatestIstio | sh -
-# follow the instruction to set the path
-# then change into the Istio directory, at the time of this writing it was istio-1.1.1
-$ cd istio-1.1.1
-$ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
-# wait a few seconds before issuing the next command
-$ kubectl apply -f install/kubernetes/istio-demo.yaml
-```
+1. Download Istio 1.1.1 directly from [Github](https://github.com/istio/istio/releases/tag/1.1.1). Select the version that matches your OS. (Please be aware that we do not cover Windows in these instructions!)
+Result: istio-1.1.1-osx|linux.tar.gz
+
+2. Extract the installation files, e.g.:
+
+    ```
+    tar -xvzf istio-1.1.1-linux.tar.gz
+    ```
+    
+3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`:
+
+    ```
+    export PATH=$PWD/istio-1.1.1/bin:$PATH
+    ```
+
+4. Change into the extracted directory: `cd istio-1.1.1`
+
+5. Install Istio:
+
+    ```
+    $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
+    ```
+    
+    Wait a few seconds before issuing the next command:
+
+    ```
+    $ kubectl apply -f install/kubernetes/istio-demo.yaml
+    ```
 
 Check that all pods are running or completed before continuing.
 
