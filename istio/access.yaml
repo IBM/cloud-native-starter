@@ -1,0 +1,14 @@
+apiVersion: "authentication.istio.io/v1alpha1"
+kind: "Policy"
+metadata:
+  name: "protect-web-api"
+spec:
+  targets:
+  - name: web-api
+  peers:
+  - mtls:
+  origins:
+  - jwt:
+      issuer: "appid-oauth.ng.bluemix.net"
+      jwksUri: "https://appid-oauth.ng.bluemix.net/oauth/v3/94a4e094-3af3-4fd6-b0f9-98ce681bb45f/publickeys"
+  principalBinding: USE_ORIGIN
