@@ -42,6 +42,7 @@ trace.log
 web-app-vuejs/src/components/Home.vue
 istio/prometheus-config-org.yaml
 istio/prometheus-config-new.yaml
+istio/web-api.*
 iks-scripts/*.log
 iks-scripts/cluster-config.sh
 IKS*.yaml
