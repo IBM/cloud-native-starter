@@ -47,5 +47,7 @@ $ kubectl apply -f istio-ingress-service-web-api-v1-only-HTTPS.yaml
 Web-App will not work as it still calls the HTTP-API, Web-API can be called like this:
 
 ```
-curl -k https://web-api.local:31390/web-api/v1/getmultiple
+curl --cacert web-api.crt https://web-api.local:31390/web-api/v1/getmultiple
 ```
+
+

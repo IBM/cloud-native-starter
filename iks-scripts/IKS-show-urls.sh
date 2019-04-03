@@ -15,12 +15,12 @@ function _out() {
 function setup() {
 
   clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2}')
-
+  
   _out ------------------------------------------------------------------------------------
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
-  _out To set the kubectl environment correctly for the IBM Kubernetes Service 
-  _out alwas run this command FIRST. It is only required once in a shell.
-  _out source iks-scripts/cluster-config.sh
+  _out Set the kube environment correctly for the IBM Kubernetes Service
+  _out Executing this command is required every time you start a new shell
+  _out Run the command: source iks-scripts/cluster-config.sh
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
   _out ------------------------------------------------------------------------------------
   _out kiali
