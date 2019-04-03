@@ -7,6 +7,7 @@ if [[ -e "iks-scripts/cluster-config.sh" ]]; then source iks-scripts/cluster-con
 if [[ -e "local.env" ]]; then source local.env; fi
 
 # Login to IBM Cloud Image Registry
+ibmcloud ks region-set $IBM_CLOUD_REGION
 ibmcloud cr login
 
 exec 3>&1
@@ -48,7 +49,7 @@ function setup() {
   ##kubectl apply -f deployment/istio-ingress.yaml
   kubectl apply -f deployment/istio-service-v1.yaml
 
-  clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2}')
+  clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
   nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')
   _out Cluster IP: ${clusterip}
   _out NodePort: ${nodeport}

@@ -108,7 +108,7 @@ $ iks-scripts/IKS-deploy-articles-java-jee.sh
 $ iks-scripts/IKS-deploy-web-api-java-jee.sh
 $ iks-scripts/IKS-deploy-authors-nodejs.sh
 $ iks-scripts/IKS-deploy-web-app-vuejs.sh
-$ scripts/deploy-istio-ingress-v1
+$ scripts/deploy-istio-ingress-v1.sh
 $ iks-scripts/IKS-show-urls.sh
 ```
 After running all (!) the scripts above, you will get a list of all URLs in the terminal. All these commands use kubectl which requires that the kube environment is set with `source iks-scripts/cluster-config.sh`. This is required every time you start a new shell.

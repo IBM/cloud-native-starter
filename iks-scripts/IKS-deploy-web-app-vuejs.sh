@@ -7,6 +7,7 @@ if [[ -e "iks-scripts/cluster-config.sh" ]]; then source iks-scripts/cluster-con
 if [[ -e "local.env" ]]; then source local.env; fi
 
 # Login to IBM Cloud Image Registry
+ibmcloud ks region-set $IBM_CLOUD_REGION
 ibmcloud cr login
 
 function _out() {
@@ -17,7 +18,7 @@ function configureVUEminikubeIP(){
   cd ${root_folder}/web-app-vuejs/src/components
   
   _out configureVUEIP
-  clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2}')
+  clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
 
   _out _copy App.vue template definition
   rm "Home.vue"
@@ -44,7 +45,7 @@ function setup() {
   kubectl apply -f deployment/IKS-kubernetes.yaml
   kubectl apply -f deployment/istio.yaml
 
-  clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2}')
+  clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
   nodeport=$(kubectl get svc web-app --output 'jsonpath={.spec.ports[*].nodePort}')
   _out Cluster IP: ${clusterip}
   _out NodePort: ${nodeport}

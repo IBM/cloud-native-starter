@@ -13,8 +13,9 @@ function _out() {
 }
 
 function setup() {
-
-  clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2}')
+  ibmcloud ks region-set $IBM_CLOUD_REGION
+  clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
+  _out $clusterip
   
   _out ------------------------------------------------------------------------------------
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
