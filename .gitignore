@@ -33,6 +33,7 @@ yarn-error.log*
 *.sln
 *.sw*
 istio-1.0.6
+istio-1.1.1
 deploy-kiali-to-kubernetes.sh
 install-minikube-mac.sh
 open-monitoring*.log
