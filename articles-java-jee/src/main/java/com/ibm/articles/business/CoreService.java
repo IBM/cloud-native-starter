@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -19,19 +20,10 @@ public class CoreService {
 	@ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
 	private String samplescreation;
 
-	public CoreService() {
-		if (samplescreation != null) {
-			if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
-				addSampleArticles();
-		} else {
-			// sometimes MicroProfile does not work. as a workaround the config is read from
-			// an environment variable directly
-			samplescreation = System.getenv("samplescreation");
-			if (samplescreation != null) {
-				if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
-					addSampleArticles();
-			}
-		}
+	@PostConstruct
+	private void addArticle() {
+		if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
+			addSampleArticles();
 	}
 
 	public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
