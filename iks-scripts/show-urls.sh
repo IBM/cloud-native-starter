@@ -13,10 +13,11 @@ function _out() {
 }
 
 function setup() {
+  _out Logging into IBM Cloud, please wait
+  ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   ibmcloud ks region-set $IBM_CLOUD_REGION
   clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
-  _out $clusterip
-  
+   
   _out ------------------------------------------------------------------------------------
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
   _out Set the kube environment correctly for the IBM Kubernetes Service
@@ -24,6 +25,7 @@ function setup() {
   _out Run the command: source iks-scripts/cluster-config.sh
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
   _out ------------------------------------------------------------------------------------
+  
   _out kiali
   command1="kubectl -n istio-system port-forward $"
   command2="(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001"

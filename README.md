@@ -28,6 +28,9 @@ The next screenshot shows the web application. More screenshots are in the [imag
 
 Follow these [instructions](LocalEnvironment.md) to set up the local environment with Minikube and Istio. This should not take longer than 30 minutes.
 
+### Setup for IBM Cloud Kubernetes Service
+
+If you would like to run Cloud Native Starter not locally but on IBM Cloud Kubernetes Service, follow these [instructions](IKS-Deployment.md). 
 
 ### Deployment
 

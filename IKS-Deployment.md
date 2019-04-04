@@ -104,12 +104,12 @@ $ kubectl label namespace default istio-injection=enabled
 To deploy (or redeploy) run these scripts:
 
 ```
-$ iks-scripts/IKS-deploy-articles-java-jee.sh
-$ iks-scripts/IKS-deploy-web-api-java-jee.sh
-$ iks-scripts/IKS-deploy-authors-nodejs.sh
-$ iks-scripts/IKS-deploy-web-app-vuejs.sh
+$ iks-scripts/deploy-articles-java-jee.sh
+$ iks-scripts/deploy-web-api-java-jee.sh
+$ iks-scripts/deploy-authors-nodejs.sh
+$ iks-scripts/deploy-web-app-vuejs.sh
 $ scripts/deploy-istio-ingress-v1.sh
-$ iks-scripts/IKS-show-urls.sh
+$ iks-scripts/show-urls.sh
 ```
 After running all (!) the scripts above, you will get a list of all URLs in the terminal. All these commands use kubectl which requires that the kube environment is set with `source iks-scripts/cluster-config.sh`. This is required every time you start a new shell.
 
@@ -120,7 +120,7 @@ After running all (!) the scripts above, you will get a list of all URLs in the 
 Run these scripts to deploy version 2 of the web-api and then apply Istio traffic routing to send 80% of the traffic to version 1, 20% to version 2:
 
 ```
-$ iks-scripts/IKS-deploy-web-api-java-jee-v2.sh
+$ iks-scripts/deploy-web-api-java-jee-v2.sh
 $ scripts/deploy-istio-ingress-v1-v2.sh
 ``` 
 
