@@ -29,6 +29,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @RequestScoped
 @Path("/v1")
@@ -40,6 +41,9 @@ public class GetArticles {
 	
 	@Inject
 	ArticleAsJson articleAsJson;
+
+	//@Inject
+  //private JsonWebToken jwtPrincipal;
 
 	@Timed(name = "getArticlesTimed",
 	        absolute = true,
@@ -62,6 +66,8 @@ public class GetArticles {
 	@Operation(summary = "Get most recently added articles", description = "Get most recently added articles")
 	public Response getArticles() {
 		System.out.println("com.ibm.web-api.apis.GetArticles.getArticles");
+		//System.out.println(this.jwtPrincipal.getName());
+		//System.out.println(this.jwtPrincipal);
 		JsonArray jsonArray;
 		try {
 			List<Article> articles = service.getArticles();
