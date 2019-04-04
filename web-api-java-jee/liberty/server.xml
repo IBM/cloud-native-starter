@@ -6,10 +6,25 @@
         <feature>microProfile-2.1</feature>
         <feature>usr:opentracingZipkin-0.31</feature>    
         <feature>monitor-1.0</feature> 
+        <feature>mpJwt-1.1</feature>
+        <feature>appSecurity-3.0</feature>
     </featureManager>
 
     <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="9080" httpsPort="9443"/>
     
-    <mpMetrics authentication="false"/>    
+    <mpMetrics authentication="false"/>  
 
+<!--
+    <mpJwt id="jwt" 
+        keyName="jwt"  
+        issuer="testing@secure.istio.io"
+        ignoreApplicationAuthMethod="false"
+        jwksUri="https://raw.githubusercontent.com/istio/istio/release-1.1/security/tools/jwt/samples/jwks.json" />  
+
+    <keyStore id="jwt" 
+        alias="jwt"
+        location="keystore.jceks" 
+        type="JCEKS" 
+        password="secret" />
+-->
 </server>

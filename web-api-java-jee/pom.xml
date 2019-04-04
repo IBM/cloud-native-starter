@@ -25,6 +25,35 @@
 
 	<build>
 		<finalName>web-api</finalName>
+		<!--
+		 <plugins>
+		  <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+							<execution>
+									<id>copy-keystore-to-liberty</id>
+									<phase>package</phase>
+									<goals>
+											<goal>unpack</goal>
+									</goals>
+									<configuration>
+											<artifactItems>
+													<artifact>
+															<groupId>com.ibm.cloud</groupId>
+															<artifactId>resources</artifactId>
+															<type>jar</type>
+															<overWrite>false</overWrite>
+															<outputDirectory>${project.build.directory}</outputDirectory>
+															<includes>keystore.jceks</includes>
+													</artifact>
+											</artifactItems>
+									</configuration>
+							</execution>
+					</executions>
+        </plugin>
+		</plugins>
+		-->
 	</build>
 
 	<properties>
