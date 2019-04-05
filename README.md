@@ -138,6 +138,7 @@ $ scripts/delete-istio-ingress.sh
 * [Niklas Heidloff](https://twitter.com/nheidloff)
 * [Harald Uebele](https://twitter.com/harald_u)
 
+
 ### Documentation
 
 Here is a series of blog entries about this project:
