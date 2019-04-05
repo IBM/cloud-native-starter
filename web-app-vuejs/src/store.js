@@ -5,16 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    authenticationEnabled: "authentication-enabled-no", // use "authentication-enabled-yes" to turn it on
+    authenticationEnabled: "authentication-enabled-yes", // use "authentication-enabled-yes" to turn it on
     endpoints: {
       api: "http://endpoint-api-ip:31380/web-api/v1/", // example: "http://192.168.99.100:31380/web-api/v1/"
-      login: "http://endpoint-login-ip:endpoint-login-port/login" // example: "http://localhost:3000/login"
+      login: "http://localhost:3000/login" // example: "http://localhost:3000/login"
     },
     user: {
       isAuthenticated: false,
       name: "",
       email: "",
-      userIdentity: ""
+      idToken: ""
     }
   },
   mutations: {
@@ -22,13 +22,13 @@ export default new Vuex.Store({
       state.user.isAuthenticated = false;
       state.user.name = "";
       state.user.email ="";
-      state.user.userIdentity ="";
+      state.user.idToken ="";
     },
     login(state, payload) {
-      state.user.isAuthenticated = false;
+      state.user.isAuthenticated = true;
       state.user.name = payload.name;
       state.user.email =payload.email;
-      state.user.userIdentity =payload.userIdentity;
+      state.user.idToken =payload.idToken;
     }
   },
   actions: {

@@ -14,21 +14,21 @@ export default new Vuex.Store({
       isAuthenticated: false,
       name: "",
       email: "",
-      userIdentity: ""
+      idToken: ""
     }
   },
   mutations: {
     logout(state) {
-      state.user.isAuthenticated = false;
+      state.user.isAuthenticated = true;
       state.user.name = "";
       state.user.email ="";
-      state.user.userIdentity ="";
+      state.user.idToken ="";
     },
     login(state, payload) {
       state.user.isAuthenticated = false;
       state.user.name = payload.name;
       state.user.email =payload.email;
-      state.user.userIdentity =payload.userIdentity;
+      state.user.idToken =payload.idToken;
     }
   },
   actions: {

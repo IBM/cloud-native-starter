@@ -23,7 +23,7 @@
       </b-navbar-nav>
     </b-navbar>
     <div style="margin-left:20px;margin-right:20px">
-      <Home/>
+      <router-view/>
     </div>
   </div>
 </template>
