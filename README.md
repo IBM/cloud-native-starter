@@ -133,6 +133,11 @@ $ scripts/delete-web-app-vuejs.sh
 $ scripts/delete-istio-ingress.sh
 ```
 
+### Authors
+
+* [Niklas Heidloff](https://twitter.com/nheidloff)
+* [Harald Uebele](https://twitter.com/harald_u)
+
 
 ### Documentation
 
