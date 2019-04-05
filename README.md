@@ -29,7 +29,7 @@ The next screenshot shows the web application. More screenshots are in the [imag
 
 The sample application can be run locally on Minikube or on the IBM Cloud. The following instructions describe how to install everything locally.
 
-If you would like to run the cloud native started application  on IBM Cloud Kubernetes Service, follow these [instructions](IKS-Deployment.md). 
+If you would like to run the cloud native starter application on IBM Cloud Kubernetes Service, follow these [instructions](IKS-Deployment.md). 
 
 Before the microservices can be installed, make sure you've set up Minikube and Istio correctly or follow these [instructions](LocalEnvironment.md) to set up Minikube and Istio from scratch. This should not take longer than 30 minutes.
 
