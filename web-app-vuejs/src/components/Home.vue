@@ -51,7 +51,7 @@ export default {
   name: "Home",
   data() {
     return {
-      webApiUrl: "http://149.81.74.3:31380/web-api/v1/getmultiple",
+      webApiUrl: this.$store.state.endpoints.api + "getmultiple",
       articles: [],
       loading: false,
       error: ""

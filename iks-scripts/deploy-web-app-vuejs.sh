@@ -15,15 +15,14 @@ function _out() {
 }
 
 function configureVUEminikubeIP(){
-  cd ${root_folder}/web-app-vuejs/src/components
+  cd ${root_folder}/web-app-vuejs/src
   
-  _out configureVUEIP
+  _out configure API endpoint in web-app
   clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
 
-  _out _copy App.vue template definition
-  rm "Home.vue"
-  cp "Home-template.vue" "Home.vue"
-  sed "s/MINIKUBE_IP/$clusterip/g" Home-template.vue > Home.vue
+  rm "store.js"
+  cp "store.js.template" "store.js"
+  sed "s/endpoint-api-ip/$clusterip/g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs
 }
@@ -44,6 +43,9 @@ function setup() {
   sed "s+web-app:1+$REGISTRY/$REGISTRY_NAMESPACE/web-app:1+g" deployment/kubernetes.yaml > deployment/IKS-kubernetes.yaml
   kubectl apply -f deployment/IKS-kubernetes.yaml
   kubectl apply -f deployment/istio.yaml
+
+  cd ${root_folder}/web-app-vuejs/src
+  cp "store.js.template" "store.js"
 
   clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
   nodeport=$(kubectl get svc web-app --output 'jsonpath={.spec.ports[*].nodePort}')
