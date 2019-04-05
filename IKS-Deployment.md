@@ -2,9 +2,17 @@
 
 If you want to deploy the Cloud Native Starter on IBM Cloud Kubernetes Service (IKS), the IBM managed Kubernetes offering, then follow these steps. They will create a Kubernetes Lite Cluster with Istio enabled and a namespace in the IBM Container Registry (ICR) where the container images of the microservices will be created, stored, and made available for Kubernetes deployments. By default, deployment is in Dallas, USA (us-south). If you already have a lite cluster in Dallas, these scripts will not work because only one lite cluster is allowed. 
 
-A Kubernetes lite cluster itself is free of charge but it can not be created in a IBM Cloud Lite account. In order to create one either a credit card needs to be entered into the IBM Cloud account or you need a promo code which you can sometimes get at conferences where IBM is present.
+A Kubernetes lite cluster itself is free of charge but it can not be created in a IBM Cloud Lite account. In order to create one either a credit card needs to be entered into the IBM Cloud account or you need a promo code which you can sometimes get at conferences where IBM is present. Or contact us, Harald or Niklas, our Twitter links are in the README, and we'll try to get one for you. 
 
+
+### Get the code:
+
+```
+$ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ cd cloud-native-starter
+```
 ### Prerequisites:
+Most important: an IBM Cloud account, you can register for a free account [here](http://ibm.biz/nheidloff).
 
 * [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
 * [curl](https://curl.haxx.se/download.html)
@@ -16,14 +24,6 @@ Run this script to check the prerequisites:
 
 ```
 $ iks-scripts/IKS-check-prerequisites.sh
-```
-
-
-### Get the code:
-
-```
-$ git clone https://github.com/nheidloff/cloud-native-starter.git
-$ cd cloud-native-starter
 ```
 
 ### To prepare the deployment on IBM Cloud:
