@@ -1,20 +1,20 @@
-# Cloud Native Starter for Java and Node.js
+## Cloud Native Starter for Java EE based Microservices on Kubernetes and Istio
 
-This project contains sample code that shows how to build cloud-native applications with JavaEE and Node.js and deploy them to Kubernetes and Istio.
+This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. 
+
+The project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
+
+The microservices can be easily deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/) or the [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service).
 
 The project showcases the following functionality:
 
-* JavaEE (with MicroProfile) and Node.js microservices
-* Distributed tracing
-* Traffic management
-* Resiliency via fallbacks and circuit breakers
 * REST APIs implementations incl. documentation
 * REST API invocations
-* Distributed logging
-* Metrics
+* Traffic management
+* Resiliency via fallbacks and circuit breakers
 * Authentication and authorization
-* Configuration
-* Deployments
+* Distributed tracing and logging
+* Monitoring and metrics
 
 This diagram shows the key components:
 
@@ -24,15 +24,16 @@ The next screenshot shows the web application. More screenshots are in the [imag
 
 <kbd><img src="images/web-app.png" /></kbd>
 
-### Local Environment Setup
 
-Follow these [instructions](LocalEnvironment.md) to set up the local environment with Minikube and Istio. This should not take longer than 30 minutes.
+### Setup
 
-### Setup for IBM Cloud Kubernetes Service
+The sample application can be run locally on Minikube or on the IBM Cloud. The following instructions describe how to install everything locally.
 
-If you would like to run Cloud Native Starter not locally but on IBM Cloud Kubernetes Service, follow these [instructions](IKS-Deployment.md). 
+If you would like to run the cloud native started application  on IBM Cloud Kubernetes Service, follow these [instructions](IKS-Deployment.md). 
 
-### Deployment
+Before the microservices can be installed, make sure you've set up Minikube and Istio correctly or follow these [instructions](LocalEnvironment.md) to set up Minikube and Istio from scratch. This should not take longer than 30 minutes.
+
+The microservices can be installed via scripts. In addition to Minikube and Istio you need the following tools to be installed.
 
 Prerequisites:
 
@@ -40,7 +41,6 @@ Prerequisites:
 * [curl](https://curl.haxx.se/download.html)
 * [docker](https://docs.docker.com/install/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [minikube](LocalEnvironment.md) and Istio and Kiali
 
 Deploy (and redeploy):
 
@@ -70,7 +70,7 @@ Example API endpoint: http://192.168.99.100:31380/web-api/v1/getmultiple
 
 ### Demo - Traffic Routing
 
-In order to demonstrate traffic routing you can run the following commands. 20 % of the web-api API request to read articles will now return 10 instead of 5 articles which is version 2. 80 % of the requests are still showing only 5 articles which is version 1. This distribution is set in `istio/istio-ingress-service-web-api-v1-v2-80-20.yaml` (weight: 80 vs. weight: 20).
+In order to demonstrate traffic routing you can run the following commands. 20 % of the web-api API request to read articles will now return 10 instead of 5 articles which is version 2. 80 % of the requests are still showing only 5 articles which is version 1. 
 
 ```
 $ scripts/deploy-web-api-java-jee-v2.sh
@@ -78,6 +78,7 @@ $ scripts/deploy-istio-ingress-v1-v2.sh
 ```
 
 <kbd><img src="images/traffic-management-1.png" /></kbd>
+
 
 ### Demo - Resiliency
 
@@ -92,6 +93,7 @@ In the next step delete the articles service:
 ```
 $ scripts/delete-web-api-java-jee.sh
 ```
+
 
 ### Demo - Metrics
 
@@ -110,6 +112,7 @@ After this wait until the Prometheus pod has been restarted. Then run the comman
 The metrics are displayed in the Prometheus UI (http://localhost:9090) when you search for 'web-api' or 'articles'.
 
 For example the [amount](images/prometheus-1.png) of times /web-api/v1/getmultiple has been invoked can be displayed as well as the [duration](images/prometheus-2.png) of these requests.
+
 
 ### Cleanup
 
@@ -145,21 +148,15 @@ Here is a series of blog entries about this project:
 * [Implementing and documenting REST APIs with JavaEE](http://heidloff.net/article/rest-apis-microprofile-javaee-jaxrs)
 * [Invoking REST APIs from Java Microservices](http://heidloff.net/invoke-rest-apis-java-microprofile-microservice)
 * [Prometheus Metrics for MicroProfile Microservices in Istio](http://heidloff.net/article/prometheus-metrics-microprofile-microservices-istio/)
-* Deployment to IBM Cloud
-* Distributed logging with IBM Log Analysis with LogDNA
+* [Moving from Minikube to IBM Cloud Kubernetes Service](https://haralduebele.blog/2019/04/04/moving-from-minikube-to-ibm-cloud-kubernetes-service/)
+* Distributed logging with LogDNA
 * Monitoring with IBM Cloud Monitoring with Sysdig
 * Istio Healthchecks for MicroProfile Microservices 
-* cf push-like Deployments of Microservices via Scripts
-* Template to create new Java EE Microservice
-* Clean-ish Architecture for Java EE Microservices
 * Configuration of MicroProfile Microservices in Istio
-* Authentication and Authorization
-* Displaying Metrics in Grafana and Kiali
+* Authentication via OpenID Connect
+* Authorization via Istio
+* Authorization via MicroProfile
 * SQL PersistenceSQL via JPA and JDBC
-* Reducing the Size of the Open Liberty Images
-* Sample stateful Microservice
-* Lightweight API Management
-* Sample Microservices with Spring and Micronaut
 
 Here is more information about Microservices, MicroProfile and Istio:
 
