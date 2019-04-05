@@ -51,6 +51,4 @@ istio/web-api.*
 iks-scripts/*.log
 iks-scripts/cluster-config.sh
 IKS*.yaml
-authentication-nodejs
 web-app-vuejs/package-lock.json
-

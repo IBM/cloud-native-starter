@@ -1,0 +1,17 @@
+{
+  "name": "auth-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "dotenv": "7.0.0",
+    "express": "4.16.4",
+    "express-session": "1.15.6",
+    "openid-client": "2.4.5"
+  }
+}
