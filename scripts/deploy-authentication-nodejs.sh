@@ -14,6 +14,7 @@ function setup() {
   cd ${root_folder}/authentication-nodejs
   kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
   kubectl delete -f deployment/istio.yaml --ignore-not-found
+  kubectl delete -f deployment/istio-egress.yaml --ignore-not-found
   
   cd ${root_folder}/authentication-nodejs
   eval $(minikube docker-env)
@@ -22,6 +23,7 @@ function setup() {
   cd ${root_folder}/authentication-nodejs/deployment
   kubectl apply -f kubernetes.yaml
   kubectl apply -f istio.yaml
+  kubectl apply -f istio-egress.yaml
 
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc authentication --output 'jsonpath={.spec.ports[*].nodePort}')

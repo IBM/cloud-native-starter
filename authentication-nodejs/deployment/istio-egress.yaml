@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: authentication-egress
+spec:
+  hosts:
+  - "*.appid.cloud.ibm.com"
+  ports:
+  - number: 443
+    name: tls
+    protocol: TLS
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: authentication-egress
+spec:
+  hosts:
+  - "*.appid.cloud.ibm.com"
+  tls:
+  - match:
+    - port: 443
+      sni_hosts:
+      - "*.appid.cloud.ibm.com"
+    route:
+    - destination:
+        host: "*.appid.cloud.ibm.com"
+        port:
+          number: 443
+      weight: 100

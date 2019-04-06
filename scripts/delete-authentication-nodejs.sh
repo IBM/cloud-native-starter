@@ -14,6 +14,7 @@ function setup() {
   cd ${root_folder}/authentication-nodejs
   kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
   kubectl delete -f deployment/istio.yaml --ignore-not-found
+  kubectl delete -f deployment/istio-egress.yaml --ignore-not-found
   
   _out Done deleting authentication-nodejs
 }

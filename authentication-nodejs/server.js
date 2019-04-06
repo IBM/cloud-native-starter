@@ -33,10 +33,11 @@ let authorizationUrl = client.authorizationUrl({
 console.log(authorizationUrl)
 
 app.get('/callback', (req, res) => {
+  console.log('callback invoked')
   client.authorizationCallback(process.env.REDIRECT_URL_CALLBACK,
     req.query, { 'response_type': 'code' })
     .then(function (tokenSet) {
-
+      console.log('token received')
       client.userinfo(tokenSet.access_token)
         .then(function (userinfo) {
           res.redirect(process.env.REDIRECT_URL_WEB_APP +
@@ -46,6 +47,7 @@ app.get('/callback', (req, res) => {
           );
         })
         .catch(function (error) {
+          console.log('nik error')
           console.log(error);
           res.redirect(process.env.REDIRECT_URL_WEB_APP);
         })
