@@ -99,7 +99,7 @@ function setup() {
   minikubeip=$(minikube ip)
   REDIRECT_URL_CALLBACK=http://$minikubeip:31380/callback
   printf "\nREDIRECT_URL_CALLBACK=$REDIRECT_URL_CALLBACK" >> $ENV_NODEJS_FILE
-  REDIRECT_URL_WEB_APP=http://$minikubeip:31380/login
+  REDIRECT_URL_WEB_APP=http://$minikubeip:31380/loginwithtoken
   printf "\nREDIRECT_URL_WEB_APP=$REDIRECT_URL_WEB_APP" >> $ENV_NODEJS_FILE
   
   DEMO_EMAIL=user@demo.email
