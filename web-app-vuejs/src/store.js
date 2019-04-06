@@ -19,13 +19,13 @@ export default new Vuex.Store({
   },
   mutations: {
     logout(state) {
-      state.user.isAuthenticated = true;
+      state.user.isAuthenticated = false;
       state.user.name = "";
       state.user.email ="";
       state.user.idToken ="";
     },
     login(state, payload) {
-      state.user.isAuthenticated = false;
+      state.user.isAuthenticated = true;
       state.user.name = payload.name;
       state.user.email =payload.email;
       state.user.idToken =payload.idToken;
