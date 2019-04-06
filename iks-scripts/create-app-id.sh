@@ -2,12 +2,12 @@
 
 root_folder=$(cd $(dirname $0); pwd)
 
-# SETUP logging (redirect stdout and stderr to a log file)
 readonly LOG_FILE="${root_folder}/create-app-id.log"
 readonly ENV_FILE="${root_folder}/../local.env"
+readonly ENV_NODEJS_FILE="${root_folder}/../authentication-nodejs/.env"
 touch $LOG_FILE
-exec 3>&1 # Save stdout
-exec 4>&2 # Save stderr
+exec 3>&1 
+exec 4>&2 
 exec 1>$LOG_FILE 2>&1
 
 function _out() {
@@ -48,41 +48,59 @@ function setup() {
   ibmcloud resource service-key-create app-id-cloud-native-starter-credentials Reader --instance-name app-id-cloud-native-starter
   ibmcloud resource service-key app-id-cloud-native-starter-credentials
 
+  rm $ENV_NODEJS_FILE
+  touch $ENV_NODEJS_FILE
+
   APPID_ISSUER=$(ibmcloud resource service-key app-id-cloud-native-starter-credentials | awk '/oauthServerUrl/{ print $2 }')
   _out APPID_ISSUER: $APPID_ISSUER
   printf "\nAPPID_ISSUER=$APPID_ISSUER" >> $ENV_FILE
+  printf "APPID_ISSUER=$APPID_ISSUER" >> $ENV_NODEJS_FILE
 
   APPID_OPENID_CONFIG=$APPID_ISSUER/.well-known/openid-configuration
   _out APPID_OPENID_CONFIG: $APPID_OPENID_CONFIG
   printf "\nAPPID_OPENID_CONFIG=$APPID_OPENID_CONFIG" >> $ENV_FILE
+  printf "\nAPPID_OPENID_CONFIG=$APPID_OPENID_CONFIG" >> $ENV_NODEJS_FILE
 
   APPID_AUTHORIZATION_ENDPOINT=$APPID_ISSUER/authorization
   _out APPID_AUTHORIZATION_ENDPOINT: $APPID_AUTHORIZATION_ENDPOINT
   printf "\nAPPID_AUTHORIZATION_ENDPOINT=$APPID_AUTHORIZATION_ENDPOINT" >> $ENV_FILE
+  printf "\nAPPID_AUTHORIZATION_ENDPOINT=$APPID_AUTHORIZATION_ENDPOINT" >> $ENV_NODEJS_FILE
 
   APPID_TOKEN_ENDPOINT=$APPID_ISSUER/token
   _out APPID_TOKEN_ENDPOINT: $APPID_TOKEN_ENDPOINT
   printf "\nAPPID_TOKEN_ENDPOINT=$APPID_TOKEN_ENDPOINT" >> $ENV_FILE
+  printf "\nAPPID_TOKEN_ENDPOINT=$APPID_TOKEN_ENDPOINT" >> $ENV_NODEJS_FILE
 
   APPID_USERINFO_ENDPOINT=$APPID_ISSUER/userinfo
   _out APPID_USERINFO_ENDPOINT: $APPID_USERINFO_ENDPOINT
   printf "\nAPPID_USERINFO_ENDPOINT=$APPID_USERINFO_ENDPOINT" >> $ENV_FILE
+  printf "\nAPPID_USERINFO_ENDPOINT=$APPID_USERINFO_ENDPOINT" >> $ENV_NODEJS_FILE
 
   APPID_JWKS_URI=$APPID_ISSUER/publickeys
   _out APPID_JWKS_URI: $APPID_JWKS_URI
   printf "\nAPPID_JWKS_URI=$APPID_JWKS_URI" >> $ENV_FILE
+  printf "\nAPPID_JWKS_URI=$APPID_JWKS_URI" >> $ENV_NODEJS_FILE
 
   APPID_CLIENTID=$(ibmcloud resource service-key app-id-cloud-native-starter-credentials | awk '/clientId/{ print $2 }')
   _out APPID_CLIENTID: $APPID_CLIENTID
   printf "\nAPPID_CLIENTID=$APPID_CLIENTID" >> $ENV_FILE
+  printf "\nAPPID_CLIENTID=$APPID_CLIENTID" >> $ENV_NODEJS_FILE
 
   APPID_SECRET=$(ibmcloud resource service-key app-id-cloud-native-starter-credentials | awk '/secret/{ print $2 }')
   _out APPID_SECRET: $APPID_SECRET
   printf "\nAPPID_SECRET=$APPID_SECRET" >> $ENV_FILE
+  printf "\nAPPID_SECRET=$APPID_SECRET" >> $ENV_NODEJS_FILE
 
   APPID_MGMTURL=$(ibmcloud resource service-key app-id-cloud-native-starter-credentials | awk '/managementUrl/{ print $2 }')
   _out APPID_MGMTURL: $APPID_MGMTURL
   printf "\nAPPID_MGMTURL=$APPID_MGMTURL" >> $ENV_FILE
+  printf "\nAPPID_MGMTURL=$APPID_MGMTURL" >> $ENV_NODEJS_FILE
+
+  minikubeip=$(minikube ip)
+  REDIRECT_URL_CALLBACK=http://$minikubeip:31380/callback
+  printf "\nREDIRECT_URL_CALLBACK=$REDIRECT_URL_CALLBACK" >> $ENV_NODEJS_FILE
+  REDIRECT_URL_WEB_APP=http://$minikubeip:31380/login
+  printf "\nREDIRECT_URL_WEB_APP=$REDIRECT_URL_WEB_APP" >> $ENV_NODEJS_FILE
   
   DEMO_EMAIL=user@demo.email
   DEMO_PASSWORD=verysecret
@@ -101,15 +119,13 @@ function setup() {
     "${APPID_MGMTURL}/cloud_directory/Users"
 
   _out Creating redirect URL in App ID
-  minikubeip=$(minikube ip)
-  API_LOGIN=http://$minikubeip:31380/callback
   IBMCLOUD_BEARER_TOKEN=$(ibmcloud iam oauth-tokens | awk '/IAM/{ print $3" "$4 }')
   curl -s -X PUT \
     --header 'Content-Type: application/json' \
     --header 'Accept: application/json' \
     --header "Authorization: $IBMCLOUD_BEARER_TOKEN" \
     -d '{"redirectUris": [
-            "'$API_LOGIN'", "http://localhost:3000/callback"]
+            "'$REDIRECT_URL_CALLBACK'", "http://localhost:3000/callback"]
         }' \
     "${APPID_MGMTURL}/config/redirect_uris"
 }

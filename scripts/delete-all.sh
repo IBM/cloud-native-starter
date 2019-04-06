@@ -18,6 +18,8 @@ function setup() {
 
   scripts/delete-authors-nodejs.sh
 
+  scripts/delete-authentication-nodejs.sh
+
   scripts/delete-web-api-java-jee.sh
   
   scripts/delete-web-app-vuejs.sh

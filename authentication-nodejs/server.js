@@ -13,22 +13,22 @@ app.use(session({
 }));
 
 const issuer = new Issuer({
-  issuer: process.env.ISSUER,
-  authorization_endpoint: process.env.AUTHORIZATION_ENDPOINT,
-  token_endpoint: process.env.TOKEN_ENDPOINT,
-  userinfo_endpoint: process.env.USERINFO_ENDPOINT,
-  jwks_uri: process.env.JWKS_URI,
+  issuer: process.env.APPID_ISSUER,
+  authorization_endpoint: process.env.APPID_AUTHORIZATION_ENDPOINT,
+  token_endpoint: process.env.APPID_TOKEN_ENDPOINT,
+  userinfo_endpoint: process.env.APPID_USERINFO_ENDPOINT,
+  jwks_uri: process.env.APPID_JWKS_URI,
 });
 console.log('Issuer %s %O', issuer.issuer, issuer.metadata);
 
 const client = new issuer.Client({
-  client_id: process.env.CLIENT_ID,
-  client_secret: process.env.CLIENT_SECRET
+  client_id: process.env.APPID_CLIENTID,
+  client_secret: process.env.APPID_SECRET
 });
 
 let authorizationUrl = client.authorizationUrl({
   redirect_uri: process.env.REDIRECT_URL_CALLBACK,
-  scope: process.env.SCOPE
+  scope: 'openid email profile'
 });
 console.log(authorizationUrl)
 

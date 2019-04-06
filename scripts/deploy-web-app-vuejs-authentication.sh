@@ -15,6 +15,9 @@ function configureVUEminikubeIP(){
   rm "store.js"
   cp "store.js.template" "store.js"
   sed "s/endpoint-api-ip/$minikubeip/g" store.js.template > store.js
+  sed "s/endpoint-login-ip/$minikubeip/g" store.js.template > store.js
+  sed "s/endpoint-login-port/31380/g" store.js.template > store.js
+  sed "s/authentication-enabled-no/authentication-enabled-yes/g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs
 }

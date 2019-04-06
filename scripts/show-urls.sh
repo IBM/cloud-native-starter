@@ -60,6 +60,21 @@ function setup() {
   fi
   _out ------------------------------------------------------------------------------------
   
+  _out authentication
+  nodeport=$(kubectl get svc authentication --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+  if [ -z "$nodeport" ]; then
+    _out authentication is not available. Run 'scripts/deploy-authentication-nodejs.sh'
+  else 
+    ingress=$(kubectl get gateway --ignore-not-found default-gateway-ingress-http --output 'jsonpath={.spec}')
+    if [ -z "$ingress" ]; then
+      _out Ingress not available. Run 'scripts/deploy-istio-ingress-v1.sh'
+    else
+      _out Login URL: http://${minikubeip}:31380/login
+      _out User: user@demo.email / Password: verysecret
+    fi
+  fi
+  _out ------------------------------------------------------------------------------------
+
   _out web-api
   nodeport=$(kubectl get svc web-api --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
   if [ -z "$nodeport" ]; then
