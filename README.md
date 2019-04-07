@@ -99,7 +99,7 @@ $ scripts/delete-web-api-java-jee.sh
 
 The web-api service [produces](https://github.com/nheidloff/cloud-native-starter/blob/master/web-api-java-jee/src/main/java/com/ibm/webapi/apis/GetArticles.java) some application specific metrics. 
 
-Run 'scripts/show-urls.sh' to get the URL to display the [unformatted](images/prometheus-3.png) metrics of this microservice (for example http://192.168.99.100:31223/metrics/application) as well as the URL to generate load (for example http://192.168.99.100:31223/web-api/v1/getmultiple).
+Run 'scripts/show-urls.sh' to get the URL to display the [unformatted](images/prometheus-3.png) metrics of this microservice as well as the URL to generate load. You can also run 'scripts/show-urls.sh' for a list of all relevant URLs.
 
 In order to display the metrics with the Prometheus UI, Prometheus needs to be configured first:
 
