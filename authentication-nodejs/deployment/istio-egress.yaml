@@ -4,11 +4,13 @@ metadata:
   name: authentication-egress
 spec:
   hosts:
-  - "*.appid.cloud.ibm.com"
+  - us-south.appid.cloud.ibm.com
   ports:
   - number: 443
-    name: tls
-    protocol: TLS
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -16,15 +18,15 @@ metadata:
   name: authentication-egress
 spec:
   hosts:
-  - "*.appid.cloud.ibm.com"
+  - us-south.appid.cloud.ibm.com
   tls:
   - match:
     - port: 443
       sni_hosts:
-      - "*.appid.cloud.ibm.com"
+      - us-south.appid.cloud.ibm.com
     route:
     - destination:
-        host: "*.appid.cloud.ibm.com"
+        host: us-south.appid.cloud.ibm.com
         port:
           number: 443
       weight: 100

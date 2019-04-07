@@ -12,6 +12,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
+Issuer.defaultHttpOptions = { timeout: 15000 }
+
 const issuer = new Issuer({
   issuer: process.env.APPID_ISSUER,
   authorization_endpoint: process.env.APPID_AUTHORIZATION_ENDPOINT,
@@ -20,6 +22,7 @@ const issuer = new Issuer({
   jwks_uri: process.env.APPID_JWKS_URI,
 });
 console.log('Issuer %s %O', issuer.issuer, issuer.metadata);
+issuer.defaultHttpOptions = { timeout: 15000 }
 
 const client = new issuer.Client({
   client_id: process.env.APPID_CLIENTID,
@@ -33,11 +36,9 @@ let authorizationUrl = client.authorizationUrl({
 console.log(authorizationUrl)
 
 app.get('/callback', (req, res) => {
-  console.log('callback invoked')
   client.authorizationCallback(process.env.REDIRECT_URL_CALLBACK,
     req.query, { 'response_type': 'code' })
     .then(function (tokenSet) {
-      console.log('token received')
       client.userinfo(tokenSet.access_token)
         .then(function (userinfo) {
           res.redirect(process.env.REDIRECT_URL_WEB_APP +
