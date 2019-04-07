@@ -2,7 +2,7 @@
 
 In order to authenticate users, you need an OpenID identity provider. 
 
-You can you [App ID](https://console.bluemix.net/catalog/services/appid) or you an OpenID identity provider of your choice.
+You can you [IBM App ID](https://console.bluemix.net/catalog/services/appid) or you can use an OpenID identity provider of your choice.
 
 Before running the scripts below, make sure you can [access the IBM Cloud](setup-ibm-cloud-access.md).
 
@@ -25,17 +25,17 @@ $ ibm-scripts/create-app-id.sh
 
 The IBM Cloud lite plan only allows one App ID instance in your organization. If you have an App ID instance, you can use it rather than creating a new one. 
 
-In this case copy the App ID credentials in [authentication-nodejs/.env](../authentication-nodejs/.env). Check out [authentication-nodejs/.env.template](../authentication-nodejs/.env.template) for an example.
+In this case paste the App ID credentials in [authentication-nodejs/.env](../authentication-nodejs/.env). Check out [authentication-nodejs/.env.template](../authentication-nodejs/.env.template) for an example.
 
 
 **Use another OpenID identify provider**
 
-You can you any OpenID identity provider. In this case copy the endpoint URLs in [authentication-nodejs/.env](../authentication-nodejs/.env). Check out [authentication-nodejs/.env.template](../authentication-nodejs/.env.template) for an example.
+You can you any OpenID identity provider. In this case paste the endpoint URLs in [authentication-nodejs/.env](../authentication-nodejs/.env). Check out [authentication-nodejs/.env.template](../authentication-nodejs/.env.template) for an example.
 
 
 **Set up the Demo**
 
-Inovoke the following commands. Skip the ones you've already executed.
+Invoke the following commands to set up the demo. Skip the commands you've already executed.
 
 ```
 $ git clone https://github.com/nheidloff/cloud-native-starter.git
