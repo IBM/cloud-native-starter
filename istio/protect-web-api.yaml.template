@@ -7,6 +7,9 @@ spec:
   - name: web-api
   origins:
   - jwt:
-      issuer: "appid-oauth.ng.bluemix.net"
-      jwksUri: "https://appid-oauth.ng.bluemix.net/oauth/v3/892d676a-4e9d-48c9-82bd-1d49091d232f/publickeys"
+      issuer: "APPID_ISSUER"
+      jwksUri: "APPID_JWKS_URI"
+      trigger_rules:
+      - included_paths:
+        - exact: /create
   principalBinding: USE_ORIGIN

@@ -53,3 +53,4 @@ ibm-scripts/*.log
 iks-scripts/cluster-config.sh
 IKS*.yaml
 web-app-vuejs/package-lock.json
+istio/protect-web-api.yaml
