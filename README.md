@@ -125,7 +125,7 @@ Here is a series of blog entries about this project:
 * Monitoring with IBM Cloud Monitoring with Sysdig
 * Istio Healthchecks for MicroProfile Microservices 
 * Configuration of MicroProfile Microservices in Istio
-* Authentication via OpenID Connect
+* [Authenticating Web Users with OpenID and JWT](http://heidloff.net/article/authenticating-web-users-openid-connect-jwt/)
 * Authorization via Istio
 * Authorization via MicroProfile
 * SQL PersistenceSQL via JPA and JDBC

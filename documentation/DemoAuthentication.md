@@ -4,15 +4,15 @@ In order to authenticate users, you need an OpenID identity provider.
 
 You can use [IBM App ID](https://console.bluemix.net/catalog/services/appid) or you can use an OpenID identity provider of your choice.
 
-Before running the scripts below, make sure you can [access the IBM Cloud](SetupIBMCloudAccess).
+Before running the scripts below, make sure you can [access the IBM Cloud](SetupIBMCloudAccess.md).
 
 
 **Create new App ID service instance**
 
 Run the following command to create these artifacts:
 
-* App ID service instance 'app-id-serverless'
-* App ID Cloud Foundry alias 'app-id-serverless'
+* App ID service instance 'app-id-cloud-native'
+* App ID Cloud Foundry alias 'app-id-cloud-native'
 * App ID credentials
 * App ID test user 'user@demo.email, verysecret'
 * App ID redirect URL
