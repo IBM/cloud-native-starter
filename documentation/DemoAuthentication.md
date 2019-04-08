@@ -2,9 +2,9 @@
 
 In order to authenticate users, you need an OpenID identity provider. 
 
-You can you [IBM App ID](https://console.bluemix.net/catalog/services/appid) or you can use an OpenID identity provider of your choice.
+You can use [IBM App ID](https://console.bluemix.net/catalog/services/appid) or you can use an OpenID identity provider of your choice.
 
-Before running the scripts below, make sure you can [access the IBM Cloud](setup-ibm-cloud-access.md).
+Before running the scripts below, make sure you can [access the IBM Cloud](SetupIBMCloudAccess).
 
 
 **Create new App ID service instance**
@@ -15,6 +15,7 @@ Run the following command to create these artifacts:
 * App ID Cloud Foundry alias 'app-id-serverless'
 * App ID credentials
 * App ID test user 'user@demo.email, verysecret'
+* App ID redirect URL
 
 ```
 $ ibm-scripts/create-app-id.sh
@@ -30,7 +31,7 @@ In this case paste the App ID credentials in [authentication-nodejs/.env](../aut
 
 **Use another OpenID identify provider**
 
-You can you any OpenID identity provider. In this case paste the endpoint URLs in [authentication-nodejs/.env](../authentication-nodejs/.env). Check out [authentication-nodejs/.env.template](../authentication-nodejs/.env.template) for an example.
+You can use any OpenID identity provider. In this case paste the endpoint URLs in [authentication-nodejs/.env](../authentication-nodejs/.env). Check out [authentication-nodejs/.env.template](../authentication-nodejs/.env.template) for an example.
 
 
 **Set up the Demo**
@@ -38,8 +39,7 @@ You can you any OpenID identity provider. In this case paste the endpoint URLs i
 Invoke the following commands to set up the demo. Skip the commands you've already executed.
 
 ```
-$ git clone https://github.com/nheidloff/cloud-native-starter.git
-$ cd cloud-native-starter
+$ cd $PROJECT_HOME
 $ scripts/check-prerequisites.sh
 $ scripts/delete-all.sh
 $ scripts/deploy-articles-java-jee.sh

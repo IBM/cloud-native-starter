@@ -25,19 +25,36 @@ The next screenshot shows the web application. More screenshots are in the [imag
 <kbd><img src="images/web-app.png" /></kbd>
 
 
+### Demos
+
+This project demonstrates several Java EE and Istio key functionality.
+
+* Containerized Java EE Microservices
+* Exposing REST APIs
+* Consuming REST APIs
+* [Traffic Routing](documentation/DemoTrafficRouting.md)
+* [Resiliency](documentation/DemoResiliency.md)
+* [Authentication and Authorization](documentation/DemoAuthentication.md)
+* [Metrics](documentation/DemoMetrics.md)
+* Health Checks
+* Configuration
+* Distributed Logging
+* Monitoring
+
+
 ### Setup
 
 The sample application can be run locally on Minikube or on the IBM Cloud. The following instructions describe how to install everything locally.
 
-If you would like to run the cloud native starter application on IBM Cloud Kubernetes Service, follow these [instructions](IKS-Deployment.md). 
+If you would like to run the cloud native starter application on IBM Cloud Kubernetes Service, follow these [instructions](documentation/IKSDeployment.md). 
 
-Before the microservices can be installed, make sure you've set up Minikube and Istio correctly or follow these [instructions](LocalEnvironment.md) to set up Minikube and Istio from scratch. This should not take longer than 30 minutes.
+Before the microservices can be installed, make sure you've set up Minikube 0.33.1 and Istio 1.1.1 correctly or follow these [instructions](documentation/SetupLocalEnvironment.md) to set up Minikube and Istio from scratch. This should not take longer than 30 minutes.
 
 The microservices can be installed via scripts. In addition to Minikube and Istio you need the following tools to be installed.
 
 Prerequisites:
 
-* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [curl](https://curl.haxx.se/download.html)
 * [docker](https://docs.docker.com/install/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
@@ -56,9 +73,6 @@ $ scripts/deploy-istio-ingress-v1.sh
 $ scripts/show-urls.sh
 ```
 
-
-### Demo - Web Application
-
 After running the scripts above, you will get a list of all URLs in the terminal.
 
 <kbd><img src="images/urls.png" /></kbd>
@@ -66,53 +80,6 @@ After running the scripts above, you will get a list of all URLs in the terminal
 Example URL to open the web app: http://192.168.99.100:31380
 
 Example API endpoint: http://192.168.99.100:31380/web-api/v1/getmultiple
-
-
-### Demo - Traffic Routing
-
-In order to demonstrate traffic routing you can run the following commands. 20 % of the web-api API request to read articles will now return 10 instead of 5 articles which is version 2. 80 % of the requests are still showing only 5 articles which is version 1. 
-
-```
-$ scripts/deploy-web-api-java-jee-v2.sh
-$ scripts/deploy-istio-ingress-v1-v2.sh
-```
-
-<kbd><img src="images/traffic-management-1.png" /></kbd>
-
-
-### Demo - Resiliency
-
-In order to demonstrate resiliency you can run the following command to delete the authors service:
-
-```
-$ scripts/delete-authors-nodejs.sh
-```
-
-In the next step delete the articles service:
-
-```
-$ scripts/delete-web-api-java-jee.sh
-```
-
-
-### Demo - Metrics
-
-The web-api service [produces](https://github.com/nheidloff/cloud-native-starter/blob/master/web-api-java-jee/src/main/java/com/ibm/webapi/apis/GetArticles.java) some application specific metrics. 
-
-Run 'scripts/show-urls.sh' to get the URL to display the [unformatted](images/prometheus-3.png) metrics of this microservice as well as the URL to generate load. You can also run 'scripts/show-urls.sh' for a list of all relevant URLs.
-
-In order to display the metrics with the Prometheus UI, Prometheus needs to be configured first:
-
-```
-$ scripts/configure-prometheus.sh
-```
-
-After this wait until the Prometheus pod has been restarted. Then run the command to forward the Prometheus port which is displayed as result of 'scripts/configure-prometheus.sh'.
-
-The metrics are displayed in the Prometheus UI (http://localhost:9090) when you search for 'web-api' or 'articles'.
-
-For example the [amount](images/prometheus-1.png) of times /web-api/v1/getmultiple has been invoked can be displayed as well as the [duration](images/prometheus-2.png) of these requests.
-
 
 ### Cleanup
 
