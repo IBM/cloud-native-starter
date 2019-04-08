@@ -15,14 +15,14 @@ function checkPrerequisites() {
     which sed &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} sed"
     docker -v &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} docker"
     kubectl version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} kubectl"
-    minikube version || MISSING_TOOLS="${MISSING_TOOLS} minikube"
+    minikube version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} minikube"
     if [[ -n "$MISSING_TOOLS" ]]; then
       _out "Some tools (${MISSING_TOOLS# }) could not be found, please install them first"
       exit 1
     else
       _out You have all necessary prerequisites installed
     fi
-    if ! kubectl describe namespace default | grep istio-injection=enabled ; then
+    if ! kubectl describe namespace default | grep istio-injection=enabled > /dev/null ; then
        _out "Istio automatic sidecar injection needs to be enabled. See LocalEnvironment.md"
     fi   
 }
