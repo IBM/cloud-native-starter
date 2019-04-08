@@ -83,14 +83,14 @@ When the REST API is invoked, the bearer is added:
 
 <kbd><img src="../images/endpoint-protection-istio-4.png" /></kbd>
 
-Watch the [animated gif](endpoint-protection-istio.gif) to see the flow in action.
+Watch the [animated gif](../images/endpoint-protection-istio.gif) to see the flow in action.
 
 
 ### Authorization via MicroProfile
 
 In order to protect functionality on a more fine-grained level, authorization can be handled in the business logic of microservices.
 
-From the web application 'Manage Application' can be invoked which triggers the endpoint '[manage](../web-api-java-jee/src/main/java/com/ibm/webapi/apis/Manage.java)' of the 'web-api' microservice.
+From the web application's dropdown 'Manage Application' can be invoked which triggers the endpoint '[manage](../web-api-java-jee/src/main/java/com/ibm/webapi/apis/Manage.java)' of the 'web-api' microservice.
 
 Only the user 'admin@demo.email' is allowed to invoke this endpoint.
 
