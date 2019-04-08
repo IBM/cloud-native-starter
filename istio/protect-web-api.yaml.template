@@ -11,5 +11,5 @@ spec:
       jwksUri: "APPID_JWKS_URI"
       trigger_rules:
       - included_paths:
-        - exact: /create
+        - exact: /web-api/v1/create
   principalBinding: USE_ORIGIN
