@@ -17,6 +17,20 @@ spec:
           subset: v1
   - match:
     - uri:
+        prefix: /web-api/v1/create 
+    route:
+      - destination:
+          host: web-api
+          subset: v1
+  - match:
+    - uri:
+        prefix: /web-api/v1/manage 
+    route:
+      - destination:
+          host: web-api
+          subset: v1
+  - match:
+    - uri:
         prefix: /openapi/ui/ 
     route:
     - destination:

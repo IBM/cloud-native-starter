@@ -118,6 +118,22 @@ function setup() {
         }' \
     "${APPID_MGMTURL}/cloud_directory/Users"
 
+  DEMO_EMAIL=admin@demo.email
+  DEMO_PASSWORD=verysecret
+  _out Creating cloud directory test admin: $DEMO_EMAIL, $DEMO_PASSWORD
+  IBMCLOUD_BEARER_TOKEN=$(ibmcloud iam oauth-tokens | awk '/IAM/{ print $3" "$4 }')
+  curl -s -X POST \
+    --header 'Content-Type: application/json' \
+    --header 'Accept: application/json' \
+    --header "Authorization: $IBMCLOUD_BEARER_TOKEN" \
+    -d '{"emails": [
+            {"value": "'$DEMO_EMAIL'","primary": true}
+          ],
+         "userName": "'$DEMO_EMAIL'",
+         "password": "'$DEMO_PASSWORD'"
+        }' \
+    "${APPID_MGMTURL}/cloud_directory/Users"
+
   _out Creating redirect URL in App ID
   IBMCLOUD_BEARER_TOKEN=$(ibmcloud iam oauth-tokens | awk '/IAM/{ print $3" "$4 }')
   curl -s -X PUT \
@@ -128,6 +144,14 @@ function setup() {
             "'$REDIRECT_URL_CALLBACK'", "http://localhost:3000/callback"]
         }' \
     "${APPID_MGMTURL}/config/redirect_uris"
+
+  _out Writing issuer into policy
+  cd ${root_folder}/istio
+  rm "protect-web-api.yaml"
+  cp "protect-web-api.yaml.template" "protect-web-api.yaml"
+  sed "s/APPID_ISSUER/$APPID_ISSUER/g" protect-web-api.yaml.template > protect-web-api.yaml.1
+  sed "s/APPID_JWKS_URI/$APPID_JWKS_URI/g" protect-web-api.yaml.1 > protect-web-api.yaml
+  rm protect-web-api.yaml.1
 }
 
 
