@@ -71,6 +71,7 @@ function setup() {
     else
       _out Login URL: http://${minikubeip}:31380/login
       _out User: user@demo.email / Password: verysecret
+      _out Admin: admin@demo.email / Password: verysecret
     fi
   fi
   _out ------------------------------------------------------------------------------------
