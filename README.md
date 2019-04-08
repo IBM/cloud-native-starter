@@ -121,8 +121,7 @@ Here is a series of blog entries about this project:
 * [Invoking REST APIs from Java Microservices](http://heidloff.net/invoke-rest-apis-java-microprofile-microservice)
 * [Prometheus Metrics for MicroProfile Microservices in Istio](http://heidloff.net/article/prometheus-metrics-microprofile-microservices-istio/)
 * [Moving from Minikube to IBM Cloud Kubernetes Service](https://haralduebele.blog/2019/04/04/moving-from-minikube-to-ibm-cloud-kubernetes-service/)
-* Distributed logging with LogDNA
-* Monitoring with IBM Cloud Monitoring with Sysdig
+* [Distributed logging with LogDNA and Monitoring with Sysdig](https://haralduebele.blog/2019/04/08/whats-going-on-in-my-cluster/)
 * Istio Healthchecks for MicroProfile Microservices 
 * Configuration of MicroProfile Microservices in Istio
 * [Authenticating Web Users with OpenID and JWT](http://heidloff.net/article/authenticating-web-users-openid-connect-jwt/)
