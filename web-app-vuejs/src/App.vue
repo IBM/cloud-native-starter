@@ -6,7 +6,7 @@
       variant="info"
       style="background-color: #1675fd !important;"
     >
-      <b-navbar-brand href="/">Cloud Native Starter</b-navbar-brand>
+      <b-navbar-brand>Cloud Native Starter</b-navbar-brand>
 
       <b-navbar-nav class="ml-auto" v-if="isAuthenticationEnabled == true">
         <b-navbar-nav v-if="isAuthenticated == false">

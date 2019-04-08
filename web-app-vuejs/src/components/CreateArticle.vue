@@ -14,6 +14,7 @@
         </b-form-group>
 
         <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button style="margin-left:10px" v-on:click="onHomeClicked" variant="secondary">Show Articles</b-button>
       </b-form>
       <b-spinner v-if="loading == true" label="Loading ..."/>
       <div style="margin-top:30px" v-if="createResponse != ''">
@@ -41,6 +42,9 @@ export default {
     };
   },
   methods: {
+    onHomeClicked() {
+      this.$router.push("/");
+    },
     onSubmit(evt) {
       evt.preventDefault();
       this.loading = true;
