@@ -10,6 +10,9 @@ function _out() {
 
 function setup() {
   _out Deploying web-api-java-jee v2
+
+  cd ${root_folder}/istio
+  kubectl delete -f protect-web-api.yaml --ignore-not-found
   
   cd ${root_folder}/web-api-java-jee
 
@@ -35,6 +38,9 @@ function setup() {
   sed 's/10/5/' src/main/java/com/ibm/webapi/business/Service.java > src/main/java/com/ibm/webapi/business/Service2.java
   rm src/main/java/com/ibm/webapi/business/Service.java
   mv src/main/java/com/ibm/webapi/business/Service2.java src/main/java/com/ibm/webapi/business/Service.java
+
+  cd ${root_folder}/istio
+  kubectl apply -f protect-web-api.yaml
 
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')

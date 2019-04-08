@@ -21,6 +21,9 @@ function setup() {
   rm src/main/java/com/ibm/webapi/business/Service.java
   mv src/main/java/com/ibm/webapi/business/Service2.java src/main/java/com/ibm/webapi/business/Service.java
   
+  cd ${root_folder}/istio
+  kubectl delete -f protect-web-api.yaml --ignore-not-found
+
   _out Done deleting web-api-java-jee
 }
 

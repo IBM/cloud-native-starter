@@ -10,6 +10,9 @@ function _out() {
 
 function setup() {
   _out Deploying web-api-java-jee v1
+
+  cd ${root_folder}/istio
+  kubectl delete -f protect-web-api.yaml --ignore-not-found
   
   cd ${root_folder}/web-api-java-jee
   kubectl delete -f deployment/kubernetes-service.yaml --ignore-not-found
@@ -34,8 +37,10 @@ function setup() {
 
   kubectl apply -f deployment/kubernetes-service.yaml
   kubectl apply -f deployment/kubernetes-deployment-v1.yaml
-  ##kubectl apply -f deployment/istio-ingress.yaml
   kubectl apply -f deployment/istio-service-v1.yaml
+
+  cd ${root_folder}/istio
+  kubectl apply -f protect-web-api.yaml
 
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')
