@@ -12,7 +12,7 @@ $ scripts/deploy-articles-java-jee.sh
 $ scripts/show-urls.sh
 ```
 
-Invoke the curl command is displayed as output of 'scripts/show-urls.sh' to get ten articles.
+Invoke the curl command which is displayed as output of 'scripts/show-urls.sh' to get ten articles.
 
 Check out the article [Configuring Microservices with MicroProfile and Kubernetes](http://heidloff.net/article/configuring-java-microservices-microprofile-kubernetes/) for more details.
 
