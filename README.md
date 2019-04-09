@@ -30,8 +30,8 @@ The next screenshot shows the web application. More screenshots are in the [imag
 This project demonstrates several Java EE and Istio key functionality.
 
 * [Containerized Java EE Microservices](documentation/DemoJavaImage.md)
-* Exposing REST APIs
-* Consuming REST APIs
+* [Exposing REST APIs](documentation/DemoExposeRESTAPIs.md)
+* [Consuming REST APIs](documentation/DemoConsumeRESTAPIs.md)
 * [Traffic Routing](documentation/DemoTrafficRouting.md)
 * [Resiliency](documentation/DemoResiliency.md)
 * [Authentication and Authorization](documentation/DemoAuthentication.md)

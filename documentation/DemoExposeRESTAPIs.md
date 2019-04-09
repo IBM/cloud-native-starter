@@ -1,4 +1,4 @@
-## Demo: Expose Java APIs
+## Demo: Expose REST APIs
 
 MicroProfile supports defining REST APIs via JAX-RS.
 
