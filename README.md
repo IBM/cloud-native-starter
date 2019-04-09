@@ -38,8 +38,7 @@ This project demonstrates several Java EE and Istio key functionality.
 * [Metrics](documentation/DemoMetrics.md)
 * [Health Checks](documentation/DemoHealthCheck.md)
 * [Configuration](documentation/DemoConfiguration.md)
-* Distributed Logging
-* Monitoring
+* [Distributed Logging and Monitoring](documentation/DemoDistributedLoggingMonitoring.md)
 
 
 ### Setup
