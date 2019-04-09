@@ -6,11 +6,11 @@ In order to use them you need an IBM Cloud account, you can register for a free 
 
 There is a free (lite) version of LogDNA available with limited capabilities. Sysdig offers a trial version which you can use for 30 days. 
 
-###Log on to IBM Cloud
+### Log on to IBM Cloud
 
 [Log on to IBM Cloud](https://cloud.ibm.com) and from the "burger" menu (3 vertical dashes) in the upper left corner select the entry "Observability".
 
-###LogDNA
+### LogDNA
 
 In the "Observability" menu select "Logging" then click on "Create instance". LogDNA is available in the IBM Cloud datacenters Frankfurt (eu-de) and Dallas (us-south). If you use Minikube for our example, I would select the location closest to your own locaton. If you use IBM Cloud Kubernetes Service for our example, select the location closest to your cluster.
 
@@ -35,7 +35,7 @@ The first command creates a Kubernetes secret that holds the ingestion key speci
 
 <kbd><img src="../images/logdna-dashboard.png" /></kbd>
 
-###Sysdig
+### Sysdig
 
 This is very similar to setting up LogDNA. In the "Observability" menu select "Monitoring" then click on "Create instance". Sysdig is available in the IBM Cloud datacenters Frankfurt (eu-de), London (eu-uk), and Dallas (us-south). If you use Minikube for our example, I would select the location closest to your own locaton. If you use IBM Cloud Kubernetes Service for our example, select the location closest to your cluster.
 
