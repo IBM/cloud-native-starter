@@ -37,7 +37,7 @@ This project demonstrates several Java EE and Istio key functionality.
 * [Authentication and Authorization](documentation/DemoAuthentication.md)
 * [Metrics](documentation/DemoMetrics.md)
 * Health Checks
-* Configuration
+* [Configuration](documentation/DemoConfiguration.md)
 * Distributed Logging
 * Monitoring
 
@@ -123,7 +123,7 @@ Here is a series of blog entries about this project:
 * [Moving from Minikube to IBM Cloud Kubernetes Service](https://haralduebele.blog/2019/04/04/moving-from-minikube-to-ibm-cloud-kubernetes-service/)
 * [Distributed logging with LogDNA and Monitoring with Sysdig](https://haralduebele.blog/2019/04/08/whats-going-on-in-my-cluster/)
 * Istio Healthchecks for MicroProfile Microservices 
-* Configuration of MicroProfile Microservices in Istio
+* [Configuring Microservices with MicroProfile and Kubernetes](http://heidloff.net/article/configuring-java-microservices-microprofile-kubernetes/)
 * [Authenticating Web Users with OpenID and JWT](http://heidloff.net/article/authenticating-web-users-openid-connect-jwt/)
 * Authorization via Istio
 * Authorization via MicroProfile
