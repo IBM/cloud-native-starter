@@ -109,6 +109,7 @@ $ scripts/delete-istio-ingress.sh
 
 Here is a series of blog entries about this project:
 
+* [Project Description and Design Principles](http://heidloff.net/article/example-java-app-cloud-kubernetes)
 * [Setup of a Local Kubernetes and Istio Dev Environment](http://heidloff.net/article/setup-local-development-kubernetes-istio)
 * [Debugging Microservices running in Kubernetes](http://heidloff.net/article/debugging-microservices-kubernetes)
 * [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
