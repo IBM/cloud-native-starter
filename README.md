@@ -18,7 +18,7 @@ The project showcases the following functionality:
 
 This diagram shows the key components:
 
-<kbd><img src="images/architecture.png" /></kbd>
+<kbd><img src="images/architecture-2.png" /></kbd>
 
 The next screenshot shows the web application. More screenshots are in the [images](images) folder.
 
