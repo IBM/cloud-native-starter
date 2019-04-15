@@ -146,11 +146,11 @@ function setup() {
     "${APPID_MGMTURL}/config/redirect_uris"
 
   _out Writing issuer into policy
-  cd ${root_folder}/istio
+  cd ${root_folder}/../istio
   rm "protect-web-api.yaml"
   cp "protect-web-api.yaml.template" "protect-web-api.yaml"
-  sed "s/APPID_ISSUER/$APPID_ISSUER/g" protect-web-api.yaml.template > protect-web-api.yaml.1
-  sed "s/APPID_JWKS_URI/$APPID_JWKS_URI/g" protect-web-api.yaml.1 > protect-web-api.yaml
+  sed "s+APPID_ISSUER+$APPID_ISSUER+g" protect-web-api.yaml.template > protect-web-api.yaml.1
+  sed "s+APPID_JWKS_URI+$APPID_JWKS_URI+g" protect-web-api.yaml.1 > protect-web-api.yaml
   rm protect-web-api.yaml.1
 }
 
@@ -174,4 +174,4 @@ export TF_VAR_cloudant_plan=${IBMCLOUD_CLOUDANT_PLAN:-"Lite"}
 _out Full install output in $LOG_FILE
 ibmcloud_login
 setup $@
-esac
+#esac
