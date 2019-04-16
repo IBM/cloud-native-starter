@@ -2,23 +2,30 @@
 
 ****** **UNDER CONSTRUCTION** ******
 
-In this Lab we build a container with services one is called **'articles'** and the other is called. **'web-api'**.
+In this Lab we build a container containing the microservice one is called **'articles'** and the other is called. **'web-api'**.
 
 ### Services
 
-**Articles service**
+**Articles microservice**
 
-The objective of this service is to add and get artical information from a database. At moment the implementation is just showing is creating sample data values.
+The objective of this microservice is to add and get artical information from a database. At moment the implementation is just creating sample data values.
 
 The service is organized in following packages:
+
 * apis
 * business
 * data
 
 
-**Web-api service**
+**Web-api microservice**
 
-The objective of this service is to combine information from different services and provide that information to be consumned using a REST api in the vue webapp. In this case the information of articals and authors are combined to be consunmed by the webapp.
+The objective of this microservice is to combine information from different services and provide that information to be consumned using a REST api in the vue webapp. In this case the information of **articals** and **authors** are combined to be consunmed by the webapp.
+
+This microservice also organized in following packages:
+
+* apis
+* business
+* data
 
 ### Technology
 
@@ -31,11 +38,13 @@ Both services are based purly only on open source components:
 
 To ensure that distributed tracing it supported [zipkintracer](https://github.com/openzipkin/zipkin-ruby) is copied onto the image.
 
-### Dockerfile for the container
+### Dockerfile to create the container
 
-This is the used [Dockerfile](../articles-java-jee/Dockerfile.nojava) which uses multiple stages so that the image can be built on environments that don't have Java and Maven (or wrong versions) installed.
+Now we take a look info the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the container image. 
+The reason for the two stages is to be independed on local environment settings, when we create the container. With this concept we don't have to ensure that Java and Maven (or wrong versions) installed.
 
-First maven 3.5 will be installed in the container from the [dockerhub](https://hub.docker.com/_/maven/).
+
+First we install maven 3.5 from the [dockerhub](https://hub.docker.com/_/maven/).
 
 ```
 FROM maven:3.5-jdk-8 as BUILD
@@ -44,7 +53,7 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
 ```
 
-Then **openliberty** with **microProfile2** and the **zipkintracer** will be installed in the container.
+Then we install **openliberty** with **microProfile2** and the **zipkintracer** will be installed in the container.
 
 ```
 FROM openliberty/open-liberty:microProfile2-java8-openj9
