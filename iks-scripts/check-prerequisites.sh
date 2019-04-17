@@ -14,7 +14,7 @@ function checkPrerequisites() {
     curl --version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} curl"
     which sed &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} sed"
     docker -v &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} docker"
-    kubectl version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} kubectl"
+    kubectl version --client=true &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} kubectl"
     ibmcloud --version &> /dev/null|| MISSING_TOOLS="${MISSING_TOOLS} ibmcloud CLI"
     if [[ -n "$MISSING_TOOLS" ]]; then
       _out "Some tools (${MISSING_TOOLS# }) could not be found, please install them first"
