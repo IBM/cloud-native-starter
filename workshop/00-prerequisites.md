@@ -31,7 +31,7 @@ To verfiy the prerequisite on your machine, just execute following bash script.
 [PROJECT ROOT]./iks-scripts/check-prerequisites.sh
 ```
 
-## [Setup IBM Cloud Kubernetes cluster]<a name="home"></a>
+## Setup IBM Cloud Kubernetes cluster<a name="home"></a>
 
 1. [Register at IBM Cloud Account](#part-SETUP-00)
 2. [Insert promo code](#part-SETUP-01)
@@ -48,11 +48,11 @@ Open a browser window and navigate to [Registration page](https://ibm.biz/Bd2JHx
 
 ![image](images/registration.png)
 
-Fill in the registration form and follow the link in the validation email when it arrives.
+Fill in the registration form and follow the link in the **validation email** when it arrives.
 
 ![Validation email](images/email.png)
 
-[Login into IBM Cloud^](https://ibm.biz/Bd2JHx) using the account credentials you have registered.
+[Login into IBM Cloud](https://ibm.biz/Bd2JHx) using the account credentials you have registered.
 
 NOTE: New IBM Cloud accounts set per default to the [lite account version](https://www.ibm.com/cloud/pricing).
 
@@ -61,7 +61,7 @@ Lite accounts **do not need a credit-card** to sign up or expire after a set tim
 Developers using lite accounts are restricted to use Kubernetes lite / free cluster for which they can use the provided promo codes.
 
 ### Insert promo code <a name="part-SETUP-01"></a>
-[back to table of content](#home)
+[<<back to table of content>>](#home)
 
 In order that you can easily execute the workshop, we're providing promo codes to create lite clusters, even if you don't want to provide your credit card details.
 You apply the provided promo code under your [Cloud Account](https://cloud.ibm.com/account) ("`Manage`" -> "`Account`") by navigating to "`Account settings`".
@@ -70,7 +70,7 @@ Apply your personal Feature (Promo) Code there.
 NOTE: Lite clusters expire after one month.
 
 ### Setup the IBM Cloud CLI <a name="part-SETUP-02"></a>
-[back to table of content](#home)
+[<<back to table of content>>](#home)
 
 Follow the steps listed under the [Install from shell^](https://cloud.ibm.com/docs/cli/reference/bluemix_cli?topic=cloud-cli-install-ibmcloud-cli#shell_install) section to download and install the IBM Cloud CLI.
 
@@ -81,7 +81,7 @@ Follow the steps listed under the [Install from shell^](https://cloud.ibm.com/do
 [Documentation install CLI](images/docs.gif)
 
 ### Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
-[back to table of content](#home)
+[<<back to table of content>>](#home)
 
 We log into the IBM Cloud CLI tool: `ibmcloud login`.
 If you have a federated account, include the `--sso` flag: `ibmcloud login --sso`.
@@ -104,7 +104,7 @@ ibmcloud ks region-set eu-gb
 All subsequent CLI commands will operate in that region.
 
 ### Create a IBM Cloud Kubernetes Service<a name="part-SETUP-04"></a>
-[back to table of content](#home)
+[<<back to table of content>>](#home)
 
 You can create IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
 
@@ -162,7 +162,7 @@ kubectl get svc,deploy,po --all-namespaces
 TBD
 
 ### Access the IBM Cloud Container Registry manually <a name="part-SETUP-06"></a>
-[back to table of content](#home)
+[<<back to table of content>>](#home)
 
 In order to build and distribute Container images, we need a Container registry.
 We can use the IBM Container Registry which can be accessed right away from our Kubernetes cluster.
