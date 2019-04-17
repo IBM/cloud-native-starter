@@ -1,5 +1,7 @@
 ## Scripts in /ibm-scripts
 
+The scripts in this directory create resources on the IBM Cloud that can be used for Minikube and IBM Kubernetes Service deployments
+
 ### create-app-id.sh
 
 Creates an instance of the AppID service on IBM Cloud and performs the necessary setup of the instance. Parameters required for the deployment are stored in local.env.
