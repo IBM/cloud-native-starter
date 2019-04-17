@@ -8,6 +8,8 @@ We'll examine the basics of modern Enterprise Java services, as well as containe
 
 Our microservices example consists of TBD.
 
+ARCHITECTURE IMAGE
+
 ### Services
 
 **Articles microservice**
