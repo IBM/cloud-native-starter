@@ -7,9 +7,12 @@ iks-scripts/create-iks-cluster.sh
 iks-scripts/cluster-add-istio.sh
 
 
+
 ## IBM Cloud Services
 
-We will use following IBM Cloud Services in this workshop
+We will use following IBM Cloud Services in this workshop.
+
+![cns-basic-setup-01](images/cns-basic-setup-01.png)
 
 * [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-getting-started#getting-started) with ISTIO addon 
 * [IBM Cloud Container Registry Service](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#getting-started)
@@ -61,18 +64,18 @@ Lite accounts **do not need a credit-card** to sign up or expire after a set tim
 Developers using lite accounts are restricted to use Kubernetes lite / free cluster for which they can use the provided promo codes.
 
 ### Insert promo code <a name="part-SETUP-01"></a>
-[<<back to table of content>>](#home)
+[<home>](#home)
 
-In order that you can easily execute the workshop, we're providing promo codes to create lite clusters, even if you don't want to provide your credit card details.
+In order that you can easily execute the workshop, we're providing **promo codes** to create lite clusters, even if you don't want to provide your credit card details.
 You apply the provided promo code under your [Cloud Account](https://cloud.ibm.com/account) ("`Manage`" -> "`Account`") by navigating to "`Account settings`".
 Apply your personal Feature (Promo) Code there.
 
 NOTE: Lite clusters expire after one month.
 
 ### Setup the IBM Cloud CLI <a name="part-SETUP-02"></a>
-[<<back to table of content>>](#home)
+[<home>](#home)
 
-Follow the steps listed under the [Install from shell^](https://cloud.ibm.com/docs/cli/reference/bluemix_cli?topic=cloud-cli-install-ibmcloud-cli#shell_install) section to download and install the IBM Cloud CLI.
+Follow the steps listed under the [Install from shell](https://cloud.ibm.com/docs/cli/reference/bluemix_cli?topic=cloud-cli-install-ibmcloud-cli#shell_install) section to download and install the IBM Cloud CLI.
 
 - MacOS: `curl -fsSL https://clis.ng.bluemix.net/install/osx | sh`
 - Linux: `curl -fsSL https://clis.ng.bluemix.net/install/linux | sh`
@@ -81,7 +84,7 @@ Follow the steps listed under the [Install from shell^](https://cloud.ibm.com/do
 [Documentation install CLI](images/docs.gif)
 
 ### Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
-[<<back to table of content>>](#home)
+[<home>](#home)
 
 We log into the IBM Cloud CLI tool: `ibmcloud login`.
 If you have a federated account, include the `--sso` flag: `ibmcloud login --sso`.
@@ -104,15 +107,18 @@ ibmcloud ks region-set eu-gb
 All subsequent CLI commands will operate in that region.
 
 ### Create a IBM Cloud Kubernetes Service<a name="part-SETUP-04"></a>
-[<<back to table of content>>](#home)
+[<home>](#home)
 
-You can create IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
+#### Automated creation of a Cluster for the workshop
 
-To create the Kubernetes Cluster just execute following bash script:
+Use following bash script to create a free Kubernetes Cluster on IBM Cloud:
 
 ```sh
 [PROJECT ROOT]./iks-scripts/create-iks-cluster.sh
 ```
+
+#### Manual creation of a Cluster
+You can create IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
 
 _NOTE:_ When you're using the CLI or the browser Cloud console, always make sure you're **viewing the correct region**, as your resources will only be visible in its region.
 
@@ -162,7 +168,7 @@ kubectl get svc,deploy,po --all-namespaces
 TBD
 
 ### Access the IBM Cloud Container Registry manually <a name="part-SETUP-06"></a>
-[<<back to table of content>>](#home)
+[<home>](#home)
 
 In order to build and distribute Container images, we need a Container registry.
 We can use the IBM Container Registry which can be accessed right away from our Kubernetes cluster.
@@ -177,8 +183,8 @@ ibmcloud cr region
 You are targeting region 'uk-south', the registry is 'registry.eu-gb.bluemix.net'.
 ```
 
-We use the CLI to create a unique namespace in the Container Registry service (`cr`) for our workshop:
+We will the CLI inside bash script to create a unique namespace in the Container Registry service (`cr`) for our workshop.
 
 
 Now, we've finished all preparations.
-Let's get started with the **LINK TO LAB1**.
+Let's get started with the **LINK TO INTRODUCTION**.

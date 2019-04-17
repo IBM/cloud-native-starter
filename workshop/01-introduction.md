@@ -1,14 +1,14 @@
 # Introduction
 
-As part of this workshop, we will see how to develop cloud-native microservices using Jakarta EE and MicroProfile, which are deployed using Docker, Kubernetes, and Istio.
-We'll examine the basics of modern Enterprise Java services, as well as container, rest APIS, traffic management, and resiliency.
+As part of this workshop, we will see how to develop cloud-native microservices using Jakarta EE and MicroProfile, which are deployed using Docker CLI, Kubernetes, and Istio.
+We'll examine the basics of modern cloud native Java micro-services development with container, rest APIS, traffic management, and resiliency.
 
 
 ## Example application
 
 Our microservices example consists of TBD.
 
-ARCHITECTURE IMAGE
+![cns-basic-setup-01](images/cns-basic-setup-01.png)
 
 ### Services
 
