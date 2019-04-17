@@ -43,6 +43,24 @@ function setup() {
   cloudanturl=$(ibmcloud resource service-key cred4cloudant-cloud-native-starter | awk '/url: /{ print $2 }')
   echo DB="cloud" > $AUTHOR_CFG
   echo CLOUDANTURL="$cloudanturl" >> $AUTHOR_CFG
+
+  _out Creating Cloudant database 
+  curl "$cloudanturl/authors" -X PUT
+
+  _out Creating Cloudant database view
+  JSON=$(<$root_folder/../authors-nodejs/authorview.json)
+  curl "$cloudanturl/authors" \
+    -X POST \
+    -H "Content-Type: application/json" \
+    -d "$JSON"
+
+  _out Loading sample database
+  JSON=$(<$root_folder/../authors-nodejs/authordata.json)
+  curl "$cloudanturl/authors/_bulk_docs" \
+    -X POST \
+    -H "Content-Type: application/json" \
+    -d "$JSON"
+
 }
 
 

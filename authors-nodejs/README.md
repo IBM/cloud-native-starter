@@ -5,28 +5,21 @@ This is a Node.js application that allows to read authors information (Twitter h
 
 ## Implementation
 Node.js with Express, based on the "Node.js Microservice with Express.js" starter kit on IBM Cloud.
-The app runs on Minikube or IBM Cloud Kubernetes Service.
+We tested the deployment on Minikube or IBM Kubernetes Service.
 
-The local "in-memory" database uses json-query, the data set is in cloud-native-starter/authors-nodejs/public/authors.json.
+The local "in-memory" database uses json-query, the data set is in authors-nodejs/public/authors.json.
+
+A Cloudant instance can be created with ibm-scripts/create-cloudant.sh. It will 
+
+* create a Cloudant instance in the Cloud region set in local.env (us-south is default)
+* create the "authors" database 
+* create a view (authors-nodejs/authorview.json)
+* populate the database with our sample data (authors-nodejs/authordata.json)
+* set the correct values in scripts/deploy-authors-nodejs.cfg which is used by the deployment script for the authors service.
 
 ## Deployment
 
-* Go to the cloud-native-starter/scripts directory.
-* Default is to use a local in-memory database
-* If you want to use Cloudant on IBM Cloud instead:
-  * Copy _template.deploy-authors-nodejs.cfg_ to _deploy-authors-nodejs.cfg_:
-  * Change DB to "cloud", enter the CLOUDANTURL 
-* Make sure Minikube is started
-* Run `deploy-authors-nodejs.sh`
+For Minikube execute `scripts/deploy-authors-nodejs.sh`
 
-## Usage
+For IBM Kubernetes Service (IKS) execute `iks-scripts/deploy-authors-nodejs.sh`
 
-GET http://<minikube-IP:authors-svcNodePort/api/v1/getauthor?name=Harald%20Uebele
-
-Result
-200 OK
-{
-  "name": "Harald Uebele",
-  "twitter": "@harald_u",
-  "blog": "https://haralduebele.blog"
-}
