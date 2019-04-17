@@ -2,12 +2,13 @@
 
 ****** **UNDER CONSTRUCTION** ******
 
-In this Lab we build a container containing the microservice one is called **'articles'** and the other is called. **'web-api'**.
+In this Lab we build and deploy the containers with microservices to Kubernetes.
 
+![cns-container-deployment-01](images/cns-container-deployment-01.png)
 
 ### Technology
 
-Both services are based purly only on open source components:
+The **'articles'** and **'web-api'** micro-service are based purly only on open source components:
 
 * [OpenJ9 0.12.1](https://projects.eclipse.org/projects/technology.openj9/releases/0.12.1/review)
 * OpenJDK 8u202-b08 from AdoptOpenJDK
