@@ -40,9 +40,9 @@ To verfiy the prerequisite on your machine, just execute following bash script.
 2. [Insert promo code](#part-SETUP-01)
 3. [Setup the IBM Cloud CLI](#part-SETUP-02)
 4. [Setup the IBM Cloud Kubernetes CLI](#part-SETUP-03)
-5. [Create a IBM Cloud Kubernetes Service](#part-SETUP-04)
+5. [Create a IBM Cloud Kubernetes Service and add ISTIO](#part-SETUP-04)
 6. [Access the Kubernetes cluster manually (optional)](#part-SETUP-05)
-7. [Access the Kubernetes cluster manually (optional)](#part-SETUP-06)
+7. [Access the IBM Cloud Container Registry manually (optional)](#part-SETUP-06)
 
 
 ### Register at IBM Cloud Account <a name="part-SETUP-00"></a>
@@ -106,15 +106,20 @@ ibmcloud ks region-set eu-gb
 
 All subsequent CLI commands will operate in that region.
 
-### Create a IBM Cloud Kubernetes Service<a name="part-SETUP-04"></a>
+### Create a IBM Cloud Kubernetes Service and add ISTIO<a name="part-SETUP-04"></a>
 [<home>](#home)
 
-#### Automated creation of a Cluster for the workshop
+#### Automated creation of a Cluster with ISTIO for the workshop
 
 Use following bash script to create a free Kubernetes Cluster on IBM Cloud:
 
 ```sh
 [PROJECT ROOT]./iks-scripts/create-iks-cluster.sh
+```
+
+Add the managed ISTIO to the free Kubernetes Cluster:
+```sh
+[PROJECT ROOT]./iks-scripts/cluster-add-istio.sh
 ```
 
 #### Manual creation of a Cluster
@@ -162,10 +167,6 @@ View the currently available services, deployments, and pods:
 ```sh
 kubectl get svc,deploy,po --all-namespaces
 ```
-
-### Add Istio to the Kubernetes Cluster
-
-TBD
 
 ### Access the IBM Cloud Container Registry manually <a name="part-SETUP-06"></a>
 [<home>](#home)
