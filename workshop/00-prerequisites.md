@@ -25,17 +25,24 @@ Following tools have to be installed on your laptop, to perform the workshop.
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - on Windows, you need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.)
 
+To verfiy the prerequisite on your machine, just execute following bash script.
+
+```sh
+[PROJECT ROOT]./iks-scripts/check-prerequisites.sh
+```
 
 ## Setup IBM Cloud access
 
-Registering IBM Cloud Account
-Insert promo code
-Setup the IBM Cloud CLI
-Setup the IBM Cloud Kubernetes CLI
-Create a IBM Cloud Kubernetes Service
-Accessing the Kubernetes cluster manually (optional)
+1. [Register at IBM Cloud Account](#part-SETUP-00)
+2. [Insert promo code](#part-SETUP-01)
+3. [Setup the IBM Cloud CLI](#part-SETUP-02)
+4. [Setup the IBM Cloud Kubernetes CLI](#part-SETUP-03)
+5. [Create a IBM Cloud Kubernetes Service](#part-SETUP-04)
+6. [Access the Kubernetes cluster manually (optional)](#part-SETUP-05)
+7. [Access the Kubernetes cluster manually (optional)](#part-SETUP-06)
 
-### Registering IBM Cloud Account
+
+### Register at IBM Cloud Account <a name="part-SETUP-00"></a>
 
 Open a browser window and navigate to [Registration page](https://ibm.biz/Bd2JHx).
 
@@ -53,7 +60,7 @@ This account type provides free access to a subset of IBM Cloud resources.
 Lite accounts **do not need a credit-card** to sign up or expire after a set time period, i.e. 30 days.
 Developers using lite accounts are restricted to use Kubernetes lite / free cluster for which they can use the provided promo codes.
 
-### Insert promo code
+### Insert promo code <a name="part-SETUP-01"></a>
 
 In order that you can easily execute the workshop, we're providing promo codes to create lite clusters, even if you don't want to provide your credit card details.
 You apply the provided promo code under your [Cloud Account](https://cloud.ibm.com/account) ("`Manage`" -> "`Account`") by navigating to "`Account settings`".
@@ -61,7 +68,7 @@ Apply your personal Feature (Promo) Code there.
 
 NOTE: Lite clusters expire after one month.
 
-### Setup the IBM Cloud CLI
+### Setup the IBM Cloud CLI <a name="part-SETUP-02"></a>
 
 Follow the steps listed under the [Install from shell^](https://cloud.ibm.com/docs/cli/reference/bluemix_cli?topic=cloud-cli-install-ibmcloud-cli#shell_install) section to download and install the IBM Cloud CLI.
 
@@ -71,7 +78,7 @@ Follow the steps listed under the [Install from shell^](https://cloud.ibm.com/do
 
 [Documentation install CLI](images/docs.gif)
 
-### Setup the IBM Cloud Kubernetes CLI
+### Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
 
 We log into the IBM Cloud CLI tool: `ibmcloud login`.
 If you have a federated account, include the `--sso` flag: `ibmcloud login --sso`.
@@ -93,14 +100,19 @@ ibmcloud ks region-set eu-gb
 
 All subsequent CLI commands will operate in that region.
 
-### Create a IBM Cloud Kubernetes Service
+### Create a IBM Cloud Kubernetes Service<a name="part-SETUP-04"></a>
 
-[Create a Kubernetes cluster](https://console.bluemix.net/docs/containers/cs_clusters.html#clusters_ui)[Create a Kubernetes cluster^] (lite or standard) using the [Cloud Console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or CLI in region `eu-gb` (London).
-A lite / free cluster is sufficient for this workshop but feel free to create a standard cluster with your desired configuration.
+You can create IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
+
+To create the Kubernetes Cluster just execute following bash script:
+
+```sh
+[PROJECT ROOT]./iks-scripts/create-iks-cluster.sh
+```
 
 _NOTE:_ When you're using the CLI or the browser Cloud console, always make sure you're **viewing the correct region**, as your resources will only be visible in its region.
 
-### Accessing the Kubernetes cluster manually 
+### Accessing the Kubernetes cluster manually <a name="part-SETUP-05"></a>
 
 Now, we'll see how to set the context to work with our clusters by using the `kubectl` CLI, access the Kubernetes dashboard, and gather basic information about our cluster.
 
@@ -141,11 +153,11 @@ View the currently available services, deployments, and pods:
 kubectl get svc,deploy,po --all-namespaces
 ```
 
-### Add Istio
+### Add Istio to the Kubernetes Cluster
 
 TBD
 
-### Access the IBM Cloud Container Registry manually
+### Access the IBM Cloud Container Registry manually <a name="part-SETUP-06"></a>
 
 In order to build and distribute Container images, we need a Container registry.
 We can use the IBM Container Registry which can be accessed right away from our Kubernetes cluster.
