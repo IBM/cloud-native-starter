@@ -1,5 +1,5 @@
 {
-  "name": "AuthorsService",
+  "name": "authors_service",
   "version": "1.0.0",
   "description": "Authors API for Cloud Native Starter pattern",
   "private": true,

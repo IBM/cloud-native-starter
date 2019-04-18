@@ -8,6 +8,7 @@ if [[ -e "local.env" ]]; then source local.env; fi
 
 # Login to IBM Cloud Image Registry
 ibmcloud ks region-set $IBM_CLOUD_REGION
+ibmcloud cr region-set $IBM_CLOUD_REGION
 ibmcloud cr login
 
 function _out() {
