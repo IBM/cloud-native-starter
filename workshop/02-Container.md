@@ -120,22 +120,124 @@ CMD ["npm", "start"]
 
 ## Configurations for the deployment to Kubernetes
 
-## Deploy the container to the Kubernetes Cluster
+Now we examine the deployment and the ISTIO yamls to deploy the container to Pods on the Kubernetes Cluster.
 
-* Articles
+### Web-app
 
-Invoke the following commands to set up the Java based microservice 'articles':
+* Service and Deployment configuration for the micro service
+
+With **kind: Service** we can define the access to microservice
+inside Kubernetes and the **kind: Deployment** defines how we expose the  microservice on a Pod in Kubernetes.
+
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  selector:
+    app: web-app
+  ports:
+    - port: 80
+      name: http
+  type: NodePort
+---
+
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: web-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-app
+        version: v1
+    spec:
+      containers:
+      - name: web-app
+        image: web-app:1
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
+---
 
 ```
-$ cd $PROJECT_HOME
-$ scripts/check-prerequisites.sh
-$ scripts/delete-all.sh
-$ scripts/deploy-articles-java-jee.sh
-$ scripts/show-urls.sh
+
+* ISTIO configuration
+
+ISTIO defines the routing of the Ingress gateway.
+
+With ISTIO you can use two or more deployments of different versions of an microservice. With **kind: DestinationRule** you can find to with microservice you route. Here it will be the **host: web-app** in **version: v1**.
+
+[Related blog post](https://haralduebele.blog/2019/03/11/managing-microservices-traffic-with-istio/)
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: web-app
+spec:
+  host: web-app
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
 ```
 
-Invoke the curl command which is displayed as output of 'scripts/show-urls.sh' to get ten articles.
+### Articals
 
-Check out the article [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile) for more details.
+* ISTIO configuration
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: articles
+spec:
+  hosts:
+  - articles
+  http:
+  - route:
+    - destination:
+        host: articles
+        subset: v1
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: articles
+spec:
+  host: articles
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+```
+
+
+## Deploy the containers to the Kubernetes Cluster
+
+Invoke following bashscripts to deploy the microservices:
+
+```
+$ ./iks-scripts/deploy-articles-java-jee.sh
+$ ./iks-scripts/deploy-authors-nodejs.sh
+$ ./iks-scripts/deploy-web-api-java-jee.sh
+$ ./iks-scripts/deploy-web-app-vuejs.sh
+```
+
+Invoke the curl command which is displayed as output of 'scripts/show-urls.sh' to the the urls of services.
+
+```
+$ ./iks-scripts/show-urls.sh
+```
+
 
 

@@ -55,5 +55,9 @@ IKS*.yaml
 web-app-vuejs/package-lock.json
 istio/protect-web-api.yaml
 
+#images
+images/~$cloud-native-starter.pptx
+
 # workshop
 workshop/images/~$architecture.pptx
+

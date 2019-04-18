@@ -92,7 +92,7 @@ If you have a federated account, include the `--sso` flag: `ibmcloud login --sso
 Install the IBM Cloud Kubernetes Service plug-in (`ks` sub command):
 
 ```sh
-ibmcloud plugin install container-service
+$ ibmcloud plugin install container-service
 ```
 
 To verify that the plug-in is installed properly, run `ibmcloud plugin list`.
@@ -101,7 +101,7 @@ The Container Service plug-in is displayed in the results as `container-service/
 Initialize the Container Service plug-in and point the endpoint to your region:
 
 ```sh
-ibmcloud ks region-set us-south
+$ ibmcloud ks region-set us-south
 ```
 
 All subsequent CLI commands will operate in that region.
@@ -114,12 +114,17 @@ All subsequent CLI commands will operate in that region.
 Use following bash script to create a free Kubernetes Cluster on IBM Cloud:
 
 ```sh
-[PROJECT ROOT]./iks-scripts/create-iks-cluster.sh
+[PROJECT ROOT]$ ./iks-scripts/create-iks-cluster.sh
 ```
 
 Add the managed ISTIO to the free Kubernetes Cluster:
 ```sh
-[PROJECT ROOT]./iks-scripts/cluster-add-istio.sh
+[PROJECT ROOT]$ ./iks-scripts/cluster-add-istio.sh
+```
+
+Configure the IBM Cloud Container Registry:
+```sh
+[PROJECT ROOT]$ ./iks-scripts/create-registry.sh
 ```
 
 #### Manual creation of a Cluster
@@ -141,13 +146,13 @@ This command should now show your cluster which is being created.
 Download the configuration file and certificates for the cluster using the `cluster-config` command:
 
 ```sh
-ibmcloud ks cluster-config <cluster-name>
+$ ibmcloud ks cluster-config <cluster-name>
 ```
 
 Copy and paste the output command from the previous step to set the `KUBECONFIG` environment variable and configure the CLI to run `kubectl` commands against the cluster:
 
 ```sh
-export KUBECONFIG=/<home>/.bluemix/plugins/container-service/clusters/mycluster/kube-config-<region>-<cluster-name>.yml
+$ export KUBECONFIG=/<home>/.bluemix/plugins/container-service/clusters/mycluster/kube-config-<region>-<cluster-name>.yml
 ```
 
 Get basic information about the cluster and its worker nodes.
@@ -158,14 +163,14 @@ Get the details of your cluster: `ibmcloud ks cluster-get <cluster-name>`
 Verify the nodes in the cluster:
 
 ```sh
-ibmcloud ks workers <cluster-name>
-kubectl get nodes
+$ ibmcloud ks workers <cluster-name>
+$ kubectl get nodes
 ```
 
 View the currently available services, deployments, and pods:
 
 ```sh
-kubectl get svc,deploy,po --all-namespaces
+$ kubectl get svc,deploy,po --all-namespaces
 ```
 
 ### Access the IBM Cloud Container Registry manually <a name="part-SETUP-06"></a>
@@ -179,10 +184,10 @@ We can use the IBM Container Registry which can be accessed right away from our 
 We log into the Container Registry service via the `ibmcloud` CLI and obtain the information about our registry:
 
 ```sh
-ibmcloud plugin install container-registry
-ibmcloud cr login
-ibmcloud cr region-set us-south
-ibmcloud cr region
+$ ibmcloud plugin install container-registry
+$ ibmcloud cr login
+$ ibmcloud cr region-set us-south
+$ ibmcloud cr region
 You are targeting region 'us-south', the registry is 'registry.us-south.bluemix.net'.
 ```
 

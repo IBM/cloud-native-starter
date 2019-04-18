@@ -12,6 +12,12 @@ TODO: Use customized architecture diagram for the workshop.
 
 ![architecture](images/architecture.png)
 
+
+* **Web-App** Is hosted on a Nginx server that provides a Vue **Web-App** to the browser
+* **Web-API** is accessed by the Vue app and provides a list of blog articles and their authors
+* **Articles** holds the list of blog articles
+* **Authors** holds the blog authors details (blog URL and Twitter handle)
+
 ### Microservice*
 
 **Articles microservice**
