@@ -6,7 +6,13 @@ In this Lab we build and deploy the containers with microservices to Kubernetes.
 
 Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** and setup the right **ISTIO configuration** for the microservices.
 
+The following diagram shows a high level overview of steps which will be automated later with bash scripts.
+
 ![cns-container-deployment-01](images/cns-container-deployment-01.png)
+
+1. Uploading container definition
+2. Building and storing of theproduction container image inside the IBM Cloud Registry
+3. Deploying the containers into the Kuberentes Cluster
 
 ## Containers
 
