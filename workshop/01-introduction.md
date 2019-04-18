@@ -4,13 +4,15 @@ As part of this workshop, we will see how to develop cloud-native microservices 
 We'll examine the basics of modern cloud native Java micro-services development with container, rest APIS, traffic management, and resiliency.
 
 
-## Example application
+## The "Cloud Native Starter" application
 
-Our microservices example consists of TBD.
+The "Cloud Native Starter" application TBD.
 
-![cns-basic-setup-01](images/cns-basic-setup-01.png)
+TODO: Use customized architecture diagram for the workshop.
 
-### Services
+![architecture](images/architecture.png)
+
+### Microservice*
 
 **Articles microservice**
 
@@ -32,7 +34,20 @@ This microservice also organized in following packages:
 * business
 * data
 
-# MicroProfile
+# Technologies
+
+## Technology of the microservices
+
+The **'articles'** and **'web-api'** micro-service are based purly only on open source components:
+
+* [OpenJ9 0.12.1](https://projects.eclipse.org/projects/technology.openj9/releases/0.12.1/review)
+* OpenJDK 8u202-b08 from AdoptOpenJDK
+* [Open Liberty 18.0.0.4](https://openliberty.io/downloads/)
+* [MicroProfile 2.1](https://projects.eclipse.org/projects/technology.microprofile/releases/microprofile-2.1)
+
+To ensure that distributed tracing it supported [zipkintracer](https://github.com/openzipkin/zipkin-ruby) is copied onto the image.
+
+## MicroProfile
 
 For cloud-native applications Kubernetes and Istio deliver a lot of important functionality out of the box, for example to ensure **resiliency** and **scalability**. This functionality works generically for microservices, no matter in which language they have been implemented and independent from the application logic.
 
@@ -40,7 +55,9 @@ Some cloud-native functionality however cannot be handled by Kubernetes and Isti
 
 That’s why we use Eclipse MicroProfile, which is an extension to JavaEE to build microservices-based architectures and a great programming model for Istio. In addition to the application specific logic that Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example invoking REST APIs and implementing REST APIs including their documentation.
 
-[source]()
+[source](http://heidloff.net/article/dockerizing-container-java-microprofile)
+
+
 
 ## Getting started
 
