@@ -190,4 +190,4 @@ We will the CLI inside bash script to create a unique namespace in the Container
 
 
 Now, we've finished all preparations.
-Let's get started with the **LINK TO INTRODUCTION**.
+Let's get started with the TODO: !!!LINK TO INTRODUCTION!!!.

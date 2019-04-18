@@ -14,11 +14,15 @@ The following diagram shows a high level overview of steps which will be automat
 2. Building and storing of theproduction container image inside the IBM Cloud Registry
 3. Deploying the containers into the Kuberentes Cluster
 
-## Containers
+## Container images
 
-### Java containers
+Before we will execute to bash scripts to build and upload the container images, we will take a look into the Dockerfile to build this container images.
 
-#### Dockerfile to create the articles container
+### Java container images
+
+The articles and the authors microservices are written in Java and do runn on OpenLiberty.
+
+#### Dockerfile to create the articles container image
 
 Now we take a look into the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the  container image. 
 The reason for the two stages we have the objective to be independed on local environment settings, when we create the container. With this concept we don't have to ensure that Java and Maven (or wrong versions) installed.
@@ -61,6 +65,10 @@ COPY --from=BUILD /usr/src/app/target/articles.war /config/dropins/
 
 The web-api [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the web-api service, works in the same way as for **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**. 
 
+### Node.JS container images
+
+Ths web-app and the authors are written Node.JS.
+
 #### Dockerfile to create the web-app container
 
 The web-app [Dockerfile](../web-app-vuejs/Dockerfile) to create the  web-app application, works in the same way as for **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**.
@@ -87,9 +95,30 @@ FROM nginx:latest
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=BUILD /usr/src/app/dist /usr/share/nginx/html
 ```
-### Node.JS containers
+#### Dockerfile to create the authors container
 
+The authors [Dockerfile](../authors/Dockerfile) to create the web-api service, does directly create the production image and is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine).
 
+```
+FROM node:8-alpine
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package*.json ./
+RUN npm install
+
+# Bundle app source
+COPY . .
+
+# Server listens on
+EXPOSE 3000
+
+CMD ["npm", "start"]
+```
+
+## Configurations for the deployment to Kubernetes
 
 ## Deploy the container to the Kubernetes Cluster
 
