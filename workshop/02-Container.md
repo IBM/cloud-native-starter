@@ -16,7 +16,9 @@ The following diagram shows a high level overview of steps which will be automat
 
 ## Containers
 
-### Dockerfile to create the articles container
+### Java containers
+
+#### Dockerfile to create the articles container
 
 Now we take a look into the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the  container image. 
 The reason for the two stages we have the objective to be independed on local environment settings, when we create the container. With this concept we don't have to ensure that Java and Maven (or wrong versions) installed.
@@ -55,13 +57,43 @@ Now it is time to copy the build result **articles.war** form our **build enviro
 ```
 COPY --from=BUILD /usr/src/app/target/articles.war /config/dropins/
 ```
-### Dockerfile to create the web-api container
+#### Dockerfile to create the web-api container
 
 The web-api [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the web-api service, works in the same way as for **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**. 
+
+#### Dockerfile to create the web-app container
+
+The web-app [Dockerfile](../web-app-vuejs/Dockerfile) to create the  web-app application, works in the same way as for **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**.
+
+Here is **build environment container** based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine).
+
+```
+FROM node:8-alpine as BUILD
+ 
+COPY src /usr/src/app/src
+COPY public /usr/src/app/public
+COPY package.json /usr/src/app/
+COPY babel.config.js /usr/src/app/
+
+WORKDIR /usr/src/app/
+RUN yarn install
+RUN yarn build
+```
+
+The **production container** is based on [nginx](https://hub.docker.com/_/nginx).
+
+```
+FROM nginx:latest
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=BUILD /usr/src/app/dist /usr/share/nginx/html
+```
+### Node.JS containers
 
 
 
 ## Deploy the container to the Kubernetes Cluster
+
+* Articles
 
 Invoke the following commands to set up the Java based microservice 'articles':
 
