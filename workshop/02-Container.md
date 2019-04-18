@@ -3,26 +3,16 @@
 ****** **UNDER CONSTRUCTION** ******
 
 In this Lab we build and deploy the containers with microservices to Kubernetes.
+
 Along this way we will use the configured yaml files to create the deployment and setup the right ISTIO configuration for each microservice.
 
 ![cns-container-deployment-01](images/cns-container-deployment-01.png)
 
-### Technology of the microservices
-
-The **'articles'** and **'web-api'** micro-service are based purly only on open source components:
-
-* [OpenJ9 0.12.1](https://projects.eclipse.org/projects/technology.openj9/releases/0.12.1/review)
-* OpenJDK 8u202-b08 from AdoptOpenJDK
-* [Open Liberty 18.0.0.4](https://openliberty.io/downloads/)
-* [MicroProfile 2.1](https://projects.eclipse.org/projects/technology.microprofile/releases/microprofile-2.1)
-
-To ensure that distributed tracing it supported [zipkintracer](https://github.com/openzipkin/zipkin-ruby) is copied onto the image.
-
-
+## Containers
 
 ### Dockerfile to create the articles container
 
-Now we take a look info the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the  container image. 
+Now we take a look into the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the  container image. 
 The reason for the two stages we have the objective to be independed on local environment settings, when we create the container. With this concept we don't have to ensure that Java and Maven (or wrong versions) installed.
 
 * Build environment container
@@ -54,11 +44,18 @@ RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
 COPY liberty/server.xml /config/
 ```
 
-Now it is time to copy the build result form our  **build environment container** into the correct place inside the **production container**.
+Now it is time to copy the build result **articles.war** form our **build environment container** into the correct place inside the **production container**.
 
 ```
 COPY --from=BUILD /usr/src/app/target/articles.war /config/dropins/
 ```
+### Dockerfile to create the web-api container
+
+The web-api [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the web-api service, works in the same way as for **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**. 
+
+
+
+## Deploy the container to the Kubernetes Cluster
 
 Invoke the following commands to set up the Java based microservice 'articles':
 
