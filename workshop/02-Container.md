@@ -4,7 +4,7 @@
 
 In this Lab we build and deploy the containers with microservices to Kubernetes.
 
-Along this way we will use the configured yaml files to create the deployment and setup the right ISTIO configuration for each microservice.
+Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** and setup the right **ISTIO configuration** for the microservices.
 
 ![cns-container-deployment-01](images/cns-container-deployment-01.png)
 
