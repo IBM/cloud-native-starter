@@ -22,21 +22,29 @@ To ensure that distributed tracing it supported [zipkintracer](https://github.co
 
 ### Dockerfile to create the articles container
 
-Now we take a look info the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the container image. 
+Now we take a look info the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the  container image. 
 The reason for the two stages we have the objective to be independed on local environment settings, when we create the container. With this concept we don't have to ensure that Java and Maven (or wrong versions) installed.
 
+* Build environment container
 
-First we install maven 3.5 from the [dockerhub](https://hub.docker.com/_/maven/).
+Here we create our **build environment container** based on the maven 3.5 image from the [dockerhub](https://hub.docker.com/_/maven/).
 
 ```
 FROM maven:3.5-jdk-8 as BUILD
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
+```
+
+Let's build the **articles.war** inside the container image, using the maven command **mvn -f pom.xml clean package** .
+
+```
 RUN mvn -f /usr/src/app/pom.xml clean package
 ```
 
-Then we install **openliberty** with **microProfile2** on the container.
- and the **zipkintracer** will be installed in the container.
+* Production container
+
+Here we create the **production container** based on the **openliberty** with **microProfile2**.
+Then **zipkintracer** will be installed.
 
 ```
 FROM openliberty/open-liberty:microProfile2-java8-openj9
@@ -44,6 +52,11 @@ ADD liberty-opentracing-zipkintracer-1.2-sample.zip /
 RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
  && rm liberty-opentracing-zipkintracer-1.2-sample.zip
 COPY liberty/server.xml /config/
+```
+
+Now it is time to copy the build result form our  **build environment container** into the correct place inside the **production container**.
+
+```
 COPY --from=BUILD /usr/src/app/target/articles.war /config/dropins/
 ```
 

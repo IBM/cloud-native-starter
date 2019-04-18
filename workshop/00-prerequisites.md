@@ -101,7 +101,7 @@ The Container Service plug-in is displayed in the results as `container-service/
 Initialize the Container Service plug-in and point the endpoint to your region:
 
 ```sh
-ibmcloud ks region-set eu-gb
+ibmcloud ks region-set us-south
 ```
 
 All subsequent CLI commands will operate in that region.
@@ -171,6 +171,8 @@ kubectl get svc,deploy,po --all-namespaces
 ### Access the IBM Cloud Container Registry manually <a name="part-SETUP-06"></a>
 [<home>](#home)
 
+TODO: !!!! VERIFY REGION !!!! 
+
 In order to build and distribute Container images, we need a Container registry.
 We can use the IBM Container Registry which can be accessed right away from our Kubernetes cluster.
 
@@ -179,9 +181,9 @@ We log into the Container Registry service via the `ibmcloud` CLI and obtain the
 ```sh
 ibmcloud plugin install container-registry
 ibmcloud cr login
-ibmcloud cr region-set eu-gb
+ibmcloud cr region-set us-south
 ibmcloud cr region
-You are targeting region 'uk-south', the registry is 'registry.eu-gb.bluemix.net'.
+You are targeting region 'us-south', the registry is 'registry.us-south.bluemix.net'.
 ```
 
 We will the CLI inside bash script to create a unique namespace in the Container Registry service (`cr`) for our workshop.
