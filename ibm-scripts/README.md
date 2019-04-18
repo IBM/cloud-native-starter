@@ -2,11 +2,15 @@
 
 The scripts in this directory create resources on the IBM Cloud that can be used for Minikube and IBM Kubernetes Service deployments
 
-### create-app-id.sh
+### create-app-id
+
+Required for the [Demo: Authentication and Authorization](../documentation/DemoAuthentication.md)
 
 Creates an instance of the AppID service on IBM Cloud and performs the necessary setup of the instance. Parameters required for the deployment are stored in local.env.
 
-### create-cloudant.sh
+### create-cloudant
+
+Cloudant is a database option for the [Authors service](../authors-nodejs/README.md)
 
 The script will
 
