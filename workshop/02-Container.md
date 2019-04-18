@@ -3,10 +3,11 @@
 ****** **UNDER CONSTRUCTION** ******
 
 In this Lab we build and deploy the containers with microservices to Kubernetes.
+Along this way we will use the configured yaml files to create the deployment and setup the right ISTIO configuration for each microservice.
 
 ![cns-container-deployment-01](images/cns-container-deployment-01.png)
 
-### Technology
+### Technology of the microservices
 
 The **'articles'** and **'web-api'** micro-service are based purly only on open source components:
 
@@ -17,10 +18,12 @@ The **'articles'** and **'web-api'** micro-service are based purly only on open 
 
 To ensure that distributed tracing it supported [zipkintracer](https://github.com/openzipkin/zipkin-ruby) is copied onto the image.
 
+
+
 ### Dockerfile to create the articles container
 
 Now we take a look info the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the container image. 
-The reason for the two stages is to be independed on local environment settings, when we create the container. With this concept we don't have to ensure that Java and Maven (or wrong versions) installed.
+The reason for the two stages we have the objective to be independed on local environment settings, when we create the container. With this concept we don't have to ensure that Java and Maven (or wrong versions) installed.
 
 
 First we install maven 3.5 from the [dockerhub](https://hub.docker.com/_/maven/).
