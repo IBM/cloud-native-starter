@@ -4,7 +4,7 @@
 
 In this Lab we build and deploy the containers with microservices to Kubernetes.
 
-Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** and setup the right **ISTIO configuration** for the microservices.
+Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** and setup the right **Istio configuration** for the microservices.
 
 The following diagram shows a high level overview of steps which will be automated later with bash scripts.
 
@@ -120,14 +120,13 @@ CMD ["npm", "start"]
 
 ## Configurations for the deployment to Kubernetes
 
-Now we examine the deployment and the ISTIO yamls to deploy the container to Pods on the Kubernetes Cluster.
+Now we examine the deployment and the Istio yamls to deploy the container to Pods on the Kubernetes Cluster.
 
 ### Web-app
 
 * Service and Deployment configuration for the micro service
 
-With **kind: Service** we can define the access to microservice
-inside Kubernetes and the **kind: Deployment** defines how we expose the  microservice on a Pod in Kubernetes.
+With [kind: Service](https://kubernetes.io/docs/concepts/services-networking/service/) we define the access to your microservice inside Kubernetes and the [kind: Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) defines how we expose the  microservice on a Pod in Kubernetes and even more configuration options you can find on the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
 
 ```yaml
 kind: Service
@@ -167,34 +166,63 @@ spec:
 
 ```
 
-* ISTIO configuration
+## Ingress configuration
 
-ISTIO defines the routing of the Ingress gateway.
-
-With ISTIO you can use two or more deployments of different versions of an microservice. With **kind: DestinationRule** you can find to with microservice you route. Here it will be the **host: web-app** in **version: v1**.
-
-[Related blog post](https://haralduebele.blog/2019/03/11/managing-microservices-traffic-with-istio/)
+With this  the Ingress gateway.
 
 ```yaml
 apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
+kind: VirtualService
 metadata:
-  name: web-app
+  name: virtualservice-ingress-web-api-web-app
 spec:
-  host: web-app
-  subsets:
-  - name: v1
-    labels:
-      version: v1
+  hosts:
+  - "*"
+  gateways:
+  - default-gateway-ingress-http
+  http:
+  - match:
+    - uri:
+        prefix: /web-api/v1/getmultiple 
+    route:
+      - destination:
+          host: web-api
+          subset: v1
+...
+  - match:
+    - uri:
+        prefix: /openapi/ui/ 
+    route:
+    - destination:
+        port:
+          number: 9080
+        host: web-api
+  - match:
+    - uri:
+        prefix: /openapi
+    route:
+    - destination:
+        port:
+          number: 9080
+        host: web-api
+...
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: web-app
 ---
 ```
 
 ### Articals
 
-* ISTIO configuration
+* Istio configuration
 
 ```yaml
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.Istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: articles
@@ -208,7 +236,7 @@ spec:
         subset: v1
 ---
 
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.Istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: articles
