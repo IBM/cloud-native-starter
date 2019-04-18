@@ -14,15 +14,15 @@ The following diagram shows a high level overview of steps which will be automat
 2. Building and storing of theproduction container image inside the IBM Cloud Registry
 3. Deploying the containers into the Kuberentes Cluster
 
-## Container images
+## 1 Container images
 
 Before we will execute to bash scripts to build and upload the container images, we will take a look into the Dockerfile to build these container images.
 
-### Java container images
+### 1.1 Java container images
 
 The articles and the authors microservices are written in Java and they run on OpenLiberty.
 
-#### Articles container image definition
+#### 1.1.1 Articles container image definition
 
 Now we take a look into the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. The inside the Dockerfile we use multiple stages to build the  container image. 
 The reason for the two stages we have the objective to be independed on local environment settings, when we create the container. With this concept we don't have to ensure that Java and Maven (or wrong versions) installed.
@@ -61,15 +61,15 @@ Now it is time to copy the build result **articles.war** form our **build enviro
 ```
 COPY --from=BUILD /usr/src/app/target/articles.war /config/dropins/
 ```
-#### Web-api container image definition
+#### 1.1.2 Web-api-V1 container image definition
 
 The web-api [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the web-api service, works in the same way as for **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**. 
 
-### Node.JS container images
+### 1.2. Node.JS container images
 
 The **web-app** and the **authors** services are written in Node.JS.
 
-#### Web-app container image definition
+#### 1.2.1 Web-app container image definition
 
 The web-app [Dockerfile](../web-app-vuejs/Dockerfile) to create the  web-app application, works in the same way as for **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**.
 
@@ -95,7 +95,7 @@ FROM nginx:latest
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=BUILD /usr/src/app/dist /usr/share/nginx/html
 ```
-#### Authors container image definition
+#### 1.2.2 Authors container image definition
 
 The authors [Dockerfile](../authors/Dockerfile) to create the web-api service, does directly create the production image and is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine).
 
@@ -118,11 +118,11 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-## Configurations for the deployment to Kubernetes
+## 1.3 Configurations for the deployment to Kubernetes
 
-Now we examine the deployment and the Istio yamls to deploy the container to Pods on the Kubernetes Cluster.
+Now we examine the deployment yamls to deploy the container to Pods and creating Service to access them in the Kubernetes Cluster.
 
-### Web-app
+### 1.3.1 Web-app
 
 * Service and Deployment configuration for the micro service
 
@@ -166,9 +166,48 @@ spec:
 
 ```
 
-## Ingress configuration
+### 1.3.2 Web-api-V1
 
-With this  the Ingress gateway.
+```yaml
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: web-api-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-api
+        version: v1
+    spec:
+      containers:
+      - name: web-api
+        image: web-api:1
+        ports:
+        - containerPort: 9080
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:9080/"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:9080/health | grep -q web-api"]
+          initialDelaySeconds: 40
+      restartPolicy: Always
+---
+```
+
+## 1.4 Ingress configuration
+
+With the configuation of the **kind: VirtualService** for [Ingress gateway](https://kubernetes.io/docs/concepts/services-networking/ingress/) we define the routing access from the internet over the service to the microservices **web-api** and **web-app**.
+
+With **kind: Service** and  **kind: Deployment** we defined the Pods and the Services inside Kubernetes.
+
+Now the **kind: VirtualService** with the machting will be defined.
+
+![cns-container-deployment-02](images/cns-container-deployment-02.png)
+
 
 ```yaml
 apiVersion: networking.istio.io/v1alpha3
@@ -219,35 +258,7 @@ spec:
 
 ### Articals
 
-* Istio configuration
 
-```yaml
-apiVersion: networking.Istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: articles
-spec:
-  hosts:
-  - articles
-  http:
-  - route:
-    - destination:
-        host: articles
-        subset: v1
----
-
-apiVersion: networking.Istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: articles
-spec:
-  host: articles
-  subsets:
-  - name: v1
-    labels:
-      version: v1
----
-```
 
 
 ## Deploy the containers to the Kubernetes Cluster
