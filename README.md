@@ -107,6 +107,10 @@ $ scripts/delete-istio-ingress.sh
 
 ### Documentation
 
+The following [slides](https://github.com/nheidloff/cloud-native-starter/blob/master/documentation/FirstCloudNativeApplicationsJava.pdf) summarize this repo:
+
+[![Video](images/slides.png)](documentation/FirstCloudNativeApplicationsJava.pdf)
+
 Here is a series of blog entries about this project:
 
 * [Project Description and Design Principles](http://heidloff.net/article/example-java-app-cloud-kubernetes)
