@@ -110,6 +110,7 @@ $ scripts/delete-istio-ingress.sh
 Here is a series of blog entries about this project:
 
 * [Project Description and Design Principles](http://heidloff.net/article/example-java-app-cloud-kubernetes)
+* Slides: [How to develop your first cloud-native Applications with Java](https://github.com/nheidloff/cloud-native-starter/blob/master/documentation/FirstCloudNativeApplicationsJava.pdf) and four [recorded demos](https://www.youtube.com/watch?v=IVd8pxDP8p8)
 * [Setup of a Local Kubernetes and Istio Dev Environment](http://heidloff.net/article/setup-local-development-kubernetes-istio)
 * [Debugging Microservices running in Kubernetes](http://heidloff.net/article/debugging-microservices-kubernetes)
 * [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
