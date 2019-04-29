@@ -256,12 +256,7 @@ spec:
 ---
 ```
 
-### Articals
-
-
-
-
-## Deploy the containers to the Kubernetes Cluster
+## 1.5 Deploy the containers to the Kubernetes Cluster
 
 Invoke following bashscripts to deploy the microservices:
 
