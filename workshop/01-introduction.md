@@ -6,26 +6,33 @@ We'll examine the basics of modern cloud native Java micro-services development 
 
 ## The "Cloud Native Starter" application
 
-The "Cloud Native Starter" application TBD.
+With "Cloud Native Starter" application you can **show**, **add** and **remove** articles with authors information.
 
-TODO: Use customized architecture diagram for the workshop.
+The application is built on microservices with one frontend web application.
 
 ![architecture](images/architecture.png)
-
 
 * **Web-App** Is hosted on a Nginx server that provides a Vue **Web-App** to the browser
 * **Web-API** is accessed by the Vue app and provides a list of blog articles and their authors
 * **Articles** holds the list of blog articles
 * **Authors** holds the blog authors details (blog URL and Twitter handle)
 
-### **Microservices**
+### **Microservices and Web-App**
+
+These are the responibilities of the different microservices and the web-app.
+
+**Web-App**
+
+The is the UI for the user and only displays the given entries.
+
+![cns-introduction-01](images/cns-introduction-01.png)
 
 **Articles microservice**
 
-The objective of this microservice is to add and get artical information from a database. 
+The objective of this microservice is to **add** and **get** article information from a database. 
 In this workshop we will use the default implementation which just creates sample data values.
 
-The service is organized in following packages:
+The mircoservice is organized in following packages:
 
 * apis
 * business
@@ -40,6 +47,9 @@ This microservice also organized in following packages:
 * apis
 * business
 * data
+
+**Authors microservice**
+
 
 # Technologies
 

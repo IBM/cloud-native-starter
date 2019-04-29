@@ -88,10 +88,11 @@ Follow the steps listed under the [Install from shell](https://cloud.ibm.com/doc
 We log into the IBM Cloud CLI tool: `ibmcloud login`.
 If you have a federated account, include the `--sso` flag: `ibmcloud login --sso`.
 
-Install the IBM Cloud Kubernetes Service plug-in (`ks` sub command):
+Install the IBM Cloud Kubernetes Service plug-ins (`ks` sub command):
 
 ```sh
 $ ibmcloud plugin install container-service
+$ ibmcloud plugin install container-registry
 ```
 
 To verify that the plug-in is installed properly, run `ibmcloud plugin list`.
