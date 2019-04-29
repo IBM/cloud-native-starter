@@ -6,5 +6,6 @@ RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
  && rm liberty-opentracing-zipkintracer-1.2-sample.zip
 
 COPY liberty/server.xml /config/
+COPY key.jks /config/
 
 ADD target/web-api.war /config/dropins/

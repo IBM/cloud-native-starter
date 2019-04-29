@@ -6,6 +6,7 @@ import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.json.Json;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -29,17 +30,19 @@ public class Manage {
 				content = @Content(mediaType = "application/json", schema = @Schema(implementation = ManageResponse.class))),			
 			@APIResponse(responseCode = "401", description = "Not authorized") })
 	@Operation(summary = "Manage application", description = "Manage application")
-	public Response getArticles() {
-		System.out.println("com.ibm.web-api.apis.GetArticles.getArticles");
+	public Response manage() {
+		System.out.println("com.ibm.web-api.apis.Manage.manage");
 		
 		System.out.println(this.jwtPrincipal.getName());
 		System.out.println(this.jwtPrincipal);
 
-		// to be done
-		// throw 401 if user is not admin@demo.email
-		
-		JsonObject output = Json.createObjectBuilder().add("message", "success").build();
-		
-		return Response.ok(output).build();
+		if (this.jwtPrincipal.getName().equalsIgnoreCase("admin@demo.email")) {
+			JsonObject output = Json.createObjectBuilder().add("message", "success").build();
+			return Response.ok(output).build();
+		}
+		else {			
+			JsonObject output = Json.createObjectBuilder().add("message", "failure").build();
+    	return Response.status(Status.FORBIDDEN).entity(output).type(MediaType.APPLICATION_JSON).build();
+		}
 	}
 }

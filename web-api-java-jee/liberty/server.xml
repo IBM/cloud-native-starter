@@ -14,10 +14,8 @@
     
     <mpMetrics authentication="false"/>  
 
-    <!--
     <sslDefault sslRef="RpSSLConfig"/>
     <ssl id="RpSSLConfig" keyStoreRef="defaultKeyStore" trustStoreRef="validationKeystore"/> 
     <keyStore id="defaultKeyStore" location="keystore.jceks" type="JCEKS" password="secret" />
-    <keyStore id="validationKeystore" location="${server.config.dir}/resources/security/cacerts" type="jks" password="changeit"/>
-    -->
+    <keyStore id="validationKeystore" location="/config/key.jks" type="jks" password="changeit"/>
 </server>

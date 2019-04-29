@@ -42,9 +42,6 @@ public class GetArticles {
 	@Inject
 	ArticleAsJson articleAsJson;
 
-	//@Inject
-  //private JsonWebToken jwtPrincipal;
-
 	@Timed(name = "getArticlesTimed",
 	        absolute = true,
 	        displayName = "web-api /getmultiple timer",
@@ -66,8 +63,7 @@ public class GetArticles {
 	@Operation(summary = "Get most recently added articles", description = "Get most recently added articles")
 	public Response getArticles() {
 		System.out.println("com.ibm.web-api.apis.GetArticles.getArticles");
-		//System.out.println(this.jwtPrincipal.getName());
-		//System.out.println(this.jwtPrincipal);
+
 		JsonArray jsonArray;
 		try {
 			List<Article> articles = service.getArticles();
