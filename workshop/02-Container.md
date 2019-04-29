@@ -13,7 +13,7 @@ The following diagram shows a high level overview of steps which will be automat
 2. Building and storing of theproduction container image inside the IBM Cloud Registry
 3. Deploying the containers into the Kuberentes Cluster
 
-## 1 Container images
+## 1. The container images
 
 Before we will execute the bash scripts to build and upload the container images, we will take a look into the Dockerfiles to build these container images.
 
@@ -59,14 +59,14 @@ RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
 COPY liberty/server.xml /config/
 ```
 
-Now it is time to copy the build result **articles.war** form our **build environment container** into the correct place inside the **production container**.
+Now it is time to copy the build result **articles.war** from our **build environment container** into the correct place inside the **production container**.
 
 ```Dockerfile
 COPY --from=BUILD /usr/src/app/target/articles.war /config/dropins/
 ```
 #### 1.1.2 Web-api-V1 container image definition
 
-The web-api [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the web-api service, works in the same way as for **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**. 
+The web-api [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the web-api service, works in the same way as for the **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**. 
 
 ### 1.2. Node.JS container images
 
@@ -129,7 +129,9 @@ Now we examine the deployment yamls to deploy the container to Pods and creating
 
 * Service and Deployment configuration for the micro service
 
-With [kind: Service](https://kubernetes.io/docs/concepts/services-networking/service/) we define the access to your microservice inside Kubernetes and the [kind: Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) defines how we expose the  microservice on a Pod in Kubernetes and even more configuration options you can find on the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+With "[kind: Service](https://kubernetes.io/docs/concepts/services-networking/service/)" we define the access to your microservice inside Kubernetes and the "[kind: Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)" defines how we expose the microservice on a Pod in Kubernetes and even more configuration options you can find on the "[Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)".
+
+Here you can see the service and deployment configuration for the Kubernetes deployment.
 
 ```yaml
 kind: Service
@@ -203,11 +205,7 @@ spec:
 
 ## 1.4 Ingress configuration
 
-With the configuation of the **kind: VirtualService** for [Ingress gateway](https://kubernetes.io/docs/concepts/services-networking/ingress/) we define the routing access from the internet over the service to the microservices **web-api** and **web-app**.
-
-With **kind: Service** and  **kind: Deployment** we defined the Pods and the Services inside Kubernetes.
-
-Now the **kind: VirtualService** with the machting will be defined.
+With the configuation of the **kind: VirtualService** for [Ingress gateway](https://kubernetes.io/docs/concepts/services-networking/ingress/) we define the routing access from the internet over the service to the microservices **web-api** and the **web-app**.
 
 ![cns-container-deployment-02](images/cns-container-deployment-02.png)
 
