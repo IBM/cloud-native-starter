@@ -1,5 +1,4 @@
-## Building and deploy the Containers
-
+## Building and deploying Containers
 ****** **UNDER CONSTRUCTION** ******
 
 In this Lab we build and deploy the containers with microservices to Kubernetes.
