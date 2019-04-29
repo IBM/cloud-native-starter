@@ -178,6 +178,8 @@ spec:
 
 ### 1.3.2 Web-api-V1
 
+The deployment yaml for the Web-Api.
+
 ```yaml
 kind: Deployment
 apiVersion: apps/v1beta1
@@ -205,6 +207,96 @@ spec:
             command: ["sh", "-c", "curl -s http://localhost:9080/health | grep -q web-api"]
           initialDelaySeconds: 40
       restartPolicy: Always
+---
+```
+
+### 1.3.3 Articles
+
+As defined in the Twelve-Factor-App it’s important for cloud-native applications to store configuration externally, rather than in the code since this makes it possible to deploy applications to different environments.
+
+An app’s config is everything that is likely to vary between deploys (staging, production, developer environments, etc). This includes: Resource handles to … backing services. Credentials to external services …
+
+Microservices that are implemented with Java EE can leverage MicroProfile Config. The configuration can be done, for example, in Kubernetes yaml files and accessed from Java code via annotations and APIs.
+
+The **‘articles’** microservice uses configuration to define whether or not to create ten articles the first time it is invoked. In the yaml file an environment variable pointing to a **ConfigMap** is defined.
+
+In the Java code the configuration can be accessed via **@Inject**  and **@ConfigProperty**.
+ 
+```java
+ @ConfigProperty.
+
+public class CoreService {
+  private static final String CREATE_SAMPLES = "CREATE";
+  @Inject
+  @ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
+  private String samplescreation;
+  @PostConstruct
+  private void addArticles() {
+    if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
+      addSampleArticles();
+    }
+```
+
+[source 'Configuring Microservices with MicroProfile and Kubernetes'](http://heidloff.net/article/configuring-java-microservices-microprofile-kubernetes/)
+
+The deployment yaml for articles.
+
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: articles
+  labels:
+    app: articles
+spec:
+  selector:
+    app: articles
+  ports:
+    - port: 8080
+      name: http
+  type: NodePort
+---
+
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: articles
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: articles
+        version: v1
+    spec:
+      containers:
+      - name: articles
+        image: us.icr.io/cloud-native/articles:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: samplescreation
+          valueFrom:
+            configMapKeyRef:
+              name: articles-config
+              key: samplescreation
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/health | grep -q articles"]
+          initialDelaySeconds: 40
+      restartPolicy: Always
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: articles-config
+data:
+  samplescreation: CREATE
 ---
 ```
 
