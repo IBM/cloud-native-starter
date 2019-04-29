@@ -13,13 +13,13 @@ Java developers can leverage Eclipse MicroProfile to implement this functionalit
 
 ## 1. The "Cloud Native Starter" application
 
-With "Cloud Native Starter" application you can **show**, **add** and **remove** articles with authors information.
+With the "Cloud Native Starter" application you can **show**, **add** and **remove** articles with authors information.
 
 The application is built on microservices with one frontend web application.
 
 ![architecture](images/architecture.png)
 
-* **Web-App** Is hosted on a Nginx server that provides a Vue **Web-App** to the browser
+* **Web-App** Is hosted on a Nginx server that provides a VUE **Web-App** to the browser
 * **Web-API** is accessed by the Vue app and provides a list of blog articles and their authors
 * **Articles** holds the list of blog articles
 * **Authors** holds the blog authors details (blog URL and Twitter handle)
