@@ -1,3 +1,3 @@
-## Defining and exposing REST APIs
+## Resiliency
 
 ****** **UNDER CONSTRUCTION** ******

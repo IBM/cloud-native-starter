@@ -13,6 +13,10 @@ The following diagram shows a high level overview of steps which will be automat
 2. Building and storing of theproduction container image inside the IBM Cloud Registry
 3. Deploying the containers into the Kuberentes Cluster
 
+Related blog posts:
+
+* [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
+
 ## 1. The container images
 
 Before we will execute the bash scripts to build and upload the container images, we will take a look into the Dockerfiles to build these container images.
