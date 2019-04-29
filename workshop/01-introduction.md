@@ -1,4 +1,6 @@
+[home](README.md)
 # Introduction
+****** **UNDER CONSTRUCTION** ******
 
 As part of this workshop, we will see how to develop cloud-native microservices using Jakarta EE and MicroProfile, which are deployed using Docker CLI, Kubernetes, and Istio.
 We'll examine the basics of modern cloud native Java micro-services development with container, rest APIS, traffic management, and resiliency.
@@ -23,7 +25,8 @@ These are the responibilities of the different microservices and the web-app.
 
 **Web-App**
 
-The is the UI for the user and only displays the given entries.
+The is the UI for the user and displays the given entries.
+Here you can see a picture of the UI.
 
 ![cns-introduction-01](images/cns-introduction-01.png)
 
@@ -40,7 +43,7 @@ The mircoservice is organized in following packages:
 
 **Web-api microservice**
 
-The objective of this microservice is to combine information from different services and provide that information to be consumned using a REST API in the vue webapp. In this case the information of **articals** and **authors** are combined to be consunmed by the webapp.
+The objective of this microservice is to combine information from different microservices. The microservice provides the information to be consumned by the vue Web-App can use just one REST API and not more. **Articals** and **authors** are combined to be consunmed by the webapp.
 
 This microservice also organized in following packages:
 
