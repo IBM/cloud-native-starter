@@ -18,11 +18,12 @@ TODO: Use customized architecture diagram for the workshop.
 * **Articles** holds the list of blog articles
 * **Authors** holds the blog authors details (blog URL and Twitter handle)
 
-### Microservice*
+### **Microservices**
 
 **Articles microservice**
 
-The objective of this microservice is to add and get artical information from a database. At moment the implementation is just creating sample data values.
+The objective of this microservice is to add and get artical information from a database. 
+In this workshop we will use the default implementation which just creates sample data values.
 
 The service is organized in following packages:
 
@@ -32,7 +33,7 @@ The service is organized in following packages:
 
 **Web-api microservice**
 
-The objective of this microservice is to combine information from different services and provide that information to be consumned using a REST api in the vue webapp. In this case the information of **articals** and **authors** are combined to be consunmed by the webapp.
+The objective of this microservice is to combine information from different services and provide that information to be consumned using a REST API in the vue webapp. In this case the information of **articals** and **authors** are combined to be consunmed by the webapp.
 
 This microservice also organized in following packages:
 

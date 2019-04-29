@@ -1,3 +1,3 @@
-## Defining the rest API
+## Defining the REST API
 
 ****** **UNDER CONSTRUCTION** ******
