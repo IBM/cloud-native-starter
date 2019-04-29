@@ -16,7 +16,7 @@ We will cover the following four major topics and we learn along the given sourc
 Workshop instructions:
 
 * [Prerequisites](00-prerequisites.md) **(under construction - open)**
-* [Introduction](01-intoduction.md) **(under construction - open)**
+* [Introduction](01-introduction.md) **(under construction - open)**
 * [Lab - Building and deploying Containers](02-container.md) **(under construction - open)**
 * [Lab - Defining and exposing REST APIs](03-rest-api.md)  **(under construction - open)**
 * [Lab - Using traffic management in Kubernetes](04-traffic-management.md) **(under construction - open)**
