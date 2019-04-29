@@ -3,14 +3,9 @@
 
 ****** **UNDER CONSTRUCTION** ******
 
-Here I will use 
-iks-scripts/create-iks-cluster.sh
-iks-scripts/cluster-add-istio.sh
-
-
 ## 1. IBM Cloud Services
 
-We will use following IBM Cloud Services in this workshop.
+We will use following IBM Cloud Services in this hands-on workshop.
 
 ![cns-basic-setup-01](images/cns-basic-setup-01.png)
 
@@ -31,7 +26,11 @@ Following tools have to be installed on your laptop, to perform the workshop.
 To verfiy the prerequisite on your machine, just execute following bash script.
 
 ```sh
-[PROJECT ROOT]./iks-scripts/check-prerequisites.sh
+$ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ cd cloud-native-starter/iks-scripts
+$ chmod u+x *.sh
+$ cd ..
+$ ./iks-scripts/check-prerequisites.sh
 ```
 
 ## 3. Setup IBM Cloud Kubernetes cluster<a name="home"></a>
@@ -110,22 +109,24 @@ All subsequent CLI commands will operate in that region.
 ### 3.5 Create a IBM Cloud Kubernetes Service and add ISTIO<a name="part-SETUP-04"></a>
 [<home>](#home)
 
+For the following steps we use bash scripts from the github project.
+
 #### 3.5.1 Automated creation of a Cluster with ISTIO for the workshop
 
 Use following bash script to create a free Kubernetes Cluster on IBM Cloud:
 
 ```sh
-[PROJECT ROOT]$ ./iks-scripts/create-iks-cluster.sh
+$ ./iks-scripts/create-iks-cluster.sh
 ```
 
 Add the managed ISTIO to the free Kubernetes Cluster:
 ```sh
-[PROJECT ROOT]$ ./iks-scripts/cluster-add-istio.sh
+$ ./iks-scripts/cluster-add-istio.sh
 ```
 
 Configure the IBM Cloud Container Registry:
 ```sh
-[PROJECT ROOT]$ ./iks-scripts/create-registry.sh
+$ ./iks-scripts/create-registry.sh
 ```
 
 #### 3.5.1  Manual creation of a Cluster (optional)
