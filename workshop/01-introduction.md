@@ -1,4 +1,4 @@
-[home](README.md)
+[<- home](README.md)
 # Introduction
 ****** **UNDER CONSTRUCTION** ******
 
@@ -11,58 +11,53 @@ However, some functionality can not be covered by orchestration platforms and se
 
 Java developers can leverage Eclipse MicroProfile to implement this functionality. MicroProfile is an extension to Java EE (Enterprise Edition) to build microservices-based architectures and it complements Kubernetes and Istio capabilities. In addition to the application specific logic which Kubernetes and Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example mechanisms to invoke REST APIs and functionality to implement REST APIs including their documentation.
 
-## The "Cloud Native Starter" application
+## 1. The "Cloud Native Starter" application
 
-With "Cloud Native Starter" application you can **show**, **add** and **remove** articles with authors information.
+With the "Cloud Native Starter" application you can **show**, **add** and **remove** articles with authors information.
 
 The application is built on microservices with one frontend web application.
 
 ![architecture](images/architecture.png)
 
-* **Web-App** Is hosted on a Nginx server that provides a Vue **Web-App** to the browser
+* **Web-App** Is hosted on a Nginx server that provides a VUE **Web-App** to the browser
 * **Web-API** is accessed by the Vue app and provides a list of blog articles and their authors
 * **Articles** holds the list of blog articles
 * **Authors** holds the blog authors details (blog URL and Twitter handle)
 
 The "Cloud Native Starter" application follows these design principles:
 
-* Leverage platforms as much as possible – do as little as possible in language-specific frameworks
-* Use open-source components for the core services of the application only
-* Make the first time experience as simple as possible
-* Be able to run the application in different environments
-
-**Leverage platforms as much as possible – do as little as possible in language-specific frameworks**
+* **Leverage platforms as much as possible – do as little as possible in language-specific frameworks**
 
 The advantage of using Kubernetes and Istio for features like traffic management is, that these features are language agnostic. Cloud-native applications can be, and often are, polyglot. This allows developers to pick the best possible languages for the specific tasks.
 
-**Use open-source components for the core services of the application only**
+* **Use open-source components for the core services of the application only**
 
 Pretty much everyone loves open source. For example the Java stack leverages OpenJ9, OpenJDK from AdoptOpenJDK, OpenLiberty and MicroProfile. Kubernetes and Istio are obviously open source projects as well.
 
-**Make the first time experience as simple as possible**
+* **Make the first time experience as simple as possible**
 
 The example application shows several features working together, see below for details. There are also scripts to deploy services very easily, basically one script per service, similar to the **‘cf push’** experience for Cloud Foundry applications.
 
-**Be able to run the application in different environments**
+* **Be able to run the application in different environments**
 
 Fortunately this is one of the main advantages of Kubernetes since you can run workloads on-premises, hybrid or public cloud infrastructures. The repo has instructions how to deploy the application to Minikube and to the managed IBM Cloud Kubernetes Service.
 
 [source 'Example Java App running in the Cloud via Kubernetes'](http://heidloff.net/article/example-java-app-cloud-kubernetes)
 
-## **Microservices and Web-App**
+## 2. **Microservices and Web-App**
 
 These are the responsibilities of the different microservices and the web-app.
 
-### **Web-App**
+### 2.1 **Web-App**
 
 The Web-App is the UI for the user and displays the given entries.
 Here you can see a picture of the UI.
 
 ![cns-introduction-01](images/cns-introduction-01.png)
 
-### **Web-api microservice**
+### 2.2 **Web-api microservice**
 
-The objective of this microservice is to combine the information from the **Articals** and the **authors** microservice. The microservice provides that information to be consumned by the VUE Web-App. So the Web-App can use just **one** REST API and don't need more.
+The objective of this microservice is to combine the information from the **articals** and the **authors** microservice. The microservice provides that information to be consumned by the VUE Web-App. So the Web-App can use just **one** REST API and doesn't need more APIs.
 
 The mircoservice is built on Java and is organized in following packages:
 
@@ -70,19 +65,19 @@ The mircoservice is built on Java and is organized in following packages:
 * business
 * data
 
-### **Articles microservice**
+### 2.3 **Articles microservice**
 
 The objective of this microservice is to **add** and **get** article information from a database. 
 In this workshop we will use the default implementation, which just creates sample data values.
 
-### **Authors microservice**
+### 2.4 **Authors microservice**
 
 The objective of this microservice is to **add** and **get** author information from a database and is built on Node.JS.
 In this workshop we will use the default implementation, which just creates sample data values.
 
-# Technologies
+## 3 Technologies
 
-## Technology of the microservices
+### 3.1 Technologies of the microservices
 
 The **'articles'** and **'web-api'** microservices are based purly on open source components:
 
@@ -93,7 +88,7 @@ The **'articles'** and **'web-api'** microservices are based purly on open sourc
 
 To ensure that distributed tracing it supported [zipkintracer](https://github.com/openzipkin/zipkin-ruby) is copied onto the image.
 
-## MicroProfile
+### 3.2 MicroProfile
 
 For cloud-native applications Kubernetes and Istio deliver a lot of important functionality out of the box, for example to ensure **resiliency** and **scalability**. This functionality works generically for microservices, no matter in which language they have been implemented and independent from the application logic.
 
@@ -101,7 +96,8 @@ Some cloud-native functionality however cannot be handled by Kubernetes and Isti
 
 That’s why we use Eclipse MicroProfile, which is an extension to JavaEE to build microservices-based architectures and a great programming model for Istio. In addition to the application specific logic that Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example invoking REST APIs and implementing REST APIs including their documentation.
 
-[source](http://heidloff.net/article/dockerizing-container-java-microprofile)
+[source 'Dockerizing Java MicroProfile Applications'](http://heidloff.net/article/dockerizing-container-java-microprofile)
+
 
 
 
