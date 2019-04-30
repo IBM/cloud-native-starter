@@ -44,11 +44,11 @@ app.get('/callback', (req, res) => {
           res.redirect(process.env.REDIRECT_URL_WEB_APP +
             '?name=' + userinfo.name +
             '&email=' + userinfo.email +
-            '&id_token=' + tokenSet.id_token
+            '&id_token=' + tokenSet.id_token +
+            '&access_token=' + tokenSet.access_token
           );
         })
         .catch(function (error) {
-          console.log('nik error')
           console.log(error);
           res.redirect(process.env.REDIRECT_URL_WEB_APP);
         })

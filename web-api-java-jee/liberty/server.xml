@@ -14,6 +14,11 @@
     
     <mpMetrics authentication="false"/>  
 
+    <mpJwt id="jwt"   
+        issuer="https://us-south.appid.cloud.ibm.com/oauth/v4/xxx"
+        ignoreApplicationAuthMethod="false"
+        jwksUri="https://us-south.appid.cloud.ibm.com/oauth/v4/xxx/publickeys" />  
+
     <sslDefault sslRef="RpSSLConfig"/>
     <ssl id="RpSSLConfig" keyStoreRef="defaultKeyStore" trustStoreRef="validationKeystore"/> 
     <keyStore id="defaultKeyStore" location="keystore.jceks" type="JCEKS" password="secret" />
