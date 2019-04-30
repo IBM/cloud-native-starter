@@ -38,10 +38,11 @@ $ ./iks-scripts/check-prerequisites.sh
 1. [Register at IBM Cloud Account](#part-SETUP-00)
 2. [Insert promo code](#part-SETUP-01)
 3. [Setup the IBM Cloud CLI](#part-SETUP-02)
-4. [Setup the IBM Cloud Kubernetes CLI](#part-SETUP-03)
-5. [Create a IBM Cloud Kubernetes Service and add ISTIO](#part-SETUP-04)
-6. [Access the Kubernetes cluster manually (optional)](#part-SETUP-05)
-7. [Access the IBM Cloud Container Registry manually (optional)](#part-SETUP-06)
+4. [Get IBM platform key](#part-SETUP-08)
+5. [Setup the IBM Cloud Kubernetes CLI](#part-SETUP-03)
+6. [Create a IBM Cloud Kubernetes Service and add ISTIO](#part-SETUP-04)
+7. [Access the Kubernetes cluster manually (optional)](#part-SETUP-05)
+8. [Access the IBM Cloud Container Registry manually (optional)](#part-SETUP-06)
 
 
 ### 3.1 Register at IBM Cloud Account <a name="part-SETUP-00"></a>
@@ -82,7 +83,21 @@ Follow the steps listed under the [Install from shell](https://cloud.ibm.com/doc
 
 [Documentation install CLI](images/docs.gif)
 
-### 3.4 Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
+### 3.4 Get IBM platform key <a name="part-SETUP-08"></a>
+
+To use the bash scripts automation later we need a IBM platform key. 
+
+1. Logon to IBM Cloud use the **"us-south"** Region with the  **https://api.ng.bluemix.net** API endpoint.
+```sh
+ibmcloud login -r us-south
+```
+
+2. Create a IBM platform for your API key and name it (example **my-ibmplatform-key**) and provide a filename  (example **my-ibmplatform-key-key_file**).
+```sh
+ibmcloud iam api-key-create my-ibmplatform-key -d "This is my API key to access the IBM platform" --file my-ibmplatform-key-key_file
+```
+
+### 3.5 Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
 [<home>](#home)
 
 We log into the IBM Cloud CLI tool: `ibmcloud login`.
@@ -106,12 +121,12 @@ $ ibmcloud ks region-set us-south
 
 All subsequent CLI commands will operate in that region.
 
-### 3.5 Create a IBM Cloud Kubernetes Service and add ISTIO<a name="part-SETUP-04"></a>
+### 3.6 Create a IBM Cloud Kubernetes Service and add ISTIO<a name="part-SETUP-04"></a>
 [<home>](#home)
 
 For the following steps we use bash scripts from the github project.
 
-#### 3.5.1 Automated creation of a Cluster with ISTIO for the workshop
+#### 3.6.1 Automated creation of a Cluster with ISTIO for the workshop
 
 Use following bash script to create a free Kubernetes Cluster on IBM Cloud:
 
@@ -129,7 +144,7 @@ Configure the IBM Cloud Container Registry:
 $ ./iks-scripts/create-registry.sh
 ```
 
-#### 3.5.1  Manual creation of a Cluster (optional)
+#### 3.6.2  Manual creation of a Cluster (optional)
 You can create IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
 
 _NOTE:_ When you're using the CLI or the browser Cloud console, always make sure you're **viewing the correct region**, as your resources will only be visible in its region.
