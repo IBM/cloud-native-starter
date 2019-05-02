@@ -12,4 +12,18 @@
     <logging traceSpecification="*=info:JCDI=all:com.ibm.ws.webbeans*=all:org.jboss.weld*=all:com.ibm.ws.cdi*=all:com.ibm.ws.microrprofile.config*=all"
         traceFileName="trace.log"
         traceFormat="BASIC" />
+
+    <!-- the following configuration is only needed if the persistence datastore db2 is used -->
+    <library id="DB2JCCLib">
+        <fileset dir="${shared.resource.dir}" includes="jcc*.jar"/>
+    </library>
+
+    <dataSource id="articlesdatasource" jndiName="jdbc/articlesdatasource">
+    <jdbcDriver libraryRef="DB2JCCLib" />
+    <properties.db2.jcc databaseName="BLUDB" createDatabase="create" 
+        portNumber="50000"
+        serverName="dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net"         
+        user="bbn96300" 
+        password="x3w@lj4qb2wvwb71" />
+  </dataSource>
 </server>

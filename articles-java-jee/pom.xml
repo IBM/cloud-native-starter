@@ -21,10 +21,37 @@
 			<scope>provided</scope>
 			<type>pom</type>
 		</dependency>
+		<!-- the following dependency is only needed if the persistence datastore db2 is used -->
+		<dependency>
+    	<groupId>com.ibm.db2</groupId>
+    	<artifactId>jcc</artifactId>
+    	<version>11.1.4.4</version>
+		</dependency> 
 	</dependencies>
 
 	<build>
 		<finalName>articles</finalName>
+		<plugins>        
+			<!-- the following plugin is only needed if the persistence datastore db2 is used -->
+			<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.10</version>
+					<executions>
+							<execution>
+									<id>copy-jcc-dependency</id>
+									<phase>package</phase>
+									<goals>
+											<goal>copy-dependencies</goal>
+									</goals>
+									<configuration>
+											<includeArtifactIds>jcc</includeArtifactIds>
+											<outputDirectory>${project.build.directory}/</outputDirectory>
+									</configuration>
+							</execution>
+					</executions>
+			</plugin>
+		</plugins>
 	</build>
 
 	<properties>

@@ -7,7 +7,8 @@ public class DataAccessManager {
 	
 	public static DataAccess getDataAccess() { 
         if (singleton == null) { 
-        	singleton = new InMemoryDataAccess(); 
+            //singleton = new InMemoryDataAccess(); 
+            singleton = new JPADataAccess(); 
         } 
         return singleton; 
     } 
