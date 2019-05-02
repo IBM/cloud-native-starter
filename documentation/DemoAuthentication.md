@@ -94,7 +94,7 @@ From the web application's dropdown 'Manage Application' can be invoked which tr
 
 Only the user 'admin@demo.email' is allowed to invoke this endpoint.
 
-<kbd><img src="../images/authorization-microprofile-user.png" /></kbd>
+<kbd><img src="../images/authorization-microprofile-admin.png" /></kbd>
 
 For the user 'user@demo.email' an error is thrown.
 
