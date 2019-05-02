@@ -32,11 +32,10 @@ public class Manage {
 	@Operation(summary = "Manage application", description = "Manage application")
 	public Response manage() {
 		System.out.println("com.ibm.web-api.apis.Manage.manage");
-		
-		System.out.println(this.jwtPrincipal.getName());
 		System.out.println(this.jwtPrincipal);
 
-		if (this.jwtPrincipal.getName().equalsIgnoreCase("admin@demo.email")) {
+		String principalEmail = this.jwtPrincipal.getClaim("email");
+		if (principalEmail.equalsIgnoreCase("admin@demo.email")) {
 			JsonObject output = Json.createObjectBuilder().add("message", "success").build();
 			return Response.ok(output).build();
 		}
