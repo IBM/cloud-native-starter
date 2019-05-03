@@ -15,10 +15,11 @@ import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-
+import javax.inject.Inject;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.InvalidArticle;
 import com.ibm.articles.business.NoDataAccess;
+import com.ibm.articles.data.JPADataAccess;
 import com.ibm.articles.business.CoreService;
 
 import org.eclipse.microprofile.openapi.annotations.info.Info;
@@ -38,6 +39,9 @@ public class CreateNewArticle {
 	
 	@Inject 
 	com.ibm.articles.business.CoreService coreService;
+
+	@Inject
+  private JPADataAccess dataAccess;
 
 	@POST
 	@Path("/create")
@@ -68,7 +72,15 @@ public class CreateNewArticle {
 	public Response addArticle(@RequestBody(description = "New article", required = true,
             content = @Content(schema = @Schema(implementation = Article.class))) Article newArticle) {
 		System.out.println("com.ibm.articles.apis.CreateNewArticle.addArticle");
+try {
+		this.dataAccess.addArticle(newArticle);
+		return Response.status(Response.Status.CREATED).entity(articleAsJson.createJson(newArticle)).build();
+	} catch (Exception e) {
+		e.printStackTrace();
+		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+	}
 
+		/*
 		String title = newArticle.title;
 		String url = newArticle.url;
 		String author = newArticle.author;
@@ -84,5 +96,7 @@ public class CreateNewArticle {
 			e.printStackTrace();
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
+		*/
+		
 	}
 }

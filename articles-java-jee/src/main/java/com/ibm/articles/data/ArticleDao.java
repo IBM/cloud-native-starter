@@ -3,6 +3,7 @@ package com.ibm.articles.data;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 
 @RequestScoped
