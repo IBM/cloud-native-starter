@@ -12,7 +12,9 @@ public class ArticleDao {
     private EntityManager em;
 
     public void createArticle(ArticleEntity article) {
+        System.out.println("ArticleDao.createArticle");
         em.persist(article);
+        System.out.println("ArticleDao.createArticle2");
     }
 
     public ArticleEntity readArticle(int articleId) {

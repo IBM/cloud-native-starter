@@ -20,7 +20,7 @@
 
     <dataSource id="articlesdatasource" jndiName="jdbc/articlesdatasource">
     <jdbcDriver libraryRef="DB2JCCLib" />
-    <properties.db2.jcc databaseName="BLUDB" createDatabase="create" 
+    <properties.db2.jcc databaseName="BLUDB"
         portNumber="50000"
         serverName="dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net"         
         user="bbn96300" 
