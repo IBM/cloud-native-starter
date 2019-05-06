@@ -66,14 +66,59 @@ Creating a cluster takes some time. Please wait at least 20 minutes before you c
 
 ### Add Istio
 
-IBM Kubernetes Service has a feature call 'add-ons' that can be installed into an existing cluster. There are several add-ons avaliable, one of them is *Istio* and another is *Istio Extras* which contains Kiali, Istios graphical dashboard.
+IBM Kubernetes Service has an option to install a managed Istio into a Kubernetes cluster. Unfortunately, the Kubernetes Lite Cluster we created in the previous step does not meet the hardware requirements for managed Istio. Hence we do a manual install of the Istio demo or evaluation version.
 
+First check if the cluster is available:
 
 ```
 $ iks-scripts/cluster-add-istio.sh
 ```
 
-This command first checks if the cluster created in the previous step is ready and available. If it isn't, the script terminates. Then just wait a few more minutes and try again.
+If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
+
+These are the instructions to install Istio. We use Istio 1.1.1 for this project.
+
+1. Download Istio 1.1.1 directly from [Github](https://github.com/istio/istio/releases/tag/1.1.1). Select the version that matches your OS. (Please be aware that we do not cover Windows in these instructions!)
+Result: istio-1.1.1-osx | linux.tar.gz
+
+2. Extract the installation files, e.g.:
+
+    ```
+    tar -xvzf istio-1.1.1-linux.tar.gz
+    ```
+    
+3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`:
+
+    ```
+    export PATH=$PWD/istio-1.1.1/bin:$PATH
+    ```
+
+4. Change into the extracted directory: `cd istio-1.1.1`
+
+5. Install Istio:
+
+    ```
+    $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
+    ```
+    
+    Wait a few seconds before issuing the next command:
+
+    ```
+    $ kubectl apply -f install/kubernetes/istio-demo.yaml
+    ```
+
+Check that all pods are running or completed before continuing.
+
+```
+$ kubectl get pod -n istio-system
+```
+
+Enable automatic sidecar injection:
+
+```
+$ kubectl label namespace default istio-injection=enabled
+```
+
 
 Once complete, the Kiali dashboard can be accessed with this command:
 
