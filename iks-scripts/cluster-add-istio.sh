@@ -31,6 +31,8 @@ function test_cluster() {
    _out -- Your Kubernetes cluster is in $STATE state and not ready
    _out ---- Please wait a few more minutes and then try this command again 
    exit 1
+   else
+   _out -- Cluster $CLUSTER_NAME is ready for Istio installation
   fi
 }
 
@@ -64,4 +66,4 @@ function add_istio() {
 }
 
 test_cluster
-add_istio
+#add_istio  ## Removed: managed Istio not supported on Lite cluster
