@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
 
-@Entity
+@Entity(name = "Article")
 @Table(name = "Article")
 @NamedQuery(name = "Article.findAll", query = "SELECT a FROM Article a")
 @NamedQuery(name = "Article.findArticle", query = "SELECT a FROM Article a WHERE "
