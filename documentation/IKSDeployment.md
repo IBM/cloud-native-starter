@@ -76,26 +76,18 @@ $ iks-scripts/cluster-add-istio.sh
 
 If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
 
-These are the instructions to install Istio. We use Istio 1.1.1 for this project.
+These are the instructions to install Istio. We use Istio 1.1.4 for this project.
 
-1. Download Istio 1.1.1 directly from [Github](https://github.com/istio/istio/releases/tag/1.1.1). Select the version that matches your OS. (Please be aware that we do not cover Windows in these instructions!)
-Result: istio-1.1.1-osx | linux.tar.gz
-
-2. Extract the installation files, e.g.:
-
-    ```
-    tar -xvzf istio-1.1.1-linux.tar.gz
-    ```
+1. Download Istio 1.1.4 
+   ```
+   curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.4 sh -
+   ```
     
-3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`:
+2. Follow the instructions displayed at completion of this command to add the istio-1.1.4/bin directory to your PATH environment variable
 
-    ```
-    export PATH=$PWD/istio-1.1.1/bin:$PATH
-    ```
+3. Change into the extracted directory: `cd istio-1.1.4`
 
-4. Change into the extracted directory: `cd istio-1.1.1`
-
-5. Install Istio:
+4. Install Istio:
 
     ```
     $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
