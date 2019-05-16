@@ -22,6 +22,10 @@ Related blog posts:
 
 Before we will execute the bash scripts to build and upload the container images, we will take a look into the Dockerfiles to build these container images.
 
+Later we can find for each container a related Pod inside Kubernetes. 
+
+![ibm-cloud-pods](images/ibm-cloud-pods.png)
+
 ### 1.1 Java container images
 
 The **articles** and the **authors** microservices are written in Java and they run on **OpenLiberty**.
@@ -69,6 +73,8 @@ Now it is time to copy the build result **articles.war** from our **build enviro
 ```Dockerfile
 COPY --from=BUILD /usr/src/app/target/articles.war /config/dropins/
 ```
+If last step is executed of the **Dockerfile** the container is ready to be deployed to Kubernetes.
+
 #### 1.1.2 Web-api-V1 container image definition
 
 The web-api [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the web-api service, works in the same way as for the **articles container**. Inside the Dockerfile we use the same multiple stages to build the container image as in the for the **articles container**. 
@@ -103,6 +109,9 @@ FROM nginx:latest
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=BUILD /usr/src/app/dist /usr/share/nginx/html
 ```
+
+If last step is executed of the **Dockerfile** the container is ready to be deployed to Kubernetes.
+
 #### 1.2.2 Authors container image definition
 
 The authors [Dockerfile](../authors/Dockerfile) to create the web-api service, does directly create the production image and is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine).
@@ -125,10 +134,11 @@ EXPOSE 3000
 
 CMD ["npm", "start"]
 ```
+If last step is executed of the **Dockerfile** the container is ready to be deployed to Kubernetes.
 
-## 1.3 Configurations for the deployment to Kubernetes
+## 1.3 YAML Configurations for the deployment to Kubernetes
 
-Now we examine the deployment yamls to deploy the container to Pods and creating Service to access them in the Kubernetes Cluster.
+Now we examine the deployment yamls to deploy the container to Pods and creating Services to access them in the Kubernetes Cluster.
 
 ### 1.3.1 Web-app
 
@@ -178,7 +188,7 @@ spec:
 
 ### 1.3.2 Web-api-V1
 
-The deployment yaml for the Web-Api.
+The deployment yaml for the Web-Api-V1. Here you can inspect the **Service** and the **Deployment** definition.
 
 ```yaml
 kind: Deployment
@@ -214,7 +224,8 @@ spec:
 
 As defined in the Twelve-Factor-App it’s important for cloud-native applications to store configuration externally, rather than in the code since this makes it possible to deploy applications to different environments.
 
-An app’s config is everything that is likely to vary between deploys (staging, production, developer environments, etc). This includes: Resource handles to … backing services. Credentials to external services …
+An app’s config is everything that is likely to vary between deploys (staging, production, developer environments, etc). 
+This includes: Resource handles to backing services. Credentials to external services.
 
 Microservices that are implemented with Java EE can leverage MicroProfile Config. The configuration can be done, for example, in Kubernetes yaml files and accessed from Java code via annotations and APIs.
 
@@ -239,7 +250,7 @@ public class CoreService {
 
 [source 'Configuring Microservices with MicroProfile and Kubernetes'](http://heidloff.net/article/configuring-java-microservices-microprofile-kubernetes/)
 
-The deployment yaml for articles.
+The deployment yaml for articles. Here you can inspect the **Service** and the **Deployment** definition.
 
 ```yaml
 kind: Service
@@ -302,10 +313,15 @@ data:
 
 ## 1.4 Ingress configuration
 
-With the configuation of the **kind: VirtualService** for [Ingress gateway](https://kubernetes.io/docs/concepts/services-networking/ingress/) we define the routing access from the internet over the service to the microservices **web-api** and the **web-app**.
+You can see in the diagram below, we are using a Ingress from Istio to provide access from the internet to the microservice **web-api** and the **web-app**.
 
 ![cns-container-deployment-02](images/cns-container-deployment-02.png)
 
+The important topic of the following yaml configuration is the matching (**"match"**) of **URIs** and **services**.
+
+![ibm-cloud-services](images/ibm-cloud-services.png)
+
+With the configuation of the **kind: VirtualService** for the [Ingress gateway](https://kubernetes.io/docs/concepts/services-networking/ingress/) we define the routing access from the internet over the services to the microservice **web-api** and the **web-app**. 
 
 ```yaml
 apiVersion: networking.istio.io/v1alpha3
@@ -358,18 +374,67 @@ spec:
 
 Invoke following bashscripts to deploy the microservices:
 
-```
+```sh
 $ ./iks-scripts/deploy-articles-java-jee.sh
 $ ./iks-scripts/deploy-authors-nodejs.sh
 $ ./iks-scripts/deploy-web-api-java-jee.sh
 $ ./iks-scripts/deploy-web-app-vuejs.sh
+$
+$ ./scripts/deploy-istio-ingress-v1.sh
 ```
 
 Invoke the curl command which is displayed as output of 'scripts/show-urls.sh' to the the urls of services.
 
-```
+```sh
 $ ./iks-scripts/show-urls.sh
 ```
+
+A sample result for the script:
+
+```sh
+019-05-16 15:09:51 articles
+2019-05-16 15:09:51 API explorer: http://159.122.172.162:30290/openapi/ui/
+2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:30290/articles/v1/getmultiple?amount=10
+2019-05-16 15:09:51 ------------------------------------------------------------------------------------
+2019-05-16 15:09:51 authors
+2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff
+2019-05-16 15:09:51 ------------------------------------------------------------------------------------
+2019-05-16 15:09:51 web-api
+2019-05-16 15:09:51 API explorer: http://159.122.172.162:31380/openapi/ui/
+2019-05-16 15:09:51 Metrics: http://159.122.172.162:32370/metrics/application
+2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31380/web-api/v1/getmultiple
+2019-05-16 15:09:51 ------------------------------------------------------------------------------------
+2019-05-16 15:09:51 web-app
+2019-05-16 15:09:52 Web app: http://159.122.172.162:31380/
+2019-05-16 15:09:52 ------------------------------------------------------------------------------------
+```
+Here an over of sample results:
+
+* Articels
+
+![cns-container-articels-service-03](images/cns-container-articels-service-03.png)
+
+* Authors
+
+Sample curl **getauthor**
+```sh
+$ curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff
+$ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
+```
+
+* Web-api v1
+
+![cns-container-articels-service-03](images/cns-container-web-api-v1-04.png)
+
+
+* Web-app
+
+![cns-container-web-app-04](images/cns-container-web-app-05.png)
+
+
+Now, we've finished the **Lab - Building and deploying Containers**.
+Let's get started with the [Defining and exposing REST APIs](03-rest-api.md).
+
 
 
 

@@ -2,18 +2,20 @@
 # Introduction
 ****** **UNDER CONSTRUCTION** ******
 
-In this hands-on workshop, we will see how to develop cloud-native microservices using Jakarta EE and MicroProfile, which are deployed using Docker CLI, Kubernetes, and Istio.
+In this hands-on workshop, we will see, how to develop cloud-native microservices using Jakarta EE and MicroProfile.
+
+We will use for the deployed the Docker CLI and run the microservices on Kubernetes, and Istio.
 We'll examine the basics of modern cloud native Java micro-services development with container, REST APIS, traffic management, and resiliency.
 
-When building cloud-native applications, developers are challenged to figure out how to address topics like traffic routing, resiliency, distributed monitoring, service discoveries and more. Fortunately most of these new challenges are handled by the orchestration platform Kubernetes and the service mesh Istio. This functionality works generically for microservices, regardless of the language they are implemented in and without changes to the application logic.
+When building cloud-native applications, developers are challenged to figure out how to address topics like **building and deploying Containers**, **traffic routing**, **resiliency** and **defining and exposing REST APIs**. Fortunately most of these new challenges are handled by the orchestration platform Kubernetes and the service mesh Istio. This functionality works generically for microservices, regardless of the language they are implemented in and without changes to the application logic.
 
-However, some functionality can not be covered by orchestration platforms and service meshes. Instead it must be handled in the business logic of the microservices, for example application specific failover functionality, metrics, and fine-grained authorizations.
+However, **some functionality can not be covered by orchestration platforms** and service meshes. Instead it must be handled in the business logic of the microservices, for example application specific failover functionality, metrics, and fine-grained authorizations.
 
-Java developers can leverage Eclipse MicroProfile to implement this functionality. MicroProfile is an extension to Java EE (Enterprise Edition) to build microservices-based architectures and it complements Kubernetes and Istio capabilities. In addition to the application specific logic which Kubernetes and Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example mechanisms to invoke REST APIs and functionality to implement REST APIs including their documentation.
+Java developers can leverage **Eclipse MicroProfile** to implement this functionality. MicroProfile is an extension to Java EE (Enterprise Edition) to build microservices-based architectures and it complements Kubernetes and Istio capabilities. In addition to the application specific logic which Kubernetes and Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example mechanisms to invoke REST APIs and functionality to implement REST APIs including their documentation.
 
 ## 1. The "Cloud Native Starter" application
 
-With the "Cloud Native Starter" application you can **show**, **add** and **remove** articles with authors information.
+With the **"Cloud Native Starter"** application you can **show**, **add** and **remove** articles with authors information.
 
 The application is built on microservices with one frontend web application.
 
@@ -24,7 +26,7 @@ The application is built on microservices with one frontend web application.
 * **Articles** holds the list of blog articles
 * **Authors** holds the blog authors details (blog URL and Twitter handle)
 
-The "Cloud Native Starter" application follows these design principles:
+The **"Cloud Native Starter"** application follows these design principles:
 
 * **Leverage platforms as much as possible – do as little as possible in language-specific frameworks**
 
@@ -55,7 +57,7 @@ Here you can see a picture of the UI.
 
 ![cns-introduction-01](images/cns-introduction-01.png)
 
-### 2.2 **Web-api microservice**
+### 2.2 **Web-api**
 
 The objective of this microservice is to combine the information from the **articals** and the **authors** microservice. The microservice provides that information to be consumned by the VUE Web-App. So the Web-App can use just **one** REST API and doesn't need more APIs.
 
@@ -70,10 +72,21 @@ The mircoservice is built on Java and is organized in following packages:
 The objective of this microservice is to **add** and **get** article information from a database. 
 In this workshop we will use the default implementation, which just creates sample data values.
 
+In the image blow you can see a sample instance of the Articles.
+
+![cns-container-articels-service-03](images/cns-container-articels-service-03.png)
+
 ### 2.4 **Authors microservice**
 
 The objective of this microservice is to **add** and **get** author information from a database and is built on Node.JS.
 In this workshop we will use the default implementation, which just creates sample data values.
+
+Sample curl **getauthor** for Authors.
+
+```sh
+$ curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff
+$ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
+```
 
 ## 3 Technologies
 
@@ -97,6 +110,9 @@ Some cloud-native functionality however cannot be handled by Kubernetes and Isti
 That’s why we use Eclipse MicroProfile, which is an extension to JavaEE to build microservices-based architectures and a great programming model for Istio. In addition to the application specific logic that Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example invoking REST APIs and implementing REST APIs including their documentation.
 
 [source 'Dockerizing Java MicroProfile Applications'](http://heidloff.net/article/dockerizing-container-java-microprofile)
+
+Now, we've finished the **introduction**.
+Let's get started with the [Lab - Building and deploying Containers](02-container.md).
 
 
 
