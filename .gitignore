@@ -50,7 +50,7 @@ auth-nodejs2
 istio/web-api.*
 iks-scripts/*.log
 ibm-scripts/*.log
-iks-scripts/cluster-config.sh
+cluster-config.sh
 IKS*.yaml
 web-app-vuejs/package-lock.json
 istio/protect-web-api.yaml

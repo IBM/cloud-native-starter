@@ -7,21 +7,63 @@ spec:
   - <HOST>
   ports:
   - number: 443
-    name: https
-    protocol: HTTPS
+    name: tls
+    protocol: TLS
   resolution: DNS
-  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-egressgateway
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+  - port:
+      number: 443
+      name: tls
+      protocol: TLS
+    hosts:
+    - <HOST>
+    tls:
+      mode: PASSTHROUGH
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: egressgateway-for-cloudant
+spec:
+  host: istio-egressgateway.istio-system.svc.cluster.local
+  subsets:
+  - name: cloudant
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: cloudant
+  name: cloudant-through-egress-gateway
 spec:
   hosts:
   - <HOST>
+  gateways:
+  - mesh
+  - istio-egressgateway
   tls:
   - match:
-    - port: 443
+    - gateways:
+      - mesh
+      port: 443
+      sni_hosts:
+      - <HOST>
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        subset: cloudant
+        port:
+          number: 443
+  - match:
+    - gateways:
+      - istio-egressgateway
+      port: 443
       sni_hosts:
       - <HOST>
     route:

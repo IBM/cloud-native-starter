@@ -76,6 +76,8 @@ $ iks-scripts/cluster-add-istio.sh
 
 If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
 
+**NOTE:** You **MUST** run this command to check for completion of the cluster provisioning and it must report that the cluster is ready for Istio installation! This command also retrieves the cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.  
+
 These are the instructions to install Istio. We use Istio 1.1.4 for this project.
 
 1. Download Istio 1.1.4 
@@ -130,12 +132,6 @@ $ iks-scripts/create-registry.sh
 The container images we will build next are stored in the Container Registry as `us.icr.io/cloud-native/<imagename>:<tag>` if you didn't change the defaults.
 
 
-### Enable Istio Sidecar Auto Injection
-
-```
-$ kubectl label namespace default istio-injection=enabled
-```
-
 ### Initial Deployment of Cloud Native Starter
 
 To deploy (or redeploy) run these scripts:
@@ -150,7 +146,7 @@ $ iks-scripts/show-urls.sh
 ```
 After running all (!) the scripts above, you will get a list of all URLs in the terminal. All these commands use kubectl which requires that the kube environment is set with `source iks-scripts/cluster-config.sh`. This is required every time you start a new shell.
 
-<kbd><img src="images/IKS-urls.png" /></kbd>
+<kbd><img src="../images/IKS-urls.png" /></kbd>
 
 ### Demo Traffic Routing
 

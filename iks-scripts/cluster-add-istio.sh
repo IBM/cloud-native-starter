@@ -28,11 +28,16 @@ function test_cluster() {
   _out Check if Kubernetes Cluster is available ...
   STATE=$(ibmcloud ks cluster-get $CLUSTER_NAME -s | awk '/State:/ {print $2}')
   if [ $STATE != "normal" ]; then 
-   _out -- Your Kubernetes cluster is in $STATE state and not ready
-   _out ---- Please wait a few more minutes and then try this command again 
-   exit 1
+    _out -- Your Kubernetes cluster is in $STATE state and not ready
+    _out ---- Please wait a few more minutes and then try this command again 
+    exit 1
    else
-   _out -- Cluster $CLUSTER_NAME is ready for Istio installation
+    _out Saving kubectl config
+    echo '#!/bin/sh' > cluster-config.sh
+    echo $(ibmcloud ks cluster-config $CLUSTER_NAME --export) >> iks-scripts/cluster-config.sh
+    chmod +x cluster-config.sh
+    source cluster-config.sh
+    _out -- Cluster $CLUSTER_NAME is ready for Istio installation
   fi
 }
 
@@ -51,12 +56,6 @@ function add_istio() {
   _out -- Installed cluster add-ons:
   ibmcloud ks cluster-addons $CLUSTER_NAME 
 
-  _out Saving kubectl config
-  echo '#!/bin/sh' > cluster-config.sh
-  echo $(ibmcloud ks cluster-config $CLUSTER_NAME --export) >> cluster-config.sh
-  chmod +x cluster-config.sh
-  source cluster-config.sh
-
   _out Istio is installed on your cluster
   _out Please check if the Istio pods are all up with
   _out $ source iks-scripts/cluster-config.sh  -- this is only needed once
@@ -66,4 +65,4 @@ function add_istio() {
 }
 
 test_cluster
-#add_istio  ## Removed: managed Istio not supported on Lite cluster
+#add_istio  ## Removed: managed Istio is not supported on Lite cluster
