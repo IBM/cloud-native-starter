@@ -1,5 +1,7 @@
 package com.ibm.articles.apis;
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.JsonArray;
@@ -23,6 +25,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import com.ibm.articles.data.JPADataAccess;
 
 @RequestScoped
 @Path("/v1")
@@ -35,6 +38,10 @@ public class GetArticles {
 	@Inject 
 	com.ibm.articles.business.CoreService coreService;
 
+
+	@Inject
+  private JPADataAccess dataAccess;
+
 	@GET
 	@Path("/getmultiple")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -46,7 +53,20 @@ public class GetArticles {
 	public Response getArticles(
 			@Parameter(description = "The amount of articles", required = true, example = "10", schema = @Schema(type = SchemaType.INTEGER)) @QueryParam("amount") int amount) {
 		System.out.println("com.ibm.articles.apis.GetArticles.getArticles");
+		
 
+
+		try {
+			List<Article> articles = this.dataAccess.getArticles();
+			System.out.println(articles);
+			System.out.println(articles.size());
+			return Response.status(Response.Status.CREATED).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+
+/*
 		JsonArray jsonArray;
 		try {
 			jsonArray = coreService.getArticles(amount).stream()
@@ -58,5 +78,6 @@ public class GetArticles {
 		} catch (InvalidInputParamters e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
+		*/
 	}
 }

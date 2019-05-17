@@ -3,8 +3,10 @@ package com.ibm.articles.data;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.transaction.UserTransaction;
 
 @RequestScoped
 public class ArticleDao {
@@ -12,9 +14,23 @@ public class ArticleDao {
     @PersistenceContext(name = "jpa-unit")
     private EntityManager em;
 
+    @Resource
+    UserTransaction utx;
+
     public void createArticle(ArticleEntity article) {
         System.out.println("ArticleDao.createArticle");
+        try {
+        utx.begin();
         em.persist(article);
+
+        
+        
+        utx.commit();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
         System.out.println("ArticleDao.createArticle2");
     }
 
