@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 
 @Entity(name = "Article")
 @Table(name = "Article")
-@NamedQuery(name = "Article.findAll", query = "SELECT a FROM Article a")
+@NamedQuery(name = "Article.findAll", query = "SELECT e FROM Article e")
 @NamedQuery(name = "Article.findArticle", query = "SELECT a FROM Article a WHERE "
     + "a.title = :title AND a.url = :url AND a.author = :author")
 public class ArticleEntity implements Serializable {

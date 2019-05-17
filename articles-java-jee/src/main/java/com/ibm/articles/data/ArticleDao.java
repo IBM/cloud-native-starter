@@ -37,6 +37,7 @@ public class ArticleDao {
     public List<ArticleEntity> find(int articleId) {
         return em.createNamedQuery("Article.findArticle", ArticleEntity.class)
             .setParameter("id", articleId).getResultList();
+          
     }
 
     public List<ArticleEntity> findArticle(String title, String url, String author) {

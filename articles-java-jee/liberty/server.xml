@@ -18,9 +18,10 @@
         <fileset dir="${shared.resource.dir}" includes="jcc*.jar"/>
     </library>
 
-    <dataSource id="articlesdatasource" jndiName="jdbc/articlesdatasource">
-    <jdbcDriver libraryRef="DB2JCCLib" />
-    <properties.db2.jcc databaseName="BLUDB"
+    <dataSource id="eventjpadatasource"
+              jndiName="jdbc/eventjpadatasource">
+      <jdbcDriver libraryRef="DB2JCCLib" />
+     <properties.db2.jcc databaseName="BLUDB"
         portNumber="50000"
         serverName="dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net"         
         user="bbn96300" 
