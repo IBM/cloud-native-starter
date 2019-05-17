@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.UserTransaction;
 
-@RequestScoped
+@ApplicationScoped
 public class ArticleDao {
 
     @PersistenceContext(name = "jpa-unit")
@@ -47,6 +47,7 @@ public class ArticleDao {
     }
 
     public List<ArticleEntity> readAllArticles() {
+        System.out.println("ArticleDao.readAllArticles");
         return em.createNamedQuery("Article.findAll", ArticleEntity.class).getResultList();
     }
 

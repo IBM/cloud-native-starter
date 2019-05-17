@@ -5,17 +5,37 @@ import javax.inject.Inject;
 import com.ibm.articles.business.ArticleDoesNotExist;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.PostConstruct;
 
-@RequestScoped
+@ApplicationScoped
 public class JPADataAccess implements DataAccess {
      
     @Inject
     private ArticleDao articleDAO;
 
     public JPADataAccess() {
+        System.out.println("JPADataAccess()");
+        if (articleDAO == null) {
+            System.out.println("JPADataAccess() JPADataAccess.addArticle null");
+        }
+        else {
+            System.out.println("JPADataAccess() JPADataAccess.addArticle not null");
+        }
     }
+
+    @PostConstruct
+	private void addArticle() {
+        System.out.println("PostConstruct()");
+		if (articleDAO == null) {
+            System.out.println(" PostConstruct()JPADataAccess.addArticle null");
+        }
+        else {
+            System.out.println("PostConstruct() JPADataAccess.addArticle not null");
+        }
+	}
+    
 
     public Article addArticle(Article article) throws NoConnectivity {
         System.out.println("JPADataAccess.addArticle");
@@ -58,11 +78,14 @@ public class JPADataAccess implements DataAccess {
         }
     }
 
-    public List<Article> getArticles() throws NoConnectivity {  	        
+    public List<Article> getArticles() throws NoConnectivity {  
+        System.out.println("JPADataAccess.getArticles");	        
         List<Article> articleEntities = new ArrayList<Article>();
+        
         for (ArticleEntity articleEntity : articleDAO.readAllArticles()) {
             articleEntities.add(this.convertArticleEntitytoArticle(articleEntity));
         }
+        System.out.println(articleEntities.size());
         return articleEntities;
     }
 

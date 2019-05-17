@@ -20,20 +20,24 @@ public class CoreService {
 	@ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
 	private String samplescreation;
 
-	@PostConstruct
-	private void addArticle() {
-		if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
-			addSampleArticles();
-	}
+	@Inject
+	private DataAccessManager dataAccessManager;
+
+	//@PostConstruct
+	//private void addArticle() {
+	//	if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
+	//		addSampleArticles();
+	//}
 
 	public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
-		return CoreService.addArticleStatic(title, url, author);
+		System.out.println("com.ibm.articles.business.coreService.addArticle");
+		return this.addArticleStatic(title, url, author);
 	}
 
 	public Article getArticle(String id) throws NoDataAccess, ArticleDoesNotExist {
 		Article article;
 		try {
-			article = DataAccessManager.getDataAccess().getArticle(id);
+			article = dataAccessManager.getDataAccess().getArticle(id);
 			return article;
 		} catch (NoConnectivity e) {
 			e.printStackTrace();
@@ -46,7 +50,10 @@ public class CoreService {
 			throw new InvalidInputParamters();
 		List<Article> articles;
 		try {
-			articles = DataAccessManager.getDataAccess().getArticles();
+			articles = dataAccessManager.getDataAccess().getArticles();
+			System.out.println("CoreService.getArticles after getArticles");
+			System.out.println(articles.size());
+			/*
 			Comparator<Article> comparator = new Comparator<Article>() {
 				@Override
 				public int compare(Article left, Article right) {
@@ -60,6 +67,7 @@ public class CoreService {
 				}
 			};
 			Collections.sort(articles, comparator);
+			*/
 
 			int amount = articles.size();
 			if (amount > requestedAmount) {
@@ -78,6 +86,7 @@ public class CoreService {
 	}
 
 	private void addSampleArticles() {
+		/*
 		System.out.println("com.ibm.articles.business.Service.addSampleArticles");
 		try {
 			CoreService.addArticleStatic("Blue Cloud Mirror — (Don’t) Open The Doors!",
@@ -114,9 +123,10 @@ public class CoreService {
 			System.out.println("com.ibm.articles.business.Service.addSampleArticles: Sample articles have NOT been created");
 			e.printStackTrace();
 		}
+		*/
 	}
 
-	public static Article addArticleStatic(String title, String url, String author) throws NoDataAccess, InvalidArticle {
+	public Article addArticleStatic(String title, String url, String author) throws NoDataAccess, InvalidArticle {
 		if (title == null)
 			throw new InvalidArticle();
 
@@ -135,7 +145,7 @@ public class CoreService {
 		article.author = author;
 
 		try {
-			DataAccessManager.getDataAccess().addArticle(article);
+			dataAccessManager.getDataAccess().addArticle(article);
 			return article;
 		} catch (NoConnectivity e) {
 			e.printStackTrace();
