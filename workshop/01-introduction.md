@@ -1,4 +1,4 @@
-[<- home](README.md)
+[home](README.md)
 # Introduction
 ****** **UNDER CONSTRUCTION** ******
 
@@ -44,11 +44,15 @@ The example application shows several features working together, see below for d
 
 Fortunately this is one of the main advantages of Kubernetes since you can run workloads on-premises, hybrid or public cloud infrastructures. The repo has instructions how to deploy the application to Minikube and to the managed IBM Cloud Kubernetes Service.
 
-[source 'Example Java App running in the Cloud via Kubernetes'](http://heidloff.net/article/example-java-app-cloud-kubernetes)
-
 ## 2. **Microservices and Web-App**
 
 These are the responsibilities of the different microservices and the web-app.
+
+All mircoservices in this project built on Java are organized in following packages:
+
+* apis
+* business
+* data
 
 ### 2.1 **Web-App**
 
@@ -59,13 +63,14 @@ Here you can see a picture of the UI.
 
 ### 2.2 **Web-api**
 
-The objective of this microservice is to combine the information from the **articals** and the **authors** microservice. The microservice provides that information to be consumned by the VUE Web-App. So the Web-App can use just **one** REST API and doesn't need more APIs.
+The objective of this microservice is to combine the information from the **articals** and the **authors** microservice. 
 
-The mircoservice is built on Java and is organized in following packages:
+The web-api is business related to be consumned by the VUE Web-App. So the Web-App can use just **one** REST API and doesn't need more APIs.
 
-* apis
-* business
-* data
+In the following image contains a sample instance of the Web-api.
+
+![cns-container-web-api-v1-04.png](images/cns-container-web-api-v1-04.png)
+
 
 ### 2.3 **Articles microservice**
 
@@ -109,12 +114,16 @@ Some cloud-native functionality however cannot be handled by Kubernetes and Isti
 
 That’s why we use Eclipse MicroProfile, which is an extension to JavaEE to build microservices-based architectures and a great programming model for Istio. In addition to the application specific logic that Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example invoking REST APIs and implementing REST APIs including their documentation.
 
-[source 'Dockerizing Java MicroProfile Applications'](http://heidloff.net/article/dockerizing-container-java-microprofile)
-
 Now, we've finished the **introduction**.
 Let's get started with the [Lab - Building and deploying Containers](02-container.md).
 
 
+---
+
+Resources:
+
+* ['Dockerizing Java MicroProfile Applications'](http://heidloff.net/article/dockerizing-container-java-microprofile)
+* ['Example Java App running in the Cloud via Kubernetes'](http://heidloff.net/article/example-java-app-cloud-kubernetes)
 
 
 

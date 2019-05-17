@@ -258,7 +258,7 @@ You can create IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console
 
 _NOTE:_ When you're using the CLI or the browser Cloud console, always make sure you're **viewing the correct region**, as your resources will only be visible in its region.
 
-### 3.7 Accessing the Kubernetes cluster manually <a name="part-SETUP-05"></a>
+### 3.7 Accessing the Kubernetes cluster manually (optional) <a name="part-SETUP-05"></a>
 
 Now, we'll see how to set the context to work with our clusters by using the `kubectl` CLI, access the Kubernetes dashboard, and gather basic information about our cluster.
 
@@ -299,7 +299,7 @@ View the currently available services, deployments, and pods:
 $ kubectl get svc,deploy,po --all-namespaces
 ```
 
-### 3.8 Access the IBM Cloud Container Registry manually <a name="part-SETUP-06"></a>
+### 3.8 Access the IBM Cloud Container Registry manually (optional) <a name="part-SETUP-06"></a>
 [<home>](#home)
 
 In order to build and distribute Container images, we need a Container registry.
