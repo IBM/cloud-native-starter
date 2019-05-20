@@ -144,7 +144,7 @@ CMD ["npm", "start"]
 If last step is executed of the **Dockerfile** the container is ready to be deployed to Kubernetes.
 
 
-## 1.3 YAML Configurations for the deployment to Kubernetes
+### 1.3 YAML Configurations for the deployment to Kubernetes
 
 Now we examine the deployment yamls to deploy the container to **Pods** and creating **Services** to access them in the Kubernetes Cluster.
 
@@ -152,7 +152,7 @@ In the following image you can see the deployed **Services**:
 
 ![ibm-cloud-services](images/ibm-cloud-services.png)
 
-### 1.3.1 Web-app
+#### 1.3.1 Web-app
 
 * Service and Deployment configuration for the micro service
 
@@ -198,7 +198,7 @@ spec:
 
 ```
 
-### 1.3.2 Web-api-V1
+#### 1.3.2 Web-api-V1
 
 The deployment yaml for the Web-Api-V1. Here you can inspect the **Service** and the **Deployment** definition.
 
@@ -232,7 +232,7 @@ spec:
 ---
 ```
 
-### 1.3.3 Articles
+#### 1.3.3 Articles
 
 As defined in the Twelve-Factor-App it’s important for cloud-native applications to store configuration externally, rather than in the code since this makes it possible to deploy applications to different environments.
 
@@ -321,7 +321,7 @@ data:
 ---
 ```
 
-## 1.4 Ingress configuration
+### 1.4 Ingress configuration
 
 You can see in the diagram below, we are using a Ingress from Istio to provide access from the internet to the microservice **web-api** and the **web-app**.
 
@@ -378,7 +378,7 @@ spec:
 ---
 ```
 
-## 1.5 Deploy the containers to the Kubernetes Cluster
+### 1.5 Lab - Deploy the containers to the Kubernetes Cluster
 
 Invoke following bashscripts to deploy the microservices:
 
