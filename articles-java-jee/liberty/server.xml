@@ -18,8 +18,8 @@
         <fileset dir="${shared.resource.dir}" includes="jcc*.jar"/>
     </library>
 
-    <dataSource id="eventjpadatasource"
-              jndiName="jdbc/eventjpadatasource">
+    <dataSource id="articlejpadatasource"
+              jndiName="jdbc/articlejpadatasource">
       <jdbcDriver libraryRef="DB2JCCLib" />
      <properties.db2.jcc databaseName="BLUDB"
         portNumber="50000"

@@ -6,7 +6,6 @@ import com.ibm.articles.business.ArticleDoesNotExist;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
-import javax.annotation.PostConstruct;
 
 @ApplicationScoped
 public class JPADataAccess implements DataAccess {
@@ -16,43 +15,17 @@ public class JPADataAccess implements DataAccess {
 
     public JPADataAccess() {
     }
-/*
-    @PostConstruct
-	private void addArticle() {
-        System.out.println("PostConstruct()");
-		if (articleDAO == null) {
-            System.out.println(" PostConstruct()JPADataAccess.addArticle null");
-        }
-        else {
-            System.out.println("PostConstruct() JPADataAccess.addArticle not null");
-        }
-	}
-  */  
 
     public Article addArticle(Article article) throws NoConnectivity {
-        System.out.println("JPADataAccess.addArticle");
         long currentTime = new java.util.Date().getTime();
 		String currentTimeAsString = String.valueOf(currentTime);
         ArticleEntity newArticle = new ArticleEntity(article.title, article.url, article.author, currentTimeAsString);
-        /*
-        System.out.println("JPADataAccess.addArticle2");
-        if (articleDAO == null) {
-            System.out.println("JPADataAccess.addArticle null");
-        }
-        else {
-            System.out.println("JPADataAccess.addArticle not null");
-        }
-        */
         articleDAO.createArticle(newArticle);
-        //System.out.println("JPADataAccess.addArticle3");
         List<ArticleEntity> articleEntities = articleDAO.findArticle(article.title, article.url, article.author);
-        //System.out.println("JPADataAccess.addArticle4");
         if (articleEntities.size() < 1) {
-            System.out.println("JPADataAccess.addArticle5");
             throw new NoConnectivity();
         }
         else {
-            System.out.println("JPADataAccess.addArticle6");
             return this.convertArticleEntitytoArticle(articleEntities.get(0));
         }
     }
@@ -74,14 +47,12 @@ public class JPADataAccess implements DataAccess {
         }
     }
 
-    public List<Article> getArticles() throws NoConnectivity {  
-        System.out.println("JPADataAccess.getArticles");	        
+    public List<Article> getArticles() throws NoConnectivity {          
         List<Article> articleEntities = new ArrayList<Article>();
         
         for (ArticleEntity articleEntity : articleDAO.readAllArticles()) {
             articleEntities.add(this.convertArticleEntitytoArticle(articleEntity));
         }
-        System.out.println(articleEntities.size());
         return articleEntities;
     }
 
@@ -90,6 +61,7 @@ public class JPADataAccess implements DataAccess {
         article.author = articleEntity.getAuthor();
         article.title = articleEntity.getTitle();
         article.url = articleEntity.getUrl();
+        article.creationDate = articleEntity.getCreationDate();
         article.id = Integer.toString(articleEntity.getId());
         return article;
     }
