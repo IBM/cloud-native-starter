@@ -131,7 +131,7 @@ Here is a series of blog entries about this project:
 * [Configuring Microservices with MicroProfile and Kubernetes](http://heidloff.net/article/configuring-java-microservices-microprofile-kubernetes/)
 * [Authenticating Web Users with OpenID and JWT](http://heidloff.net/article/authenticating-web-users-openid-connect-jwt/)
 * [Authorization in Cloud-Native Applications via OpenID and Istio](http://heidloff.net/article/authentication-authorization-openid-connect-istio)
-* Authorization via MicroProfile
+* [Authorization in Microservices with MicroProfile](http://heidloff.net/article/authorization-microservices-java-microprofile/)
 * SQL PersistenceSQL via JPA and JDBC
 
 Here is more information about Microservices, MicroProfile and Istio:
