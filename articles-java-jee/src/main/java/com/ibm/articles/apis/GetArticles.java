@@ -1,6 +1,5 @@
 package com.ibm.articles.apis;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.stream.JsonCollectors;

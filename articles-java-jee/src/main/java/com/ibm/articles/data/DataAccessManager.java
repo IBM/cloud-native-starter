@@ -2,23 +2,31 @@ package com.ibm.articles.data;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.annotation.PostConstruct;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class DataAccessManager {
+
+    private static final String USE_IN_MEMORY_STORE = "USE_IN_MEMORY_STORE";
+
+    @Inject
+	@ConfigProperty(name = "inmemory", defaultValue = USE_IN_MEMORY_STORE)
+	private String inmemory;
+
+    @Inject
+	InMemoryDataAccess inMemoryDataAccess;
 
     @Inject
 	JPADataAccess jPADataAccess;
 	
 	public DataAccess getDataAccess() { 
-        return jPADataAccess;
-        /*
-        if (singleton == null) { 
-            //singleton = new InMemoryDataAccess(); 
-            singleton = new JPADataAccess(); 
-        } 
-        return singleton; */
+
+        if (inmemory.equalsIgnoreCase(USE_IN_MEMORY_STORE)) {
+            //return inMemoryDataAccess;
+            return jPADataAccess;
+        }
+        else {
+            return jPADataAccess;
+        }
     } 
-	
-	//private static DataAccess singleton = null; 
 }

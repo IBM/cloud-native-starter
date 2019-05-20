@@ -31,13 +31,17 @@ public class ArticleEntity implements Serializable {
     @Column(name = "articleAuthor")
     private String author;
 
+    @Column(name = "creationDate")
+    private String creationDate;
+
     public ArticleEntity() {        
     }
     
-    public ArticleEntity(String title, String url, String author) {
+    public ArticleEntity(String title, String url, String author, String creationDate) {
         this.title = title;
         this.url = url;
         this.author = author;
+        this.creationDate = creationDate;
     }
 
     public int getId() {
@@ -46,6 +50,14 @@ public class ArticleEntity implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getTitle() {
@@ -96,6 +108,13 @@ public class ArticleEntity implements Serializable {
                 return false;
             }
         } else if (!title.equals(other.title)) {
+            return false;
+        }
+        if (creationDate == null) {
+            if (other.creationDate != null) {
+                return false;
+            }
+        } else if (!creationDate.equals(other.creationDate)) {
             return false;
         }
         if (author == null) {

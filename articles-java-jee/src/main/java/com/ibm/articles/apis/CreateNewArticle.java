@@ -1,33 +1,17 @@
 package com.ibm.articles.apis;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.stream.JsonCollectors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
-import org.eclipse.microprofile.openapi.annotations.info.Contact;
-import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-import javax.inject.Inject;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.InvalidArticle;
 import com.ibm.articles.business.NoDataAccess;
-import com.ibm.articles.data.JPADataAccess;
-import com.ibm.articles.business.CoreService;
-
-import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
-import javax.ws.rs.QueryParam;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -40,9 +24,6 @@ public class CreateNewArticle {
 	
 	@Inject 
 	com.ibm.articles.business.CoreService coreService;
-
-	//@Inject
-  //private JPADataAccess dataAccess;
 
 	@POST
 	@Path("/create")

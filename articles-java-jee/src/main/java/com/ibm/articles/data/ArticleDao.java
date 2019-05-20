@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.transaction.UserTransaction;
 
 @ApplicationScoped
@@ -17,21 +16,15 @@ public class ArticleDao {
     @Resource
     UserTransaction utx;
 
-    public void createArticle(ArticleEntity article) {
-        System.out.println("ArticleDao.createArticle");
+    public void createArticle(ArticleEntity article) throws NoConnectivity {
         try {
-        utx.begin();
-        em.persist(article);
-
-        
-        
-        utx.commit();
-        }
-        catch (Exception e) {
+            utx.begin();
+            em.persist(article);
+            utx.commit();
+        } catch (Exception e) {
             System.out.println(e);
+            throw new NoConnectivity();
         }
-
-        System.out.println("ArticleDao.createArticle2");
     }
 
     public ArticleEntity readArticle(int articleId) {
@@ -47,20 +40,17 @@ public class ArticleDao {
     }
 
     public List<ArticleEntity> readAllArticles() {
-        System.out.println("ArticleDao.readAllArticles");
         return em.createNamedQuery("Article.findAll", ArticleEntity.class).getResultList();
     }
 
     public List<ArticleEntity> find(int articleId) {
-        return em.createNamedQuery("Article.findArticle", ArticleEntity.class)
-            .setParameter("id", articleId).getResultList();
-          
+        return em.createNamedQuery("Article.findArticle", ArticleEntity.class).setParameter("id", articleId)
+                .getResultList();
+
     }
 
     public List<ArticleEntity> findArticle(String title, String url, String author) {
-      return em.createNamedQuery("Article.findArticle", ArticleEntity.class)
-          .setParameter("title", title)
-          .setParameter("url", url)
-          .setParameter("author", author).getResultList();
-  }
+        return em.createNamedQuery("Article.findArticle", ArticleEntity.class).setParameter("title", title)
+                .setParameter("url", url).setParameter("author", author).getResultList();
+    }
 }

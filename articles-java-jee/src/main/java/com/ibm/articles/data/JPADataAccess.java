@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import com.ibm.articles.business.ArticleDoesNotExist;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.ApplicationScoped;
 import javax.annotation.PostConstruct;
 
@@ -16,15 +15,8 @@ public class JPADataAccess implements DataAccess {
     private ArticleDao articleDAO;
 
     public JPADataAccess() {
-        System.out.println("JPADataAccess()");
-        if (articleDAO == null) {
-            System.out.println("JPADataAccess() JPADataAccess.addArticle null");
-        }
-        else {
-            System.out.println("JPADataAccess() JPADataAccess.addArticle not null");
-        }
     }
-
+/*
     @PostConstruct
 	private void addArticle() {
         System.out.println("PostConstruct()");
@@ -35,11 +27,14 @@ public class JPADataAccess implements DataAccess {
             System.out.println("PostConstruct() JPADataAccess.addArticle not null");
         }
 	}
-    
+  */  
 
     public Article addArticle(Article article) throws NoConnectivity {
         System.out.println("JPADataAccess.addArticle");
-        ArticleEntity newArticle = new ArticleEntity(article.title, article.url, article.author);
+        long currentTime = new java.util.Date().getTime();
+		String currentTimeAsString = String.valueOf(currentTime);
+        ArticleEntity newArticle = new ArticleEntity(article.title, article.url, article.author, currentTimeAsString);
+        /*
         System.out.println("JPADataAccess.addArticle2");
         if (articleDAO == null) {
             System.out.println("JPADataAccess.addArticle null");
@@ -47,10 +42,11 @@ public class JPADataAccess implements DataAccess {
         else {
             System.out.println("JPADataAccess.addArticle not null");
         }
+        */
         articleDAO.createArticle(newArticle);
-        System.out.println("JPADataAccess.addArticle3");
+        //System.out.println("JPADataAccess.addArticle3");
         List<ArticleEntity> articleEntities = articleDAO.findArticle(article.title, article.url, article.author);
-        System.out.println("JPADataAccess.addArticle4");
+        //System.out.println("JPADataAccess.addArticle4");
         if (articleEntities.size() < 1) {
             System.out.println("JPADataAccess.addArticle5");
             throw new NoConnectivity();

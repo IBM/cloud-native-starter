@@ -1,14 +1,14 @@
 package com.ibm.articles.data;
 
 import com.ibm.articles.business.Article;
-import javax.inject.Inject;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import com.ibm.articles.business.ArticleDoesNotExist;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 
+@ApplicationScoped
 public class InMemoryDataAccess implements DataAccess {
 
     private Map<String, Article> articles;
