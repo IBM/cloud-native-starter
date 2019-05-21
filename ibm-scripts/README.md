@@ -18,4 +18,4 @@ The script will
 * create the "authors" database 
 * create a view (authors-nodejs/authorview.json)
 * populate the database with our sample data (authors-nodejs/authordata.json)
-* set the correct values in scripts/deploy-authors-nodejs.cfg which is used by the deployment script for the authors service.
+* set the correct values in local.env which are used by the deployment script for the authors service.

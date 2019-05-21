@@ -7,7 +7,7 @@ After following these instructions you will be able to use the Kubernetes dashbo
 
 ### Minikube
 
-Follow the [instructions](https://kubernetes.io/docs/setup/minikube/) to install Minikube. This project has been tested with Minkube version 0.33.1. After this run these commands:
+Follow the [instructions](https://kubernetes.io/docs/setup/minikube/) to install Minikube. This project has been tested with Minkube version 1.0.1. After this run these commands:
 
 ```
 $ minikube config set cpus 4
@@ -33,24 +33,20 @@ $ minikube stop
 
 ### Istio
 
-To install Istio, follow these instructions. We use Istio 1.1.1 for this project.
+To install Istio, follow these instructions. We use Istio 1.1.5 for this project.
 
-1. Download Istio 1.1.1 directly from [Github](https://github.com/istio/istio/releases/tag/1.1.1). Select the version that matches your OS. (Please be aware that we do not cover Windows in these instructions!)
-Result: istio-1.1.1-osx|linux.tar.gz
+1. Download Istio, this will create a directory istio-1.1.5:
+   ```
+   curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
+   ```
 
-2. Extract the installation files, e.g.:
-
-    ```
-    tar -xvzf istio-1.1.1-linux.tar.gz
-    ```
-    
 3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`:
 
     ```
-    export PATH=$PWD/istio-1.1.1/bin:$PATH
+    export PATH=$PWD/istio-1.1.5/bin:$PATH
     ```
 
-4. Change into the extracted directory: `cd istio-1.1.1`
+4. Change into the extracted directory: `cd istio-1.1.5`
 
 5. Install Istio:
 

@@ -7,7 +7,7 @@ This is a Node.js application that allows to read authors information (Twitter h
 Node.js with Express, based on the "Node.js Microservice with Express.js" starter kit on IBM Cloud.
 We tested the deployment on Minikube or IBM Kubernetes Service.
 
-The local "in-memory" database uses json-query, the data set is in authors-nodejs/public/authors.json.
+The local "in-memory" database uses json-query, the data set is in authors-nodejs/authordata.json.
 
 A Cloudant instance can be created with ibm-scripts/create-cloudant.sh. It will 
 

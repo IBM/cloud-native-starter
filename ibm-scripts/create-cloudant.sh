@@ -4,7 +4,7 @@ root_folder=$(cd $(dirname $0); pwd)
 
 readonly LOG_FILE="${root_folder}/create-cloudant.log"
 readonly ENV_FILE="${root_folder}/../local.env"
-readonly AUTHOR_CFG="${root_folder}/../scripts/deploy-authors-nodejs.cfg"
+#readonly AUTHOR_CFG="${root_folder}/../scripts/deploy-authors-nodejs.cfg"
 touch $LOG_FILE
 exec 3>&1 
 exec 4>&2 
@@ -41,8 +41,11 @@ function setup() {
   ibmcloud resource service-instance-create cloudant-cloud-native-starter cloudantnosqldb lite $IBM_CLOUD_REGION  -p '{"location": "$IBM_CLOUD_REGION", "hipaa": "false", "legacyCredentials": true}'
   ibmcloud resource service-key-create cred4cloudant-cloud-native-starter Manager --instance-name cloudant-cloud-native-starter
   cloudanturl=$(ibmcloud resource service-key cred4cloudant-cloud-native-starter | awk '/url: /{ print $2 }')
-  echo DB="cloud" > $AUTHOR_CFG
-  echo CLOUDANTURL="$cloudanturl" >> $AUTHOR_CFG
+  # Set database to cloud in local.env
+  sed -i 's/AUTHORS_DB=local/AUTHORS_DB=cloud/g' $ENV_FILE
+  # Remove existing Cloudant URL and set to current value
+  sed -i '/CLOUDANT_URL=/d' $ENV_FILE
+  echo CLOUDANT_URL="$cloudanturl" >> $ENV_FILE
 
   _out Creating Cloudant database 
   curl "$cloudanturl/authors" -X PUT

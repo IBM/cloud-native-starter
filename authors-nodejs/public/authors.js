@@ -10,8 +10,8 @@ if ( process.env.DATABASE=="local" || localConfig.DATABASE=="local" ) {
     //  LOCAL DATABASE
 
     logger.info("Using local database");
-    // authors.json is the "database"
-    const author = require('./authors.json');
+    // authordata.json is the "database"
+    const author = require('../authordata.json');
     const jsonQuery = require('json-query');
 
     // Display details of single author
@@ -23,7 +23,7 @@ if ( process.env.DATABASE=="local" || localConfig.DATABASE=="local" ) {
     exports.author_get = function(req, res) {  
         var name = req.query.name;
         logger.info('Query for: ' + name);
-        var result = jsonQuery('authors[name=' + name + ']', {data: author}).value;
+        var result = jsonQuery('docs[name=' + name + ']', {data: author}).value;
         if (result == null) {
             res.writeHead(204, { "Content-Type": "application/json" }); 
             res.end('{"Msg": "No result"}'); 
@@ -41,7 +41,7 @@ if ( process.env.DATABASE=="local" || localConfig.DATABASE=="local" ) {
 
     if (process.env.CLOUDANT_URL) {
         var cloudant_db = require('@cloudant/cloudant')(process.env.CLOUDANT_URL); 
-        logger.info("Using DB: " + cloudant_db);
+        logger.info("Using DB: " + process.env.CLOUDANT_URL);
     } else {
         var cloudant_db = require('@cloudant/cloudant')(localConfig.CLOUDANT_URL);
         logger.info("Using DB: " + localConfig.CLOUDANT_URL);
