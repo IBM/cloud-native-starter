@@ -7,10 +7,10 @@
 
 We will use following IBM Cloud Services in this hands-on workshop.
 
-![cns-basic-setup-01](images/cns-basic-setup-01.png)
-
-* [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-getting-started#getting-started) with a custom ISTIO installation
+* [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-getting-started#getting-started) with a custom **Istio** installation
 * [IBM Cloud Container Registry Service](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#getting-started)
+
+![cns-basic-setup-01](images/cns-basic-setup-01.png)
 
 ## 2. Tools on your laptop
 
@@ -36,17 +36,20 @@ $ ./iks-scripts/check-prerequisites.sh
 
 ## 3. Setup IBM Cloud Kubernetes cluster<a name="home"></a>
 
-By default, deployment is in Dallas, USA (us-south). If you already have a lite cluster in Dallas, these scripts will not work because only one lite cluster is allowed.
+By default, deployment is in Dallas, USA (us-south). 
 
 1. [Register at IBM Cloud Account](#part-SETUP-00)
 2. [Insert promo code](#part-SETUP-01)
 3. [Setup the IBM Cloud CLI](#part-SETUP-02)
 4. [Get IBM platform key](#part-SETUP-08)
 5. [Setup the IBM Cloud Kubernetes CLI](#part-SETUP-03)
-6. [Create a IBM Cloud Kubernetes Service and add ISTIO](#part-SETUP-04)
+6. [Create a IBM Cloud Kubernetes Service and add Istio](#part-SETUP-04)
 7. [Access the Kubernetes cluster manually (optional)](#part-SETUP-05)
 8. [Access the IBM Cloud Container Registry manually (optional)](#part-SETUP-06)
 
+_Note:_ If you already have a lite cluster in Dallas, some of these scripts will not work, because only **one** lite cluster is allowed.
+
+---
 
 ### 3.1 Register at IBM Cloud Account <a name="part-SETUP-00"></a>
 
@@ -60,11 +63,13 @@ Fill in the registration form and follow the link in the **validation email** wh
 
 [Login into IBM Cloud](https://ibm.biz/Bd2JHx) using the account credentials you have registered.
 
-NOTE: New IBM Cloud accounts set per default to the [lite account version](https://www.ibm.com/cloud/pricing).
+_NOTE:_ New IBM Cloud accounts set per default to the [lite account version](https://www.ibm.com/cloud/pricing).
 
 This account type provides free access to a subset of IBM Cloud resources.
 Lite accounts **do not need a credit-card** to sign up or expire after a set time period, i.e. 30 days.
 Developers using lite accounts are restricted to use Kubernetes lite / free cluster for which they can use the provided promo codes.
+
+---
 
 ### 3.2 Insert promo code <a name="part-SETUP-01"></a>
 [<home>](#home)
@@ -73,7 +78,9 @@ In order that you can easily execute the workshop, we're providing **promo codes
 You apply the provided promo code under your [Cloud Account](https://cloud.ibm.com/account) ("`Manage`" -> "`Account`") by navigating to "`Account settings`".
 Apply your personal Feature (Promo) Code there.
 
-NOTE: Lite clusters expire after one month.
+_NOTE:_ Lite clusters expire after one month.
+
+---
 
 ### 3.3 Setup the IBM Cloud CLI <a name="part-SETUP-02"></a>
 [<home>](#home)
@@ -85,6 +92,8 @@ Follow the steps listed under the [Install from shell](https://cloud.ibm.com/doc
 - Windows (Powershell): `iex(New-Object Net.WebClient).DownloadString('https://clis.ng.bluemix.net/install/powershell')`
 
 [Documentation install CLI](images/docs.gif)
+
+---
 
 ### 3.4 Get IBM platform key <a name="part-SETUP-08"></a>
 
@@ -124,10 +133,15 @@ Example local.env:
 ```sh
 IBMCLOUD_API_KEY=AbcD3fg7hIj65klMn9derHHb9zge5
 IBM_CLOUD_REGION=us-south
-IBM_CLOUD_CLUSTER_REGION=us-south
 CLUSTER_NAME=cloud-native
 REGISTRY_NAMESPACE=cloud-native
+IBM_CLOUD_CF_API=https://api.ng.bluemix.net
+IBM_CLOUD_CF_ORG=
+IBM_CLOUD_CF_SPACE=dev
+AUTHORS_DB=local
+CLOUDANT_URL=
 ```
+---
 
 ### 3.5 Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
 [<home>](#home)
@@ -153,12 +167,16 @@ $ ibmcloud ks region-set us-south
 
 All subsequent CLI commands will operate in that region.
 
+---
+
 ### 3.6 Create a IBM Cloud Kubernetes Service and add ISTIO<a name="part-SETUP-04"></a>
 [<home>](#home)
 
 For the following steps we use bash scripts from the github project.
 
-#### 3.6.1 Automated creation of a Cluster with ISTIO for the workshop
+---
+
+#### 3.6.1 Automated creation of a Cluster with Istio for the workshop
 
 * create cluster
 Use following bash script to create a free Kubernetes Cluster on IBM Cloud:
@@ -183,14 +201,13 @@ $ ./iks-scripts/cluster-add-istio.sh
 If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
 
 These are the instructions to install Istio. 
-We use **Istio 1.1.4** for this project.
+We use **Istio 1.1.5** for this Lab.
 
-
-1. Download Istio 1.1.4 directly from github into the **workshop** directory:
+1. Download Istio 1.1.5 directly from github into the **workshop** directory:
 
     ```
     cd workshop
-    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.4 sh -
+    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
     ```
 
 _Note:_ Please be aware that we do **not cover Windows** in these instructions!
@@ -198,13 +215,13 @@ _Note:_ Please be aware that we do **not cover Windows** in these instructions!
 2. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`:
 
     ```sh
-    export PATH=$PWD/istio-1.1.4/bin:$PATH
+    export PATH=$PWD/istio-1.1.5/bin:$PATH
     ```
 
 3. Change into the extracted directory: 
 
     ```sh
-    cd istio-1.1.4
+    cd istio-1.1.5
     ```
 
 4. Install Istio:
@@ -238,6 +255,11 @@ _Note:_ Please be aware that we do **not cover Windows** in these instructions!
     ```
     Then open http://localhost:20001/kiali in your browser, logon with Username: admin, Password: admin
 
+    ![Kiali installation](images/istio-installation-02.png)
+
+    In the following image you can see the installed Istio on the Kubernetes cluster.
+    
+    ![Istio installation](images/istio-installation-01.png)
 
 * Configure the IBM Cloud Container Registry:
 Ensure you are are in the project directory and execute the script.
@@ -252,11 +274,15 @@ You can find the created namespace here:
 
 ![ibm-cloud-registry](images/ibm-cloud-registry.png)
 
+---
 
 #### 3.6.2  Manual creation of a Cluster (optional)
+
 You can create IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
 
 _NOTE:_ When you're using the CLI or the browser Cloud console, always make sure you're **viewing the correct region**, as your resources will only be visible in its region.
+
+---
 
 ### 3.7 Accessing the Kubernetes cluster manually (optional) <a name="part-SETUP-05"></a>
 
@@ -299,13 +325,12 @@ View the currently available services, deployments, and pods:
 $ kubectl get svc,deploy,po --all-namespaces
 ```
 
+---
+
 ### 3.8 Access the IBM Cloud Container Registry manually (optional) <a name="part-SETUP-06"></a>
 [<home>](#home)
 
-In order to build and distribute Container images, we need a Container registry.
-We can use the IBM Container Registry which can be accessed right away from our Kubernetes cluster.
-
-We log into the Container Registry service via the `ibmcloud` CLI and obtain the information about our registry:
+In order to build and distribute Container images, we need a Container registry. We can use the **IBM Container Registry** which can be accessed right away from our Kubernetes cluster. We log into the Container Registry service via the `ibmcloud` CLI and obtain the information about our registry:
 
 ```sh
 $ ibmcloud cr login
@@ -314,7 +339,7 @@ $ ibmcloud cr region
 You are targeting region 'us-south', the registry is 'You are targeting region 'us-south', the registry is 'us.icr.io'.'.
 ```
 
-We will the CLI inside bash script to create a unique namespace in the Container Registry service (`cr`) for our workshop.
+---
 
 Now, we've finished all **preparations**.
 Let's get started with the [introduction](01-introduction.md).

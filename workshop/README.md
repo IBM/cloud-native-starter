@@ -15,12 +15,12 @@ We will cover the following four major topics and we learn along the given sourc
  
 Hands-on workshop lab instructions:
 
-* [Prerequisites](00-prerequisites.md) **(under construction - open)**
-* [Introduction](01-introduction.md) **(under construction - open)**
-* [Lab - Building and deploying Containers](02-container.md) **(under construction - open)**
-* [Lab - Defining and exposing REST APIs](03-rest-api.md)  **(under construction - open)**
-* [Lab - Using traffic management in Kubernetes](04-traffic-management.md) **(under construction - open)**
-* [Lab - Resiliency](05-resiliency.md) **(under construction - open)**
+* [Prerequisites](00-prerequisites.md) **(under construction - pending review)**
+* [Introduction](01-introduction.md) **(under construction - pending review)**
+* [Lab - Building and deploying Containers](02-container.md) **(under construction - pending review)**
+* [Lab - Defining and exposing REST APIs](03-rest-api.md)  **(under construction - pending review)**
+* [Lab - Using traffic management in Kubernetes](04-traffic-management.md) **(under construction - progress)**
+* [Lab - Resiliency](05-resiliency.md) **(under construction - progress)**
 
 
 

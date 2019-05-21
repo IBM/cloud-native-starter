@@ -9,17 +9,17 @@ There are currently not many Istio examples available, the one most widely used 
 
 These tutorials and examples do focus on the request routing not as a part for a user-facing service behind the **Istio ingress**.
 
-In this part we create a **new instance** and of a **new version** for the **web-api** microservice.
+In this part we create a **new instance** and of a **new version** for the ****Web API**** microservice.
 
 ![git](images/traffic-new-architecture.gif)
 
-We configure the routing to split the usage between our two instances and versions of our web-api microservice.
+We configure the routing to split the usage between our two instances and versions of our **Web API** microservice.
 
 ![gif](images/traffic-routing.gif)
 
 ## 1.1 Deployment definition
 
-The interesting part is that these two versions of Web-API do exist as two different Kubernetes deployments and they run in parallel. That is definied in the [kubernetes-deployment-v1](web-api-java-jee/deployment/kubernetes-deployment-v1.yaml) and [kubernetes-deployment-v2](web-api-java-jee/deployment/kubernetes-deployment-v2.yaml).
+The interesting part is that these two versions of **Web API** do exist as two different Kubernetes deployments and they run in parallel. That is definied in the [kubernetes-deployment-v1](web-api-java-jee/deployment/kubernetes-deployment-v1.yaml) and [kubernetes-deployment-v2](web-api-java-jee/deployment/kubernetes-deployment-v2.yaml).
 
 Commonly, in Kubernetes we would replace v1 with v2. With **Istio** we can use two or more deployments of different versions of an app to do a **green/blue**, **A/B**, or [canary deployment](https://www.ibm.com/cloud/garage/tutorials/use-canary-testing-in-kubernetes-using-istio-toolchain) to test if v2 works as expected. We can slowly roll out our changes to a small subset of users before rolling it out to the entire infrastructure and making it available to everyone. 
 
@@ -63,7 +63,7 @@ In the gif we can see a sample istio gateway instance the in Kubernetes.
 
 ## 1.4 Virtual Service
 
-The second required Istio configuration object is a **“Virtual Service”** which overlays the Kubernetes service definition. The Web-API service in the example exposes 3 REST URIs. Two of them are used for API documentation (Swagger/Open API), they are **/openapi** and **/openapi/ui/** and are currently independent of the version of Web-API. 
+The second required Istio configuration object is a **“Virtual Service”** which overlays the Kubernetes service definition. The **Web API** service in the example exposes 3 REST URIs. Two of them are used for API documentation (Swagger/Open API), they are **/openapi** and **/openapi/ui/** and are currently independent of the version of **Web API**. 
 The third URI is **/web-api/v1/getmultiple** and this is version-specific. 
 
 Base on that we have following VirtualService definition:
@@ -73,34 +73,69 @@ Base on that we have following VirtualService definition:
 1. Pointer to the Ingress Gateway
 2. URI that directly point to the Kubernetes service web-api listenting on port 9080 (without Istio)
 3. URI that uses **“subset: v1”** of the service web-api which we haven’t defined yet, this is Istio specific
-4. Root **/** is pointing to port **80** of the web-app service which is different from web-api! It is the service that provides the Vue app to the browser.
+4. Root **/** is pointing to port **80** of the **Web app** service which is different from web-api! It is the service that provides the Vue app to the browser.
 
 ## 1.5 Destination rule
 
 To control the traffic we need to define a DestinationRule, this is  Istio specific. 
 
-In the image below we can see, the subset v1 is selecting pods that belong to web-api and have a selector label of “version: v1” which is the deployment “web-api-v1”.
+In the image below we can see, the subset v1 is selecting pods that belong to **Web API** and have a selector label of “version: v1” which is the deployment “web-api-v1”.
 
 ![Destination rule](images/traffic-routing-deployment09.png)
 
-With this Istio rule set in place all incoming traffic will go to version 1 of the Web-API. 
+With this Istio rule set in place all incoming traffic will go to version 1 of the **Web API**. 
 
 In the following image you can see all the traffic is routed to version 1.
 
-![Sample traffic](images/traffic-routing-deployment10.png)
+![Sample single traffic](images/traffic-routing-deployment10.png)
 
 ## 1.6 Traffic distribution
 
-We can change the VirtualService to distribute incoming traffic, e.g. 80% should go to version 1, 20% should go to version 2:
+We can change the VirtualService to distribute incoming traffic, e.g. **80%** to version 1 and **20%** to version 2:
 
+![Sample distributed traffic](images/traffic-routing-deployment11.png)
 
+We can verify the traffic in Kiali:
 
-
+![Sample distributed traffic](images/traffic-routing-deployment11.png)
 
 
 ## 1.7 Lab - Traffic Routing
 
-In order to demonstrate traffic routing you can run the following commands. 20 % of the web-api API request to read articles will now return 10 instead of 5 articles which is version 2. 80 % of the requests are still showing only 5 articles which is version 1. 
+In order to demonstrate traffic routing you can run the following commands. 
+**20 %** of the **Web API** API request to read articles will now return 10 articles as defined in version 2 and **80 %** of the requests are still showing only 5 articles which is version 1. 
+
+### 1.7.1 Gain access to your cluster
+
+1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
+
+```sh
+$ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+```
+
+2. Download the kubeconfig files for your cluster.
+
+```sh
+$ ibmcloud ks cluster-config --cluster cloud-native
+```
+
+3. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
+
+```sh
+export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
+```
+
+4. Verify that you can connect to your cluster by listing your worker nodes.
+
+```sh
+kubectl get nodes
+```
+
+### 1.7.2 Traffic Routing
+
+In the following bash scripts we use **ibmcloud** and **kubectl** commands to interact with IBM Cloud, IBM Container Registry Service and the IBM Kubernetes service in IBM Cloud. With **sed** and **awk** we extract the output from the comandline.
+
+1. Execute following script to setup
 
 ```
 $ cd $PROJECT_HOME
@@ -114,6 +149,8 @@ $ iks-scripts/deploy-web-api-java-jee-v2.sh
 $ iks-scripts/deploy-istio-ingress-v1-v2.sh
 $ iks-scripts/show-urls.sh
 ```
+
+---
 
 Now, we've finished the **Using traffic management in Kubernetes**.
 Let's get started with the [Lab - Resiliency](05-resiliency.md).
