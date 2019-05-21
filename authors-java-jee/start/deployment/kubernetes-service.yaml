@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: authors
+  labels:
+    app: authors
+spec:
+  selector:
+    app: authors
+  ports:
+    - port: 3000
+      name: http
+  type: NodePort
+---
