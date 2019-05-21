@@ -83,7 +83,7 @@ If the cluster isn't ready, the script will tell you. Then just wait a few more 
 
 **NOTE:** You **MUST** run this command to check for completion of the cluster provisioning and it must report that the cluster is ready for Istio installation! This command also retrieves the cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.  
 
-These are the instructions to install Istio. We use Istio 1.1.4 for this project.
+These are the instructions to install Istio. We use Istio 1.1.5 for this project.
 
 1. Download Istio 1.1.5   
    ```
