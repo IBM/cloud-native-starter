@@ -15,6 +15,7 @@ The project showcases the following functionality:
 * Authentication and authorization
 * Distributed tracing and logging
 * Monitoring and metrics
+* Persistence for Java microservices via JPA
 
 This diagram shows the key components:
 
@@ -133,8 +134,7 @@ Here is a series of blog entries about this project:
 * [Authenticating Web Users with OpenID and JWT](http://heidloff.net/article/authenticating-web-users-openid-connect-jwt/)
 * [Authorization in Cloud-Native Applications via OpenID and Istio](http://heidloff.net/article/authentication-authorization-openid-connect-istio)
 * [Authorization in Microservices with MicroProfile](http://heidloff.net/article/authorization-microservices-java-microprofile/)
-* SQL PersistenceSQL via Java Persistence API (JPA)
-* Usage of IBM Cloudant as data store for Authors
+* [Persistence for Java Microservices in Kubernetes via JPA](http://heidloff.net/article/persistence-java-microservices-kubernetes-jpa/)
 
 Here is more information about Microservices, MicroProfile and Istio:
 
