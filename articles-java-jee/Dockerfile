@@ -13,3 +13,5 @@ RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
 COPY liberty/server.xml /config/
 
 ADD target/articles.war /config/dropins/
+
+ADD target/jcc-11.1.4.4.jar /opt/ol/wlp/usr/shared/resources/jcc-11.1.4.4.jar

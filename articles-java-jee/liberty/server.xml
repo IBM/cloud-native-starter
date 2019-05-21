@@ -12,4 +12,19 @@
     <logging traceSpecification="*=info:JCDI=all:com.ibm.ws.webbeans*=all:org.jboss.weld*=all:com.ibm.ws.cdi*=all:com.ibm.ws.microrprofile.config*=all"
         traceFileName="trace.log"
         traceFormat="BASIC" />
+
+    <!-- the following configuration is only needed if the persistence datastore db2 is used -->
+    <library id="DB2JCCLib">
+        <fileset dir="${shared.resource.dir}" includes="jcc*.jar"/>
+    </library>
+
+    <dataSource id="articlejpadatasource"
+              jndiName="jdbc/articlejpadatasource">
+        <jdbcDriver libraryRef="DB2JCCLib" />
+        <properties.db2.jcc databaseName="BLUDB"
+            portNumber="50000"
+            serverName="DB2-SERVER"         
+            user="DB2-USER" 
+            password="DB2-PASSWORD" />
+  </dataSource>
 </server>

@@ -1,6 +1,5 @@
 package com.ibm.articles.apis;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.stream.JsonCollectors;
@@ -14,17 +13,16 @@ import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.articles.business.Article;
-import com.ibm.articles.business.InvalidArticle;
 import com.ibm.articles.business.InvalidInputParamters;
 import com.ibm.articles.business.NoDataAccess;
-import com.ibm.articles.business.CoreService;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import javax.enterprise.context.ApplicationScoped;
 
-@RequestScoped
+@ApplicationScoped
 @Path("/v1")
 @OpenAPIDefinition(info = @Info(title = "Articles Service", version = "1.0", description = "Articles Service APIs", contact = @Contact(url = "https://github.com/nheidloff/cloud-native-starter", name = "Niklas Heidloff"), license = @License(name = "License", url = "https://github.com/nheidloff/cloud-native-starter/blob/master/LICENSE")))
 public class GetArticles {
@@ -46,7 +44,7 @@ public class GetArticles {
 	public Response getArticles(
 			@Parameter(description = "The amount of articles", required = true, example = "10", schema = @Schema(type = SchemaType.INTEGER)) @QueryParam("amount") int amount) {
 		System.out.println("com.ibm.articles.apis.GetArticles.getArticles");
-
+		
 		JsonArray jsonArray;
 		try {
 			jsonArray = coreService.getArticles(amount).stream()

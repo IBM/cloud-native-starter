@@ -6,5 +6,6 @@ public class Article {
 	public String url;
     public String author;
     public String id;
+    public String creationDate;
 
 }
