@@ -39,6 +39,7 @@ This project demonstrates several Java EE and Istio key functionality.
 * [Health Checks](documentation/DemoHealthCheck.md)
 * [Configuration](documentation/DemoConfiguration.md)
 * [Distributed Logging and Monitoring](documentation/DemoDistributedLoggingMonitoring.md)
+* [Persistence with Java Persistence API (JPA)](documentation/DemoJPA.md)
 
 
 ### Setup
@@ -132,7 +133,8 @@ Here is a series of blog entries about this project:
 * [Authenticating Web Users with OpenID and JWT](http://heidloff.net/article/authenticating-web-users-openid-connect-jwt/)
 * [Authorization in Cloud-Native Applications via OpenID and Istio](http://heidloff.net/article/authentication-authorization-openid-connect-istio)
 * [Authorization in Microservices with MicroProfile](http://heidloff.net/article/authorization-microservices-java-microprofile/)
-* SQL PersistenceSQL via JPA and JDBC
+* SQL PersistenceSQL via Java Persistence API (JPA)
+* Usage of IBM Cloudant as data store for Authors
 
 Here is more information about Microservices, MicroProfile and Istio:
 
