@@ -20,11 +20,11 @@
 
     <dataSource id="articlejpadatasource"
               jndiName="jdbc/articlejpadatasource">
-      <jdbcDriver libraryRef="DB2JCCLib" />
-     <properties.db2.jcc databaseName="BLUDB"
-        portNumber="50000"
-        serverName="dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net"         
-        user="bbn96300" 
-        password="x3w@lj4qb2wvwb71" />
+        <jdbcDriver libraryRef="DB2JCCLib" />
+        <properties.db2.jcc databaseName="BLUDB"
+            portNumber="50000"
+            serverName="DB2-SERVER"         
+            user="DB2-USER" 
+            password="DB2-PASSWORD" />
   </dataSource>
 </server>

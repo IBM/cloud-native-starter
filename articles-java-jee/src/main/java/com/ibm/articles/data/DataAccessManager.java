@@ -22,8 +22,7 @@ public class DataAccessManager {
 	public DataAccess getDataAccess() { 
 
         if (inmemory.equalsIgnoreCase(USE_IN_MEMORY_STORE)) {
-            //return inMemoryDataAccess;
-            return jPADataAccess;
+            return inMemoryDataAccess;            
         }
         else {
             return jPADataAccess;
