@@ -89,9 +89,9 @@ The **Web app** and the **authors** services are written in Node.JS.
 
 #### 1.2.1 Web app container image definition
 
-The Web app [Dockerfile](../web-app-vuejs/Dockerfile) to create the  Web app application, works in the same way as for **articles container**. Inside the Dockerfile we use the same two stages to build the container image.
+The **Web app** [Dockerfile](../web-app-vuejs/Dockerfile) to create the  **Web app** application, works in the same way as for **articles container**. Inside the Dockerfile we use the same two stages to build the **production container** image.
 
-Here you can see the **build environment container** based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine).
+Here you can see the **build environment container** is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine). This container already contains [yarn](https://yarnpkg.com/en/) to build the UI application.
 
 ```Dockerfile
 FROM node:8-alpine as BUILD
@@ -353,7 +353,7 @@ You can see in the diagram below, we are using a Ingress from Istio to provide a
 
 ![cns-container-deployment-02](images/cns-container-deployment-02.png)
 
-The important topic of the following yaml configuration is the matching (**"match"**) of **URIs** and **services**. With that configuation of the **kind: VirtualService** for the [Ingress gateway](https://kubernetes.io/docs/concepts/services-networking/ingress/) we define the routing access from the internet over the services to the microservice **Web api** and the **Web app**. 
+The important topic of the following yaml configuration is the matching (**"match"**) of **URIs** and **services**. With that configuation of the **kind: VirtualService** for the [Ingress gateway](https://kubernetes.io/docs/concepts/services-networking/ingress/) we define the routing access, from the internet over the services to the microservice **Web api** and the **Web app**. 
 
 ```yaml
 apiVersion: networking.istio.io/v1alpha3
@@ -404,7 +404,7 @@ spec:
 
 ---
 
-### 1.5 Lab - Deploy the containers to the Kubernetes Cluster
+### 1.5 Hands-on tasks - Deploy the containers to the Kubernetes Cluster
 
 ### 1.5.1 Gain access to your cluster
 
@@ -471,12 +471,25 @@ clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2
 
 1. Invoke following bash scripts to build and deploy the microservices to Kubernetes:
 
+**The scripts do automate following task:**
+
+* **Deleting** the **existing** container configuration in the Kubernetes Cluster
+* **Building** and **uploading** the container to the IBM Cloud Registry Service
+* **Extracting** configure the yaml configuration files for container in Kubernetes
+* **Installing** the container in Kubernetes
+
 ```sh
 $ ./iks-scripts/deploy-articles-java-jee.sh
 $ ./iks-scripts/deploy-authors-nodejs.sh
 $ ./iks-scripts/deploy-web-api-java-jee.sh
 $ ./iks-scripts/deploy-web-app-vuejs.sh
-$
+```
+
+**The script does automate following task:**
+
+* Deploying Istio Ingress definitions for **web-api v1** only
+
+```sh
 $ ./scripts/deploy-istio-ingress-v1.sh
 ```
 
@@ -489,7 +502,8 @@ $ ./iks-scripts/show-urls.sh
 A sample output result for the ```show-urls.sh``` script:
 
 ```sh
-019-05-16 15:09:51 articles
+....
+2019-05-16 15:09:51 articles
 2019-05-16 15:09:51 API explorer: http://159.122.172.162:30290/openapi/ui/
 2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:30290/articles/v1/getmultiple?amount=10
 2019-05-16 15:09:51 ------------------------------------------------------------------------------------

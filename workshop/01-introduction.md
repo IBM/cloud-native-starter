@@ -30,37 +30,31 @@ The **"Cloud Native Starter"** application follows these design principles:
 
 * **Leverage platforms as much as possible – do as little as possible in language-specific frameworks**
 
-The advantage of using Kubernetes and Istio for features like traffic management is, that these features are language agnostic. Cloud-native applications can be, and often are, polyglot. This allows developers to pick the best possible languages for the specific tasks.
+> The advantage of using Kubernetes and Istio for features like traffic management is, that these features are language agnostic. Cloud-native applications can be, and often are, polyglot. This allows developers to pick the best possible languages for the specific tasks.
 
 * **Use open-source components for the core services of the application only**
 
-Pretty much everyone loves open source. For example the Java stack leverages [OpenJ9](https://www.eclipse.org/openj9/), [OpenJDK](https://openjdk.java.net/) from [AdoptOpenJDK](https://adoptopenjdk.net/), [OpenLiberty](https://openliberty.io/) and [MicroProfile](https://microprofile.io/). [Kubernetes](https://kubernetes.io/) and [Istio](https://istio.io/) are obviously open source projects as well.
+> Pretty much everyone loves open source. For example the Java stack leverages [OpenJ9](https://www.eclipse.org/openj9/), [OpenJDK](https://openjdk.java.net/) from [AdoptOpenJDK](https://adoptopenjdk.net/), [OpenLiberty](https://openliberty.io/) and [MicroProfile](https://microprofile.io/). [Kubernetes](https://kubernetes.io/) and [Istio](https://istio.io/) are obviously open source projects as well.
 
 * **Make the first-time experience as simple as possible**
 
-The example application shows several features working together, see below for details. There are also scripts to deploy services very easily, basically one script per service, similar to the **‘cf push’** experience for Cloud Foundry applications.
+> The example application shows several features working together, see below for details. There are also scripts to deploy services very easily, basically one script per service, similar to the **‘cf push’** experience for Cloud Foundry applications.
 
 * **Be able to run the application in different environments**
 
-Fortunately, this is one of the main advantages of Kubernetes since you can run workloads on-premises, hybrid or public cloud infrastructures. The repo has instructions how to deploy the application to Minikube and to the managed IBM Cloud Kubernetes Service.
+> Fortunately, this is one of the main advantages of Kubernetes since you can run workloads on-premises, hybrid or public cloud infrastructures. The repo has instructions how to deploy the application to Minikube and to the managed IBM Cloud Kubernetes Service.
 
 ---
 
 ## 2. **Microservices and Web app**
 
-These are the responsibilities of the different microservices and the Web app.
-
-All mircoservices in this project built on Java are organized in following packages:
-
-* apis
-* business
-* data
+These are the responsibilities of the different microservices and the Web app. The implementation organization of these services do focus to follow the clean architecture software design **philosophy**.
 
 ---
 
 ### 2.1 **Web app**
 
-The Web app is the UI to display the given entries.
+The Web app is the UI to display the given entries and is built with **VUE**.
 Here you can see a picture of the **Web app** UI.
 
 ![cns-introduction-01](images/cns-introduction-01.png)
@@ -71,7 +65,7 @@ Here you can see a picture of the **Web app** UI.
 
 The objective of this microservice is to combine the information from the **articals** and the **authors** microservice. 
 
-The **Web API** is business related to be consumned by the VUE Web app. So the Web app can use just **one** REST API and doesn't need more APIs.
+The **Web API** is business related to be consumned by the **VUE** **Web app**. So the Web app can use just **one** REST API and doesn't need more APIs. The **Web API** service implements the **BFF** (backend for frontend pattern). 
 
 The following image contains a sample instance of the **Web API** using the **Open API explorer**.
 
@@ -91,7 +85,7 @@ In the image blow you can see a sample instance of the Articles,  using the **Op
 
 ### 2.4 **Authors microservice**
 
-The objective of this microservice is to **add** and **get** author information from a database and is built on Node.JS.
+The objective of this microservice is to **get** author information from a database and is built on Node.JS.
 In this workshop we will use the default implementation, which just creates sample data values.
 
 Sample curl command to get a author from the **Authors** microservice.

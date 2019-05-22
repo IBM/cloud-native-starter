@@ -128,7 +128,7 @@ for (int index = 0; index < coreArticles.size(); index++) {
 
 ---
 
-### 1.3 Documentation of the REST API with Open API
+### 1.3 Expose the REST API with Open API
 
 The **MicroProfile** supports also the definition REST APIs via [JAX-RS](https://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services). We use MircoProfile to create a **Open API** documentation and api explorer. 
 We the **Open API** can use for documentation and testing of the REST API of our microservice. Inside the class [articles](articles-java-jee/src/main/java/com/ibm/articles/apis/) we use the profiles **@GET**, **@Path** and others,  to expose and document REST API with the MicroProfile during writting of the code with **Open API**.
@@ -165,7 +165,7 @@ The following image shows an automatically created **Open API explorer** for the
 
 ---
 
-## 2. Lab - Defining and exposing REST APIs
+## 2. Hands-on tasks - Defining and exposing REST APIs
 
 ### 2.1 Gain access to your cluster
 

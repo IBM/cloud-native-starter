@@ -16,7 +16,7 @@ We will use following IBM Cloud Services in this hands-on workshop.
 
 Following tools have to be installed on your laptop, to perform the workshop.
 
-- [Visual Studio Code](https://code.visualstudio.com/) 
+- IDE or Editor for example: [Visual Studio Code](https://code.visualstudio.com/) 
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
 - [curl](https://curl.haxx.se/download.html)
 - [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools) 
@@ -53,15 +53,15 @@ _Note:_ If you already have a lite cluster in Dallas, some of these scripts will
 
 ### 3.1 Register at IBM Cloud Account <a name="part-SETUP-00"></a>
 
-Open a browser window and navigate to [Registration page](https://ibm.biz/Bd2JHx).
+1. Open a browser window and navigate to [Registration page](https://ibm.biz/Bd2JHx).
 
 ![image](images/registration.png)
 
-Fill in the registration form and follow the link in the **validation email** when it arrives.
+2. Fill in the registration form and follow the link in the **validation email** when it arrives.
 
 ![Validation email](images/email.png)
 
-[Login into IBM Cloud](https://ibm.biz/Bd2JHx) using the account credentials you have registered.
+3. [Login into IBM Cloud](https://ibm.biz/Bd2JHx) using the account credentials you have registered.
 
 _NOTE:_ New IBM Cloud accounts set per default to the [lite account version](https://www.ibm.com/cloud/pricing).
 
@@ -113,7 +113,7 @@ $ ibmcloud iam api-key-create cloud-native-starter-key \
 $ cat cloud-native-starter-key.json
 ```
 
-You can verify the key in the IBM Cloud, as you can see in the image below:
+_Optional:_ You can verify the key in the IBM Cloud, as you can see in the image below:
 
 ![ibm-cloud-key](images/ibm-cloud-key.png)
 
@@ -178,19 +178,20 @@ For the following steps we use bash scripts from the github project.
 
 #### 3.6.1 Automated creation of a Cluster with Istio for the workshop
 
-* create cluster
-Use following bash script to create a free Kubernetes Cluster on IBM Cloud:
+* **create cluster**
+
+1. Use following bash script to create a free Kubernetes Cluster on IBM Cloud:
 
 ```sh
 $ ./iks-scripts/create-iks-cluster.sh
 ```
 
-The creation of the cluster can take up to 20 minutes.
+_Note:_ The creation of the cluster can take up to **20 minutes**.
 You can verify the cluster in the IBM Cloud, as you can see in the image below:
 
 ![ibm-cloud-cluster](images/ibm-cloud-cluster.png)
 
-* add Istio
+* **add Istio**
 
 IBM Kubernetes Service has an option to install a managed Istio into a Kubernetes cluster. Unfortunately, the Kubernetes Lite Cluster we created in the previous step does not meet the hardware requirements for managed Istio. Hence we do a manual install of the Istio demo or evaluation version.
 
@@ -230,39 +231,40 @@ _Note:_ Please be aware that we do **not cover Windows** in these instructions!
     $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
     ```
     
-    Wait a few seconds before issuing the next command:
+    a. Wait a few seconds before issuing the next command:
 
     ```sh
     $ kubectl apply -f install/kubernetes/istio-demo.yaml
     ```
 
-    Check that all pods are **running** or **completed** before continuing.
+    b. Check that all pods are **running** or **completed** before continuing.
 
     ```sh
     $ kubectl get pod -n istio-system
     ```
 
-    Enable automatic sidecar injection:
+    c. Enable automatic sidecar injection:
 
     ```sh
     $ kubectl label namespace default istio-injection=enabled
     ```
 
-    Once complete, the Kiali dashboard can be accessed with this command:
+    d. Once complete, the Kiali dashboard can be accessed with this command:
 
     ```sh
     $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
     ```
-    Then open http://localhost:20001/kiali in your browser, logon with Username: admin, Password: admin
+    e. Then open http://localhost:20001/kiali in your browser, logon with Username: admin, Password: admin
 
     ![Kiali installation](images/istio-installation-02.png)
 
-    In the following image you can see the installed Istio on the Kubernetes cluster.
+    In the following image we can see the installed Istio on the Kubernetes cluster. We also notice the **Istio Ingress gateway** and the **Istio-System** namespace, we will use later.
     
     ![Istio installation](images/istio-installation-01.png)
 
-* Configure the IBM Cloud Container Registry:
-Ensure you are are in the project directory and execute the script.
+* **Configure the IBM Cloud Container Registry**
+
+1. Ensure you are are in the project directory and execute the script.
 
 ```sh
 $ cd ../..
@@ -270,7 +272,7 @@ $ pwd
 $ ./iks-scripts/create-registry.sh
 ```
 
-You can find the created namespace here:
+_Optional:_ You can find the created namespace here:
 
 ![ibm-cloud-registry](images/ibm-cloud-registry.png)
 

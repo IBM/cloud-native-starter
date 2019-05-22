@@ -5,25 +5,21 @@
 
 As stated in the [reactive manifesto](https://www.reactivemanifesto.org/) cloud-native reactive applications need to be **resilient**:
 
-" **The system stays responsive in the face of failure.** This applies not only to highly-available, mission-critical systems – any system that is not resilient will be unresponsive after a failure. Resilience is achieved by replication, containment, isolation … "
+> " **The system stays responsive in the face of failure.** This applies not only to highly-available, mission-critical systems – any system that is not resilient will be unresponsive after a failure. Resilience is achieved by replication, containment, isolation … "
 
-In distributed systems we need to **design for failure**. For example microservices, which invoke other microservices, must be intelligent enough to continue to work even if some of their dependencies are currently not available.
+In distributed systems we need to **design for failure**. For example, microservices, which invoke other microservices, must be intelligent enough to continue to work even if some of their dependencies are currently not available.
 
 There are several different ways to build resilient service meshes with Istio, for example via [circuit breakers](https://istio.io/docs/concepts/traffic-management/#circuit-breakers) and [retries](https://istio.io/docs/concepts/traffic-management/#timeouts-and-retries).
 
-The Istio functionality for resilient cloud-native applications is generic and independent from the implementation of the microservices. However in some cases the **handling of failures depends on the business logic** of the applications which is why this needs to be implemented in the microservices.
+The Istio functionality for resilient cloud-native applications is **generic** and **independent** from the implementation of the microservices. However in some cases the **handling of failures depends on the business logic** of the applications which is why this needs to be implemented in the microservices.
 
-The **Web app** frontend implemented in Vue.js displays articles. The service ‘**Web API**’ implements the **BFF** (backend for frontend) pattern. The web application accesses the ‘**Web API**’ service which invokes both the ‘articles’ and ‘authors’ services.
-
-The initial page shows the five most recent articles including information about the authors.
-
-When we **delete** the authors service inside Kubernetes, the **Web app** will still display five articles, but this time without the information about the authors. While the web application cannot display the complete information anymore, in this simple scenario it still makes sense to display the titles and links of the articles. 
+In **Cloud Native Starter**, the **Web app** frontend, implemented in Vue.js, displays articles. The service ‘**Web API**’ implements the **BFF** (backend for frontend) pattern. The web application accesses the ‘**Web API**’ service which invokes both the ‘articles’ and ‘authors’ services. The initial page of the **Web app** shows the five most recent articles including information about the authors. When we **delete** the authors service inside Kubernetes, the **Web app** will still display five articles, but this time without the information about the authors, even when the **Web app** cannot display the complete information anymore. In this simple scenario it still makes sense to display the titles and links of the articles. 
 
 | With the author service   |  When the author service is deleted|
 | --- | --- |    
 | ![resliency-01](images/resliency-01.png) | ![resliency-02](images/resliency-02.png) |   
 
-The implementation of this behavior has been done in the class [Service.java](/web-api-java-jee/src/main/java/com/ibm/webapi/business/Service.java#L68).
+The implementation of this behavior has been done in the class [Service.java](/web-api-java-jee/src/main/java/com/ibm/webapi/business/Service.java#L68). You can see the ```catch (NoConnectivity | NonexistentAuthor e)``` does handle the situation and set a default value.
 
 ```java
 try {
@@ -59,7 +55,7 @@ public List<Article> getArticles() throws NoDataAccess {
 ...
 } 
 ```
-* The implementation of the fallback profile.
+* The implementation of the fallback profile. Here we create a list with the last shown articles ```lastReadArticles = new ArrayList<Article>();```.
 
 ```java
 ...
@@ -69,10 +65,13 @@ public List<Article> fallbackNoArticlesService() {
       return lastReadArticles;
 }
 ```
+---
 
-## 2. Lab - Resiliency
+## 2. Hands-on tasks - Resiliency
 
 Resiliency is part of the code: if an API call is not answered because of an error ar a timeout, the business logic must have a implementation of a fallback. 
+
+---
 
 ### 2.1 Gain access to your cluster
 
@@ -100,15 +99,17 @@ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands
 kubectl get nodes
 ```
 
+---
+
 ### 2.2 Setup and test the resiliency
 
 In the following bash scripts we use **ibmcloud** and **kubectl** commands to interact with IBM Cloud, IBM Container Registry Service and the IBM Kubernetes service in IBM Cloud. With **sed** and **awk** we extract the output from the comandline.
 
-1. In order to demonstrate resiliency you can run the following commands to create a working set of services:
+1. In order to demonstrate resiliency run the following commands to create a working set of services:
 
 ```sh
 $ ./iks-scripts/check-prerequisites.sh
-$ ./iks-scripts/delete-all.sh
+$ ./scripts/delete-all.sh
 $ ./iks-scripts/deploy-articles-java-jee.sh
 $ ./iks-scripts/deploy-web-api-java-jee.sh
 $ ./iks-scripts/deploy-authors-nodejs.sh
@@ -117,39 +118,32 @@ $ ./scripts/deploy-istio-ingress-v1.sh
 $ ./iks-scripts/show-urls.sh
 ```
 
-2. After the Web Application shows articles together with the author information:
+2. Open the **Web APP** in a new browser tab: http://YOUR_IP:31380/
+_Note:_ This is on of the links we get from the ```iks-scripts/show-urls.sh``` script.
 
-<kbd><img src="../images/web-app.png" /></kbd>
+ ![cns-container-web-app-04](images/cns-container-web-app-05.png)
 
-The next script disables the Authors service by using Istio Fault Injection:
+2. Delete the **authors** service
 
-```
-$ kubectl apply -f istio/fault-authors-500.yaml
-```
-
-It defines a rule in the Istio virtual service for Authors that responds with an HTTP Error 500 on every request (100 percent).
-
-The articles are still displayed, but without author information. The fallback logic is: if the authors service doesn't work, show no authors information but also don't show an error. 
-
-<kbd><img src="../images/web-app-no-authors.png" /></kbd>
-
-The following command disables the articles service, too, again using Istio Fault Injection:
-
-```
-$ kubectl apply -f istio/fault-articles-500.yaml
+```sh
+$ ./scripts/delete-authors-nodejs.sh
 ```
 
-Now every request to the articles services gets an HTTP error 500 as response. The same five articles are displayed, since they are cached in the **Web API** service. This is the fallback logic for the articles service.
+Refresh the browser and verify the remaining imformation. The details for the author are no longer avaiable. 
 
-<kbd><img src="../images/web-app-no-authors.png" /></kbd>
+![resliency-02](images/resliency-02.png)
 
-To remove the Istio Fault Injection rules execute these commands:
+3. Delete the **articles** service
 
+```sh
+$ ./scripts/delete-articles-java-jee.sh
 ```
-$ kubectl apply -f istio/nofault-authors.yaml
-$ kubectl apply -f istio/nofault-articles.yaml
-```
 
+Refresh the browser and verify the remaining imformation. The details for the author are no longer avaiable. 
+
+![resliency-02](images/resliency-02.png)
+
+---
 
 Now, we've finished the **Resiliency**.
 
