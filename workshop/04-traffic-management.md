@@ -39,9 +39,7 @@ In Kubernetes we have one [service definition](web-api-java-jee/deployment/kuber
 
 ## 1.3 Istio gateway
 
-Istio works with **envoy proxies** to **control** inbound and outbound traffic and to gather [telemetry data](https://en.wikipedia.org/wiki/Telemetry#Software) of a Kubernetes Pod. The envoy is **injected as additional container** into a pod. The envoy **“sidecar”** allows to add Istio’s capabilities to an application **without adding** code or additional libraries to your application.
-
-The image below is from the [Istio documentation](https://istio.io/docs/concepts/what-is-istio/) and shows the basic Istio architecture.
+Istio works with **envoy proxies**, , they are called Envoy, to **control** inbound and outbound traffic and to gather [telemetry data](https://en.wikipedia.org/wiki/Telemetry#Software) of a Kubernetes Pod. The envoy is **injected as additional container** into a pod. The image below is from the [Istio documentation](https://istio.io/docs/concepts/what-is-istio/) and shows the basic Istio architecture.
 
 ![Istio architecture](images/traffic-routing-deployment04.png)
 
@@ -49,9 +47,9 @@ The following image shows a simplified view on the given information for our sit
 
 ![injected as additional containe](images/traffic-routing-deployment05.png)
 
-We want to control the route traffic (e.g. REST API calls). To control the traffic into a Kubernetes application a **Kubernetes Ingress** is required. With Istio, we have the equivalent **Istio Gateway** which allows it to manage and monitor incoming traffic. This gateway in turn uses the **Istio ingress gateway** which is a Pod running in Kubernetes. In following pricture we see the definition of our Istio gateway. The [Istio ingress.ymal](web-api-java-jee/deployment/istio-ingress.yaml).
+We want to control the route traffic (e.g. REST API calls). To control the traffic into a **Kubernetes application** a **Kubernetes Ingress** is required. With Istio, we have a similar **Istio Ingress Gateway** which is a Pod running in Kubernetes. This gateway in turn uses the **Istio ingress gateway** which is a Pod running in Kubernetes. In following pricture we see the definition of our Istio gateway. The [Istio ingress.ymal](web-api-java-jee/deployment/istio-ingress.yaml).
 
-This gateway listens on port **80** and answers to any request (“*”). The “hosts: *” should not be used in production, of course. 
+In our example, this gateway listens on **port 80** and answers to any request (“*”). The “hosts: *” should not be used in production, of course. 
 
 ![Istio gateway](images/traffic-routing-deployment06.png)
 
@@ -77,7 +75,7 @@ Base on this given information, we have following VirtualService definition:
 
 ## 1.5 Destination rule
 
-To control the traffic we need to define a **kind:DestinationRule**, this is  Istio specific. 
+To control the traffic we need to define a **DestinationRule**, this is  Istio specific. 
 
 In the image below we can see, this configuration defines a subset of calls will select the **v1** Pod that belong to **Web API** and have a selector label of **“version: v1”**. This is our deployment for **“web-api-v1”**.
 
@@ -139,11 +137,11 @@ In the following bash scripts we use **ibmcloud** and **kubectl** commands to in
 
 ```sh
 $ cd $PROJECT_HOME
-$ iks-scripts/check-prerequisites.sh
-$ iks-scripts/delete-all.sh
-$ iks-scripts/deploy-articles-java-jee.sh
-$ iks-scripts/deploy-authors-nodejs.sh
-$ iks-scripts/deploy-web-app-vuejs.sh
+$ ./iks-scripts/check-prerequisites.sh
+$ ./scripts/delete-all.sh
+$ ./iks-scripts/deploy-articles-java-jee.sh
+$ ./iks-scripts/deploy-authors-nodejs.sh
+$ ./iks-scripts/deploy-web-app-vuejs.sh
 ```
 _Optional:_ You can verify the new **Web app** version in Kubernetes.
 

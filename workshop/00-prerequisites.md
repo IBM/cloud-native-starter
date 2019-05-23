@@ -28,9 +28,7 @@ To verfiy the major prerequisite on your machine, you can execute following bash
 
 ```sh
 $ git clone https://github.com/nheidloff/cloud-native-starter.git
-$ cd cloud-native-starter/iks-scripts
-$ chmod u+x *.sh
-$ cd ..
+$ chmod u+x iks-scripts/*.sh
 $ ./iks-scripts/check-prerequisites.sh
 ```
 
@@ -65,20 +63,19 @@ _Note:_ If you already have a lite cluster in Dallas, some of these scripts will
 
 _NOTE:_ New IBM Cloud accounts set per default to the [lite account version](https://www.ibm.com/cloud/pricing).
 
-This account type provides free access to a subset of IBM Cloud resources.
-Lite accounts **do not need a credit-card** to sign up or expire after a set time period, i.e. 30 days.
-Developers using lite accounts are restricted to use Kubernetes lite / free cluster for which they can use the provided promo codes.
+This account type provides free access to a subset of IBM Cloud resources. Lite accounts **do not need a credit-card** to sign up or they **do not expire** after a set time period. 
+With a **Lite account** on the IBM Cloud you **can not create Free** Kubernetes clusters. You need a Voucher with a **promo** or **feature code** to get access to create a **Free** Cluster.
 
 ---
 
 ### 3.2 Insert promo code <a name="part-SETUP-01"></a>
 [<home>](#home)
 
-In order that you can easily execute the workshop, we're providing **promo codes** to create lite clusters, even if you don't want to provide your credit card details.
+In order that you can easily execute the workshop, we're providing **promo codes** to create free clusters, even if you don't want to provide your credit card details.
 You apply the provided promo code under your [Cloud Account](https://cloud.ibm.com/account) ("`Manage`" -> "`Account`") by navigating to "`Account settings`".
 Apply your personal Feature (Promo) Code there.
 
-_NOTE:_ Lite clusters expire after one month.
+_NOTE:_ Free clusters expire after one month.
 
 ---
 
@@ -99,12 +96,13 @@ Follow the steps listed under the [Install from shell](https://cloud.ibm.com/doc
 
 To use the bash scripts automation later we need a IBM platform key. 
 
-1. Logon to IBM Cloud use the **"us-south"** Region with the  **https://api.ng.bluemix.net** API endpoint.
+1. Logon to IBM Cloud use the **"us-south"** Region
+
 ```sh
 ibmcloud login -r us-south
 ```
 
-2. Create a IBM platform for your API key and name it (example **my-ibmplatform-key**) and provide a filename  (example **my-ibmplatform-key-key_file**).
+2. Create a IBM platform for your API key and name it (example **cloud-native-starter-key**) and provide a filename  (example **cloud-native-starter-key.json**).
 
 ```sh
 $ ibmcloud iam api-key-create cloud-native-starter-key \
@@ -118,7 +116,7 @@ _Optional:_ You can verify the key in the IBM Cloud, as you can see in the image
 ![ibm-cloud-key](images/ibm-cloud-key.png)
 
 
-3. Create a copy of the **template.local.env** and insert the key in the **local.env** file.
+3. Create a copy of the **template.local.env** and add in the new **local.env** file the key to the IBMCLOUD_API_KEY variable.
 
 ```sh
 $ cp template.local.env local.env 
@@ -149,7 +147,7 @@ CLOUDANT_URL=
 We log into the IBM Cloud CLI tool: `ibmcloud login`.
 If you have a federated account, include the `--sso` flag: `ibmcloud login --sso`.
 
-Install the IBM Cloud Kubernetes Service plug-ins (`ks` sub command):
+Install the IBM Cloud Kubernetes Service plug-ins:
 
 ```sh
 $ ibmcloud plugin install container-service
@@ -159,7 +157,7 @@ $ ibmcloud plugin install container-registry
 To verify that the plug-in is installed properly, run `ibmcloud plugin list`.
 The Container Service plug-in is displayed in the results as `container-service/kubernetes-service`.
 
-Initialize the Container Service plug-in and point the endpoint to your region:
+Initialize the Container Service plug-in and point the endpoint to your region with the `ks` sub command:
 
 ```sh
 $ ibmcloud ks region-set us-south
@@ -195,37 +193,41 @@ You can verify the cluster in the IBM Cloud, as you can see in the image below:
 
 IBM Kubernetes Service has an option to install a managed Istio into a Kubernetes cluster. Unfortunately, the Kubernetes Lite Cluster we created in the previous step does not meet the hardware requirements for managed Istio. Hence we do a manual install of the Istio demo or evaluation version.
 
-First check if the cluster is available:
-```sh
-$ ./iks-scripts/cluster-add-istio.sh
-```
-If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
+These are the instructions to install Istio. We use **Istio 1.1.5** for this Lab.
 
-These are the instructions to install Istio. 
-We use **Istio 1.1.5** for this Lab.
+1. First check if the cluster is available:
 
-1. Download Istio 1.1.5 directly from github into the **workshop** directory:
-
+    ```sh
+    $ ./iks-scripts/cluster-add-istio.sh
     ```
+    If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
+
+    _NOTE:_ You **must** run this command to check for completion of the cluster provisioning and it **must** report that the cluster is **ready for Istio installation**! This command also retrieves the cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.
+
+2. Download Istio 1.1.5 directly from github into the **workshop** directory:
+
+    ```sh
     cd workshop
     curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
     ```
 
-_Note:_ Please be aware that we do **not cover Windows** in these instructions!
+    _Note:_ Please be aware that this does **not** work on Windows! 
+    Windows users can download an istio-1.1.5-win.zip from here: https://github.com/istio/istio/releases/tag/1.1.5
+    Unpack the ZIP file into the workshop directory and add the path to ```istio-1.1.5/bin``` your Windows **PATH**.
 
-2. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`:
+3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`:
 
     ```sh
     export PATH=$PWD/istio-1.1.5/bin:$PATH
     ```
 
-3. Change into the extracted directory: 
+4. Change into the extracted directory: 
 
     ```sh
     cd istio-1.1.5
     ```
 
-4. Install Istio:
+5. Install Istio:
 
     ```sh
     $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done

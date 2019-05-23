@@ -4,9 +4,6 @@
 
 In this hands-on workshop, we will see, how to develop cloud-native microservices using Jakarta EE and MicroProfile.
 
-We will use for the deployed the Docker CLI and run the microservices on Kubernetes, and Istio.
-We'll examine the basics of modern cloud native Java micro-services development with container, REST APIS, traffic management, and resiliency.
-
 When building cloud-native applications, developers are challenged to figure out how to address topics like **building and deploying Containers**, **traffic routing**, **resiliency** and **defining and exposing REST APIs**. Fortunately, most of these new challenges are handled by the orchestration platform Kubernetes and the service mesh Istio. This functionality works generically for microservices, regardless of the language they are implemented in and without changes to the application logic.
 
 However, **some functionality can not be covered by orchestration platforms** and service meshes. Instead it must be handled in the business logic of the microservices, for example application specific failover functionality, metrics, and fine-grained authorizations.
@@ -15,13 +12,13 @@ Java developers can leverage **Eclipse MicroProfile** to implement this function
 
 ---
 
-## 1. The "Cloud Native Starter" application
+## 1. The "Cloud Native Starter (CNS)" application
 
 With the **"Cloud Native Starter"** application you can **show**, **add** and **remove** articles with authors information. The application is built on microservices with one frontend web application.
 
 ![architecture](images/architecture.png)
 
-* **Web app** Is hosted on a [Nginx server](https://nginx.org/en/) that provides a [VUE](https://vuejs.org/) **Web app** to the browser
+* **Web app** service provides a [Vue.js](https://vuejs.org/) web application to the browser. It's based on [Nginx](https://nginx.org/en/).
 * **Web-API** is accessed by the Vue app and provides a list of blog articles and their authors
 * **Articles** holds the list of blog articles
 * **Authors** holds the blog authors details (blog URL and Twitter handle)
@@ -63,7 +60,7 @@ Here you can see a picture of the **Web app** UI.
 
 ### 2.2 ****Web API****
 
-The objective of this microservice is to combine the information from the **articals** and the **authors** microservice. 
+The objective of this microservice is to combine the information from the **articals** and the **Authors** microservice. 
 
 The **Web API** is business related to be consumned by the **VUE** **Web app**. So the Web app can use just **one** REST API and doesn't need more APIs. The **Web API** service implements the **BFF** (backend for frontend pattern). 
 
@@ -99,7 +96,7 @@ $ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
 
 ### 3.1 Technologies of the microservices
 
-The **'articles'** and '**Web API**' microservices are based purly on open source components:
+The **'Articles'** and '**Web API**' microservices are based purly on open source components:
 
 * [OpenJ9 0.12.1](https://projects.eclipse.org/projects/technology.openj9/releases/0.12.1/review)
 * OpenJDK 8u202-b08 from AdoptOpenJDK

@@ -26,13 +26,13 @@ Here you can see the created Pods for each container inside the IBM Kubernetes c
 
 ### 1.1 Java container images
 
-The **articles** and the **authors** microservices are written in Java and they are running on [OpenLiberty](https://openliberty.io/).
+The **Articles** and the **Authors** microservices are written in Java and they are running on [OpenLiberty](https://openliberty.io/).
 
 ---
 
 #### 1.1.1 Articles container image definition
 
-Let's take a look into the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the articles service. Inside the Dockerfile we use **two stages** to build the container image. 
+Let's take a look into the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the Articles service. Inside the Dockerfile we use **two stages** to build the container image. 
 The reason for the two stages is, we have the objective to be **independed** of local environment settings, when we build our production services. With this concept we don't have to ensure that **Java** and **Maven** (or wrong versions of them) is installed on the local machine of the developers.
 
 In short words one container is only responsible to build the microservice, let us call this container **build environment container** and the other container will contain the microservice, we call this the **production** container.
@@ -77,19 +77,19 @@ With this last step the container is ready to be deployed to Kubernetes.
 
 #### 1.1.2 Web-api-V1 container image definition
 
-The **Web API** [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the **Web API** service, works in the same way as we did  before for the **articles container**.
+The **Web API** [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the **Web API** service, works in the same way as we did  before for the **Articles container**.
 
 ---
 
 ### 1.2. Node.JS container images
 
-The **Web app** and the **authors** services are written in Node.JS.
+The **Web app** and the **Authors** services are written in Node.JS.
 
 ---
 
 #### 1.2.1 Web app container image definition
 
-The **Web app** [Dockerfile](../web-app-vuejs/Dockerfile) to create the  **Web app** application, works in the same way as for **articles container**. Inside the Dockerfile we use the same two stages to build the **production container** image.
+The **Web app** [Dockerfile](../web-app-vuejs/Dockerfile) to create the  **Web app** application, works in the same way as for **Articles container**. Inside the Dockerfile we use the same two stages to build the **production container** image.
 
 Here you can see the **build environment container** is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine). This container already contains [yarn](https://yarnpkg.com/en/) to build the UI application.
 
@@ -120,7 +120,7 @@ If last step of the **Dockerfile** is executed, the container is ready to be dep
 
 #### 1.2.2 Authors container image definition
 
-The authors [Dockerfile](../authors/Dockerfile) to create the **Web API** service, does directly create the production image and is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine).
+The Authors [Dockerfile](../**Authors**/Dockerfile) to create the **Web API** service, does directly create the production image and is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine).
 
 ```Dockerfile
 FROM node:8-alpine
@@ -240,7 +240,7 @@ spec:
 
 As defined in the [Twelve-Factor-App](https://12factor.net/) it’s important for cloud-native applications to store configuration externally, rather than in the code since this makes it possible to deploy applications to different environments. An app’s config is everything that is likely to vary between deploys (staging, production, developer environments, etc). This includes: Resource handles to backing services or credentials to external services.
 
-Microservices that are implemented with Java EE can leverage MicroProfile config. The configuration can be done, for example, in **Kubernetes yaml** files and accessed from Java code via annotations and APIs. The **‘articles’** microservice uses configuration to define whether or not to **create ten articles** the first time it is invoked. In the yaml file an environment variable pointing to a **ConfigMap** is defined.
+Microservices that are implemented with Java EE can leverage MicroProfile config. The configuration can be done, for example, in **Kubernetes yaml** files and accessed from Java code via annotations and APIs. The **‘Articles’** microservice uses configuration to define whether or not to **create ten articles** the first time it is invoked. In the yaml file an environment variable pointing to a **ConfigMap** is defined.
 
 In our sample you can find the [environment](articles-java-jee/deployment/kubernetes.yaml#L35) and [ConfigMap](articles-java-jee/deployment/kubernetes.yaml#L54) definition.
 

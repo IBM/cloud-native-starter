@@ -13,7 +13,7 @@ There are several different ways to build resilient service meshes with Istio, f
 
 The Istio functionality for resilient cloud-native applications is **generic** and **independent** from the implementation of the microservices. However in some cases the **handling of failures depends on the business logic** of the applications which is why this needs to be implemented in the microservices.
 
-In **Cloud Native Starter**, the **Web app** frontend, implemented in Vue.js, displays articles. The service ‘**Web API**’ implements the **BFF** (backend for frontend) pattern. The web application accesses the ‘**Web API**’ service which invokes both the ‘articles’ and ‘authors’ services. The initial page of the **Web app** shows the five most recent articles including information about the authors. When we **delete** the authors service inside Kubernetes, the **Web app** will still display five articles, but this time without the information about the authors, even when the **Web app** cannot display the complete information anymore. In this simple scenario it still makes sense to display the titles and links of the articles. 
+In **Cloud Native Starter**, the **Web app** frontend, implemented in Vue.js, displays articles. The service ‘**Web API**’ implements the **BFF** (backend for frontend) pattern. The web application accesses the ‘**Web API**’ service which invokes both the ‘articles’ and **Authors** services. The initial page of the **Web app** shows the five most recent articles including information about the authors. When we **delete** the **Authors** service inside Kubernetes, the **Web app** will still display five articles, but this time without the information about the authors, even when the **Web app** cannot display the complete information anymore. In this simple scenario it still makes sense to display the titles and links of the articles. 
 
 | With the author service   |  When the author service is deleted|
 | --- | --- |    
@@ -32,7 +32,7 @@ try {
 }
 ```
 
-If the articles is deleted, we will notice, when we refresh the web application, that the same five articles are still displayed. That’s because in this trivial scenario the ‘**Web API**’ service **caches** the last read articles. If the ‘articles’ service is not available it simply returns the information from the cache.
+After the articles service is deleted we will notice that the same 5 articles are displayed when we refresh the browser. That’s because in this trivial scenario the ‘**Web API**’ service **caches** the last read articles. If the ‘articles’ service is not available it simply returns the information from the cache.
 
 |  When the author service is deleted   |   When the author and articles service is deleted |
 | --- | --- |    
@@ -55,6 +55,7 @@ public List<Article> getArticles() throws NoDataAccess {
 ...
 } 
 ```
+
 * The implementation of the fallback profile. Here we create a list with the last shown articles ```lastReadArticles = new ArrayList<Article>();```.
 
 ```java
@@ -123,13 +124,13 @@ _Note:_ This is on of the links we get from the ```iks-scripts/show-urls.sh``` s
 
  ![cns-container-web-app-04](images/cns-container-web-app-05.png)
 
-2. Delete the **authors** service
+2. Delete the **Authors** service
 
 ```sh
 $ ./scripts/delete-authors-nodejs.sh
 ```
 
-Refresh the browser and verify the remaining imformation. The details for the author are no longer avaiable. 
+Refresh the browser and verify the remaining information. The details for the author are no longer avaiable. 
 
 ![resliency-02](images/resliency-02.png)
 
@@ -139,7 +140,8 @@ Refresh the browser and verify the remaining imformation. The details for the au
 $ ./scripts/delete-articles-java-jee.sh
 ```
 
-Refresh the browser and verify the remaining imformation. The details for the author are no longer avaiable. 
+Refresh the browser and verify the remaining information. Although the articles service is gone, title and author are still displayed because the fallback method displays a cached version.
+
 
 ![resliency-02](images/resliency-02.png)
 

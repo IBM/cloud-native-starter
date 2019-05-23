@@ -11,11 +11,11 @@ MicroProfile comes with a REST Client which defines a type safe client programmi
 
 There is pretty good [documentation](https://github.com/OpenLiberty/guide-microprofile-rest-client) about the REST Client available. 
 
-In the following Lab we do examine the usage of the **‘Authors’** microservice in the **Web API**. We do describe how we use the **Web API** REST client in the **Cloud Native Starter** sample application. The application has a **Web API** service which implements the **BFF** (backend for frontend pattern). The **Web API** service uses the REST Client to invoke another **‘Authors’** service written in **Node.JS**.
+In the following Lab describes how we use the MicroProfile REST client in the **Cloud Native Starter** sample application. The application has a **Web API** service which implements the **BFF** (backend for frontend pattern). The **Web API** service uses the REST Client to invoke the **'Articles'** and the **‘Authors’** services
 
 ![architecture](images/architecture.png)
 
-The sequence diagram below shows a simplified view how the **‘Authors’** REST API is used to get all articles in a JSON format.
+The sequence diagram below shows a simplified view how the **REST API** is used to get all articles in a **JSON format**. 
 
 ![rest-api-sequencediagram](images/rest-api-sequencediagram.png)
 
@@ -50,7 +50,7 @@ public class Author {
 }
 ```
 
-The invocation of the authors service happens in [AuthorsServiceDataAccess.java](../web-api-java-jee/src/main/java/com/ibm/webapi/data/AuthorsService.java). 
+The invocation of the **Authors** service happens in [AuthorsServiceDataAccess.java](../web-api-java-jee/src/main/java/com/ibm/webapi/data/AuthorsService.java). 
 The [RestClientBuilder](https://openliberty.io/docs/ref/javadocs/microprofile-1.3-javadoc/org/eclipse/microprofile/rest/client/RestClientBuilder.html) is used to get an implementation of the AuthorsService interface. 
 _IMPORTANT:_ The **deserialization** of the **JSON data** into a **Java object** is done automatically.
 
@@ -203,7 +203,7 @@ In the following bash scripts we use **ibmcloud** and **kubectl** commands to in
 
 ```sh
 $ cd $PROJECT_HOME
-$ ./iks-scripts/delete-all.sh
+$ ./scripts/delete-all.sh
 $ ./iks-scripts/deploy-articles-java-jee.sh
 $ ./iks-scripts/deploy-authors-nodejs.sh
 $ ./iks-scripts/deploy-web-api-java-jee.sh
