@@ -423,13 +423,13 @@ $ ibmcloud ks cluster-config --cluster cloud-native
 3. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
 
 ```sh
-export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
+$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
 ```
 
 4. Verify that you can connect to your cluster by listing your worker nodes.
 
 ```sh
-kubectl get nodes
+$ kubectl get nodes
 ```
 
 ---
@@ -443,7 +443,7 @@ To build the containers in IBM Cloud we do **not** use Docker commands, because 
 * Sample command to upload and build the container inside the **IBM Cloud Registry**
 
 ```sh
-ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/articles:1 .
+$ ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/articles:1 .
 ```
 
 To deploy the container images into Kubernetes, we use the **kubectl apply** command for the needed yaml configuration files. 
@@ -451,7 +451,7 @@ To deploy the container images into Kubernetes, we use the **kubectl apply** com
 * Sample command to deploy the container to the Kubernetes Cluster
 
 ```sh
-kubectl apply -f deployment/IKS-kubernetes.yaml
+$ kubectl apply -f deployment/IKS-kubernetes.yaml
 ```
 
 With [sed](https://en.wikipedia.org/wiki/Sed_(Unix)) and [awk]( https://en.wikipedia.org/wiki/AWK) we extract the output of the command line executions and put them into variables, or we write the information into files, to use them later as input for the next commands inside the bash script.

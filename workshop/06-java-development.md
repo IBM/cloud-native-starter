@@ -13,15 +13,25 @@ In that service we only need to implement to provide a **REST API** for a get au
 
 •	Usage of [Maven](https://maven.apache.org/) for Java 
 
-•	Configuration of an [Open Liberty Server](https://openliberty.io)
+•	Configuration of an [OpenLiberty Server](https://openliberty.io)
 
 •	Implementation of a [REST GET endpoint with MicroProfile](https://openliberty.io/blog/2018/01/31/mpRestClient.html)
 
+•	[Health check](https://openliberty.io/guides/kubernetes-microprofile-health.html#adding-a-health-check-to-the-inventory-microservice) implementation using a MicroProfile for Kubernetes 
+
 •	Definition of a [Dockerfile](https://docs.docker.com/engine/reference/builder/) with the reuse for existing containers from the [Dockerhub](https://hub.docker.com)
 
-•	[Health check](https://openliberty.io/guides/kubernetes-microprofile-health.html#adding-a-health-check-to-the-inventory-microservice) implementation using Open Liberty with MicroProfile for Kubernetes 
-
 •	[Kubernetes deployment configuration](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+
+
+That are the major steps we will follow to replace the  **Authors** service in our Lab.
+
+![authors-java-container-overview](images/authors-java-container-overview.png)
+
+0. Develop the Java **Authors** service 
+1. Uploading the container definition
+2. Building and storing of the production container image inside the IBM Cloud Registry
+3. Deploying the containers into the Kuberentes Cluster
 
 ---
 
@@ -78,12 +88,11 @@ In the **pom** file we define the configuation of our Java project, with **depen
 
 Our **Authors** mircroserice runs later on Open Liberty Server in a container in Kubernetes.
 
-IMAGE
-
-We need to configure the **Open Liberty** server in the [server.xml](authors-java-jee/liberty/server.xml) file. In our Java implementation we will use the MicroProfile, with the feature definition in the server.xml we define ```webProfile-8.0``` and ```microProfile-2.1``` for our server.
+We need to configure the **OpenLiberty** server in the [server.xml](authors-java-jee/liberty/server.xml) file. For our Java implementation use the MicroProfile, with the feature definition in the **server.xml** we provide that information to our server.
+As we can see we use ```webProfile-8.0``` and ```microProfile-2.1```.
 The server must be reached in the network; therefore, we define the  **httpEndpoint** including **http ports** we use for our microservice. For configuration details we can take a look into the [openliberty documentation](https://openliberty.io/docs/ref/config/).
 
-_IMPORTANT to remember_: These **ports** must be exposed later in the **Dockerfile** container definition and mapped inside the **Kubernetes** configurations.
+_IMPORTANT:_ We should remember these **ports** e.g. ```httpPort="3000"``` should be exposed in the **Dockerfile** for our container and mapped inside the **Kubernetes** deployment configurations.
 
 Also the name of the executable **web application** is definied in that **server.xml**.
 
@@ -106,6 +115,10 @@ Also the name of the executable **web application** is definied in that **server
 ---
 
 # 3. Implementation of the REST GET endpoint with MicroProfile
+
+The sequence diagram below shows a simplified view how the **REST API** is used to get all articles. We will just replace the **Authors** microservice.
+
+![rest-api-sequencediagram](images/rest-api-sequencediagram.png)
 
 ## 3.1 MicroProfile basics
 
@@ -152,7 +165,7 @@ public class AuthorsApplication extends Application {
 
 ### 3.2.2 **Class Author**
 
-This class simply repesents the data structure we use for the Author. No MircoProfile is used here.
+This class simply repesents the data structure we use for the [Author](authors-java-jee/src/main/java/com/ibm/authors/). No MircoProfile is used here.
 
 ```java
 package com.ibm.authors;
@@ -170,9 +183,20 @@ public class Author {
 
 ### 3.2.3 **Class GetAuthor**
 
-This class implements the REST API response for our microservice **Authors**. Here we use MicroProfiles for OpenAPI to create the documentation and implementation of the REST API.
+This class implements the REST API response for our microservice **Authors**. We implement our REST client with the [MicroProfile REST Client](https://github.com/eclipse/microprofile-rest-client/blob/master/README.adoc) in the code we use profiles statements ```@Path```, ```@Get``` from [JAX-RS](https://jcp.org/en/jsr/detail?id=339) and form the [OpenAPI](https://www.openapis.org/) documentation ```@OpenAPIDefinition``` the [MicroProfile OpenAPI](https://github.com/eclipse/microprofile-open-api), which creates automatically a API explorer.
 
-We define the [basic REST API definition with the MicroProfile](https://github.com/eclipse/microprofile-rest-client/blob/master/README.adoc). We using ```@Path```, ```@Get``` from [JAX-RS](https://jcp.org/en/jsr/detail?id=339) and for the [OpenAPI](https://www.openapis.org/) documentation ```@OpenAPIDefinition``` the [MicroProfile OpenAPI](https://github.com/eclipse/microprofile-open-api).
+Let's remember the **server.xml** configuration. We added the **MicroProfile** to the server, as you can see in the code below.
+
+```xml
+<featureManager>
+        <feature>microProfile-2.1</feature>
+        ....
+</featureManager> 
+```
+
+With the combination of the **server.xml** and our usage of **MicroProfile** in the **GetAuthor** class, we can access a **OpenAPI exlporer** with this URL ```http://host:http_port/openapi``` later.
+
+This is the source code of the [GetAuthors class](authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java) with the used **MicroProfiles**.
 
 ```java
 @ApplicationScoped
@@ -226,15 +250,353 @@ public class GetAuthor {
 }
 ```
 
+## 3.3 Supporting live and readiness probes in Kubernetes with HealthCheck
 
+We add the class **HealthEndpoint** into the **Authors** package  as you can see in the following image.
 
+![class diagramm HealthEndpoint](images/authors-java-classdiagram-02.png)
+
+Let's understand what we want to support:
+
+> Kubernetes **provides liveness** and **readiness probes** that are used to check the health of your containers, you will work with readiness probes. These probes can check certain files in your containers, check a TCP socket, or make HTTP requests. **MicroProfile Health** exposes a **health endpoint** on your microservices. Kubernetes polls the endpoint as specified by the probes to react appropriately to any change in the microservice’s status. Read the Adding health reports to microservices guide to learn more about MicroProfile Health.
+
+For more information we can use the [Kubernetes Microprofile Health documentation](https://openliberty.io/guides/kubernetes-microprofile-health.html) and the documentation on [GitHub](https://github.com/eclipse/microprofile-health)
+
+This is the implementation for the Health Check for Kubernetes for the **Authors** service in the [HealthEndpoint class](authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java)
+
+```java
+@Health
+@ApplicationScoped
+public class HealthEndpoint implements HealthCheck {
+
+    @Override
+    public HealthCheckResponse call() {
+        return HealthCheckResponse.named("authors").withData("authors", "ok").up().build();
+    }
+}
+```
+
+The usage of **HealthEndpoint** we can find in the deployment yaml, we use for the deployment Kubernetes. IN the following yaml extract we can see the ```livenessProbe``` definition.
+
+```yaml
+livenessProbe:
+    exec:
+        command: ["sh", "-c", "curl -s http://localhost:3000/"]
+        initialDelaySeconds: 20
+    readinessProbe:
+        exec:
+            command: ["sh", "-c", "curl -s http://localhost:3000/health | grep -q authors"]
+        initialDelaySeconds: 40
+```
 
 ---
 
-## 2. Hands-on tasks - Replace the Node.JS Authors microservice with a simple Java implementation
+# 4. The Dockerfile and the usage of dockerhub
+
+With the [Dockerfile](authors-java-jee/Dockerfile) we define the  how to build a container. For detailed information we use the [Dockerfile documentation](https://docs.docker.com/engine/reference/builder/)
+
+If we build a container, we usually start with an existing container image, which contains a minimum on configuration we need, for example: the OS, the Java version or even more. Therefor we examine [dockerhub](https://hub.docker.com/search?q=maven&type=image&image_filter=official) or we search in the internet, to you the the starting point which fits to our needs. We see **maven** container image on dockerhub the following picture.
+
+![dockerhub maven container image](images/dockerhub.png)
+
+Inside the Dockerfile we use **two stages** to build the container image. The reason for the two stages is, we have the objective to be **independed** of local environment settings, when we build our production services. With this concept we don't have to ensure that **Java** and **Maven** (or wrong versions of them) is installed on the local machine of the developers.
+
+In short words one container is only responsible to build the microservice, let us call this container **build environment container** and the other container will contain the microservice, we call this the **production** container.
+
+
+* **Build environment container**
+
+In the following Dockerfile extract, we can see how we create our **build environment container** based on the maven 3.5 image from the [dockerhub](https://hub.docker.com/_/maven/).
+
+Here we use the **pom** file, we defined before, to build our **Authors service** with ```RUN mvn -f /usr/src/app/pom.xml clean package```.
+
+```dockerfile
+FROM maven:3.5-jdk-8 as BUILD
+ 
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+RUN mvn -f /usr/src/app/pom.xml clean package
+```
+
+* **Production container**
+
+The starting point for the our **Production container** is the [OpenLiberty container](https://hub.docker.com/_/open-liberty).
+
+We copy the **Authors service** code with the **server.xml** for the OpenLiberty server to this container. 
+_REMEMBER:_ The **service.xml** contains the ports we use for our **Authors service**.
+
+```dockerfile
+FROM openliberty/open-liberty:microProfile2-java8-openj9 
+
+COPY liberty/server.xml /config/
+COPY --from=BUILD /usr/src/app/target/authors.war /config/apps/
+```
+---
+
+# 5.Kubernetes deployment configuration
+
+Now we examine the **deployment** and **service** yaml. The yaml do contain the  deploy the container to a **Pod** and creating **Services** to access them in the Kubernetes Cluster. 
+
+![kubernetes deployment overview](images/authors-java-kubernetes-deployment-overview.png)
+
+## 5.1 Deployment
+
+The deployment will deploy the container to a pod in Kubernetes.
+For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for pods.
+
+> A Pod is the basic building block of Kubernetes–the smallest and simplest unit in the Kubernetes object model that you create or deploy. A Pod represents processes running on your Cluster .
+
+
+Let's start with the **deployment yaml**. For more details we use will the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) for deployments.
+
+Definition of the ```kind``` defines this is a ```Deployment``` configuration.
+
+```yml
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: authors
+```
+
+Inside the ```spec``` section, we give the deployment a app name and version label.
+
+```yml
+spec:
+  ...
+  template:
+    metadata:
+      labels:
+        app: authors
+        version: v1
+```
+
+Then we define a ```name``` for the container and we do provide the concret container ```image``` location, e.g. where the container can be found in the Container Registry. 
+
+_NOTE:_ We will replace ```authors:1``` later with the IBM Container Registry information. 
+
+The ```containerPort``` depends on the port definition inside our **Dockerfile** or better in our **server.xml**.
+
+Now we should remember the usage of **HealthEndpoint** class for our **Authors**, here we see the ```livenessProbe``` definition.
+
+```yml
+spec:
+      containers:
+      - name: authors
+        image: authors:1
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+```
+This is the full [deployment.yaml](authors-java-jee/deployment/deployment.yaml) file.
+
+```yaml
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: authors
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: authors
+        version: v1
+    spec:
+      containers:
+      - name: authors
+        image: authors:1
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:3000/"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:3000/health | grep -q authors"]
+          initialDelaySeconds: 40
+      restartPolicy: Always
+```
+## 5.2 Service
+
+After the definition of the Pod we need to define how to access the Pod, therefor we use a service in Kubernetes. For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/service/) for service.
+
+> A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service. The set of Pods targeted by a Service is (usually) determined by a Label Selector.
+
+
+In the [service.yaml](authors-java-jee/deployment/service.yaml) we see find our selector to the Pod **authors**. If the service is deployed, it is possible that our **Articles** service can find the **Authors** service.
+
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: authors
+  labels:
+    app: authors
+spec:
+  selector:
+    app: authors
+  ports:
+    - port: 3000
+      name: http
+  type: NodePort
+---
+```
+
+# 5. Hands-on tasks - Replace the Node.JS Authors microservice with a simple Java implementation
+
+### 2.1 Gain access to your cluster
+
+1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
+
+```sh
+$ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+```
+
+2. Download the kubeconfig files for your cluster.
+
+```sh
+$ ibmcloud ks cluster-config --cluster cloud-native
+```
+
+3. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
+
+```sh
+$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
+```
+
+4. Verify that you can connect to your cluster by listing your worker nodes.
+
+```sh
+$ kubectl get nodes
+```
+
+5. Ensure you have no remaining microservices running from other Labs in this workshop.
+
+```sh
+$ scripts/delete-all.sh
+```
+
+6. Verify the delete with following commands.
+
+```sh
+$ kubectl get pods
+$ kubectl get services  
+```
+
+### 2.1 Build the container and upload to the IBM Container Registry
+
+1. Logon to the IBM Cloud Container Registry 
+
+```sh
+$ cd authors-java-jee
+$ ibmcloud cr login
+```
+
+2. List you namespaces inside the IBM Cloud Container Registry 
+
+```sh
+$ ibmcloud cr namespaces
+```
+
+Sample outout:
+
+```sh
+$ Listing namespaces for account 'Thomas Südbröcker's Account' in registry 'de.icr.io'...
+$
+$ Namespace   
+$ cloud-native
+```
+
+3. Now upload the code and build the container image inside IBM Cloud Container Registry. We use the upper information we got from listing the namespaces.
+
+```sh
+$ ibmcloud cr build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/authors:1 .
+```
+
+Sample values:
+
+```sh
+$ ibmcloud cr build -f Dockerfile --tag de.icr.io/cloud-native/authors:1 .
+```
+
+4. List the container images to verify the upload.
+
+```sh
+$ ibmcloud cr images
+```
+Sample output:
+
+```sh
+$ REPOSITORY                        TAG   DIGEST         NAMESPACE      CREATED          SIZE     SECURITY STATUS   
+$ de.icr.io/cloud-native/articles   1     b5dc1f96a69a   cloud-native   1 day ago        273 MB   7 Issues   
+$ de.icr.io/cloud-native/authors    1     217b7716dce1   cloud-native   30 seconds ago   259 MB   7 Issues   
+```
+
+Copy the REPOSITORY path for the uploaded **Authors** container image.
+In this case sample: ```de.icr.io/cloud-native/authors```
+
+### 2.3 Deploy the container image
+
+1. Open the ```authors-java-jee/deployment/deployment.yaml```with a editor and replace the value for the image location with the path we got from the IBM Container Registry and just replace the ```authors``` text and **save** the file.
+
+Before:
+```yml
+image: authors:1
+```
+
+Sample change:
+```yml
+image: de.icr.io/cloud-native/authors:1
+```
+
+2. Now we apply the deployment we will create the new **Authors** Pod.
+
+```sh
+$ kubectl apply -f deployment/deployment.yaml
+```
+
+3. Now we apply the service we will create the new **Authors** Service.
+
+```sh
+$ kubectl apply -f deployment/service.yaml
+```
+
+1. Target the Kubernetes Service region in which you want to work.
+
+```sh
+$ ibmcloud ks region-set us-south
+```
+
+2. List your clusters in that region
+
+```sh
+$ ibmcloud ks clusters
+```
+
+Sample output:
+
+```sh
+$ Name                            ID                                 State    Created        Workers   Location    Version       Resource Group Name   
+$ cloud-native          677fe58d6c244e569c35e158ccc2cb21   normal   3 weeks ago    1         mil01      
+```
+
+3. Get the command to set the environment variable and download the Kubernetes configuration files.
+
+```sh
+$ ibmcloud ks cluster-config cloud-native
+```
+
+4. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output should look similar to the following.
+
+Sample output:
+```sh
+$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/cloud-native/kube-config-mil01-hands-on-verification.yml
+```
 
 ---
 
 Resources:
 
 * ['Simplest possible Microservice in Java'](../authors-java-jee/README.md)
+* ['How to deploy a container to the IBM Cloud Kubernetes Service](https://suedbroecker.net/2019/03/05/how-to-deploy-a-container-to-the-ibm-cloud-kubernetes-service/)

@@ -5,7 +5,7 @@
 
 ## 1. IBM Cloud Services
 
-We will use following IBM Cloud Services in this hands-on workshop.
+We will use the following IBM Cloud Services in this hands-on workshop.
 
 * [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-getting-started#getting-started) with a custom **Istio** installation
 * [IBM Cloud Container Registry Service](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#getting-started)

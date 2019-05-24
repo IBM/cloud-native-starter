@@ -184,13 +184,13 @@ $ ibmcloud ks cluster-config --cluster cloud-native
 3. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
 
 ```sh
-export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/cloud-native/kube-config-mil01-cloud-native.yml
+$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/cloud-native/kube-config-mil01-cloud-native.yml
 ```
 
 4. Verify that you can connect to your cluster by listing your worker nodes.
 
 ```sh
-kubectl get nod
+$ kubectl get nod
 ```
 
 ---
