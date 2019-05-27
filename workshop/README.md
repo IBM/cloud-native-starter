@@ -22,7 +22,7 @@ Hands-on workshop lab instructions:
 * [Lab - Defining and exposing REST APIs](03-rest-api.md)  **(under construction - pending review)**
 * [Lab - Using traffic management in Kubernetes](04-traffic-management.md) **(under construction - pending review)**
 * [Lab - Resiliency](05-resiliency.md) **(under construction - - pending review)**
-* [Optional Lab - Replace the Node.JS Authors microservice with a simple Java implementation](06-java-development.md) **(under construction - in progress )**
+* [Optional Lab - Replace the Node.JS Authors microservice with a simple Java implementation](06-java-development.md) **(under construction - pending review )**
 
 
 

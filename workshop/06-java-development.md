@@ -335,9 +335,11 @@ COPY --from=BUILD /usr/src/app/target/authors.war /config/apps/
 
 # 5.Kubernetes deployment configuration
 
-Now we examine the **deployment** and **service** yaml. The yaml do contain the  deploy the container to a **Pod** and creating **Services** to access them in the Kubernetes Cluster. 
+Now we examine the **deployment** and **service** yaml. The yamls do contain the  deploy the container to a **Pod** and creating **Services** to access them in the Kubernetes Cluster. 
 
-![kubernetes deployment overview](images/authors-java-kubernetes-deployment-overview.png)
+In the following image we see the relevant dependencies for this lab.
+
+![authors-java-service-pod-container](images/authors-java-service-pod-container.png)
 
 ## 5.1 Deployment
 
@@ -377,6 +379,7 @@ _NOTE:_ We will replace ```authors:1``` later with the IBM Container Registry in
 The ```containerPort``` depends on the port definition inside our **Dockerfile** or better in our **server.xml**.
 
 Now we should remember the usage of **HealthEndpoint** class for our **Authors**, here we see the ```livenessProbe``` definition.
+
 
 ```yml
 spec:
@@ -423,6 +426,11 @@ After the definition of the Pod we need to define how to access the Pod, therefo
 
 > A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service. The set of Pods targeted by a Service is (usually) determined by a Label Selector.
 
+In the service we map the **NodePort** of the cluster to the port 3000 of the **Authors** service running in the **authors** Pod, as we can see in the following picture. 
+
+_Note:_ Later we get the actual port for the service using the command line: ```nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')```.
+
+![authors-java-service-pod-container](images/authors-java-service-pod-container.png)
 
 In the [service.yaml](authors-java-jee/deployment/service.yaml) we see find our selector to the Pod **authors**. If the service is deployed, it is possible that our **Articles** service can find the **Authors** service.
 
@@ -449,150 +457,179 @@ spec:
 
 1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
 
-```sh
-$ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
-```
+    ```sh
+    $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+    ```
 
 2. Download the kubeconfig files for your cluster.
 
-```sh
-$ ibmcloud ks cluster-config --cluster cloud-native
-```
+    ```sh
+    $ ibmcloud ks cluster-config --cluster cloud-native
+    ```
 
 3. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
 
-```sh
-$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
-```
+    ```sh
+    $ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/cloud-native/kube-config-mil01-cloud-native.yml
+    ```
 
-4. Verify that you can connect to your cluster by listing your worker nodes.
+4. Verify you can connect to your cluster by listing your worker nodes.
 
-```sh
-$ kubectl get nodes
-```
+    ```sh
+    $ kubectl get nodes
+    ```
 
-5. Ensure you have no remaining microservices running from other Labs in this workshop.
+5. Ensure you have no remaining microservices running from the other Labs in this workshop.
 
-```sh
-$ scripts/delete-all.sh
-```
+    ```sh
+    $ scripts/delete-all.sh
+    ```
 
 6. Verify the delete with following commands.
 
-```sh
-$ kubectl get pods
-$ kubectl get services  
-```
+    ```sh
+    $ kubectl get pods
+    $ kubectl get services  
+    ```
 
 ### 2.1 Build the container and upload to the IBM Container Registry
 
 1. Logon to the IBM Cloud Container Registry 
 
-```sh
-$ cd authors-java-jee
-$ ibmcloud cr login
-```
+    ```sh
+    $ cd authors-java-jee
+    $ ibmcloud cr login
+    ```
 
 2. List you namespaces inside the IBM Cloud Container Registry 
 
-```sh
-$ ibmcloud cr namespaces
-```
+    ```sh
+    $ ibmcloud cr namespaces
+    ```
 
-Sample outout:
+    _Sample result outout:_
 
-```sh
-$ Listing namespaces for account 'Thomas Südbröcker's Account' in registry 'de.icr.io'...
-$
-$ Namespace   
-$ cloud-native
-```
+    ```sh
+    $ Listing namespaces for account 'Thomas Südbröcker's Account' in registry 'de.icr.io'...
+    $
+    $ Namespace   
+    $ cloud-native
+    ```
 
 3. Now upload the code and build the container image inside IBM Cloud Container Registry. We use the upper information we got from listing the namespaces.
 
-```sh
-$ ibmcloud cr build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/authors:1 .
-```
+    ```sh
+    $ ibmcloud cr build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/authors:2 .
+    ```
 
-Sample values:
+    _Sample result values:_
 
-```sh
-$ ibmcloud cr build -f Dockerfile --tag de.icr.io/cloud-native/authors:1 .
-```
+    ```sh
+    $ ibmcloud cr build -f Dockerfile --tag de.icr.io/cloud-native/authors:2 .
+    ```
+
+    _Optional:_ Verify the container upload in the IBM Cloud web UI.
+
+    ![authors-java-container-image](images/authors-java-container-image.png)
 
 4. List the container images to verify the upload.
 
-```sh
-$ ibmcloud cr images
-```
-Sample output:
+    ```sh
+    $ ibmcloud cr images
+    ```
 
-```sh
-$ REPOSITORY                        TAG   DIGEST         NAMESPACE      CREATED          SIZE     SECURITY STATUS   
-$ de.icr.io/cloud-native/articles   1     b5dc1f96a69a   cloud-native   1 day ago        273 MB   7 Issues   
-$ de.icr.io/cloud-native/authors    1     217b7716dce1   cloud-native   30 seconds ago   259 MB   7 Issues   
-```
+    _Sample result output:_
 
-Copy the REPOSITORY path for the uploaded **Authors** container image.
-In this case sample: ```de.icr.io/cloud-native/authors```
+    ```sh
+    $ REPOSITORY                        TAG   DIGEST         NAMESPACE      CREATED          SIZE     SECURITY STATUS   
+    $ de.icr.io/cloud-native/articles   1     b5dc1f96a69a   cloud-native   1 day ago        273 MB   7 Issues   
+    $ de.icr.io/cloud-native/authors    2     217b7716dce1   cloud-native   30 seconds ago   259 MB   7 Issues   
+    ```
+
+    Copy the REPOSITORY path for the uploaded **Authors** container image.
+    In this case sample: ```de.icr.io/cloud-native/authors```
 
 ### 2.3 Deploy the container image
 
-1. Open the ```authors-java-jee/deployment/deployment.yaml```with a editor and replace the value for the image location with the path we got from the IBM Container Registry and just replace the ```authors``` text and **save** the file.
+1. Open the ```authors-java-jee/deployment/deployment.yaml```with a editor and replace the value for the image location with the path we got from the IBM Container Registry and just replace the ```authors:1``` text, and add following statement ```imagePullPolicy: Always``` and **save** the file.
 
-Before:
-```yml
-image: authors:1
-```
+    Before:
+    ```yml
+    image: authors:1
+    ```
 
-Sample change:
-```yml
-image: de.icr.io/cloud-native/authors:1
-```
+    Sample change:
+    ```yml
+    image: de.icr.io/cloud-native/authors:2
+    imagePullPolicy: Always
+    ```
 
 2. Now we apply the deployment we will create the new **Authors** Pod.
 
-```sh
-$ kubectl apply -f deployment/deployment.yaml
-```
+    ```sh
+    $ kubectl apply -f deployment/deployment.yaml
+    ```
 
 3. Now we apply the service we will create the new **Authors** Service.
 
-```sh
-$ kubectl apply -f deployment/service.yaml
-```
+    ```sh
+    $ kubectl apply -f deployment/service.yaml
+    ```
 
-1. Target the Kubernetes Service region in which you want to work.
+4. Get cluster (node) IP address
 
-```sh
-$ ibmcloud ks region-set us-south
-```
+    ```sh
+    $ clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2;exit;}')
+    $ echo $clusterip
+    $ 159.122.172.162
+    ```
 
-2. List your clusters in that region
+5. Get nodeport.
 
-```sh
-$ ibmcloud ks clusters
-```
+    ```sh
+    $ nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+    $ echo $nodeport
+    $ 30108
+    ```
 
-Sample output:
+5. Open API explorer.
 
-```sh
-$ Name                            ID                                 State    Created        Workers   Location    Version       Resource Group Name   
-$ cloud-native          677fe58d6c244e569c35e158ccc2cb21   normal   3 weeks ago    1         mil01      
-```
+    ```sh
+    $ open http://${clusterip}:${nodeport}/openapi/ui/
+    ```
 
-3. Get the command to set the environment variable and download the Kubernetes configuration files.
+    Sample result in your browser:
 
-```sh
-$ ibmcloud ks cluster-config cloud-native
-```
+    ![authors-java-openapi-explorer](images/authors-java-openapi-explorer.png)
 
-4. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output should look similar to the following.
 
-Sample output:
-```sh
-$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/cloud-native/kube-config-mil01-hands-on-verification.yml
-```
+6. Execute curl to test the **Authors** service.
+
+    ```sh
+    $ curl http://${clusterip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+    ```
+
+    Sample result:
+    ```
+    $ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
+    ```
+
+7. Execute following curl command to test the **HealthCheck** implementation for the **Authors** service.
+
+    ```sh
+    $ curl http://${clusterip}:${nodeport}/health
+    $ {"checks":[{"data":{"authors":"ok"},"name":"authors","state":"UP"}],"outcome":"UP"} 
+    ```
+
+    Optional: We can also verify that call in the browser.
+
+    ![authors-java-health](images/authors-java-health.png)
+
+---
+
+Now, we've finished the **Replace the Node.JS Authors microservice with a simple Java implementation**.
+
+You have finished this workshop :-).
 
 ---
 
