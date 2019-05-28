@@ -118,6 +118,10 @@ Some cloud-native functionality however cannot be handled by Kubernetes and Isti
 
 That’s why we use **Eclipse MicroProfile**, which is an extension to JavaEE to build microservices-based architectures and a great programming model for Istio. In addition to the application specific logic that Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example invoking REST APIs and implementing REST APIs including their documentation.
 
+In the following image you can see a list of MicroProfiles and the red marked we will use in minimum here.
+
+![microprofiles](images/microprofiles.png)
+
 Now, we've finished the **introduction**.
 Let's get started with the [Lab - Building and deploying Containers](02-container.md).
 

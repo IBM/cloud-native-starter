@@ -629,8 +629,7 @@ spec:
 
 Now, we've finished the **Replace the Node.JS Authors microservice with a simple Java implementation**.
 
-You have finished this workshop :-).
-
+**Congratulations and greatest respect** : You did the **extra mile** and you have finished this **hands-on workshop + optional lab** :-).
 ---
 
 Resources:

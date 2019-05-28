@@ -120,7 +120,8 @@ $ ./iks-scripts/show-urls.sh
 ```
 
 2. Open the **Web APP** in a new browser tab: http://YOUR_IP:31380/
-_Note:_ This is on of the links we get from the ```iks-scripts/show-urls.sh``` script.
+
+_Note:_ You get this link as output from that ```iks-scripts/show-urls.sh``` script.
 
  ![cns-container-web-app-04](images/cns-container-web-app-05.png)
 
@@ -149,7 +150,9 @@ Refresh the browser and verify the remaining information. Although the articles 
 
 Now, we've finished the **Resiliency**.
 
-You have finished this workshop :-).
+**Congratulations,** : You have finished this **hands-on workshop** :-).
+
+_Note:_ If you want to do more, you can move on with the [optional Lab - Replace the Node.JS Authors microservice with a simple Java implementation](06-java-development.md).
 
 ---
 
