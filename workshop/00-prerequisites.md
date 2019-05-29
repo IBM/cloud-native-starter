@@ -111,12 +111,12 @@ $ ibmcloud iam api-key-create cloud-native-starter-key \
 $ cat cloud-native-starter-key.json
 ```
 
-_Optional:_ You can verify the key in IBM Cloud, as you can see in the image below:
+_Optional:_ We can verify the key in IBM Cloud, as you can see in the image below:
 
 ![ibm-cloud-key](images/ibm-cloud-key.png)
 
 
-3. Create a copy of the **template.local.env** and add it the new **local.env** file the key to the IBMCLOUD_API_KEY variable.
+3. Create a copy of the **template.local.env** and past the file into the same folder. Rename the new file to **local.env**. Then insert the key we created before, into the **local.env** file as value for the ```IBMCLOUD_API_KEY``` variable, we can see in step 4.
 
 ```sh
 $ cp template.local.env local.env 
@@ -185,7 +185,7 @@ $ ./iks-scripts/create-iks-cluster.sh
 ```
 
 _Note:_ The creation of the cluster can take up to **20 minutes**.
-You can verify the cluster in the IBM Cloud, as you can see in the image below:
+You can verify the cluster in the IBM Cloud, as we see in the image below:
 
 ![ibm-cloud-cluster](images/ibm-cloud-cluster.png)
 
@@ -290,16 +290,16 @@ _NOTE:_ When you're using the CLI or the Cloud console in a browser, always make
 
 ### 3.7 Accessing the Kubernetes cluster manually (optional) <a name="part-SETUP-05"></a>
 
-Now let's see how to set the context to work with our clusters by using the `kubectl` CLI, how access the Kubernetes dashboard, and how to gather basic information about our cluster.
+Now let's see how to set the context to work with our clusters by using the ```kubectl``` CLI, how access the Kubernetes dashboard, and how to gather basic information about our cluster.
 
 We set the context for the cluster in the CLI.
 Every time you log in to the IBM Cloud Kubernetes Service CLI to work with the cluster, you must run these commands to set the path to the cluster's configuration file as a session variable.
 The Kubernetes CLI uses this variable to find a local configuration file and certificates that are necessary to connect with the cluster in IBM Cloud.
 
-List the available clusters: `ibmcloud ks clusters`.
+List the available clusters: ```ibmcloud ks clusters```.
 This command should now show the cluster which is being created.
 
-Download the configuration file and certificates for the cluster using the `cluster-config` command:
+Download the configuration file and certificates for the cluster using the ```cluster-config``` command:
 
 ```sh
 $ ibmcloud ks cluster-config <cluster-name>

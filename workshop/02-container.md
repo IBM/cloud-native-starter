@@ -2,7 +2,7 @@
 # Building and deploying Containers
 ****** **UNDER CONSTRUCTION** ******
 
-In this Lab we build and deploy containers with microservices to Kubernetes. Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** for the microservices. The following diagram shows a high level overview of the steps in the lab, which are mostly automated with bash scripts.
+In this lab we build and deploy containers with microservices to Kubernetes. Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** for the microservices. The following diagram shows a high level overview of the steps in the lab, which are mostly automated with bash scripts.
 
 ![cns-container-deployment-01](images/cns-container-deployment-01.png)
 
@@ -18,7 +18,7 @@ The following picture shows a brief preview of the result of the running contain
 
 ![ibm-cloud-pods](images/ibm-cloud-registry-container.png)
 
-Here you can see the created Pods for each container inside the IBM Kubernetes cluster.
+Here we can see the created Pods for each container inside the IBM Kubernetes cluster.
 
 ![ibm-cloud-pods](images/ibm-cloud-pods.png)
 
@@ -47,7 +47,7 @@ COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
 ```
 
-Then we build the executable **articles.war** file inside the **build container** image. Here we use the maven command **mvn -f pom.xml clean package** to build the [war](https://en.wikipedia.org/wiki/WAR_(file_format)) file.
+Then we build the executable **articles.war** file inside the **build container** image. Here we use the maven command ```mvn -f pom.xml clean package`` to build the [war](https://en.wikipedia.org/wiki/WAR_(file_format)) file.
 
 ```Dockerfile
 RUN mvn -f /usr/src/app/pom.xml clean package
@@ -56,7 +56,7 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 * **Production container**
 
 In the following Dockerfile extract, we do create the **production container** based on the **openliberty** with **microProfile2**.
-Then we install the **zipkintracer** for later usage.
+Then we install the **zipkintracer** for later usage. But the **zipkintracer** is not in scope for this lab.
 
 ```Dockerfile
 FROM openliberty/open-liberty:microProfile2-java8-openj9
@@ -81,17 +81,17 @@ The **Web API** [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create th
 
 ---
 
-### 1.2. Node.JS container images
+### 1.2. Node.js container images
 
-The **Web app** and the **Authors** services are written in Node.JS.
+The **Web app** and the **Authors** services are written in Node.js.
 
 ---
 
 #### 1.2.1 Web app container image definition
 
-The **Web app** [Dockerfile](../web-app-vuejs/Dockerfile) to create the  **Web app** application, works in the same way as for **Articles container**. Inside the Dockerfile we use the same two stages to build the **production container** image.
+The **Web app** [Dockerfile](../web-app-vuejs/Dockerfile) to create the  **Web app** application works in the same way as for **Articles container**. Inside the Dockerfile we use the same two stages to build the **production container** image.
 
-Here you can see the **build environment container** is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine). This container already contains [yarn](https://yarnpkg.com/en/) to build the UI application.
+Here you can see the **build environment container** is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine). This container already contains the [yarn](https://yarnpkg.com/en/) package manager to build the **VUE UI** web  application.
 
 ```Dockerfile
 FROM node:8-alpine as BUILD
@@ -120,7 +120,7 @@ If last step of the **Dockerfile** is executed, the container is ready to be dep
 
 #### 1.2.2 Authors container image definition
 
-The Authors [Dockerfile](../**Authors**/Dockerfile) to create the **Web API** service, does directly create the production image and is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine).
+The Authors [Dockerfile](../**Authors**/Dockerfile) to create the **Web API** service does directly create the production image and this image is based on the alpine 8 container image from the [dockerhub](https://hub.docker.com/_/alpine).
 
 ```Dockerfile
 FROM node:8-alpine
@@ -146,9 +146,13 @@ If this last step is executed of the **Dockerfile** the container is ready to be
 
 ### 1.3 YAML Configurations for the deployment to Kubernetes
 
-Now we examine the deployment yamls to deploy the container to **Pods** and creating **Services** to access them in the Kubernetes Cluster. In the following image you can see the deployed **Services**:
+Now we examine the deployment yamls to deploy the container to **Pods** and creating **Services** to access them in the Kubernetes Cluster. In the following image you can see the deployed **Pods** and **Services**:
 
-![ibm-cloud-services](images/ibm-cloud-services.png)
+|Pods| Services|
+|----|----|
+|![ibm-cloud-pods](images/ibm-cloud-pods.png)    |![ibm-cloud-services](images/ibm-cloud-services.png)|
+
+_Note:_ In the lab **Using traffic management in Kubernetes with Istio** we will take more detailed look into the deployment and service yaml configurations.
 
 ---
 
@@ -238,7 +242,7 @@ spec:
 
 #### 1.3.3 Articles
 
-As defined in the [Twelve-Factor-App](https://12factor.net/) it’s important for cloud-native applications to store configuration externally, rather than in the code since this makes it possible to deploy applications to different environments. An app’s config is everything that is likely to vary between deploys (staging, production, developer environments, etc). This includes: Resource handles to backing services or credentials to external services.
+As defined in the [Twelve-Factor-App](https://12factor.net/) it’s important for cloud-native applications to **store configuration externally**, rather than in the code since this makes it possible to deploy applications to different environments. An app’s config is everything that is likely to vary between deploys (staging, production, developer environments, etc). This includes: Resource handles to backing services or credentials to external services.
 
 Microservices that are implemented with Java EE can leverage MicroProfile config. The configuration can be done, for example, in **Kubernetes yaml** files and accessed from Java code via annotations and APIs. The **‘Articles’** microservice uses configuration to define whether or not to **create ten articles** the first time it is invoked. In the yaml file an environment variable pointing to a **ConfigMap** is defined.
 
@@ -459,14 +463,14 @@ With [sed](https://en.wikipedia.org/wiki/Sed_(Unix)) and [awk]( https://en.wikip
 * Sample command to write registry information into a yaml file with **sed**.
 
 ```sh
-  sed "s+articles:1+$REGISTRY/$REGISTRY_NAMESPACE/articles:1+g" deployment/kubernetes.yaml
+  $ sed "s+articles:1+$REGISTRY/$REGISTRY_NAMESPACE/articles:1+g" deployment/kubernetes.yaml
 ```
 
 * Sample command extract output information for a cluster ip into a bash variable, with **awk**.
 
 ```sh
-clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
-  nodeport=$(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
+  $ clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
+  $ nodeport=$(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
 ```
 
 1. Invoke following bash scripts to build and deploy the microservices to Kubernetes:
@@ -556,7 +560,7 @@ $ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
 Now, we've finished the **Lab - Building and deploying Containers**.
 Let's get started with the [Defining and exposing REST APIs](03-rest-api.md).
 
-_Note:_ Congratulations, you have finished the first important step of **hands-on workshop** to get the core **Cloud Native Starter** application running on Kubernetes.
+_Note:_ **Congratulations** :thumbsup:, you have finished the first important step of **hands-on workshop** to get the core **Cloud Native Starter** application running on Kubernetes.
 
 ---
 

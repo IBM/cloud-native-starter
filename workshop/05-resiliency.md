@@ -9,7 +9,7 @@ As stated in the [reactive manifesto](https://www.reactivemanifesto.org/) cloud-
 
 In distributed systems we need to **design for failure**. For example, microservices, which invoke other microservices, must be intelligent enough to continue to work even if some of their dependencies are currently not available.
 
-There are several different ways to build resilient service meshes with Istio, for example via [circuit breakers](https://istio.io/docs/concepts/traffic-management/#circuit-breakers) and [retries](https://istio.io/docs/concepts/traffic-management/#timeouts-and-retries).
+There are several different ways to build resilient service meshes with Istio, for example via **circuit breakers** ([Martin Fowler blog](https://martinfowler.com/bliki/CircuitBreaker.html)/[implementation](https://istio.io/docs/concepts/traffic-management/#circuit-breakers)) and [retries](https://istio.io/docs/concepts/traffic-management/#timeouts-and-retries).
 
 The Istio functionality for resilient cloud-native applications is **generic** and **independent** from the implementation of the microservices. However in some cases the **handling of failures depends on the business logic** of the applications which is why this needs to be implemented in the microservices.
 
@@ -19,7 +19,7 @@ In **Cloud Native Starter**, the **Web app** frontend, implemented in Vue.js, di
 | --- | --- |    
 | ![resliency-01](images/resliency-01.png) | ![resliency-02](images/resliency-02.png) |   
 
-The implementation of this behavior has been done in the class [Service.java](/web-api-java-jee/src/main/java/com/ibm/webapi/business/Service.java#L68). You can see the ```catch (NoConnectivity | NonexistentAuthor e)``` does handle the situation and set a default value.
+The implementation of this behavior has been done in the class [Service.java](../web-api-java-jee/src/main/java/com/ibm/webapi/business/Service.java#L68). You can see the ```catch (NoConnectivity | NonexistentAuthor e)``` does handle the situation and set a default value.
 
 ```java
 try {
@@ -38,7 +38,7 @@ After the articles service is deleted we will notice that the same 5 articles ar
 | --- | --- |    
 | ![resliency-02](images/resliency-02.png) | ![resliency-02](images/resliency-02.png) | 
 
-We are using the [Eclipse MicroProfile fallback annotation](https://www.openliberty.io/guides/microprofile-fallback.html). In this case a fallback method is invoked if the original method throws an exception. Here we have the two operations inside the [service.java](classweb-api-java-jee/src/main/java/com/ibm/webapi/business/Service.java#L45).
+We are using the [Eclipse MicroProfile fallback annotation](https://www.openliberty.io/guides/microprofile-fallback.html). In this case a fallback method is invoked if the original method throws an exception. Here we have the two operations inside the [service.java](../classweb-api-java-jee/src/main/java/com/ibm/webapi/business/Service.java#L45).
 
 * The definition of the fallback profile **@Fallback**
 
@@ -121,7 +121,7 @@ $ ./iks-scripts/show-urls.sh
 
 2. Open the **Web APP** in a new browser tab: http://YOUR_IP:31380/
 
-_Note:_ You get this link as output from that ```iks-scripts/show-urls.sh``` script.
+_Note:_ You get this link as output of the ```iks-scripts/show-urls.sh``` script.
 
  ![cns-container-web-app-04](images/cns-container-web-app-05.png)
 
@@ -150,9 +150,9 @@ Refresh the browser and verify the remaining information. Although the articles 
 
 Now, we've finished the **Resiliency**.
 
-**Congratulations,** : You have finished this **hands-on workshop** :-).
+**Congratulations** :thumbsup:, you have finished :checkered_flag: this **hands-on workshop** :-).
 
-_Note:_ If you want to do more, you can move on with the [optional Lab - Replace the Node.JS Authors microservice with a simple Java implementation](06-java-development.md).
+_Note:_ If you want to do more, you can move on with the [optional Lab - Replace the Node.js Authors microservice with a simple Java implementation](06-java-development.md).
 
 ---
 

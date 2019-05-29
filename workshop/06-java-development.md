@@ -1,15 +1,15 @@
 [home](README.md)
-# Optional Lab - Replace the Node.JS Authors microservice with a simple Java implementation
+# Optional - Lab - Replace the Node.js Authors microservice with a simple Java implementation
 
 ****** **UNDER CONSTRUCTION** ******
 
-In that optional Lab we will replace the existing Authors microservices written in Node.JS with a Java implementation, as you can see in the gif below.
+In that optional lab we will replace the existing Authors microservice written in Node.js with a Java implementation, as you can see in the gif below.
 
 ![architecture authors](images/architecture-authors.gif)
 
-As we can see, with a microservice architecture and REST APIs we can easily replace microservice implementation, without any impact to the rest of the **Cloud Native Starter** application.
+We see, with a microservice architecture and REST APIs we can easily replace microservice implementation, without any impact to the remaining **Cloud Native Starter** application.
 
-In that service we only need to implement to provide a **REST API** for a get author request. Normally, we would implement also a database access, but in our case, we will only return sample data information. That sounds not a lot, but with this small sample we touch following topics:
+In that service we only need to implement to provide a **REST API** for a ```getauthor`` request. Normally, we would implement also a database access, but in our case, we will only return sample data information. That sounds not a lot, but with this small sample we touch following topics:
 
 •	Usage of [Maven](https://maven.apache.org/) for Java 
 
@@ -24,7 +24,7 @@ In that service we only need to implement to provide a **REST API** for a get au
 •	[Kubernetes deployment configuration](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 
 
-That are the major steps we will follow to replace the  **Authors** service in our Lab.
+That are the major steps we will follow to replace the  **Authors** service in our lab.
 
 ![authors-java-container-overview](images/authors-java-container-overview.png)
 
@@ -42,7 +42,7 @@ project for our Java project.
 
 > Maven Apache Maven is a software project management and comprehension tool. Based on the concept of a **project object model** (POM), Maven can manage a project's build, reporting and documentation from a central piece of information.
 
-In the **pom** file we define the configuation of our Java project, with **dependencies**, **build** and **properties** including for example the complier information as you can see in the [pom file](authors-java-jee/pom.xml) below.
+In the **pom** file we define the configuation of our Java project, with **dependencies**, **build** and **properties** including for example the complier information as you can see in the [pom file](../authors-java-jee/pom.xml) below.
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -86,10 +86,10 @@ In the **pom** file we define the configuation of our Java project, with **depen
 
 # 2. Configuration the Open Liberty Server
 
-Our **Authors** mircroserice runs later on Open Liberty Server in a container in Kubernetes.
+Our **Authors** mircroserice runs later on **OpenLiberty** Server in a container on Kubernetes.
 
-We need to configure the **OpenLiberty** server in the [server.xml](authors-java-jee/liberty/server.xml) file. For our Java implementation use the MicroProfile, with the feature definition in the **server.xml** we provide that information to our server.
-As we can see we use ```webProfile-8.0``` and ```microProfile-2.1```.
+We need to configure the **OpenLiberty** server a [server.xml](../authors-java-jee/liberty/server.xml) file. For our Java implementation we use the MicroProfile and with the feature definition in the **server.xml** we provide that information to our server.
+In the configuration we notice the entries ```webProfile-8.0``` and ```microProfile-2.1```.
 The server must be reached in the network; therefore, we define the  **httpEndpoint** including **http ports** we use for our microservice. For configuration details we can take a look into the [openliberty documentation](https://openliberty.io/docs/ref/config/).
 
 _IMPORTANT:_ We should remember these **ports** e.g. ```httpPort="3000"``` should be exposed in the **Dockerfile** for our container and mapped inside the **Kubernetes** deployment configurations.
@@ -128,7 +128,7 @@ In the most of the following classes we will use [MicroProfile](https://openlibe
 
 > **Eclipse MicroProfile** is a modular set of technologies designed so that you can write cloud-native Java™ microservices. In this introduction, learn how MicroProfile helps you develop and manage cloud-native microservices. Then, follow the Open Liberty MicroProfile guides to gain hands-on experience with MicroProfile so that you can build microservices with Open Liberty.
 
-In the following image you can see a list of MicroProfiles and the red marked we will use in minimum here.
+In the following image we see a list of MicroProfiles and the red marked profiles we will use in minimum in our lab.
 
 ![microprofiles](images/microprofiles.png)
 
@@ -136,7 +136,7 @@ In the following image you can see a list of MicroProfiles and the red marked we
 
 ## 3.2 Needed Java classes for the **Authors** service
 
-For the implementation for the **Authors** service we need basicly three classes:
+For the implementation for the **Authors** service to **expose** the REST API, we need basicly three classes:
 
 * **AuthorsApplication** class repesents our web application.
 * **Author** class repesents the data structure we use for the Author.
@@ -165,17 +165,15 @@ public class AuthorsApplication extends Application {
 
 ### 3.2.2 **Class Author**
 
-This class simply repesents the data structure we use for the [Author](authors-java-jee/src/main/java/com/ibm/authors/). No MircoProfile is used here.
+This class simply repesents the data structure we use for the [Author](../authors-java-jee/src/main/java/com/ibm/authors/). No MircoProfile is used here.
 
 ```java
 package com.ibm.authors;
 
 public class Author {
-
-	public String name;
-	public String twitter;
-    public String blog;
-
+public String name;
+public String twitter;
+public String blog;
 }
 ```
 
@@ -196,7 +194,7 @@ Let's remember the **server.xml** configuration. We added the **MicroProfile** t
 
 With the combination of the **server.xml** and our usage of **MicroProfile** in the **GetAuthor** class, we can access a **OpenAPI exlporer** with this URL ```http://host:http_port/openapi``` later.
 
-This is the source code of the [GetAuthors class](authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java) with the used **MicroProfiles**.
+This is the source code of the [GetAuthors class](../authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java) with the used **MicroProfiles**.
 
 ```java
 @ApplicationScoped
@@ -262,7 +260,7 @@ Let's understand what we want to support:
 
 For more information we can use the [Kubernetes Microprofile Health documentation](https://openliberty.io/guides/kubernetes-microprofile-health.html) and the documentation on [GitHub](https://github.com/eclipse/microprofile-health)
 
-This is the implementation for the Health Check for Kubernetes for the **Authors** service in the [HealthEndpoint class](authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java)
+This is the implementation for the Health Check for Kubernetes for the **Authors** service in the [HealthEndpoint class](../authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java)
 
 ```java
 @Health
@@ -390,7 +388,7 @@ spec:
         - containerPort: 3000
         livenessProbe:
 ```
-This is the full [deployment.yaml](authors-java-jee/deployment/deployment.yaml) file.
+This is the full [deployment.yaml](../authors-java-jee/deployment/deployment.yaml) file.
 
 ```yaml
 kind: Deployment
@@ -432,7 +430,7 @@ _Note:_ Later we get the actual port for the service using the command line: ```
 
 ![authors-java-service-pod-container](images/authors-java-service-pod-container.png)
 
-In the [service.yaml](authors-java-jee/deployment/service.yaml) we see find our selector to the Pod **authors**. If the service is deployed, it is possible that our **Articles** service can find the **Authors** service.
+In the [service.yaml](../authors-java-jee/deployment/service.yaml) we see find our selector to the Pod **authors**. If the service is deployed, it is possible that our **Articles** service can find the **Authors** service.
 
 ```yaml
 kind: Service
@@ -451,7 +449,7 @@ spec:
 ---
 ```
 
-# 5. Hands-on tasks - Replace the Node.JS Authors microservice with a simple Java implementation
+# 5. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation
 
 ### 2.1 Gain access to your cluster
 
@@ -479,7 +477,7 @@ spec:
     $ kubectl get nodes
     ```
 
-5. Ensure you have no remaining microservices running from the other Labs in this workshop.
+5. Ensure you have no remaining microservices running from the other labs in this workshop.
 
     ```sh
     $ scripts/delete-all.sh
@@ -551,7 +549,7 @@ spec:
 
 ### 2.3 Deploy the container image
 
-1. Open the ```authors-java-jee/deployment/deployment.yaml```with a editor and replace the value for the image location with the path we got from the IBM Container Registry and just replace the ```authors:1``` text, and add following statement ```imagePullPolicy: Always``` and **save** the file.
+1. Open the ```../authors-java-jee/deployment/deployment.yaml```with a editor and replace the value for the image location with the path we got from the IBM Container Registry and just replace the ```authors:1``` text, and add following statement ```imagePullPolicy: Always``` and **save** the file.
 
     Before:
     ```yml
@@ -627,9 +625,10 @@ spec:
 
 ---
 
-Now, we've finished the **Replace the Node.JS Authors microservice with a simple Java implementation**.
+Now, we've finished the **Replace the Node.js Authors microservice with a simple Java implementation**.
 
-**Congratulations and greatest respect** : You did the **extra mile** and you have finished this **hands-on workshop + optional lab** :-).
+**Congratulations** :thumbsup: and **greatest respect** :muscle:, you did the **extra mile** and you have finished this **hands-on workshop + optional lab** :-).
+
 ---
 
 Resources:
