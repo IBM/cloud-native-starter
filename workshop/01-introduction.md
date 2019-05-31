@@ -1,6 +1,5 @@
 [home](README.md)
 # Introduction
-****** **UNDER CONSTRUCTION** ******
 
 In this hands-on workshop, we will see, how to develop cloud-native microservices using Jakarta EE and MicroProfile.
 

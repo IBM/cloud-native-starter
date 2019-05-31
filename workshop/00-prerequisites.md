@@ -1,8 +1,6 @@
 [home](README.md)
 # Prerequisites
 
-****** **UNDER CONSTRUCTION** ******
-
 ## 1. IBM Cloud Services
 
 We will use the following IBM Cloud Services in this hands-on workshop:

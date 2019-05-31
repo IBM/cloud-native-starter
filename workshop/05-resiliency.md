@@ -1,8 +1,6 @@
 [home](README.md)
 # Resiliency
 
-****** **UNDER CONSTRUCTION** ******
-
 As stated in the [reactive manifesto](https://www.reactivemanifesto.org/) cloud-native reactive applications need to be **resilient**:
 
 > " **The system stays responsive in the face of failure.** This applies not only to highly-available, mission-critical systems – any system that is not resilient will be unresponsive after a failure. Resilience is achieved by replication, containment, isolation … "

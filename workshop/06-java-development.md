@@ -1,8 +1,6 @@
 [home](README.md)
 # Optional - Lab - Replace the Node.js Authors microservice with a simple Java implementation
 
-****** **UNDER CONSTRUCTION** ******
-
 In that optional lab we will replace the existing Authors microservice written in Node.js with a Java implementation, as you can see in the gif below.
 
 ![architecture authors](images/architecture-authors.gif)

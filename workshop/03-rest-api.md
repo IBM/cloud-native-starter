@@ -1,8 +1,6 @@
 [home](README.md)
 # Defining and exposing REST APIs
 
-****** **UNDER CONSTRUCTION** ******
-
 ## 1. Making the REST API life easier for Java developers with MicroProfile
 
 ### 1.1 JSON data and Java objects

@@ -1,8 +1,6 @@
 [home](README.md)
 # Using traffic management in Kubernetes with Istio
 
-****** **UNDER CONSTRUCTION** ******
-
 The **“Cloud Native Starter”** is a sample [polyglot](https://en.wikipedia.org/wiki/Polyglot_(disambiguation)) microservices application with Java and Node.js on Kubernetes using Istio for traffic management, tracing, metrics, fault injection, fault tolerance, etc.
 
 There are currently not many Istio examples available. The one most widely used is probably [Istio’s own “Bookinfo”](https://developer.ibm.com/solutions/container-orchestration-and-deployment/?cm_mmc=Search_Google-_-Developer_IBM+Developer-_-WW_EP-_-%2Bistio_b&cm_mmca1=000019RS&cm_mmca2=10004796&cm_mmca7=9041823&cm_mmca8=aud-396679157191:kwd-448983149697&cm_mmca9=_k_EAIaIQobChMIq_ynq8yi4gIVrDLTCh1T2g9AEAAYASAAEgIVAfD_BwE_k_&cm_mmca10=322762525080&cm_mmca11=b&gclid=EAIaIQobChMIq_ynq8yi4gIVrDLTCh1T2g9AEAAYASAAEgIVAfD_BwE) sample or the [Red Hat Istio tutorial](https://github.com/redhat-developer-demos/istio-tutorial). These tutorials and examples do focus on the request routing not as a part for a user-facing service behind the **Istio ingress**.
