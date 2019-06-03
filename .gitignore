@@ -55,6 +55,8 @@ cluster-config.sh
 IKS*.yaml
 web-app-vuejs/package-lock.json
 istio/protect-web-api.yaml
+articles-java-jee/liberty-opentracing-zipkintracer
+web-api-java-jee/liberty-opentracing-zipkintracer
 
 #images
 images/~$cloud-native-starter.pptx

@@ -22,7 +22,8 @@ function setup() {
   else
 	  curl -L -o $file https://github.com/WASdev/sample.opentracing.zipkintracer/releases/download/1.2/liberty-opentracing-zipkintracer-1.2-sample.zip
   fi
-  
+  unzip -o liberty-opentracing-zipkintracer-1.2-sample.zip -d liberty-opentracing-zipkintracer/
+
   eval $(minikube docker-env) 
   docker build -f Dockerfile.nojava -t articles:1 .
 

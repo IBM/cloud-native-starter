@@ -4,11 +4,7 @@ FROM open-liberty:microProfile2-java11
 # Open Liberty 19.0.0.5
 # MicroProfile 2.2
 
-ADD https://github.com/WASdev/sample.opentracing.zipkintracer/releases/download/1.2/liberty-opentracing-zipkintracer-1.2-sample.zip /
-
-RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
- && rm liberty-opentracing-zipkintracer-1.2-sample.zip
-# alternatively liberty-opentracing-zipkintracer-1.2-sample.zip can be downloaded via pom.xml: https://github.com/WASdev/sample.opentracing.zipkintracer
+COPY liberty-opentracing-zipkintracer /opt/ol/wlp/usr/
 
 COPY liberty/server.xml /config/
 
