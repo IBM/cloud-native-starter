@@ -15,8 +15,8 @@
     <mpMetrics authentication="false"/>  
 
     <mpJwt id="jwt"   
-        issuer="https://us-south.appid.cloud.ibm.com/oauth/v4/xxx"
-        jwksUri="https://us-south.appid.cloud.ibm.com/oauth/v4/xxx/publickeys"
+        issuer="https://us-south.appid.cloud.ibm.com/oauth/v4/dd6766c1-eb9d-4430-8ff1-ef81df180856"
+        jwksUri="https://us-south.appid.cloud.ibm.com/oauth/v4/dd6766c1-eb9d-4430-8ff1-ef81df180856/publickeys"
 	    userNameAttribute="sub"
 	    audiences="ALL_AUDIENCES"/>  
 

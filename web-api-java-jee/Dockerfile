@@ -1,4 +1,4 @@
-FROM openliberty/open-liberty:microProfile2-java8-openj9 
+FROM open-liberty:microProfile2-java11
 
 ADD https://github.com/WASdev/sample.opentracing.zipkintracer/releases/download/1.2/liberty-opentracing-zipkintracer-1.2-sample.zip /
 

@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 RUN mvn package
 
 
-FROM openliberty/open-liberty:microProfile2-java8-openj9
+FROM open-liberty:microProfile2-java11
 
 ADD liberty-opentracing-zipkintracer-1.2-sample.zip /
 

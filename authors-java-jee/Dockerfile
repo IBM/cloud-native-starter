@@ -5,7 +5,7 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 
-FROM openliberty/open-liberty:microProfile2-java8-openj9 
+FROM open-liberty:microProfile2-java11
 
 COPY liberty/server.xml /config/
 
