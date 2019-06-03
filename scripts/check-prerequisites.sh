@@ -14,6 +14,7 @@ function checkPrerequisites() {
     curl --version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} curl"
     which sed &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} sed"
     docker -v &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} docker"
+    unzip -version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} unzip"
     kubectl version --client=true &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} kubectl"
     minikube version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} minikube"
     if [[ -n "$MISSING_TOOLS" ]]; then
