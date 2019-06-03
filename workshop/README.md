@@ -1,19 +1,17 @@
 # Let’s get started with cloud native Java applications on Kubernetes
 
-****** **UNDER CONSTRUCTION** ******
-
 In this hands-workshop we do address the question: 
 
 > How to start with **cloud native Java applications** in Kubernetes?
 
 We will cover the following major topics and we learn along the given **source code** and **bash scripts** inside this github project.
 
-* Java development with MicroProfile 
-* Kubernetes
-* Containers 
-* REST APIs
-* Traffic management 
-* Resiliency
+* Java development with [MicroProfile](https://microprofile.io/) 
+* [Kubernetes](https://en.wikipedia.org/wiki/Kubernetes)
+* [Containers](https://en.wikipedia.org/wiki/OS-level_virtualisation)
+* [REST APIs](https://en.wikipedia.org/wiki/Representational_state_transfer)
+* [Traffic management](https://istio.io/docs/concepts/traffic-management/) 
+* [Resiliency](https://www.ibm.com/it-infrastructure/z/capabilities/resiliency)
  
 Hands-on workshop lab instructions:
 

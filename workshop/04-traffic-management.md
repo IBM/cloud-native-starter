@@ -41,11 +41,11 @@ By the way: [What is Istio?](https://istio.io/docs/concepts/what-is-istio/)
 
 > At a high level, Istio helps reduce the complexity of cloud native deployments, and eases the strain on your development teams. It is a completely open source service mesh that layers transparently onto existing distributed applications. It is also a platform, including APIs that let it integrate into any logging platform, or telemetry or policy system. Istio’s diverse feature set lets you successfully, and efficiently, run a distributed microservice architecture, and provides a uniform way to secure, connect, and monitor microservices.
 
-What we need to understand from Istio in our situation is: Istio works with [envoy proxies](https://www.envoyproxy.io/), to **control** inbound and outbound traffic and to gather [telemetry data](https://en.wikipedia.org/wiki/Telemetry#Software) of a Kubernetes Pod. The envoy proxy is **injected as additional container** into a pod. The image below is from the [Istio documentation](https://istio.io/docs/concepts/what-is-istio/) and shows the basic Istio architecture.
+What we need to understand from Istio in our situation is: Istio works with [envoy proxies](https://www.envoyproxy.io/), to **control** inbound and outbound traffic and to gather [telemetry data](https://en.wikipedia.org/wiki/Telemetry#Software) of a Kubernetes Pod. The envoy proxy is **injected as additional container** into a Pod. The image below is from the [Istio documentation](https://istio.io/docs/concepts/what-is-istio/) and shows the basic Istio architecture.
 
 ![Istio architecture](images/traffic-routing-deployment04.png)
 
-The following image shows a simplified view on the given information for our situation. The Pod's do have **injected additional containers**.
+The following image shows a simplified view on the given information for our situation. The Pods do have **injected additional containers**.
 
 ![injected as additional container](images/traffic-routing-deployment05.png)
 

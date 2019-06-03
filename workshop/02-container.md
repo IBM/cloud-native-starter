@@ -38,7 +38,7 @@ In short words one container is only responsible to build the microservice, let 
 
 * **Build environment container**
 
-In the following Dockerfile extract, we can see how we create our **build environment container** based on the maven 3.5 image from the [dockerhub](https://hub.docker.com/_/maven/).
+In the following Dockerfile extract, we can see how we create our **build environment container** based on the maven 3.5 image from the [dockerhub](https://hub.docker.com/_/maven/) and copy the needed pom.xml file to build the application. (more details about the **pom.xml** are in the [optional lab](06-java-development.md))
 
 ```Dockerfile
 FROM maven:3.5-jdk-8 as BUILD
@@ -56,6 +56,8 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 
 In the following Dockerfile extract, we do create the **production container** based on the **openliberty** with **microProfile2**.
 Then we install the **zipkintracer** for later usage. But the **zipkintracer** is not in scope for this lab.
+The server configiration is defined in the server.xml. (more details about the **server.xml** are in the [optional lab](06-java-development.md))
+
 
 ```Dockerfile
 FROM openliberty/open-liberty:microProfile2-java8-openj9
@@ -90,7 +92,7 @@ The **Web app** and the **Authors** services are written in Node.js.
 
 The **Web app** [Dockerfile](../web-app-vuejs/Dockerfile) to create the  **Web app** application works in the same way as for **Articles container**. Inside the Dockerfile we use the same two stages to build the **production container** image.
 
-Here you can see the **build environment container** is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine). This container already contains the [yarn](https://yarnpkg.com/en/) package manager to build the **VUE UI** web  application.
+Here you can see the **build environment container** is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine). This container already contains the [yarn](https://yarnpkg.com/en/) package manager to build the [VUE UI](https://vuejs.org/) web  application.
 
 ```Dockerfile
 FROM node:8-alpine as BUILD
@@ -145,7 +147,7 @@ If this last step is executed of the **Dockerfile** the container is ready to be
 
 ### 1.3 YAML Configurations for the deployment to Kubernetes
 
-Now we examine the deployment yamls to deploy the container to **Pods** and creating **Services** to access them in the Kubernetes Cluster. In the following image you can see the deployed **Pods** and **Services**:
+Now we examine the deployment yamls to deploy the container to **Pods** and creating **Services** to access them in the Kubernetes Cluster. In the following image you can see the deployed **Pods** and **Services** in the Kuberentes cluster:
 
 |Pods| Services|
 |----|----|
@@ -205,7 +207,7 @@ spec:
 
 #### 1.3.2 Web-api-V1
 
-In deployment yaml for the Web-api-V1, you can inspect the **Service** and the **Deployment** definition for the **Web api** microservice.
+In deployment yaml for the Web-api-V1, we can inspect the **Service** and the **Deployment** definition for the **Web api** microservice.
 
 ```yaml
 kind: Deployment

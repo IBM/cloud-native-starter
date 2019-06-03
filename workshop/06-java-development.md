@@ -132,7 +132,7 @@ In the following image we see a list of MicroProfiles and the red marked profile
 
 ---
 
-## 3.2 Needed Java classes for the **Authors** service
+## 3.2 Needed Java classes to **expose** the **Authors** service
 
 For the implementation for the **Authors** service to **expose** the REST API, we need basicly three classes:
 
@@ -339,8 +339,8 @@ In the following image we see the relevant dependencies for this lab.
 
 ## 5.1 Deployment
 
-The deployment will deploy the container to a pod in Kubernetes.
-For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for pods.
+The deployment will deploy the container to a Pod in Kubernetes.
+For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for Pods.
 
 > A Pod is the basic building block of Kubernetes–the smallest and simplest unit in the Kubernetes object model that you create or deploy. A Pod represents processes running on your Cluster .
 
@@ -368,7 +368,7 @@ spec:
         version: v1
 ```
 
-Then we define a ```name``` for the container and we do provide the concret container ```image``` location, e.g. where the container can be found in the Container Registry. 
+Then we define a ```name``` for the container and we provide the concret container ```image``` location, e.g. where the container can be found in the **Container Registry**. 
 
 _NOTE:_ We will replace ```authors:1``` later with the IBM Container Registry information. 
 
@@ -418,7 +418,7 @@ spec:
 ```
 ## 5.2 Service
 
-After the definition of the Pod we need to define how to access the Pod, therefor we use a service in Kubernetes. For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/service/) for service.
+After the definition of the **Pod** we need to define how to access the Pod, therefor we use a **service** in Kubernetes. For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/service/) for service.
 
 > A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service. The set of Pods targeted by a Service is (usually) determined by a Label Selector.
 
