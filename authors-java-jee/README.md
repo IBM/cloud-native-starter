@@ -12,7 +12,7 @@ This folder contains a microservice which is kept as simple as possible, so that
 The microservice is a Java version of the Authors service in the 'authors-nodejs' folder. If you want to use this code for your own microservice, remove the three Java files for the REST GET endpoint and rename the service in the pom.xml file and the yaml files.
 
 
-**Run final version with Docker**
+**Run with Docker**
 
 ```
 $ cd authors-java-jee
@@ -22,7 +22,7 @@ $ docker run -i --rm -p 3000:3000 authors
 $ open http://localhost:3000/openapi/ui/
 ```
 
-**Run final version with Minikube**
+**Run with Minikube**
 
 ```
 $ cd authors-java-jee
@@ -57,3 +57,44 @@ $ scripts/show-urls.sh
 ```
 
 Invoke /getmultiple, for example 'http://192.168.99.100:31380/web-api/v1/getmultiple'.
+
+
+**Run with OpenShift (Minishift)**
+
+Prerequisites:
+
+* Install [Minishift](https://github.com/minishift/minishift) v1.34.0 (3.11.0)
+* Install [oc](https://docs.okd.io/latest/cli_reference/get_started_cli.html) CLI
+
+Build and push image:
+
+```
+$ cd authors-java-jee
+$ mvn package
+$ eval $(minishift docker-env)
+$ oc login -u developer -p developer
+$ oc new-project cloud-native-starter
+$ docker login -u developer -p $(oc whoami -t) $(minishift openshift registry)
+$ docker build -f DockerfileNoBuild -t authors:kubectl .
+$ docker tag authors:kubectl $(minishift openshift registry)/cloud-native-starter/authors:kubectl
+$ docker push $(minishift openshift registry)/cloud-native-starter/authors:kubectl
+$ oc get istag
+```
+
+Deploy microservice:
+
+```
+$ cd authors-java-jee/deployment
+$ sed "s+<namespace>+cloud-native-starter+g" deployment-template.yaml > deployment-template.yaml.1
+$ minishiftregistryip=$(minishift openshift registry)
+$ sed "s+<ip:port>+$minishiftregistryip+g" deployment-template.yaml.1 > deployment-template.yaml.2
+$ sed "s+<tag>+kubectl+g" deployment-template.yaml.2 > deployment-minishift.yaml
+$ kubectl apply -f deployment-minishift.yaml
+$ kubectl apply -f service.yaml
+$ rm deployment-template.yaml.1
+$ rm deployment-template.yaml.2
+$ oc expose svc/authors
+$ curl -X GET "http://authors-cloud-native-starter.$(minishift ip).nip.io/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
+$ open http://authors-cloud-native-starter.$(minishift ip).nip.io/openapi/ui/
+$ open https://$(minishift ip):8443
+```

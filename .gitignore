@@ -57,6 +57,9 @@ web-app-vuejs/package-lock.json
 istio/protect-web-api.yaml
 articles-java-jee/liberty-opentracing-zipkintracer
 web-api-java-jee/liberty-opentracing-zipkintracer
+authors-java-jee/deployment/deployment-template.yaml.2
+authors-java-jee/deployment/deployment-template.yaml.1
+authors-java-jee/deployment/deployment-minishift.yaml
 
 #images
 images/~$cloud-native-starter.pptx
