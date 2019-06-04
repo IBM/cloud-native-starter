@@ -294,34 +294,42 @@ We set the context for the cluster in the CLI.
 Every time you log in to the IBM Cloud Kubernetes Service CLI to work with the cluster, you must run these commands to set the path to the cluster's configuration file as a session variable.
 The Kubernetes CLI uses this variable to find a local configuration file and certificates that are necessary to connect with the cluster in IBM Cloud.
 
-List the available clusters: ```ibmcloud ks clusters```.
+
+1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
+
+```sh
+    $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+```
+
+2. List the available clusters: ```ibmcloud ks clusters```.
 This command should now show the cluster which is being created.
 
-Download the configuration file and certificates for the cluster using the ```cluster-config``` command:
+
+3. Download the configuration file and certificates for the cluster using the ```cluster-config``` command:
 
 ```sh
 $ ibmcloud ks cluster-config <cluster-name>
 ```
 
-Copy and paste the output command from the previous step to set the `KUBECONFIG` environment variable and configure the CLI to run `kubectl` commands against the cluster:
+4. Copy and paste the **output** from the command of previous step to set the `KUBECONFIG` environment variable and configure the CLI to run `kubectl` commands against the cluster:
 
 ```sh
 $ export KUBECONFIG=/<home>/.bluemix/plugins/container-service/clusters/mycluster/kube-config-<region>-<cluster-name>.yml
 ```
 
-Get basic information about the cluster and its worker nodes.
+5. Get basic information about the cluster and its worker nodes.
 This information can help you both manage the cluster and troubleshoot issues.
 
 Get the details of your cluster: `ibmcloud ks cluster-get <cluster-name>`
 
-Verify the nodes in the cluster:
+6. Verify the nodes in the cluster:
 
 ```sh
 $ ibmcloud ks workers <cluster-name>
 $ kubectl get nodes
 ```
 
-View the currently available services, deployments, and pods:
+7. View the currently available services, deployments, and pods:
 
 ```sh
 $ kubectl get svc,deploy,po --all-namespaces
