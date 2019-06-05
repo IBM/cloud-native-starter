@@ -10,6 +10,9 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+# Set permissions
+RUN chmod -R 777 /usr/src/app
+
 # Server listens on
 EXPOSE 3000
 
