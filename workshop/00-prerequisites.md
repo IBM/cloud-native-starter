@@ -26,7 +26,9 @@ To verfiy the major prerequisites on your machine, you can execute following bas
 
 ```sh
 $ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ cd cloud-native-starter
 $ chmod u+x iks-scripts/*.sh
+$ chmod u+x scripts/*.sh
 $ ./iks-scripts/check-prerequisites.sh
 ```
 
@@ -94,11 +96,15 @@ Follow the steps listed under the [Install from shell](https://cloud.ibm.com/doc
 
 To use the bash script automation later we will need an IBM platform key. 
 
-1. Log in to IBM Cloud using the **"us-south"** Region
+1. Log in to IBM Cloud using the **"us-south"** Region. Include the --sso option if using a federated ID.
 
 ```sh
-ibmcloud login -r us-south
+$ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
 ```
+
+_Note:_ We can also follow the instructions to access the cluster in the IBM cloud. Select the **Access** tab.
+
+![image](images/ibm-cloud-cluster-access.png)
 
 2. Create an IBM platform for your API key and name it (example **cloud-native-starter-key**) and provide a filename  (example **cloud-native-starter-key.json**).
 
@@ -109,6 +115,20 @@ $ ibmcloud iam api-key-create cloud-native-starter-key \
 $ cat cloud-native-starter-key.json
 ```
 
+Sample **json** output. 
+Copy the ```"apikey": "KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx"```from the json output.
+
+```sh
+{
+	"name": "cloud-native-starter-key",
+	"description": "This is the cloud-native-starter key to access the IBM Platform",
+	"apikey": "KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx",
+	"createdAt": "2019-06-05T06:33+0000",
+	"locked": false,
+	"uuid": "ApiKey-b96e7355-d1f5-477c-be60-302b20xxxxx"
+}
+```
+
 _Optional:_ We can verify the key in IBM Cloud, as you can see in the image below:
 
 ![ibm-cloud-key](images/ibm-cloud-key.png)
@@ -117,17 +137,20 @@ _Optional:_ We can verify the key in IBM Cloud, as you can see in the image belo
 3. Create a copy of the **template.local.env** and past the file into the same folder. Rename the new file to **local.env**. Then insert the key we created before, into the **local.env** file as value for the ```IBMCLOUD_API_KEY``` variable, we can see in step 4.
 
 ```sh
-$ cp template.local.env local.env 
+$ cp template.local.env local.env
+$ cat local.env
 ```
 
 4. Verify the entries in the local.env file.
 
-The file local.env has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
+Open file **local.env** in a editor.
+We can see the file has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
+Insert the copied ```"apikey": "KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx"```from the json output to ```IBMCLOUD_API_KEY=xxx``` and save the file.
 
 Example local.env:
 
 ```sh
-IBMCLOUD_API_KEY=AbcD3fg7hIj65klMn9derHHb9zge5
+IBMCLOUD_API_KEY=xxx
 IBM_CLOUD_REGION=us-south
 CLUSTER_NAME=cloud-native
 REGISTRY_NAMESPACE=cloud-native
@@ -135,7 +158,6 @@ IBM_CLOUD_CF_API=https://api.ng.bluemix.net
 IBM_CLOUD_CF_ORG=
 IBM_CLOUD_CF_SPACE=dev
 AUTHORS_DB=local
-CLOUDANT_URL=
 ```
 ---
 
@@ -202,7 +224,23 @@ These are the instructions to install Istio. For this workshop we are using **Is
 
     _NOTE:_ You **must** run this command to check that the cluster completed provisioning, it **must** report that the cluster is **ready for Istio installation**! This command also retrieves the cluster configuration, which is needed in other scripts. This configuration can only be retrieved from a cluster that is in ready state.
 
-2. Download Istio 1.1.5 directly from github into the **workshop** directory:
+2. List the available clusters: ```ibmcloud ks clusters```. This command should now show the cluster which is being created.
+
+
+3. Download the configuration file and certificates for the cluster using the ```cluster-config``` command:
+
+    ```sh
+    $ ibmcloud ks cluster-config <cluster-name>
+    ```
+
+4. Copy and paste the **output** from the command of previous step to set the `KUBECONFIG` environment variable and configure the CLI to run `kubectl` commands against the cluster:
+
+    ```sh
+    $ export KUBECONFIG=/<home>/.bluemix/plugins/container-service/clusters/mycluster/kube-config-<region>-<cluster-name>.yml
+    ```
+
+
+5. Download Istio 1.1.5 directly from github into the **workshop** directory:
 
     ```sh
     cd workshop
@@ -213,19 +251,19 @@ These are the instructions to install Istio. For this workshop we are using **Is
     Windows users can download an istio-1.1.5-win.zip from here: https://github.com/istio/istio/releases/tag/1.1.5
     Unpack the ZIP file into the workshop directory and add the path to ```istio-1.1.5/bin``` your Windows **PATH**.
 
-3. Add `istioctl` to the PATH environment variable, e.g copy and paste in your shell and/or `~/.profile`:
+6. Add `istioctl` to the PATH environment variable, e.g copy and paste in your shell and/or `~/.profile`:
 
     ```sh
     export PATH=$PWD/istio-1.1.5/bin:$PATH
     ```
 
-4. Navigate to the extracted directory: 
+7. Navigate to the extracted directory: 
 
     ```sh
     cd istio-1.1.5
     ```
 
-5. Install Istio:
+8. Install Istio:
 
     ```sh
     $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
@@ -272,7 +310,16 @@ $ pwd
 $ ./iks-scripts/create-registry.sh
 ```
 
-_Optional:_ You can find the created namespace here:
+Sample output:
+
+```sh
+2019-06-05 09:06:40 Creating a Namespace in IBM Cloud Container Registry
+2019-06-05 09:06:40 Logging into IBM Cloud
+2019-06-05 09:06:48 Creating Namespace cloud-native
+2019-06-05 09:07:03 Namespace in IBM Cloud Container Registry created
+```
+
+_Optional:_ You can find the created namespace here (https://cloud.ibm.com/kubernetes/registry/main/start):
 
 ![ibm-cloud-registry](images/ibm-cloud-registry.png)
 
