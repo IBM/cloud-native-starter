@@ -63,7 +63,7 @@ function setup() {
   kubectl apply -f IKS-deployment.yaml 
   kubectl apply -f istio.yaml
 
-  if [ $DB != "local" ]; then
+  if [ $AUTHORS_DB != "local" ]; then
      kubectl create -f istio-egress-cloudant.yaml
   fi
 
