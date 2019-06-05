@@ -169,27 +169,27 @@ The following image shows an automatically created **Open API explorer** for the
 
 1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
 
-```sh
-$ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
-```
+   ```sh
+   $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+   ```
 
 2. Download the kubeconfig files for your cluster.
 
-```sh
-$ ibmcloud ks cluster-config --cluster cloud-native
-```
+   ```sh
+   $ ibmcloud ks cluster-config --cluster cloud-native
+   ```
 
 3. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
 
-```sh
-$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/cloud-native/kube-config-mil01-cloud-native.yml
-```
+   ```sh
+   $ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/cloud-native/kube-config-mil01-cloud-native.yml
+   ```
 
 4. Verify that you can connect to your cluster by listing your worker nodes.
 
-```sh
-$ kubectl get nod
-```
+   ```sh
+   $ kubectl get nod
+   ```
 
 ---
 
@@ -199,21 +199,21 @@ In the following bash scripts we use **ibmcloud** and **kubectl** commands to in
 
 1. Invoke the following commands to set up the lab. 
 
-```sh
-$ cd $PROJECT_HOME
-$ ./scripts/delete-all.sh
-$ ./iks-scripts/deploy-articles-java-jee.sh
-$ ./iks-scripts/deploy-authors-nodejs.sh
-$ ./iks-scripts/deploy-web-api-java-jee.sh
-$ ./iks-scripts/deploy-istio-ingress-v1.sh
-$ ./iks-scripts/show-urls.sh
-```
+   ```sh
+   $ cd $PROJECT_HOME
+   $ ./scripts/delete-all.sh
+   $ ./iks-scripts/deploy-articles-java-jee.sh
+   $ ./iks-scripts/deploy-authors-nodejs.sh
+   $ ./iks-scripts/deploy-web-api-java-jee.sh
+   $ ./iks-scripts/deploy-istio-ingress-v1.sh
+   $ ./iks-scripts/show-urls.sh
+   ```
 
-Now we use the ```‘web-api/v1/getmultiple‘``` endpoint with the **CURL command** and from the **Open API explorer**.
+   Now we use the ```‘web-api/v1/getmultiple‘``` endpoint with the **CURL command** and from the **Open API explorer**.
 
-The sequence diagram below shows once again the simplified view, how the **‘Authors’** REST API is used to get all articles in a JSON format.
+   The sequence diagram below shows once again the simplified view, how the **‘Authors’** REST API is used to get all articles in a JSON format.
 
-![rest-api-sequencediagram](images/rest-api-sequencediagram.png)
+   ![rest-api-sequencediagram](images/rest-api-sequencediagram.png)
 
 ---
 
@@ -221,15 +221,15 @@ The sequence diagram below shows once again the simplified view, how the **‘Au
 
 Now we invoke the following curl command of the **'Web API'** microservice. The IP is displayed as output of 'scripts/show-urls.sh'.
 
-```sh
-$ curl http://YOUR_IP:31380/web-api/v1/getmultiple
-```
+   ```sh
+   $ curl http://YOUR_IP:31380/web-api/v1/getmultiple
+   ```
 After the execution of the command we should get following result:
 
-```sh
-$curl http://159.122.172.162:31380/web-api/v1/getmultiple
-§[{"id":"1557993525215","title":"Debugging Microservices running in Kubernetes","url":"http://heidloff.net/article/debugging-microservices-kubernetes","authorName":"Niklas Heidloff","authorBlog":"http://heidloff.net","authorTwitter":"@nheidloff"},{"id":"1557993525210","title":"Dockerizing Java MicroProfile Applications","url":"http://heidloff.net/article/dockerizing-container-java-microprofile","authorName":"Niklas Heidloff","authorBlog":"http://heidloff.net","authorTwitter":"@nheidloff"},{"id":"1557993525204","title":"Install Istio and Kiali on IBM Cloud or Minikube","url":"https://haralduebele.blog/2019/02/22/install-istio-and-kiali-on-ibm-cloud-or-minikube/","authorName":"Harald Uebele","authorBlog":"https://haralduebele.blog","authorTwitter":"@harald_u"},{"id":"1557993525199","title":"Three awesome TensorFlow.js Models for Visual Recognition","url":"http://heidloff.net/article/tensorflowjs-visual-recognition","authorName":"Niklas Heidloff","authorBlog":"http://heidloff.net","authorTwitter":"@nheidloff"},{"id":"1557993525194","title":"Blue Cloud Mirror Architecture Diagrams","url":"http://heidloff.net/article/blue-cloud-mirror-architecture-diagrams","authorName":"Niklas Heidloff","authorBlog":"http://heidloff.net","authorTwitter":"@nheidloff"}]
-```
+   ```sh
+   $curl http://159.122.172.162:31380/web-api/v1/getmultiple
+   §[{"id":"1557993525215","title":"Debugging Microservices running in Kubernetes","url":"http://heidloff.net/article/debugging-microservices-kubernetes","authorName":"Niklas Heidloff","authorBlog":"http://heidloff.net","authorTwitter":"@nheidloff"},{"id":"1557993525210","title":"Dockerizing Java MicroProfile Applications","url":"http://heidloff.net/article/dockerizing-container-java-microprofile","authorName":"Niklas Heidloff","authorBlog":"http://heidloff.net","authorTwitter":"@nheidloff"},{"id":"1557993525204","title":"Install Istio and Kiali on IBM Cloud or Minikube","url":"https://haralduebele.blog/2019/02/22/install-istio-and-kiali-on-ibm-cloud-or-minikube/","authorName":"Harald Uebele","authorBlog":"https://haralduebele.blog","authorTwitter":"@harald_u"},{"id":"1557993525199","title":"Three awesome TensorFlow.js Models for Visual Recognition","url":"http://heidloff.net/article/tensorflowjs-visual-recognition","authorName":"Niklas Heidloff","authorBlog":"http://heidloff.net","authorTwitter":"@nheidloff"},{"id":"1557993525194","title":"Blue Cloud Mirror Architecture Diagrams","url":"http://heidloff.net/article/blue-cloud-mirror-architecture-diagrams","authorName":"Niklas Heidloff","authorBlog":"http://heidloff.net","authorTwitter":"@nheidloff"}]
+   ```
 
 ### 2.3 Using the Open API explorer
 

@@ -419,27 +419,27 @@ spec:
 
 1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
 
-```sh
-$ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
-```
+    ```sh
+    $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+    ```
 
 2. Download the kubeconfig files for your cluster.
 
-```sh
-$ ibmcloud ks cluster-config --cluster cloud-native
-```
+    ```sh
+    $ ibmcloud ks cluster-config --cluster cloud-native
+    ```
 
 3. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
 
-```sh
-$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
-```
+    ```sh
+    $ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
+    ```
 
 4. Verify that you can connect to your cluster by listing your worker nodes.
 
-```sh
-$ kubectl get nodes
-```
+    ```sh
+    $ kubectl get nodes
+    ```
 
 ---
 
@@ -449,7 +449,7 @@ In the following bash scripts, we use **ibmcloud** and **kubectl** commands to i
 
 To build the containers in IBM Cloud we do **not** use Docker commands, because the container will be built inside the **IBM Container Registry** with the ```ibmcloud cr build``` command.
 
-* Sample command to upload and build the container inside the **IBM Cloud Registry**
+* **Example**: How to upload and build the container inside the **IBM Cloud Registry**
 
 ```sh
 $ ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/articles:1 .
@@ -457,7 +457,7 @@ $ ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/art
 
 To deploy the container images into Kubernetes, we use the **kubectl apply** command for the needed yaml configuration files. 
 
-* Sample command to deploy the container to the Kubernetes Cluster
+* **Example**: How to deploy the container to the Kubernetes Cluster
 
 ```sh
 $ kubectl apply -f deployment/IKS-kubernetes.yaml
@@ -465,69 +465,85 @@ $ kubectl apply -f deployment/IKS-kubernetes.yaml
 
 With [sed](https://en.wikipedia.org/wiki/Sed_(Unix)) and [awk]( https://en.wikipedia.org/wiki/AWK) we extract the output of the command line executions and put them into variables, or we write the information into files, to use them later as input for the next commands inside the bash script.
 
-* Sample command to write registry information into a yaml file with **sed**.
+* **Example**: How to write registry information into a yaml file with **sed**.
 
 ```sh
   $ sed "s+articles:1+$REGISTRY/$REGISTRY_NAMESPACE/articles:1+g" deployment/kubernetes.yaml
 ```
 
-* Sample command extract output information for a cluster ip into a bash variable, with **awk**.
+* **Example**: How to extract output information for a cluster ip into a bash variable, with **awk**.
 
 ```sh
   $ clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
   $ nodeport=$(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
 ```
+---
 
 1. Invoke following bash scripts to build and deploy the microservices to Kubernetes:
 
-**The scripts do automate following task:**
+    **The scripts do automate following task:**
 
-* **Deleting** the **existing** container configuration in the Kubernetes Cluster
-* **Building** and **uploading** the container to the IBM Cloud Registry Service
-* **Extracting** configure the yaml configuration files for container in Kubernetes
-* **Installing** the container in Kubernetes
+    * **Deleting** the **existing** container configuration in the Kubernetes Cluster
+    * **Building** and **uploading** the container to the IBM Cloud Registry Service
+    * **Extracting** configure the yaml configuration files for container in Kubernetes
+    * **Installing** the container in Kubernetes
 
-```sh
-$ ./iks-scripts/deploy-articles-java-jee.sh
-$ ./iks-scripts/deploy-authors-nodejs.sh
-$ ./iks-scripts/deploy-web-api-java-jee.sh
-$ ./iks-scripts/deploy-web-app-vuejs.sh
-```
+2. **Articles** service
 
-**The script does automate following task:**
+    ```sh
+    $ ./iks-scripts/deploy-articles-java-jee.sh
+    ```
 
-* Deploying Istio Ingress definitions for **web-api v1** only
+3. **Authors** service
 
-```sh
-$ ./scripts/deploy-istio-ingress-v1.sh
-```
+    ```sh
+    $ ./iks-scripts/deploy-authors-nodejs.sh
+    ```
 
-2. Invoke the curl command to displayed the urls of services.
+4. **Web API** service
+    
+    ```sh
+    $ ./iks-scripts/deploy-web-api-java-jee.sh
+    ```
 
-```sh
-$ ./iks-scripts/show-urls.sh
-```
+5. **Web app** service
 
-A sample output result for the ```show-urls.sh``` script:
+    ```sh   
+    $ ./iks-scripts/deploy-web-app-vuejs.sh
+    ```
 
-```sh
-....
-2019-05-16 15:09:51 articles
-2019-05-16 15:09:51 API explorer: http://159.122.172.162:30290/openapi/ui/
-2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:30290/articles/v1/getmultiple?amount=10
-2019-05-16 15:09:51 ------------------------------------------------------------------------------------
-2019-05-16 15:09:51 authors
-2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff
-2019-05-16 15:09:51 ------------------------------------------------------------------------------------
-2019-05-16 15:09:51 web-api
-2019-05-16 15:09:51 API explorer: http://159.122.172.162:31380/openapi/ui/
-2019-05-16 15:09:51 Metrics: http://159.122.172.162:32370/metrics/application
-2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31380/web-api/v1/getmultiple
-2019-05-16 15:09:51 ------------------------------------------------------------------------------------
-2019-05-16 15:09:51 web-app
-2019-05-16 15:09:52 Web app: http://159.122.172.162:31380/
-2019-05-16 15:09:52 ------------------------------------------------------------------------------------
-```
+6. Deploy the Istio Ingress definitions for **web-api v1** only.
+
+    ```sh
+    $ ./scripts/deploy-istio-ingress-v1.sh
+    ```
+
+7. Invoke the curl command to displayed the urls of services.
+
+    ```sh
+    $ ./iks-scripts/show-urls.sh
+    ```
+
+    A sample output result for the ```show-urls.sh``` script:
+
+    ```sh
+    ....
+    2019-05-16 15:09:51 articles
+    2019-05-16 15:09:51 API explorer: http://159.122.172.162:30290/openapi/ui/
+    2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:30290/articles/v1/getmultiple?amount=10
+    2019-05-16 15:09:51 ------------------------------------------------------------------------------------
+    2019-05-16 15:09:51 authors
+    2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff
+    2019-05-16 15:09:51 ------------------------------------------------------------------------------------
+    2019-05-16 15:09:51 web-api
+    2019-05-16 15:09:51 API explorer: http://159.122.172.162:31380/openapi/ui/
+    2019-05-16 15:09:51 Metrics: http://159.122.172.162:32370/metrics/application
+    2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31380/web-api/v1/getmultiple
+    2019-05-16 15:09:51 ------------------------------------------------------------------------------------
+    2019-05-16 15:09:51 web-app
+    2019-05-16 15:09:52 Web app: http://159.122.172.162:31380/
+    2019-05-16 15:09:52 ------------------------------------------------------------------------------------
+    ```
 
 ---
 
@@ -537,29 +553,29 @@ For the next steps use the results of the ```show-urls.sh``` script.
 
 1. Open the Articels API explorer in a browser ```http://YOUR_IP:30290/openapi/ui/```
 
-![cns-container-articels-service-03](images/cns-container-articels-service-03.png)
+  ![cns-container-articels-service-03](images/cns-container-articels-service-03.png)
 
 2. Execute the curl **getauthor** command to get a Author
 
-```sh
-$ curl http://YOUR_IP:31078/api/v1/getauthor?name=Niklas%20Heidloff
-```
+    ```sh
+    $ curl http://YOUR_IP:31078/api/v1/getauthor?name=Niklas%20Heidloff
+    ```
 
-You should get the following result:
+    You should get the following result:
 
-```
-$ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
-```
+    ```
+    $ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
+    ```
 
 3. Open the API explorer **Web API** v1 in a browser http://YOUR_IP:31380/openapi/ui/
 
 
-![cns-container-articels-service-03](images/cns-container-web-api-v1-04.png)
+    ![cns-container-articels-service-03](images/cns-container-web-api-v1-04.png)
 
 
 4. Open the the Application in a browser: http://YOUR_IP:31380/
 
-![cns-container-web-app-04](images/cns-container-web-app-05.png)
+    ![cns-container-web-app-04](images/cns-container-web-app-05.png)
 
 ---
 Now, we've finished the **Lab - Building and deploying Containers**.

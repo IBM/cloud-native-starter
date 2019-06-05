@@ -76,27 +76,27 @@ Resiliency is part of the code: if an API call is not answered because of an err
 
 1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
 
-```sh
-$ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
-```
+   ```sh
+   $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+   ```
 
 2. Download the kubeconfig files for your cluster.
 
-```sh
-$ ibmcloud ks cluster-config --cluster cloud-native
-```
+   ```sh
+   $ ibmcloud ks cluster-config --cluster cloud-native
+   ```
 
 3. Set the KUBECONFIG environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
 
-```sh
-$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
-```
+   ```sh
+   $ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
+   ```
 
 4. Verify that you can connect to your cluster by listing your worker nodes.
 
-```sh
-$ kubectl get nodes
-```
+   ```sh
+   $ kubectl get nodes
+   ```
 
 ---
 
@@ -106,43 +106,43 @@ In the following bash scripts we use **ibmcloud** and **kubectl** commands to in
 
 1. In order to demonstrate resiliency run the following commands to create a working set of services:
 
-```sh
-$ ./iks-scripts/check-prerequisites.sh
-$ ./scripts/delete-all.sh
-$ ./iks-scripts/deploy-articles-java-jee.sh
-$ ./iks-scripts/deploy-web-api-java-jee.sh
-$ ./iks-scripts/deploy-authors-nodejs.sh
-$ ./iks-scripts/deploy-web-app-vuejs.sh
-$ ./scripts/deploy-istio-ingress-v1.sh
-$ ./iks-scripts/show-urls.sh
-```
+   ```sh
+   $ ./iks-scripts/check-prerequisites.sh
+   $ ./scripts/delete-all.sh
+   $ ./iks-scripts/deploy-articles-java-jee.sh
+   $ ./iks-scripts/deploy-web-api-java-jee.sh
+   $ ./iks-scripts/deploy-authors-nodejs.sh
+   $ ./iks-scripts/deploy-web-app-vuejs.sh
+   $ ./scripts/deploy-istio-ingress-v1.sh
+   $ ./iks-scripts/show-urls.sh
+   ```
 
 2. Open the **Web APP** in a new browser tab: http://YOUR_IP:31380/
 
 _Note:_ You get this link as output of the ```iks-scripts/show-urls.sh``` script.
 
- ![cns-container-web-app-04](images/cns-container-web-app-05.png)
+   ![cns-container-web-app-04](images/cns-container-web-app-05.png)
 
 2. Delete the **Authors** service
 
-```sh
-$ ./scripts/delete-authors-nodejs.sh
-```
+   ```sh
+   $ ./scripts/delete-authors-nodejs.sh
+   ```
 
-Refresh the browser and verify the remaining information. The details for the author are no longer avaiable. 
+   Refresh the browser and verify the remaining information. The details for the author are no longer avaiable. 
 
-![resliency-02](images/resliency-02.png)
+   ![resliency-02](images/resliency-02.png)
 
 3. Delete the **articles** service
 
-```sh
-$ ./scripts/delete-articles-java-jee.sh
-```
+   ```sh
+   $ ./scripts/delete-articles-java-jee.sh
+   ```
 
-Refresh the browser and verify the remaining information. Although the articles service is gone, title and author are still displayed because the fallback method displays a cached version.
+   Refresh the browser and verify the remaining information. Although the articles service is gone, title and author are still displayed because the fallback method displays a cached version.
 
 
-![resliency-02](images/resliency-02.png)
+   ![resliency-02](images/resliency-02.png)
 
 ---
 

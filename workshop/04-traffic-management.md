@@ -137,31 +137,31 @@ In the following bash scripts we use **ibmcloud** and **kubectl** commands to in
 
 1. Execute following script to setup
 
-```sh
-$ cd $PROJECT_HOME
-$ ./iks-scripts/check-prerequisites.sh
-$ ./scripts/delete-all.sh
-$ ./iks-scripts/deploy-articles-java-jee.sh
-$ ./iks-scripts/deploy-authors-nodejs.sh
-$ ./iks-scripts/deploy-web-app-vuejs.sh
-```
+    ```sh
+    $ cd $PROJECT_HOME
+    $ ./iks-scripts/check-prerequisites.sh
+    $ ./scripts/delete-all.sh
+    $ ./iks-scripts/deploy-articles-java-jee.sh
+    $ ./iks-scripts/deploy-authors-nodejs.sh
+    $ ./iks-scripts/deploy-web-app-vuejs.sh
+    ```
 _Optional:_ You can verify the new **Web app** version in Kubernetes.
 
 ![New Web App Version](images/traffic-routing-deployment13.png)
 
 2. Install the two Versions on the **Web API**
 
-```sh
-$ iks-scripts/deploy-web-api-java-jee.sh
-$ iks-scripts/deploy-web-api-java-jee-v2.sh
-```
+    ```sh
+    $ iks-scripts/deploy-web-api-java-jee.sh
+    $ iks-scripts/deploy-web-api-java-jee-v2.sh
+    ```
 
 3. This script changes **Istio Ingress Service configration** for the **Web API**. The configuration you can find [here](../istio/istio-ingress-service-web-api-v1-v2-80-20.yaml). Now execute the these to scripts.
 
-```sh
-$ scripts/deploy-istio-ingress-v1-v2.sh
-$ iks-scripts/show-urls.sh
-```
+    ```sh
+    $ scripts/deploy-istio-ingress-v1-v2.sh
+    $ iks-scripts/show-urls.sh
+    ```
 
 4.  We will use Kiali to monitor the distribution of the requests.
     Access Kiali on you local machine:
