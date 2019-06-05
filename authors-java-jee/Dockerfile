@@ -10,3 +10,5 @@ FROM open-liberty:microProfile2-java11
 COPY liberty/server.xml /config/
 
 COPY --from=BUILD /usr/src/app/target/authors.war /config/apps/
+
+EXPOSE 3000
