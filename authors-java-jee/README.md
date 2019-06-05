@@ -122,6 +122,17 @@ Prerequisites:
 * Install [Minishift](https://github.com/minishift/minishift) v1.34.0 (OKD 3.11.0)
 * Install [oc](https://docs.okd.io/latest/cli_reference/get_started_cli.html) CLI
 
+There are several options to deploy microservices to Minishift:
+
+* [kubectl](#deploy-via-kubectl)
+* [Git Repo with Dockerfile](#deploy-via-git-repo-with-dockerfile)
+* [Binary Build](#deploy-as-binary-build)
+
+
+### Deploy via kubectl
+
+This approach is very similar to the deployments to Minikube and IBM Cloud Kubernetes Service above.
+
 **Build and push image**
 
 ```
@@ -153,13 +164,29 @@ $ open http://authors-cloud-native-starter.$(minishift ip).nip.io/openapi/ui/
 $ open https://$(minishift ip):8443
 ```
 
-**Deploy with oc**
+### Deploy via Git Repo with Dockerfile
 
-Rather than building the image locally and deploying the app via kubectl and yaml files, Minishift can build and deploy the microservice:
+Rather than building the image locally and deploying the microservice via kubectl and yaml files, Minishift can download the code from a Git repository and build and deploy the microservices:
 
 ```
+$ oc login -u developer -p developer
 $ oc new-project server-side-build
 $ oc new-app https://github.com/nheidloff/cloud-native-starter --context-dir=authors-java-jee
 $ oc expose svc/server-side-build
 $ curl -X GET "http://cloud-native-starter-server-side-build.$(minishift ip).nip.io/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
+```
+
+### Deploy as Binary Build
+
+With this [deployment method](https://docs.okd.io/3.11/dev_guide/dev_tutorials/binary_builds.html), the code is pushed to Minishift (similarly to 'cf push').
+
+```
+$ cd ${ROOT_FOLDER}/authors-java-jee
+$ oc login -u developer -p developer
+$ oc new-project binary-build
+$ oc new-build --name authors --binary --strategy docker
+$ oc start-build authors --from-dir=.
+$ oc new-app authors
+$ oc expose svc/authors
+$ curl -X GET "http://authors-binary-build.$(minishift ip).nip.io/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
 ```
