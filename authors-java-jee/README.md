@@ -11,8 +11,16 @@ This folder contains a microservice which is kept as simple as possible, so that
 
 The microservice is a Java version of the Authors service in the 'authors-nodejs' folder. If you want to use this code for your own microservice, remove the three Java files for the REST GET endpoint and rename the service in the pom.xml file and the yaml files.
 
+## Deployment Options
 
-**Run with Docker**
+The microservice can be run in different environments:
+
+* [Docker](#run-in-docker)
+* [Minikube](#run-in-minikube)
+* [IBM Cloud Kubernetes Service](#run-in-ibm-cloud-kubernetes-service)
+* [Minishift](#run-in-minishift)
+
+## Run in Docker
 
 ```
 $ cd authors-java-jee
@@ -22,7 +30,7 @@ $ docker run -i --rm -p 3000:3000 authors
 $ open http://localhost:3000/openapi/ui/
 ```
 
-**Run with Minikube**
+## Run in Minikube
 
 ```
 $ cd authors-java-jee
@@ -59,11 +67,16 @@ $ scripts/show-urls.sh
 Invoke /getmultiple, for example 'http://192.168.99.100:31380/web-api/v1/getmultiple'.
 
 
-**Run with OpenShift (Minishift)**
+## Run in IBM Cloud Kubernetes Service
+
+To be done - see [workshop](../workshop/06-java-development.md#5kubernetes-deployment-configuration) for now
+
+
+## Run in Minishift
 
 Prerequisites:
 
-* Install [Minishift](https://github.com/minishift/minishift) v1.34.0 (3.11.0)
+* Install [Minishift](https://github.com/minishift/minishift) v1.34.0 (OKD 3.11.0)
 * Install [oc](https://docs.okd.io/latest/cli_reference/get_started_cli.html) CLI
 
 Build and push image:
@@ -97,4 +110,13 @@ $ oc expose svc/authors
 $ curl -X GET "http://authors-cloud-native-starter.$(minishift ip).nip.io/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
 $ open http://authors-cloud-native-starter.$(minishift ip).nip.io/openapi/ui/
 $ open https://$(minishift ip):8443
+```
+
+Rather than building the image locally and deploying the app via kubectl and yaml files, Minishift can build and deploy the microservice:
+
+```
+$ oc new-project server-side-build
+$ oc new-app https://github.com/nheidloff/cloud-native-starter --context-dir=authors-java-jee
+$ oc expose svc/server-side-build
+$ curl -X GET "http://cloud-native-starter-server-side-build.$(minishift ip).nip.io/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
 ```
