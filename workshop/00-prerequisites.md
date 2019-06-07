@@ -102,10 +102,6 @@ To use the bash script automation later we will need an IBM platform key.
 $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
 ```
 
-_Note:_ We can also follow the instructions to access the cluster in the IBM cloud. Select the **Access** tab.
-
-![image](images/ibm-cloud-cluster-access.png)
-
 2. Create an IBM platform for your API key and name it (example **cloud-native-starter-key**) and provide a filename  (example **cloud-native-starter-key.json**).
 
 ```sh
@@ -144,20 +140,28 @@ $ cat local.env
 4. Verify the entries in the local.env file.
 
 Open file **local.env** in a editor.
-We can see the file has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
-Insert the copied ```"apikey": "KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx"```from the json output to ```IBMCLOUD_API_KEY=xxx``` and save the file.
 
-Example local.env:
+We can see the file has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
+
+Insert the copied ```"apikey":"KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx"```from the json output to ```IBMCLOUD_API_KEY=KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx``` and save the file.
+
+Change the ```CLUSTER_NAME=cloud-native``` to ```cloud-native-yourname```
+
+_Note:_ This is because namespaces are required to be **unique** across the entire **region** that the **specific registry** is located in, not just ***unique on your account**. This is mentioned in the following public documentation(https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add)
+
+**Example** local.env:
 
 ```sh
-IBMCLOUD_API_KEY=xxx
+IBMCLOUD_API_KEY=KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx
 IBM_CLOUD_REGION=us-south
 CLUSTER_NAME=cloud-native
-REGISTRY_NAMESPACE=cloud-native
+REGISTRY_NAMESPACE=cloud-native-yourname
 IBM_CLOUD_CF_API=https://api.ng.bluemix.net
 IBM_CLOUD_CF_ORG=
 IBM_CLOUD_CF_SPACE=dev
 AUTHORS_DB=local
+CLOUDANT_URL=
+
 ```
 ---
 
