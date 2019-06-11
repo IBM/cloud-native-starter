@@ -18,6 +18,11 @@ if [ ! -f $CFG_FILE ]; then
      _out -- Copy template.local.env to local.env and edit according to our instructions!
      exit 1
 fi  
+
+# Create a randomized registry namespace name and save it in local.env
+CR_NAMESPACE=cloud-native-$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1 | tr '[:upper:]' '[:lower:]')
+sed -i "s/REGISTRY_NAMESPACE=cloud-native/REGISTRY_NAMESPACE=$CR_NAMESPACE/g"  $CFG_FILE
+
 source $CFG_FILE
 
 # SETUP logging (redirect stdout and stderr to a log file)
@@ -36,7 +41,8 @@ function create_registry() {
   _out Creating Namespace $REGISTRY_NAMESPACE
   ibmcloud cr login  >> $LOG_FILE 2>&1
   registry=$(ibmcloud cr info | awk '/Container Registry  /  {print $3}')
-  echo "REGISTRY=$registry" >> $CFG_FILE
+  echo -e "\nREGISTRY=$registry" >> $CFG_FILE
+
   ibmcloud cr namespace-add $REGISTRY_NAMESPACE >> $LOG_FILE 2>&1
   # check if something went wrong
   if [ $? == 0 ]; then 

@@ -18,7 +18,7 @@ Most important: an IBM Cloud account, you can register for a free account [here]
 * [curl](https://curl.haxx.se/download.html)
 * [docker](https://docs.docker.com/install/) requires not only the code but also permission to run docker commands
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [ibmcloud CLI](https://cloud.ibm.com/docs/home/tools) 
+* [ibmcloud CLI](https://cloud.ibm.com/docs/home/tools)  including plugins `kubernetes-service` and `container-registry`
 
 Run this script to check the prerequisites:
 

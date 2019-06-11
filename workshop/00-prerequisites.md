@@ -17,10 +17,11 @@ You will need the following tools installed on your laptop, in order to complete
 - IDE or Editor: [Visual Studio Code](https://code.visualstudio.com/), for example 
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
 - [curl](https://curl.haxx.se/download.html)
-- [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools) 
-- [Docker](https://docs.docker.com/v17.12/install/)
+- [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools)
+  [IBM Cloud CLI releases](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
+- [Docker](https://docs.docker.com/v17.12/install/) (Windows 10 Pro)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.)
+- for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.) or just install the [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 To verfiy the major prerequisites on your machine, you can execute following bash script on your machine.
 
@@ -102,10 +103,6 @@ To use the bash script automation later we will need an IBM platform key.
 $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
 ```
 
-_Note:_ We can also follow the instructions to access the cluster in the IBM cloud. Select the **Access** tab.
-
-![image](images/ibm-cloud-cluster-access.png)
-
 2. Create an IBM platform for your API key and name it (example **cloud-native-starter-key**) and provide a filename  (example **cloud-native-starter-key.json**).
 
 ```sh
@@ -144,20 +141,28 @@ $ cat local.env
 4. Verify the entries in the local.env file.
 
 Open file **local.env** in a editor.
-We can see the file has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
-Insert the copied ```"apikey": "KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx"```from the json output to ```IBMCLOUD_API_KEY=xxx``` and save the file.
 
-Example local.env:
+We can see the file has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
+
+Insert the copied ```"apikey":"KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx"```from the json output to ```IBMCLOUD_API_KEY=KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx``` and save the file.
+
+Change the ```CLUSTER_NAME=cloud-native``` to ```cloud-native-yourname```
+
+_Note:_ This is because namespaces are required to be **unique** across the entire **region** that the **specific registry** is located in, not just ***unique on your account**. This is mentioned in the following public documentation(https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add)
+
+**Example** local.env:
 
 ```sh
-IBMCLOUD_API_KEY=xxx
+IBMCLOUD_API_KEY=KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx
 IBM_CLOUD_REGION=us-south
 CLUSTER_NAME=cloud-native
-REGISTRY_NAMESPACE=cloud-native
+REGISTRY_NAMESPACE=cloud-native-yourname
 IBM_CLOUD_CF_API=https://api.ng.bluemix.net
 IBM_CLOUD_CF_ORG=
 IBM_CLOUD_CF_SPACE=dev
 AUTHORS_DB=local
+CLOUDANT_URL=
+
 ```
 ---
 
