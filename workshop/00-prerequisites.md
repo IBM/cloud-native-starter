@@ -17,7 +17,8 @@ You will need the following tools installed on your laptop, in order to complete
 - IDE or Editor: [Visual Studio Code](https://code.visualstudio.com/), for example 
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
 - [curl](https://curl.haxx.se/download.html)
-- [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools) 
+- [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools)
+  [IBM Cloud CLI releases](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
 - [Docker](https://docs.docker.com/v17.12/install/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.)
