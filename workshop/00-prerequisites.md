@@ -21,7 +21,7 @@ You will need the following tools installed on your laptop, in order to complete
   [IBM Cloud CLI releases](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
 - [Docker](https://docs.docker.com/v17.12/install/) (Windows 10 Pro)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.)
+- for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.) or just install the [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 To verfiy the major prerequisites on your machine, you can execute following bash script on your machine.
 
