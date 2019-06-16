@@ -1,7 +1,7 @@
 [home](README.md)
 # Building and deploying Containers
 
-In this lab we build and deploy containers with microservices to Kubernetes. Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** for the microservices. The following diagram shows a high level overview of the steps in the lab, which are mostly automated with bash scripts.
+In this lab we build and deploy containers with microservices to Kubernetes. Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** for the microservices. The following diagram shows a high-level overview of the steps in the lab, which are mostly automated with bash scripts.
 
 ![cns-container-deployment-01](images/cns-container-deployment-01.png)
 
@@ -36,7 +36,7 @@ The **Articles** and the **Authors** microservices are written in Java and they 
 #### 1.1.1 Articles container image definition
 
 Let's take a look into the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the Articles service. Inside the Dockerfile we use **two stages** to build the container image. 
-The reason for the two stages is, we have the objective to be **independed** of local environment settings, when we build our production services. With this concept we don't have to ensure that **Java** and **Maven** (or wrong versions of them) is installed on the local machine of the developers.
+The reason for the two stages is, we have the objective to be **independent** of local environment settings, when we build our production services. With this concept we don't have to ensure that **Java** and **Maven** (or wrong versions of them) is installed on the local machine of the developers.
 
 In short words one container is only responsible to build the microservice, let us call this container **build environment container** and the other container will contain the microservice, we call this the **production** container.
 
@@ -60,7 +60,7 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 
 In the following Dockerfile extract, we do create the **production container** based on the **openliberty** with **microProfile2**.
 Then we install the **zipkintracer** for later usage. But the **zipkintracer** is not in scope for this lab.
-The server configiration is defined in the server.xml. (more details about the **server.xml** are in the [optional lab](06-java-development.md))
+The server configuration is defined in the server.xml. (more details about the **server.xml** are in the [optional lab](06-java-development.md))
 
 
 ```Dockerfile
@@ -151,7 +151,7 @@ If this last step is executed of the **Dockerfile** the container is ready to be
 
 ### 1.3 YAML Configurations for the deployment to Kubernetes
 
-Now we examine the deployment yamls to deploy the container to **Pods** and creating **Services** to access them in the Kubernetes Cluster. In the following image you can see the deployed **Pods** and **Services** in the Kuberentes cluster:
+Now we examine the deployment yamls to deploy the container to **Pods** and creating **Services** to access them in the Kubernetes Cluster. In the following image you can see the deployed **Pods** and **Services** in the Kubernetes cluster:
 
 |Pods| Services|
 |----|----|
