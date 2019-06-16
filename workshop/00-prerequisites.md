@@ -19,9 +19,21 @@ You will need the following tools installed on your laptop, in order to complete
 - [curl](https://curl.haxx.se/download.html)
 - [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools)
   [IBM Cloud CLI releases](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
-- [Docker](https://docs.docker.com/v17.12/install/) (Windows 10 Pro)
+- [Docker](https://docs.docker.com/v17.12/install/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.) or just install the [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+
+
+_Note:_ 
+
+1. IBM Docker image
+
+There is a Docker image provided by IBM that contains most of the needed cli tools
+[Using IBM Cloud Developer Tools from a Docker Container](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker).
+
+2. Virtual Box
+
+You can also use a VirtualBox with for example [Ubuntu](https://www.osboxes.org/ubuntu/) to install the tools.
 
 To verfiy the major prerequisites on your machine, you can execute following bash script on your machine.
 
