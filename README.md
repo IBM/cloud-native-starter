@@ -51,7 +51,15 @@ If you would like to run the cloud native starter application on IBM Cloud Kuber
 
 Before the microservices can be installed, make sure you've set up Minikube and Istio correctly or follow these [instructions](documentation/SetupLocalEnvironment.md) to set up Minikube and Istio from scratch. This should not take longer than 30 minutes.
 
-The microservices can be installed via scripts. In addition to Minikube and Istio you need the following tools to be installed.
+Before deploying the application, get the code:
+
+```
+$ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ cd cloud-native-starter
+$ ROOT_FOLDER=$(pwd)
+```
+
+The microservices can be installed via scripts. In addition to Minikube and Istio you need the following tools to be available.
 
 Prerequisites:
 
@@ -60,11 +68,17 @@ Prerequisites:
 * [docker](https://docs.docker.com/install/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
+The prerequisites can either be installed manually or you can use a [Docker image](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker) that comes with all of the tools.
+
+```
+$ cd ${ROOT_FOLDER}
+$ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm ibmcom/ibm-cloud-developer-tools-amd64
+```
+
 Deploy (and redeploy):
 
 ```
-$ git clone https://github.com/nheidloff/cloud-native-starter.git
-$ cd cloud-native-starter
+$ cd ${ROOT_FOLDER}
 $ scripts/check-prerequisites.sh
 $ scripts/deploy-articles-java-jee.sh
 $ scripts/deploy-web-api-java-jee.sh
