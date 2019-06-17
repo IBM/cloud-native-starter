@@ -59,9 +59,9 @@ Here you can see a picture of the **Web app** UI.
 
 ### 2.2 ****Web API****
 
-The objective of this microservice is to combine the information from the **Articals** and the **Authors** microservice. 
+The objective of this microservice is to combine the information from the **Articles** and the **Authors** microservice. 
 
-The **Web API** is business related to be consumned by the **VUE** **Web app**. So the Web app can use just **one** REST API and doesn't need more APIs. The **Web API** service implements the **BFF** (backend for frontend pattern). 
+The **Web API** is business related to be consumed by the **VUE** **Web app**. So, the Web app can use just **one** REST API and doesn't need more APIs. The **Web API** service implements the **BFF** (backend for frontend pattern). 
 
 The following image contains a sample instance of the **Web API** using the **Open API explorer**.
 
@@ -84,7 +84,7 @@ In the image blow you can see a sample instance of the Articles,  using the **Op
 The objective of this microservice is to **get** author information from a database and is built on Node.js.
 In this workshop we will use the default implementation, which just creates sample data values.
 
-Sample curl command to get a author from the **Authors** microservice.
+Sample curl command to get an author from the **Authors** microservice.
 
 ```sh
 $ curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff

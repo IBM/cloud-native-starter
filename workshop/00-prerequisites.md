@@ -66,6 +66,18 @@ All necessary prerequisites should be installed now.
 
 ### 2.2 General  
 
+
+_Note:_ 
+
+1. IBM Docker image
+
+There is a Docker image provided by IBM that contains most of the needed cli tools
+[Using IBM Cloud Developer Tools from a Docker Container](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker).
+
+2. Virtual Box
+
+You can also use a VirtualBox with for example [Ubuntu](https://www.osboxes.org/ubuntu/) to install the tools.
+
 To verfiy the major prerequisites on your machine, you can execute following bash script on your machine.
 
 ```sh
