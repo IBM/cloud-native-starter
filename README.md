@@ -63,12 +63,12 @@ The microservices can be installed via scripts. In addition to Minikube and Isti
 
 Prerequisites:
 
+* [docker](https://docs.docker.com/install/)
 * [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [curl](https://curl.haxx.se/download.html)
-* [docker](https://docs.docker.com/install/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-The prerequisites can either be installed manually or you can use a [Docker image](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker) that comes with all of the tools.
+Docker always needs to be installed locally. The tools git, curl and kubectl (and ibmcloud) can be installed locally or you can use a [Docker image](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker) that comes these tools.
 
 ```
 $ cd ${ROOT_FOLDER}
