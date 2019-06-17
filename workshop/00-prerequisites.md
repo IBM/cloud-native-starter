@@ -19,9 +19,52 @@ You will need the following tools installed on your laptop, in order to complete
 - [curl](https://curl.haxx.se/download.html)
 - [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools)
   [IBM Cloud CLI releases](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
-- [Docker](https://docs.docker.com/v17.12/install/) (Windows 10 Pro)
+- [Docker](https://docs.docker.com/v18.03/install/) (Windows 10 Pro)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.) or just install the [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- for Windows , you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.) or, if you use Windows 10 Pro, the Windows Subsystem for Linux. At the time of writing Windows Subsystem for Linux (WSL1) is GA and WSL2 is announced to be GA in the 20H1 Windows 10. WSL1, as well as Cygwin, itself can't run a docker daemon. Therefore the docker daemon has to be installed and running in Windows. To uses docker with WSL1 some configuration has to be done.  
+
+### 2.1 Windows 10 Pro with WSL1 
+1. Activate and install WSL1 as described in    
+[Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+2. Install a linux distribution form Microsoft Store (Ubuntu 18.04 LTS was used when writing this description).
+3. Install Docker with Kubernetes on Windows as described in [https://docs.docker.com/v18.03/docker-for-windows/install](https://docs.docker.com/v18.03/docker-for-windows/install).
+4. Configure Docker on Windows to run without TLS on port 2375. ![Docker Settings no TLS on port 2375](images/w10_lsw1_docker_p2375_wo_tls.png)
+5. Restart Docker and check if Docker and Kubernetes are working properly.
+6. Install Docker (the client) in LSW1 by issuing
+   ```
+   sudo apt-get install docker.io
+   ``` 
+7. Make the information about the Docker port known in LSW1 by issuing:
+   ```
+   export DOCKER_HOST=tcp://localhost:2375
+   ```
+   To make it permanent, add it to your `.bashrc`, e.g. by issuing: 
+   ```
+   echo "export DOCKER_HOST=tcp://localhost:2375" >> ~/.bashrc && source ~/.bashrc
+   ``` 
+8. Install kubectl in WSL1 as described in [Install kubectl on Linux](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux).
+9. Make sure that the folder .kube exists in your LSW home folder. Create it if missing by issuing: 
+    ```
+    mkdir .kube
+    ```
+    Then create a link from inside LSW1 to the Windows Kubernetes configuration by issuing the adapted to your user name commmand: 
+    ```
+    ln -s /mnt/c/Users/{YourUsername}/.kube/config ~/.kube/config
+    ```   
+10. Get the IBM Cloud CLI either by following the steps described in [Setup the IBM Cloud CLI](#part-SETUP-02) or by downloading and extracting the Linux 64 version of IBM Cloud CLI from https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases by issuing: 
+    ```
+    curl https://public.dhe.ibm.com/cloud/bluemix/cli/bluemix-cli/0.16.2/binaries/IBM_Cloud_CLI_0.16.2_linux_amd64.tgz -O
+    tar -xf IBM_Cloud_CLI_0.16.2_linux_amd64.tgz
+    ```
+    Adapt the url and filename for newer versions.
+    Add the IBM Cloud CLI permanently to the PATH by issuing:
+    ```
+    echo "export PATH=\$PATH:~/IBM_Cloud_CLI" >> ~/.bashrc && source ~/.bashrc
+    ```
+
+All necessary prerequisites should be installed now. 
+
+### 2.2 General  
 
 To verfiy the major prerequisites on your machine, you can execute following bash script on your machine.
 
