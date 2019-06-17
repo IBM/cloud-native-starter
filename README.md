@@ -68,7 +68,7 @@ Prerequisites:
 * [curl](https://curl.haxx.se/download.html)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-Docker always needs to be installed locally. The tools git, curl and kubectl (and ibmcloud) can be installed locally or you can use a [Docker image](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker) that comes these tools.
+Docker always needs to be installed locally. The tools git, curl and kubectl (and ibmcloud) can be installed locally or you can use a [Docker image](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker) that comes with these tools.
 
 ```
 $ cd ${ROOT_FOLDER}
@@ -151,6 +151,7 @@ Here is a series of blog entries about this project:
 * [Authorization in Cloud-Native Applications via OpenID and Istio](http://heidloff.net/article/authentication-authorization-openid-connect-istio)
 * [Authorization in Microservices with MicroProfile](http://heidloff.net/article/authorization-microservices-java-microprofile/)
 * [Persistence for Java Microservices in Kubernetes via JPA](http://heidloff.net/article/persistence-java-microservices-kubernetes-jpa/)
+* [How to build and run a Hello World Java Microservice](http://heidloff.net/article/how-to-build-and-run-a-hello-world-java-microservice/)
 
 Here is more information about Microservices, MicroProfile and Istio:
 
