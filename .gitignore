@@ -62,6 +62,9 @@ authors-java-jee/deployment/deployment-template.yaml.1
 authors-java-jee/deployment/deployment-minishift.yaml
 authors-java-jee/deployment/deployment-iks.yaml
 
+# Minishift add-ons from git clone
+minishift-addons
+
 #images
 images/~$cloud-native-starter.pptx
 
