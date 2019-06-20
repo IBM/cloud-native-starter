@@ -1,4 +1,4 @@
-##Running the Cloud Native Starter on OKD (OpenShift)
+## Running the Cloud Native Starter on OKD (OpenShift)
 
 For this environment we will use Minishift. Similar to Minikube it runs Kubernetes as a single node cluster in a VM, for example Virtualbox. Minishift uses the Origin Community Distribution of Kubernetes (OKD, okd.io) which is the basis for Red Hats OpenShift.
 
