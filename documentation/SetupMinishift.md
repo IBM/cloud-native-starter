@@ -166,8 +166,179 @@ Apply the policy with
 $ oc apply -f no-mtls.yaml
 ```
 
+## Example: Manually deploying the Authors service to Minishift
 
-(The following has yet to be tested:)
-#### Configuring an Application to Utilize Automatic Sidecar Injection
-https://maistra.io/docs/getting_started/application-requirements/
+This is an example how to deploy an application by building a Docker image, pushing it to the OpenShift internal Docker registry (within Minishift), and deploying an application using yaml files and kubectl/oc.
+
+Internal address of the registry:
+$ minishift openshift registry
+Result (e.g.): 172.30.1.1:5000
+
+Which OpenShift project am I working on:
+$ oc project
+Result (e.g.): Using project "myproject" from context named "istio" on server "https://192.168.99.100:8443".
+
+### Build the image
+
+These instructions are based on the default project "myproject".
+
+Need to be admin to create Istio config
+
+```
+$ oc login -u admin -p admin
+$ cd authors-nodejs
+```
+
+Switch to the Minishift Docker environment
+
+```
+$ eval $(minishift docker-env)
+```
+
+Login to the OpenShift internal Docker Registry
+
+```
+$ docker login -u admin -p $(oc whoami -t) $(minishift openshift registry)
+```
+
+Create the Container Image in the Minishift Docker environment
+
+```
+$ docker build -f Dockerfile -t authors:1 .
+```
+
+Tag the image with the OpenShift Docker registry and Imagestream (= Project Name)
+
+```
+$ docker tag authors:1 $(minishift openshift registry)/myproject/authors:1
+```
+
+List the images
+
+```
+$ docker images
+
+-->
+REPOSITORY                                   TAG                 IMAGE ID            CREATED              SIZE
+172.30.1.1:5000/myproject/authors            1                   fc626936153f        About a minute ago   91.9MB
+authors                                      1                   fc626936153f        About a minute ago   91.9MB
+...
+```
+
+Push the image into the OpenShift Registry
+
+```
+$ docker push $(minishift openshift registry)/myproject/authors:1
+```
+
+In the OpenShift dashboard, open project "My Project", select "Builds" -> "Images". You should see the "authors:1" image.
+
+### Deploy the application 
+
+We need to modify the deployment.yaml file.
+
+```
+$ cd deployment
+$ cp deployment.yaml.template deployment-minishift.yaml
+```
+
+Change the container - image name to refelct the OpenShift Repository
+
+Example:
+
+```
+    spec:
+      containers:
+      - image: 172.30.1.1:5000/myproject/authors:1
+        name: authors
+        env:
+        - name: DATABASE
+          value: 'local'
+        - name: CLOUDANT_URL
+          value: 'local'
+        ports:
+        - containerPort: 3000
+          name: authors
+      restartPolicy: Always    
+```
+
+Deploy the application (Deployment and Service)
+
+TODO: How do we get istioctl????
+
+```
+$ oc apply -f <(istioctl kube-inject -f deployment-minishift.yaml)
+$ oc apply -f istio.yaml
+```
+
+### Istio Ingress
+
+Create the Istio Ingress Gateway definition
+
+istio-ingress-gateway.yaml:
+===========================
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: default-gateway-ingress-http
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "istio-ingressgateway-istio-system.192.168.99.100.nip.io"
+--- 
+
+```
+$ oc apply -f istio-ingress-gateway.yaml
+```
+
+Create a VirtualService for authors
+
+istio-ingress-service-authors.yaml:
+===================================
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: virtualservice-ingress-web-api-web-app
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - default-gateway-ingress-http
+  http:
+  - match:
+    - uri:
+        prefix: /health
+    route:
+    - destination:
+        host: authors
+        port:
+          number: 3000
+  - match:
+    - uri:
+        prefix: /api/v1/getauthor
+    route:
+    - destination:
+        host: authors
+        subset: v1
+---
+
+```
+$ oc apply -f istio-ingress-service-authors.yaml
+```
+
+Login to the OpenShift dashboard as admin/admin
+Select project "istio-system"
+Search for application "istio-ingressgateway", note its route, e.g. http://istio-ingressgateway-istio-system.192.168.99.100.nip.io
+
+Open http://istio-ingressgateway-istio-system.192.168.99.100.nip.io/health
+Result should be {"status":"UP"}
+
+Open http://istio-ingressgateway-istio-system.192.168.99.100.nip.io/api/v1/getauthor?name=Harald%20Uebele
+Result: {"name":"Harald Uebele","twitter":"@harald_u","blog":"https://haralduebele.blog"}
 
