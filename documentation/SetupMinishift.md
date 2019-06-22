@@ -364,7 +364,8 @@ Remedy:
 $ minishift ssh
 $ sudo sysctl vm.max_map_count=262144
 $ sudo sysctl -p 
-$ echo 'vm.max_map_count = 262144' | sudo tee /etc/sysctl.d/99-elasticsearch.conf > /dev/null
+$ sudo echo 'vm.max_map_count = 262144' | sudo tee /etc/sysctl.d/99-elasticsearch.conf > /dev/null
 $ exit
+```
 
 And then wait a while. When the pods restart, they should come up OK.
