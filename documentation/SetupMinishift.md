@@ -276,7 +276,8 @@ $ oc apply -f istio.yaml
 Create the Istio Ingress Gateway definition
 
 istio-ingress-gateway.yaml:
-===========================
+
+```
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -292,6 +293,7 @@ spec:
     hosts:
     - "istio-ingressgateway-istio-system.192.168.99.100.nip.io"
 --- 
+```
 
 ```
 $ oc apply -f istio-ingress-gateway.yaml
@@ -300,7 +302,8 @@ $ oc apply -f istio-ingress-gateway.yaml
 Create a VirtualService for authors
 
 istio-ingress-service-authors.yaml:
-===================================
+
+```
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -327,6 +330,7 @@ spec:
         host: authors
         subset: v1
 ---
+```
 
 ```
 $ oc apply -f istio-ingress-service-authors.yaml
@@ -342,3 +346,25 @@ Result should be {"status":"UP"}
 Open http://istio-ingressgateway-istio-system.192.168.99.100.nip.io/api/v1/getauthor?name=Harald%20Uebele
 Result: {"name":"Harald Uebele","twitter":"@harald_u","blog":"https://haralduebele.blog"}
 
+
+## Troubleshooting
+
+If you find that in the Istio environment (OpenSHift dashboard, project "istio-system") the applications "elasticsearch", "jaeger-collector", and "jaeger-query" are in error, check the logs for Elasticsearch. Most likely you'll find:
+
+```
+ERROR: [1] bootstrap checks failed
+[1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+```
+
+This should have been set by the installtion/activation of the Istio addon but I have seen it fail now on two different installations. 
+
+Remedy:
+
+```
+$ minishift ssh
+$ sudo sysctl vm.max_map_count=262144
+$ sudo sysctl -p 
+$ echo 'vm.max_map_count = 262144' | sudo tee /etc/sysctl.d/99-elasticsearch.conf > /dev/null
+$ exit
+
+And then wait a while. When the pods restart, they should come up OK.
