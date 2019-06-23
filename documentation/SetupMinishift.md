@@ -79,13 +79,23 @@ After the setup is complete and Minishift is started, you are logged in as user 
 
 ### 3. oc
 
-`oc` is the OpenShift CLI, it is required to interact with the OpenShift (OKD) cluster. The Minishift cluster setup we just performed placed a copy of `oc`into the directory `~/.minishift/cache/oc/v3.10.0/xxx`. Either add this directory to your PATH or copy `oc`into a directory in your PATH.
+`oc` is the OpenShift CLI, it is required to interact with the OpenShift (OKD) cluster. The Minishift cluster setup we just performed placed a copy of `oc`into the directory `~/.minishift/cache/oc/v3.10.0/xxx`. This should have been placed into your PATH temporarily.
 
 Check if it works with
 
 ```
 $ oc version
 ```
+
+The command
+
+```
+$ eval $(minishift oc-env)
+```
+
+will add `oc`to the PATH, too.
+
+`oc` contains a copy of `kubectl`so there is no need to install it separately. See [here](https://docs.openshift.com/container-platform/3.10/cli_reference/differences_oc_kubectl.html) for details.
 
 ### 4. OpenShift Dashboard or Console
 
@@ -165,6 +175,7 @@ Apply the policy with
 ```
 $ oc apply -f no-mtls.yaml
 ```
+
 
 ## Example: Manually deploying the Authors service to Minishift
 
