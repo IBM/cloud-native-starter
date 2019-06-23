@@ -67,6 +67,12 @@ Allows to run containers with uid 0 on Openshift:
 $ minishift addon enable anyuid
 ```
 
+Enable Admissions Webhooks (required for Istio Sidecar injection, see [here](https://istio.io/docs/setup/kubernetes/platform-setup/openshift/)):
+
+```
+$ minishift addon enable admissions-webhook
+```
+
 Start the profile:
 
 ```
@@ -253,14 +259,22 @@ $ cd deployment
 $ cp deployment.yaml.template deployment-minishift.yaml
 ```
 
-Change the container - image name to refelct the OpenShift Repository
+- In the template - metadata section, add add the annotation for sidecar inject
+- Change the container - image name to reflect the OpenShift Repository
 
 Example:
 
 ```
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true"
+      labels:
+        app: authors
+        version: v1
     spec:
       containers:
-      - image: 172.30.1.1:5000/myproject/authors:1
+      - image: 172.30.1.1:5000/myproject/authors:1 
         name: authors
         env:
         - name: DATABASE
@@ -275,10 +289,8 @@ Example:
 
 Deploy the application (Deployment and Service)
 
-TODO: How do we get istioctl????
-
 ```
-$ oc apply -f <(istioctl kube-inject -f deployment-minishift.yaml)
+$ oc apply -f deployment-minishift.yaml
 $ oc apply -f istio.yaml
 ```
 
