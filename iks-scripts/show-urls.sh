@@ -105,11 +105,6 @@ function setup() {
   fi
   _out ------------------------------------------------------------------------------------
 
-  _out Automatic Sidecar Injection
-  if [ ! kubectl describe namespace default | grep istio-injection=enabled ]; then
-     _out "Istio automatic sidecar injection needs to be enabled! See IKSDeployment.md"
-  fi
-  _out ------------------------------------------------------------------------------------ 
 }
 
 setup

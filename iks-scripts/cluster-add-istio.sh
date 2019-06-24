@@ -26,7 +26,7 @@ touch $LOG_FILE
 
 function test_cluster() {
   _out Check if Kubernetes Cluster is available ...
-  STATE=$(ibmcloud ks cluster-get $CLUSTER_NAME -s | awk '/State:/ {print $2}')
+  STATE=$(ibmcloud ks cluster-get $CLUSTER_NAME -s | awk '/^State:/ {print $2}')
   if [ $STATE != "normal" ]; then 
     _out -- Your Kubernetes cluster is in $STATE state and not ready
     _out ---- Please wait a few more minutes and then try this command again 
@@ -61,6 +61,9 @@ function add_istio() {
   _out $ source iks-scripts/cluster-config.sh  -- this is only needed once
   _out $ kubectl get pod -n istio-system
   _out before continuing with the next script iks-sripts/create-registry.sh
+  _out 
+  _out Do not forget to enable automatic sidecar injection 
+  _out $ kubectl label namespace default istio-injection=enabled
 
 }
 

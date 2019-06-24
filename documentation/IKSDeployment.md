@@ -23,7 +23,7 @@ Most important: an IBM Cloud account, you can register for a free account [here]
 Run this script to check the prerequisites:
 
 ```
-$ iks-scripts/IKS-check-prerequisites.sh
+$ iks-scripts/check-prerequisites.sh
 ```
 
 ### To prepare the deployment on IBM Cloud:

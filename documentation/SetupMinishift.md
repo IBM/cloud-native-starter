@@ -49,7 +49,7 @@ Adding container image caching to allow faster profile setup:
 $ minishift config set image-caching true 
 ```
 
-Pinning OpenShift version to be 3.10.0 (required by Minishift Istio Addon):
+Pinning OpenShift version to be 3.10.0:
 
 ```
 $ minishift config set openshift-version v3.10.0
@@ -85,7 +85,7 @@ After the setup is complete and Minishift is started, you are logged in as user 
 
 ### 3. oc
 
-`oc` is the OpenShift CLI, it is required to interact with the OpenShift (OKD) cluster. The Minishift cluster setup we just performed placed a copy of `oc`into the directory `~/.minishift/cache/oc/v3.10.0/xxx`. This should have been placed into your PATH temporarily.
+`oc` is the OpenShift CLI, it is required to interact with the OpenShift (OKD) cluster. The Minishift cluster setup we just performed placed a copy of `oc`into the directory `~/.minishift/cache/oc/v3.10.0/xxx`. This should have been added to your PATH temporarily.
 
 Check if it works with
 
@@ -125,7 +125,7 @@ Now logout from the dashboard and re-login as user 'admin' with password 'admin'
 
 ### 5. Install Istio
 
-We are installating Istio as a Minishift add-on. It uses a Kubernetes Operator and is based on [Maistra](https://maistra.io/). It results in an older Istio version (1.0.2) but is well integrated into Minishift.
+We are installing Istio as a Minishift add-on. It uses a Kubernetes Operator and is based on [Maistra](https://maistra.io/). This results in an older Istio version (1.0.2) but is well integrated into Minishift.
 
 Installation is quite simple:
 
@@ -188,11 +188,19 @@ $ oc apply -f no-mtls.yaml
 This is an example how to deploy an application by building a Docker image, pushing it to the OpenShift internal Docker registry (within Minishift), and deploying an application using yaml files and kubectl/oc.
 
 Internal address of the registry:
+
+```
 $ minishift openshift registry
+```
+
 Result (e.g.): 172.30.1.1:5000
 
 Which OpenShift project am I working on:
+
+```
 $ oc project
+```
+
 Result (e.g.): Using project "myproject" from context named "istio" on server "https://192.168.99.100:8443".
 
 ### Build the image
@@ -364,10 +372,12 @@ Select project "istio-system"
 Search for application "istio-ingressgateway", note its route, e.g. http://istio-ingressgateway-istio-system.192.168.99.100.nip.io
 
 Open http://istio-ingressgateway-istio-system.192.168.99.100.nip.io/health
-Result should be {"status":"UP"}
+
+=> Result should be {"status":"UP"}
 
 Open http://istio-ingressgateway-istio-system.192.168.99.100.nip.io/api/v1/getauthor?name=Harald%20Uebele
-Result: {"name":"Harald Uebele","twitter":"@harald_u","blog":"https://haralduebele.blog"}
+
+=> Result: {"name":"Harald Uebele","twitter":"@harald_u","blog":"https://haralduebele.blog"}
 
 
 ## Troubleshooting
