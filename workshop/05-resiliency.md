@@ -30,7 +30,7 @@ try {
 }
 ```
 
-After the articles service is deleted we will notice that the same 5 articles are displayed when we refresh the browser. That’s because in this trivial scenario the ‘**Web API**’ service **caches** the last read articles. If the ‘articles’ service is not available it simply returns the information from the cache.
+After the articles service is deleted, we will notice that the same 5 articles are displayed when we refresh the browser. That’s because in this trivial scenario the ‘**Web API**’ service **caches** the last read articles. If the ‘articles’ service is not available it simply returns the information from the cache.
 
 |  When the author service is deleted   |   When the author and articles service is deleted |
 | --- | --- |    
