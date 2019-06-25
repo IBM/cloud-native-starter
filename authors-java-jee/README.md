@@ -127,6 +127,7 @@ There are several options to deploy microservices to Minishift:
 * [kubectl](#deploy-via-kubectl)
 * [Git Repo with Dockerfile](#deploy-via-git-repo-with-dockerfile)
 * [Binary Build](#deploy-as-binary-build)
+* [Source to Image](#deploy-via-s2i)
 
 
 ### Deploy via kubectl
@@ -190,3 +191,7 @@ $ oc new-app authors
 $ oc expose svc/authors
 $ curl -X GET "http://authors-binary-build.$(minishift ip).nip.io/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
 ```
+
+### Deploy via S2I
+
+The article [Source to Image Builder for Open Liberty Apps on OpenShift](http://heidloff.net/article/source-to-image-builder-open-liberty-openshift/) describes how the authors service can be deployed without having to define a Dockerfile.
