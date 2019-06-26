@@ -61,6 +61,7 @@ authors-java-jee/deployment/deployment-template.yaml.2
 authors-java-jee/deployment/deployment-template.yaml.1
 authors-java-jee/deployment/deployment-minishift.yaml
 authors-java-jee/deployment/deployment-iks.yaml
+articles-java-jee/deployment/kubernetes-minishift.yaml
 
 # Minishift add-ons from git clone
 minishift-addons
