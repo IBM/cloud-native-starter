@@ -21,13 +21,13 @@ spec:
         version: v1
     spec:
       containers:
-      - image: authors:1
+      - image: 172.30.1.1:5000/cloud-native-starter/authors:1
         name: authors
         env:
         - name: DATABASE
-          value: '<DB>'
+          value: 'local'
         - name: CLOUDANT_URL
-          value: '<URL>'
+          value: 'local'
         ports:
         - containerPort: 3000
           name: authors
