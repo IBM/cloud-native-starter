@@ -13,7 +13,7 @@ function setup() {
   oc new-project cloud-native-starter
   oc adm policy add-scc-to-user anyuid -z default -n cloud-native-starter
   oc adm policy add-scc-to-user privileged -z default -n cloud-native-starter
-  oadm policy add-role-to-user admin developer
+  oc adm policy add-role-to-user admin developer
   cd ${root_folder}/minishift-scripts
   oc apply -f no-mtls.yaml
 }

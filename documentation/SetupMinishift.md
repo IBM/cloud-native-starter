@@ -382,7 +382,7 @@ Open http://istio-ingressgateway-istio-system.192.168.99.100.nip.io/api/v1/getau
 
 ## Troubleshooting
 
-If you find that in the Istio environment (OpenSHift dashboard, project "istio-system") the applications "elasticsearch", "jaeger-collector", and "jaeger-query" are in error, check the logs for Elasticsearch. Most likely you'll find:
+If you find that in the Istio environment (OpenShift dashboard, project "istio-system") the applications "elasticsearch", "jaeger-collector", and "jaeger-query" are in error, check the logs for Elasticsearch. Most likely you'll find:
 
 ```
 ERROR: [1] bootstrap checks failed
