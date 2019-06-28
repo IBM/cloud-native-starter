@@ -2,7 +2,7 @@
 
 For this environment we will use Minishift. Similar to Minikube it runs Kubernetes as a single node cluster in a VM, for example Virtualbox. Minishift uses the Origin Community Distribution of Kubernetes (OKD, okd.io) which is the basis for Red Hats OpenShift.
 
-To use Minishift, you must be able to reserve at least 4 CPUs (or to be exact 4 CPU threads on an Intel CPU) and 8 GB of RAM. Minishift and specifically Istio on Minishift will not work with less resources, you would be wasting your time! 
+To use Minishift, you must be able to reserve at least 4 CPUs (or to be exact 4 CPU threads on an Intel CPU) and 8 GB of RAM. Minishift and specifically Istio on Minishift will not work with less resources, you would be wasting your time! And "reserve" means your workstation must have more than 4 CPUs threads and much more than 8 GB of RAM to leave room for your host operating system otherwise your workstation gets unusable when you try to start the installation!
 
 ### 1. Get Minishift
 
@@ -17,7 +17,15 @@ $ minishift version
 
 ### 2. Create a Minishift cluster 
 
-These instructions are mainly based on Kamesh Sampath's blog ["3 steps to your Istio Installation on Kubernetes"](https://medium.com/@kamesh_sampath/3-steps-to-your-istio-installation-on-openshift-58e3617828b0).
+These instructions are based on Kamesh Sampath's blog ["3 steps to your Istio Installation on Kubernetes"](https://medium.com/@kamesh_sampath/3-steps-to-your-istio-installation-on-openshift-58e3617828b0).
+
+You can create the Minishift cluster via script or manually. This script will setup a Minishift cluster with 4 CPUs and 8 GB RAM:
+
+```
+$ minishift-scripts/setup-minishift.sh
+```
+
+Below are the manual instructions that this script performs.
 
 Create a profile called "istio":
 
@@ -113,15 +121,7 @@ $ minishift console
 
 Login as user 'developer' with password 'developer'.
 
-'developer' has no admin rights and profile 'system:admin' cannot login to the dashboard. To gain full access to the dashboard go back to the command line and run these commands:
-
-```
-$ oc login -u system:admin
-$ oc adm policy add-cluster-role-to-user cluster-admin admin
-$ oc login -u admin -p admin
-```
-
-Now logout from the dashboard and re-login as user 'admin' with password 'admin'.
+Now logout from the dashboard and re-login as user 'admin' with password 'admin'. The 'admin' user has access to all projects including Istio once it is installed.
 
 ### 5. Install Istio
 

@@ -19,10 +19,11 @@ function setup() {
   _out Deploying authors-nodejs
   cd ${root_folder}/authors-nodejs
 
-  # Delete existing
-  oc delete all -l app=authors
-  oc delete pod -l app=authors
-  ### How about istio.yaml?
+  # Delete existing (first oc delete all typically fails to delete the pod)
+  oc delete all -l app=authors --ignore-not-found
+  oc delete all -l app=authors --ignore-not-found
+  oc delete -f deployment/istio.yaml --ignore-not-found
+  
 
   # Create Docker Image and push to registry
   eval $(minishift docker-env)
@@ -39,6 +40,7 @@ function setup() {
   oc apply -f deployment-minishift.yaml
   oc apply -f istio.yaml
 
+  _out Done deploying authors-nodejs
 }
 
 login
