@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: web-app
-        image: web-app:1
+        image: 172.30.1.1:5000/cloud-native-starter/web-app:latest
         ports:
         - containerPort: 80
       restartPolicy: Always

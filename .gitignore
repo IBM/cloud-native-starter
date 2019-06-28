@@ -54,6 +54,7 @@ ibm-scripts/*.log
 cluster-config.sh
 IKS*.yaml
 web-app-vuejs/package-lock.json
+web-app-vuejs/src/store.js
 istio/protect-web-api.yaml
 articles-java-jee/liberty-opentracing-zipkintracer
 web-api-java-jee/liberty-opentracing-zipkintracer
