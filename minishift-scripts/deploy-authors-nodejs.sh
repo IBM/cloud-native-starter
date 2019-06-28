@@ -38,9 +38,12 @@ function setup() {
   sed -e "s|<URL>|local|g" -e "s|<DB>|local|g" -e "s|authors:1|$imagestream|g" deployment.yaml.template > deployment-minishift.yaml
   sed -e "s|<URL>|local|g" -e "s|<DB>|local|g" ../config.json.template > ../config.json
   oc apply -f deployment-minishift.yaml
+  oc expose svc/authors
   oc apply -f istio.yaml
 
   _out Done deploying authors-nodejs
+  _out
+  _out Sample request: curl http://$(oc get route authors -o jsonpath={.spec.host})/api/v1/getauthor?name=Harald%20Uebele
 }
 
 login

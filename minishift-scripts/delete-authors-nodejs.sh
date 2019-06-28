@@ -5,9 +5,7 @@ root_folder=$(cd $(dirname $0); cd ..; pwd)
 exec 3>&1
 
 function login() {
-  eval $(minishift docker-env)
   oc login -u developer -p developer
-  docker login -u developer -p $(oc whoami -t) $(minishift openshift registry)
   oc project cloud-native-starter
 }
 

@@ -19,9 +19,10 @@ function setup() {
   _out Deploying articles-java-jee
   
   cd ${root_folder}/articles-java-jee
-  oc delete route articles
-  kubectl delete -f deployment/kubernetes-minishift.yaml --ignore-not-found
-  kubectl delete -f deployment/istio.yaml --ignore-not-found
+  oc delete all -l app=articles --ignore-not-found
+  oc delete all -l app=articles --ignore-not-found
+  oc delete configmap -l app=articles --ignore-not-found
+  oc delete -f deployment/istio.yaml --ignore-not-found
 
   file="${root_folder}/articles-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"
   if [ -f "$file" ]
@@ -40,15 +41,14 @@ function setup() {
 
   cd ${root_folder}/articles-java-jee/deployment
   sed "s+articles:1+$(minishift openshift registry)/cloud-native-starter/articles:1+g" kubernetes.yaml > kubernetes-minishift.yaml
-  # to be done: add the annotation for sidecar inject
 
-  kubectl apply -f kubernetes-minishift.yaml
-  kubectl apply -f istio.yaml
+  oc apply -f kubernetes-minishift.yaml
+  oc apply -f istio.yaml
   oc expose svc/articles
 
   _out Done deploying articles-java-jee
-  _out OpenAPI explorer: http://articles-cloud-native-starter.$(minishift ip).nip.io/openapi/ui/
-  _out Sample request: curl -X GET "http://articles-cloud-native-starter.$(minishift ip).nip.io/articles/v1/getmultiple?amount=10" -H "accept: application/json"
+  _out OpenAPI explorer: http://$(oc get route articles -o jsonpath={.spec.host})/openapi/ui/
+  _out Sample request: curl -X GET "http://$(oc get route articles -o jsonpath={.spec.host})/articles/v1/getmultiple?amount=10" -H "accept: application/json"
 }
 
 login
