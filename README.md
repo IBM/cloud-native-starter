@@ -4,7 +4,7 @@ This project contains sample code that demonstrates how to get started with clou
 
 The project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
 
-The microservices can be easily deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/) or the [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service).
+The microservices can be easily deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/), [Minishift](https://docs.okd.io/latest/minishift/index.html) (single-node OpenShift cluster inside a VM), or the [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service).
 
 The project showcases the following functionality:
 
@@ -47,7 +47,11 @@ This project demonstrates several Java EE and Istio key functionality.
 
 The sample application can be run locally on Minikube or on the IBM Cloud. The following instructions describe how to install everything locally.
 
-If you would like to run the cloud native starter application on IBM Cloud Kubernetes Service, follow these [instructions](documentation/IKSDeployment.md). 
+Other deployment options we tested:
+
+* If you would like to run the cloud native starter application on IBM Cloud Kubernetes Service, follow these [instructions](documentation/IKSDeployment.md). 
+
+* If you would like to run the cloud native starter application on Minishift (single-node OpenShift cluster inside a VM) locally, follow these [instructions](documentation/MinishiftDeployment.md).
 
 Before the microservices can be installed, make sure you've set up Minikube and Istio correctly or follow these [instructions](documentation/SetupLocalEnvironment.md) to set up Minikube and Istio from scratch. This should not take longer than 30 minutes.
 
