@@ -107,7 +107,7 @@ The command
 $ eval $(minishift oc-env)
 ```
 
-will add `oc`to the PATH, too.
+will add `oc` temporarily to the PATH, too. To make this permanent, add the oc path from the output of `minishift oc-env` (e.g. /home/XXX/.minishift/cache/oc/v3.10.0/YYY) to your PATH variable.
 
 `oc` contains a copy of `kubectl`so there is no need to install it separately. See [here](https://docs.openshift.com/container-platform/3.10/cli_reference/differences_oc_kubectl.html) for details.
 
@@ -216,7 +216,7 @@ Create some load and view the traffic distribution in the Kiali console.
 
 Run the following command to delete all cloud-native-starter components from Minishift:
 
-$ minishift-scripts/delete-all.sh
+$ oc delete project cloud-native-starter
 
 You can also delete single components:
 

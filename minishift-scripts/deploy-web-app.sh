@@ -51,8 +51,10 @@ function setup() {
   oc expose svc/web-app
 
   _out Done deploying web-app
-  _out The build will take a while. Check for Running web-app-xxx-yyy pod with: oc get pod
+  _out The build will take a while. Check with: oc get pod
+  _out A pod web-app-xxxxxxxxx-yyyyy will be in status ImagePullBackOff until the build is complete
   _out Access via http://$(oc get route web-app -o jsonpath={.spec.host})
+  _out This will display an Error: Network Error
   _out Full function of the app requires Istio Ingress configuration. 
 
 }
