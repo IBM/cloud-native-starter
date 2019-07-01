@@ -182,10 +182,28 @@ Apply the policy with
 $ oc apply -f no-mtls.yaml
 ```
 
+### 6. Initial Deployment of Cloud Native Starter
+
+To deploy (or redeploy) run these scripts:
+
+```
+$ minishift-scripts/check-prerequisites.sh
+$ minishift-scripts/setup-project.sh
+$ minishift-scripts/deploy-articles-java-jee.sh
+$ minishift-scripts/deploy-authors-nodejs.sh
+$ minishift-scripts/deploy-web-api-java-jee.sh
+$ minishift-scripts/deploy-web-app.sh
+$ scripts/deploy-istio-ingress-v1.sh
+$ minishift-scripts/show-urls.sh
+```
+
+After running all (!) the scripts above, you will get a list of all URLs in the terminal:
+
+![Minishift show-urls](../images/minishift-urls.png)
 
 ## Example: Manually deploying the Authors service to Minishift
 
-This is an example how to deploy an application by building a Docker image, pushing it to the OpenShift internal Docker registry (within Minishift), and deploying an application using yaml files and kubectl/oc.
+This is an example how to manually deploy an application by building a Docker image, pushing it to the OpenShift internal Docker registry (within Minishift), and deploying an application using yaml files and kubectl/oc.
 
 Internal address of the registry:
 

@@ -22,6 +22,11 @@ function setup() {
  
   _out ------------------------------------------------------------------------------------
 
+  _out prometheus
+  _out Open https://$(oc get route prometheus -n istio-system -o jsonpath={.spec.host}) 
+ 
+  _out ------------------------------------------------------------------------------------
+
   _out jaeger
   _out Access via Kiali: Distributed Tracing
 
