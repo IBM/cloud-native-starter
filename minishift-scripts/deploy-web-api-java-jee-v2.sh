@@ -19,9 +19,6 @@ function setup() {
   _out Deploying web-api-java-jee-v2
   
   cd ${root_folder}/web-api-java-jee
-  oc delete all -l app=web-api --ignore-not-found
-  oc delete all -l app=web-api --ignore-not-found
-  oc delete -f deployment/istio-service-v2.yaml --ignore-not-found
 
   file="${root_folder}/web-api-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"
   if [ -f "$file" ]
