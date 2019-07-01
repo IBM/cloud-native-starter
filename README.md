@@ -45,13 +45,13 @@ This project demonstrates several Java EE and Istio key functionality.
 
 ### Setup
 
-The sample application can be run locally on Minikube or on the IBM Cloud. The following instructions describe how to install everything locally.
+The sample application can be run locally or on the IBM Cloud. The following instructions describe how to install everything **locally on Minikube**.
 
 Other deployment options we tested:
 
-* If you would like to run the cloud native starter application on IBM Cloud Kubernetes Service, follow these [instructions](documentation/IKSDeployment.md). 
+* If you would like to run the cloud native starter application on **IBM Cloud Kubernetes Service**, follow these [instructions](documentation/IKSDeployment.md). 
 
-* If you would like to run the cloud native starter application on Minishift (single-node OpenShift cluster inside a VM) locally, follow these [instructions](documentation/MinishiftDeployment.md).
+* If you would like to run the cloud native starter application locally on **Minishift** (single-node OpenShift cluster inside a VM), follow these [instructions](documentation/MinishiftDeployment.md).
 
 Before the microservices can be installed, make sure you've set up Minikube and Istio correctly or follow these [instructions](documentation/SetupLocalEnvironment.md) to set up Minikube and Istio from scratch. This should not take longer than 30 minutes.
 
