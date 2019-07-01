@@ -47,7 +47,7 @@ function setup() {
 
   oc apply -f kubernetes-service.yaml
   oc apply -f kubernetes-deployment-v2-minishift.yaml
-  oc apply -f istio-service-v1.yaml
+  oc apply -f istio-service-v2.yaml
   oc expose svc/web-api
 
   _out Done deploying web-api-java-jee-v2
