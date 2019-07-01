@@ -16,7 +16,7 @@ function _out() {
 function setup() {
   _out Deploying Istio Ingress
 
-  cd ${root_folder}/minishift-scripts
+  cd ${root_folder}/istio
   oc apply -f istio-ingress-gateway.yaml
   oc apply -f istio-ingress-service-web-api-v1-only.yaml
 

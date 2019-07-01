@@ -193,7 +193,7 @@ $ minishift-scripts/deploy-articles-java-jee.sh
 $ minishift-scripts/deploy-authors-nodejs.sh
 $ minishift-scripts/deploy-web-api-java-jee.sh
 $ minishift-scripts/deploy-web-app.sh
-$ scripts/deploy-istio-ingress-v1.sh
+$ minishift-scripts/deploy-istio-ingress-v1.sh
 $ minishift-scripts/show-urls.sh
 ```
 
