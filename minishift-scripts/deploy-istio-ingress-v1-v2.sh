@@ -4,6 +4,11 @@ root_folder=$(cd $(dirname $0); cd ..; pwd)
 
 exec 3>&1
 
+function login() {
+  oc login -u developer -p developer
+  oc project cloud-native-starter
+}
+
 function _out() {
   echo "$(date +'%F %H:%M:%S') $@"
 }
@@ -19,4 +24,5 @@ function setup() {
   _out Done deploying Istio Ingress definitions
 }
 
+login
 setup

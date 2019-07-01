@@ -166,7 +166,7 @@ Create some load and view the traffic distribution in the Kiali console.
 
 ### Cleanup
 
-Run the following command to delete all cloud-native-starter components from Istio.
+Run the following command to delete all cloud-native-starter components from IKS:
 
 ```
 $ scripts/delete-all.sh

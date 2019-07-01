@@ -58,7 +58,7 @@ function setup() {
   _out --------------------------------------------------------   
   _out Deleting Istio Ingress
 
-  cd ${root_folder}/minishift-scripts
+  cd ${root_folder}/istio
   oc delete -f istio-ingress-gateway.yaml
   oc delete -f istio-ingress-service-web-api-v1-only.yaml
 

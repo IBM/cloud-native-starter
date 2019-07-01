@@ -36,7 +36,7 @@ function setup() {
   mvn package
 
   docker build -f Dockerfile -t web-api:2 .
-  docker tag web-api:1 $(minishift openshift registry)/cloud-native-starter/web-api:2
+  docker tag web-api:2 $(minishift openshift registry)/cloud-native-starter/web-api:2
   docker push $(minishift openshift registry)/cloud-native-starter/web-api:2  
 
   cd ${root_folder}/web-api-java-jee/deployment

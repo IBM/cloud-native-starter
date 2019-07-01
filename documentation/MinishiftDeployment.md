@@ -201,6 +201,32 @@ After running all (!) the scripts above, you will get a list of all URLs in the 
 
 ![Minishift show-urls](../images/minishift-urls.png)
 
+### 7. Istio Demo: Traffic Routing
+
+Run these scripts to deploy version 2 of the web-api and then apply Istio traffic routing to send 80% of the traffic to version 1, 20% to version 2:
+
+```
+$ minishift-scripts/deploy-web-api-java-jee-v2.sh
+$ minishift-scripts/deploy-istio-ingress-v1-v2.sh
+```
+
+Create some load and view the traffic distribution in the Kiali console.
+
+### 8. Cleanup
+
+Run the following command to delete all cloud-native-starter components from Minishift:
+
+$ minishift-scripts/delete-all.sh
+
+You can also delete single components:
+
+$ minishift-scripts/delete-articles-java-jee.sh
+$ minishift-scripts/delete-web-api-java-jee.sh
+$ minishift-scripts/delete-authors-nodejs.sh
+$ minishift-scripts/delete-web-app-vuejs.sh
+$ minishift-scripts/delete-istio-ingress.sh
+
+
 ## Example: Manually deploying the Authors service to Minishift
 
 This is an example how to manually deploy an application by building a Docker image, pushing it to the OpenShift internal Docker registry (within Minishift), and deploying an application using yaml files and kubectl/oc.
