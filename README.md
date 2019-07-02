@@ -128,9 +128,9 @@ $ scripts/delete-istio-ingress.sh
 
 ### Documentation
 
-The following [slides](https://github.com/nheidloff/cloud-native-starter/blob/master/documentation/FirstCloudNativeApplicationsJava.pdf) summarize this repo:
+The following [slides](https://github.com/nheidloff/cloud-native-starter/blob/master/documentation/OneHourTalk.pdf) summarize this repo:
 
-[![Slides](images/slides.png)](documentation/FirstCloudNativeApplicationsJava.pdf)
+[![Slides](images/slides.png)](documentation/OneHourTalk.pdf)
 
 Here is a series of blog entries about this project:
 
