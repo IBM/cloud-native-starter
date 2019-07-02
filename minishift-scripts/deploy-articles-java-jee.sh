@@ -47,6 +47,7 @@ function setup() {
   oc expose svc/articles
 
   _out Done deploying articles-java-jee
+  _out Wait until the pod has been started: "kubectl get pod --watch | grep articles"
   _out OpenAPI explorer: http://$(oc get route articles -o jsonpath={.spec.host})/openapi/ui/
   _out Sample request: curl -X GET "http://$(oc get route articles -o jsonpath={.spec.host})/articles/v1/getmultiple?amount=10" -H "accept: application/json"
 }

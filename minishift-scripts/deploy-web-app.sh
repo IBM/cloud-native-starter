@@ -5,7 +5,9 @@ root_folder=$(cd $(dirname $0); cd ..; pwd)
 exec 3>&1
 
 function login() {
+  eval $(minishift docker-env)
   oc login -u developer -p developer
+  docker login -u developer -p $(oc whoami -t) $(minishift openshift registry)
   oc project cloud-native-starter
 }
 
@@ -52,10 +54,8 @@ function setup() {
 
   _out Done deploying web-app
   _out The build will take a while. Check with: oc get pod
-  _out A pod web-app-xxxxxxxxx-yyyyy will be in status ImagePullBackOff until the build is complete
-  _out Access via http://$(oc get route web-app -o jsonpath={.spec.host})
-  _out This will display an Error: Network Error
-  _out Full function of the app requires Istio Ingress configuration. 
+  _out A pod web-app-xxxxxxxxx-yyyyy will be in status ImagePullBackOff or ErrImagePull until the build is complete
+  _out To run the web application you need to deploy the Istio Ingress configuration first
 
 }
 
