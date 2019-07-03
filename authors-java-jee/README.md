@@ -19,6 +19,7 @@ The microservice can be run in different environments:
 * [Minikube](#run-in-minikube)
 * [IBM Cloud Kubernetes Service](#run-in-ibm-cloud-kubernetes-service)
 * [Minishift](#run-in-minishift)
+* [Red Hat OpenShift on IBM Cloud](#run-in-red-hat-openshift-on-the-ibm-cloud)
 
 In all cases get the code first:
 
@@ -76,6 +77,8 @@ Invoke /getmultiple, for example 'http://192.168.99.100:31380/web-api/v1/getmult
 
 
 ## Run in IBM Cloud Kubernetes Service
+
+IBM provides a free [IBM Cloud Lite](https://ibm.biz/nheidloff) account including a free Kubernetes cluster after having updated to a billable account or having entered a promocode. Create a Kubernetes cluster following these [instructions](https://cloud.ibm.com/docs/containers?topic=containers-getting-started#getting-started).
 
 **Build and push image**
 
@@ -195,3 +198,32 @@ $ curl -X GET "http://authors-binary-build.$(minishift ip).nip.io/api/v1/getauth
 ### Deploy via S2I
 
 The article [Source to Image Builder for Open Liberty Apps on OpenShift](http://heidloff.net/article/source-to-image-builder-open-liberty-openshift/) describes how the authors service can be deployed without having to define a Dockerfile.
+
+
+## Run in Red Hat OpenShift on the IBM Cloud
+
+IBM provides a managed [Red Hat OpenShift](https://cloud.ibm.com/docs/containers?topic=containers-openshift_tutorial) offering on the IBM Cloud (beta). Get a free [IBM Cloud Lite](https://ibm.biz/nheidloff) account.
+
+After you've created a new cluster, open the OpenShift console. From the dropdown menu in the upper right of the page, click 'Copy Login Command'. Paste the copied command in your local terminal, for example 'oc login https://c1-e.us-east.containers.cloud.ibm.com:23967 --token=xxxxxx'.
+
+**Build and push image**
+
+```
+$ cd ${ROOT_FOLDER}/authors-java-jee
+$ oc new-project cloud-native-starter
+$ oc new-build --name authors --binary --strategy docker
+$ oc start-build authors --from-dir=.
+```
+
+**Deploy microservice**
+
+```
+$ cd ${ROOT_FOLDER}/authors-java-jee/deployment
+$ sed "s+<namespace>+cloud-native-starter+g" deployment-template.yaml > deployment-template.yaml.1
+$ sed "s+<ip:port>+docker-registry.default.svc:5000+g" deployment-template.yaml.1 > deployment-template.yaml.2
+$ sed "s+<tag>+latest+g" deployment-template.yaml.2 > deployment-os.yaml
+$ oc apply -f deployment-os.yaml
+$ oc apply -f service.yaml
+$ oc expose svc/authors
+$ curl -X GET "http://$(oc get route authors -o jsonpath={.spec.host})/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
+```
