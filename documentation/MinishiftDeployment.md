@@ -61,19 +61,7 @@ will add `oc` temporarily to the PATH, too. To make this permanent, add the oc p
 
 `oc` contains a copy of `kubectl`so there is no need to install it separately. See [here](https://docs.openshift.com/container-platform/3.10/cli_reference/differences_oc_kubectl.html) for details.
 
-### 4. OpenShift Dashboard or Console
-
-To access the graphical dashboard or console run:
-
-```
-$ minishift console
-```
-
-Login as user 'developer' with password 'developer'.
-
-Now logout from the dashboard and re-login as user 'admin' with password 'admin'. The 'admin' user has access to all projects including Istio once it is installed.
-
-### 5. Install Istio
+### 4. Install Istio
 
 We are installing Istio as a Minishift add-on. It uses a Kubernetes Operator and is based on [Maistra](https://maistra.io/). This results in an older Istio version (1.0.2) but is well integrated into Minishift.
 
@@ -103,7 +91,7 @@ Click on the route for Kiali, it looks like 'https://kiali-istio-system.192.168.
 
 
 
-### 6. Initial Deployment of Cloud Native Starter
+### 5. Initial Deployment of Cloud Native Starter
 
 To deploy (or redeploy) run these scripts:
 
@@ -122,7 +110,7 @@ After running all (!) the scripts above, you will get a list of all URLs in the 
 
 ![Minishift show-urls](../images/minishift-urls.png)
 
-### 7. Istio Demo: Traffic Routing
+### 67. Istio Demo: Traffic Routing
 
 Run these scripts to deploy version 2 of the web-api and then apply Istio traffic routing to send 80% of the traffic to version 1, 20% to version 2:
 
@@ -133,7 +121,7 @@ $ minishift-scripts/deploy-istio-ingress-v1-v2.sh
 
 Create some load and view the traffic distribution in the Kiali console.
 
-### 8. Cleanup
+### 7. Cleanup
 
 Run the following command to delete all cloud-native-starter components from Minishift:
 

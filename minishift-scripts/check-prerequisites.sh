@@ -15,7 +15,7 @@ function checkPrerequisites() {
     which sed &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} sed"
     docker -v &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} docker"
     unzip -version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} unzip"
-    kubectl version --client=true &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} kubectl"
+    #kubectl version --client=true &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} kubectl"
     minishift version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} minishift"
     oc version &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} oc"
     mvn -v &> /dev/null || MISSING_TOOLS="${MISSING_TOOLS} mvn"
