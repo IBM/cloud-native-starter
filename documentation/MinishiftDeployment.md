@@ -151,7 +151,7 @@ $ minishift-scripts/delete-istio-ingress.sh
 ```
 
 
-##Troubleshooting 
+## Troubleshooting 
 
 ### Elasticsearch and Jaeger pods not starting
 
