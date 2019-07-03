@@ -206,7 +206,7 @@ IBM provides a managed [Red Hat OpenShift](https://cloud.ibm.com/docs/containers
 
 After you've created a new cluster, open the OpenShift console. From the dropdown menu in the upper right of the page, click 'Copy Login Command'. Paste the copied command in your local terminal, for example 'oc login https://c1-e.us-east.containers.cloud.ibm.com:23967 --token=xxxxxx'.
 
-**Build and push image**
+**Push code and build image**
 
 ```
 $ cd ${ROOT_FOLDER}/authors-java-jee
@@ -225,5 +225,6 @@ $ sed "s+<tag>+latest+g" deployment-template.yaml.2 > deployment-os.yaml
 $ oc apply -f deployment-os.yaml
 $ oc apply -f service.yaml
 $ oc expose svc/authors
+$ open http://$(oc get route authors -o jsonpath={.spec.host})/openapi/ui/
 $ curl -X GET "http://$(oc get route authors -o jsonpath={.spec.host})/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
 ```
