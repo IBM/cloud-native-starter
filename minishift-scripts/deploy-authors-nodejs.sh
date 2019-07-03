@@ -42,7 +42,7 @@ function setup() {
   oc apply -f istio.yaml
 
   _out Done deploying authors-nodejs
-  _out Wait until the pod has been started: "kubectl get pod --watch | grep authors"
+  _out Wait until the pod has been started: "oc get pod --watch | grep authors"
   _out Sample request: curl http://$(oc get route authors -o jsonpath={.spec.host})/api/v1/getauthor?name=Harald%20Uebele
 }
 

@@ -48,6 +48,7 @@ function setup() {
   oc expose svc/web-api
 
   _out Done deploying web-api-java-jee-v2
+  _out Wait until the v2 pod has been started: "oc get pod --watch | grep web-api"
   _out OpenAPI explorer: http://$(oc get route web-api -o jsonpath={.spec.host})/openapi/ui/
   _out Sample request: curl "http://$(oc get route web-api -o jsonpath={.spec.host})/web-api/v1/getmultiple"
 

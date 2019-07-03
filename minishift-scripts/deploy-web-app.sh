@@ -53,9 +53,12 @@ function setup() {
   oc expose svc/web-app
 
   _out Done deploying web-app
-  _out The build will take a while. Check with: oc get pod
-  _out A pod web-app-xxxxxxxxx-yyyyy will be in status ImagePullBackOff or ErrImagePull until the build is complete
-  _out To run the web application you need to deploy the Istio Ingress configuration first
+  _out The build will take a while. Check with "oc get pod --watch | grep web-app"
+  _out There will be 2 pods.
+  _out The pod web-app-1-build must reach status Completed first.
+  _out Until then the pod web-app-xxxxxxxxx-yyyyy will be in status ImagePullBackOff or ErrImagePull.
+  _out Once it is Ready, access via http://$(oc get route web-app -o jsonpath={.spec.host})
+  _out But it will NOT display content until you deploy the Istio Ingress configuration next for full functionality!
 
 }
 

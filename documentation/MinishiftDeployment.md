@@ -95,7 +95,7 @@ If installation finished successful it should look like this:
 
 ![Istio is installed](../images/minishift-istio.png)
 
-There were a couple of instructions displayed at the end of the cluster setup. Ignore these instructions. The `minishift-scripts/setup-project.sh` script in the next step will setup every correctly. It will also disable mTLS for our project which is the default for Maistra/Istio on Minishift but currently not supported by Cloud Native Starter.
+There were a couple of instructions displayed at the end of the cluster setup. Ignore these instructions. The `minishift-scripts/setup-project.sh` script in the next step will setup everything correctly. It will also disable mTLS for our project which is the default for Maistra/Istio on Minishift but currently not supported by Cloud Native Starter.
 
 Now open the OpenShift dashboard (`minishift console`), login as admin/admin, open the 'istio-system' project (you may need to click on "View All" to see it), then search for application "Kiali".
 
