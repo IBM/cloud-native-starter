@@ -90,7 +90,6 @@ Now open the OpenShift dashboard (`minishift console`), login with username 'adm
 Click on the route for Kiali, it looks like 'https://kiali-istio-system.192.168.99.100.nip.io'. This will open the Kiali console. Log into Kiali with username 'admin' and password 'admin'.
 
 
-
 ### 5. Initial Deployment of Cloud Native Starter
 
 To deploy (or redeploy) run these scripts:
