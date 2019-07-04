@@ -18,12 +18,10 @@ function setup() {
   
   cd ${root_folder}/web-app-vuejs
   oc delete all -l app=web-app --ignore-not-found
-  oc delete all -l app=web-app --ignore-not-found
-  oc delete -f deployment/istio.yaml --ignore-not-found
-  oc delete bc web-app --ignore-not-found
-  oc delete build web-app-1 --ignore-not-found
+  oc delete pod -l app=web-app --ignore-not-found
   oc delete pod web-app-1-build --ignore-not-found
   oc delete istag web-app:latest --ignore-not-found
+  oc delete -f deployment/istio.yaml --ignore-not-found
 
   _out Done Deleting web-app
 }

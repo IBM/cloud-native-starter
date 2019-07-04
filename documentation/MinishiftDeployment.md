@@ -19,7 +19,7 @@ $ minishift version
 
 These instructions are based on Kamesh Sampath's blog ["3 steps to your Istio Installation on Kubernetes"](https://medium.com/@kamesh_sampath/3-steps-to-your-istio-installation-on-openshift-58e3617828b0).
 
-You can create the Minishift cluster via script or <a href="SetupMinishiftManually.md" target="_blank">manually</a>. This script will setup a Minishift cluster with 4 CPUs and 8 GB RAM:
+You can create the Minishift cluster via script or <a href="SetupMinishiftManually.md" target="_blank">manually</a>. This script will setup a Minishift cluster with 4 CPUs and 8 GB RAM, if you have more resources you can modify the script or use the manual instructions that are linked above:
 
 ```
 $ minishift-scripts/setup-minishift.sh
@@ -83,11 +83,11 @@ If installation finished successful it should look like this:
 
 ![Istio is installed](../images/minishift-istio.png)
 
-There were a couple of instructions displayed at the end of the cluster setup. Ignore these instructions. The `minishift-scripts/setup-project.sh` script in the next step will setup everything correctly. It will also disable mTLS for our project which is the default for Maistra/Istio on Minishift but currently not supported by Cloud Native Starter.
+There were a couple of instructions displayed at the end of the cluster setup. Ignore these instructions. The `minishift-scripts/setup-project.sh` script in the next step will setup everything correctly. It will also disable mTLS for our project which is the default for Maistra/Istio on Minishift but currently not used in Cloud Native Starter.
 
-Now open the OpenShift dashboard (`minishift console`), login as admin/admin, open the 'istio-system' project (you may need to click on "View All" to see it), then search for application "Kiali".
+Now open the OpenShift dashboard (`minishift console`), login with username 'admin' and password 'admin', open the 'istio-system' project (you may need to click on "View All" to see it), then search for application "Kiali".
 
-Click on the route for Kiali, it looks like 'https://kiali-istio-system.192.168.99.100.nip.io'. This will open the Kiali console. Log into Kiali with user 'admin' and password 'admin'.
+Click on the route for Kiali, it looks like 'https://kiali-istio-system.192.168.99.100.nip.io'. This will open the Kiali console. Log into Kiali with username 'admin' and password 'admin'.
 
 
 

@@ -33,16 +33,14 @@ function setup() {
   
   cd ${root_folder}/web-app-vuejs
   oc delete all -l app=web-app --ignore-not-found
-  oc delete all -l app=web-app --ignore-not-found
-  oc delete -f deployment/istio.yaml --ignore-not-found
-  oc delete bc web-app --ignore-not-found
-  oc delete build web-app-1 --ignore-not-found
+  oc delete pod -l app=web-app --ignore-not-found
   oc delete pod web-app-1-build --ignore-not-found
   oc delete istag web-app:latest --ignore-not-found
+  oc delete -f deployment/istio.yaml --ignore-not-found
 
   configureVUEminikubeIP
 
-  oc new-build --name web-app --binary --strategy docker
+  oc new-build --name web-app --binary --strategy docker -l app=web-app
   oc start-build web-app --from-dir=.
 
   cd ${root_folder}/web-app-vuejs/deployment
@@ -57,7 +55,7 @@ function setup() {
   _out There will be 2 pods.
   _out The pod web-app-1-build must reach status Completed first.
   _out Until then the pod web-app-xxxxxxxxx-yyyyy will be in status ImagePullBackOff or ErrImagePull.
-  _out Once it is Ready, access via http://$(oc get route web-app -o jsonpath={.spec.host})
+  _out Once it is Running, access via http://$(oc get route web-app -o jsonpath={.spec.host})
   _out But it will NOT display content until you deploy the Istio Ingress configuration next for full functionality!
 
 }
