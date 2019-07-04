@@ -77,7 +77,7 @@ Note: If you decide to name your cluster differently in step 6. above, please al
 
 ### 3. oc
 
-The OpenShift CLI tool can be found [here](https://www.okd.io/download.html). The OKD version works with OpenShift, too. The CLI Reference link on the Download page leads you to instruction on how to install and use it.
+The OpenShift CLI tool can be found [here](https://www.okd.io/download.html). The OKD version works with OpenShift, too. The CLI Reference link on the Download page leads you to instructions on how to install and use it.
 
 
 

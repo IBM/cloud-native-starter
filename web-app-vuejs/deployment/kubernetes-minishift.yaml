@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: web-app
-        image: 172.30.1.1:5000/cloud-native-starter/web-app:latest
+        image: Running this command requires a running 'istio' VM, but no VM is running./cloud-native-starter/web-app:latest
         ports:
         - containerPort: 80
       restartPolicy: Always
