@@ -79,7 +79,17 @@ Note: If you decide to name your cluster differently in step 6. above, please al
 
 The OpenShift CLI tool can be found [here](https://www.okd.io/download.html). The OKD version works with OpenShift, too. The CLI Reference link on the Download page leads you to instructions on how to install and use it.
 
+### 4. Deploy Cloud Native Starter
 
+For the time being (until Istio support has been finalized) we are deploying the sample without Istio. To deploy the sample run the following commands:
+
+```
+$ openshift-scripts/
+$ openshift-scripts/setup-project.sh
+$ openshift-scripts/deploy-articles-java-jee.sh
+$ 
+
+```
 
 
 
