@@ -61,9 +61,11 @@ Create an OS Cluster in the IBM Cloud Dashboard
 1. Logon to the IBM Cloud
 2. From the IBM Cloud Menu (upper left corner) select "Kubernetes"
 3. Click "Create cluster"
+![OpenShift Create Cluster 1](../images/openshift-create-cluster1.png)
 4. Select plan: "Standard"
 5. Cluster type and version: "OpenShift"
 6. Cluster name: "cloud-native"
+![OpenShift Create Cluster 2](../images/openshift-create-cluster.png)
 7. Resource group: "default", Geography "North America"
 8. Availability: "Single zone"
 9. Worker zone: select any of the available zones, e.g. "Washington DC 06"
@@ -75,6 +77,8 @@ Click on "Create Cluster", this will take approximately 15 to 20 minutes.
 
 Note: If you decide to name your cluster differently in step 6. above, please also change the value of CLUSTER_NAME in file local.env!
 
+Once your cluster is started, you can open the OpenShift Console by clicking on the "OpenShift web console" button within your clusters view on the IBM Cloud Dashboard.
+
 ### 3. oc
 
 The OpenShift CLI tool can be found [here](https://www.okd.io/download.html). The OKD version works with OpenShift, too. The CLI Reference link on the Download page leads you to instructions on how to install and use it.
@@ -84,7 +88,7 @@ The OpenShift CLI tool can be found [here](https://www.okd.io/download.html). Th
 For the time being (until Istio support has been finalized) we are deploying the sample without Istio. To deploy the sample run the following commands:
 
 ```
-$ openshift-scripts/
+$ openshift-scripts/check-prerequisites.sh
 $ openshift-scripts/setup-project.sh
 $ openshift-scripts/deploy-articles-java-jee.sh
 $ 
