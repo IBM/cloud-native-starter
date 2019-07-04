@@ -1,6 +1,6 @@
 ## Deploy Cloud Native Starter on OpenShift on IBM Cloud
 
-This is no longer free of charge. Setting up an OpenSHift Cluster on the IBM Cloud requires a paid IBM Cloud account and will generate costs even during the OpenShift beta. During the beta there will be no licence fees for OpenShift but you still need to pay for the hardware of the cluster!
+While the rest of this project is based on Open Source and mostly free offerings this part is no longer free of charge. Setting up an OpenShift Cluster on the IBM Cloud requires a paid IBM Cloud account and will generate costs even during the OpenShift beta. During the beta there will be no licence fees for OpenShift but you still need to pay for the hardware of the cluster!
 When you create the cluster, the "Order summary" will estimate the cost per month. In this setup we use virtual shared hardware which is charged by the hour. Your incurring costs will therefore depend on how long you run the cluster.
 
 **Get the code**
