@@ -3,6 +3,8 @@
 While the rest of this project is based on Open Source and mostly free offerings this part is no longer free of charge. Setting up an OpenShift Cluster on the IBM Cloud requires a paid IBM Cloud account and will generate costs even during the OpenShift beta. During the beta there will be no licence fees for OpenShift but you still need to pay for the hardware of the cluster!
 When you create the cluster, the "Order summary" will estimate the cost per month. In this setup we use virtual shared hardware which is charged by the hour. Your incurring costs will therefore depend on how long you run the cluster.
 
+### 1. Preparation 
+
 **Get the code**
 
 ```
@@ -48,7 +50,7 @@ CLUSTER_NAME=cloud-native
 REGISTRY_NAMESPACE=cloud-native
 ```
 
-### 1. Setup OpenShift on IBM Cloud
+### 2. Setup OpenShift on IBM Cloud
 
 Our normal approach throughout this project is to script as much as possible. 
 
@@ -56,20 +58,26 @@ We could script the OpenShift cluster creation, too, but have decided against be
 
 Create an OS Cluster in the IBM Cloud Dashboard
 
-  a) Logon to the IBM Cloud
-  b) From the IBM Cloud Menu (upper left corner) select "Kubernetes"
-  c) Click "Create cluster"
-  d) Select plan: "Standard"
-  e) Cluster type and version: "OpenShift"
-  f) Cluster name: "cloud-native-openshift"
-  g) Resource group: "default", Geography "North America"
-  h) Availability: "Single zone"
-  i) Worker zone: select any of the available zones, e.g. "Washington DC 06"
-  j) Master service endpoint: "Public endpint only" 
-  k) Default worker pool/Flavor: "2 Cores 4 GB RAM, Virtual Shared, u3c.2x4"
-  l) Worker nodes: 2
+1. Logon to the IBM Cloud
+2. From the IBM Cloud Menu (upper left corner) select "Kubernetes"
+3. Click "Create cluster"
+4. Select plan: "Standard"
+5. Cluster type and version: "OpenShift"
+6. Cluster name: "cloud-native"
+7. Resource group: "default", Geography "North America"
+8. Availability: "Single zone"
+9. Worker zone: select any of the available zones, e.g. "Washington DC 06"
+10. Master service endpoint: "Public endpint only" 
+11. Default worker pool/Flavor: "2 Cores 4 GB RAM, Virtual Shared, u3c.2x4"
+12. Worker nodes: 2
 
 Click on "Create Cluster", this will take approximately 15 to 20 minutes.
+
+Note: If you decide to name your cluster differently in step 6. above, please also change the value of CLUSTER_NAME in file local.env!
+
+### 3. oc
+
+The OpenShift CLI tool can be found [here](https://www.okd.io/download.html). The OKD version works with OpenShift, too. The CLI Reference link on the Download page leads you to instruction on how to install and use it.
 
 
 
