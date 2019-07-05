@@ -99,7 +99,7 @@ $ openshift-scripts/setup-project.sh
 $ openshift-scripts/deploy-articles-java-jee.sh
 $ openshift-scripts/deploy-authors-nodejs.sh
 $ openshift-scripts/deploy-web-api-java-jee.sh
-$ openshift-scripts/
+$ openshift-scripts/deploy-web-app.sh
 
 ```
 
@@ -121,7 +121,7 @@ You can also delete single components:
 $ openshift-scripts/delete-articles-java-jee.sh
 $ openshift-scripts/delete-authors-nodejs.sh
 $ openshift-scripts/delete-web-api-java-jee.sh
-$ 
+$ openshift-scripts/delete-web-app.sh
 
 ```
 
