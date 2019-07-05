@@ -22,7 +22,6 @@ function configureVUEminikubeIP(){
   istioingress=istio-ingressgateway-istio-system.$(minishift ip).nip.io
 
   rm "store.js"
-  cp "store.js.template" "store.js"
   sed "s/endpoint-api-ip:31380/$istioingress/g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs

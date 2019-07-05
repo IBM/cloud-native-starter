@@ -38,11 +38,10 @@ function configureVUEminikubeIP(){
   cd ${root_folder}/web-app-vuejs/src
   
   _out configure API endpoint in web-app
-  endpoint=http://$(oc get route web-api -o jsonpath={.spec.host})
-
+  endpoint=$(oc get route web-api -o jsonpath={.spec.host})
+  
   rm "store.js"
-  cp "store.js.template" "store.js"
-  sed "s/endpoint-api-ip:31380/$endpoint/g" store.js.template > store.js
+  sed "s+endpoint-api-ip:31380+$endpoint+g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs
 }

@@ -35,15 +35,15 @@ function login() {
 }
 
 function setup() {
-  _out Deleting web-app
+  _out Deleting web-app-vuejs
 
-  cd ${root_folder}/web-app
+  cd ${root_folder}/web-app-vuejs
 
   # Delete previously created objects
   oc delete all -l app=web-app --ignore-not-found
   oc delete pod web-app-1-build --ignore-not-found
   
-  _out Done Deleting web-app
+  _out Done Deleting web-app-vuejs
 } 
 
 openshift_url

@@ -32,6 +32,9 @@ fi
 function setup() {
    oc login -u apikey -p $IBMCLOUD_API_KEY --server=$OPENSHIFT_URL
    oc new-project cloud-native-starter
+   oc project cloud-native-starter
+   # "anyuid"
+   oc adm policy add-scc-to-user anyuid -z default
 } 
 
 openshift_url
