@@ -26,6 +26,7 @@ function setup() {
   
 
   # Create Docker Image and push to registry
+  sed -e "s|<URL>|local|g" -e "s|<DB>|local|g" config.json.template > config.json
   eval $(minishift docker-env)
   docker login -u admin -p $(oc whoami -t) $(minishift openshift registry)
   imagestream=$(minishift openshift registry)/cloud-native-starter/authors:1
@@ -36,7 +37,6 @@ function setup() {
   # Deploy
   cd ${root_folder}/authors-nodejs/deployment
   sed -e "s|<URL>|local|g" -e "s|<DB>|local|g" -e "s|authors:1|$imagestream|g" deployment.yaml.template > deployment-minishift.yaml
-  sed -e "s|<URL>|local|g" -e "s|<DB>|local|g" ../config.json.template > ../config.json
   oc apply -f deployment-minishift.yaml
   oc expose svc/authors
   oc apply -f istio.yaml

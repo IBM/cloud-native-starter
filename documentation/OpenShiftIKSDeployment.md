@@ -83,7 +83,13 @@ Once your cluster is started, you can open the OpenShift Console by clicking on 
 
 The OpenShift CLI tool can be found [here](https://www.okd.io/download.html). The OKD version works with OpenShift, too. The CLI Reference link on the Download page leads you to instructions on how to install and use it.
 
-### 4. Deploy Cloud Native Starter
+### 4. Istio
+
+Istio is currently not supported on OpenShift ("As the initialization of the Envoy sidecar still requires privileged access during the Technology Preview, any OpenShift cluster with Istio installed may not receive production support from Red Hat."). There is a Technology Preview but we are still missing an important element (admission-webhooks) on the OpenShift Master Nodes on IBM Kubernetes Service.
+
+For the time being we will deploy the Cloud Native Starter without Istio. Once admission-webhooks are enabled, we will start testing the Technology Preview and if we are successful, update our OpenShift setup scripts and documentation.
+
+### 5. Deploy Cloud Native Starter
 
 For the time being (until Istio support has been finalized) we are deploying the sample without Istio. To deploy the sample run the following commands:
 
@@ -91,6 +97,30 @@ For the time being (until Istio support has been finalized) we are deploying the
 $ openshift-scripts/check-prerequisites.sh
 $ openshift-scripts/setup-project.sh
 $ openshift-scripts/deploy-articles-java-jee.sh
+$ openshift-scripts/deploy-authors-nodejs.sh
+$ openshift-scripts/deploy-web-api-java-jee.sh
+$ openshift-scripts/
+
+```
+
+You can use this script to login to your OpenShift cluster on IBM Cloud:
+
+```
+$ openshift-scripts/oc-login.sh
+```
+
+### 7. Cleanup
+
+Run the following command to delete all cloud-native-starter components from OpenShift on IBM Cloud:
+
+$ oc delete project cloud-native-starter
+
+You can also delete single components:
+
+```
+$ openshift-scripts/delete-articles-java-jee.sh
+$ openshift-scripts/delete-authors-nodejs.sh
+$ openshift-scripts/delete-web-api-java-jee.sh
 $ 
 
 ```
