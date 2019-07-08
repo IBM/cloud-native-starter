@@ -1,7 +1,6 @@
 ## Deploy Cloud Native Starter on OpenShift on IBM Cloud
 
-While the rest of this project is based on Open Source and mostly free offerings this part is no longer free of charge. Setting up an OpenShift Cluster on the IBM Cloud requires a paid IBM Cloud account and will generate costs even during the OpenShift beta. During the beta there will be no licence fees for OpenShift but you still need to pay for the hardware of the cluster!
-When you create the cluster, the "Order summary" will estimate the cost per month. In this setup we use virtual shared hardware which is charged by the hour. Your incurring costs will therefore depend on how long you run the cluster.
+While the rest of this project is based on open source and mostly free offerings this part is no longer free of charge. Setting up an OpenShift cluster on the IBM Cloud requires a paid IBM Cloud account and will generate costs even during the OpenShift beta. During the beta there will be no licence fees for OpenShift, but you still need to pay for the hardware of the cluster. When you create the cluster, the "Order summary" will estimate the cost per month. In this setup we use virtual shared hardware which is charged by the hour. Your incurring costs will therefore depend on how long you run the cluster.
 
 ### 1. Preparation 
 
@@ -10,6 +9,7 @@ When you create the cluster, the "Order summary" will estimate the cost per mont
 ```
 $ git clone https://github.com/nheidloff/cloud-native-starter.git
 $ cd cloud-native-starter
+$ ROOT_FOLDER=$(pwd)
 ```
 
 **Prerequisites**
@@ -28,6 +28,8 @@ $ ibm-scripts/IKS-check-prerequisites.sh
 
 **Create an API Key**
 
+Note that API keys are only valid for one data center. Right now OpenShift can be used in North America ('us-east') and Europe ('eu-gb').
+
 ```
 $ ibmcloud login
 $ ibmcloud iam api-key-create cloud-native-starter \
@@ -39,15 +41,14 @@ $ cp template.local.env local.env
 
 From the output of `cat cloud-native-starter.json` copy the apikey without " " into IBMCLOUD_API_KEY= in file local.env.
 
-The file local.env has preset values for region and cluster name. You can change them of course if you know what you are doing.
+The file local.env has values for region and cluster name. Define your cluster name and region here.
 
 Example local.env:
 
 ```
 IBMCLOUD_API_KEY=AbcD3fg7hIj65klMn9derHHb9zge5
-IBM_CLOUD_REGION=us-south
+IBM_CLOUD_REGION=us-east
 CLUSTER_NAME=cloud-native
-REGISTRY_NAMESPACE=cloud-native
 ```
 
 ### 2. Setup OpenShift on IBM Cloud

@@ -25,7 +25,7 @@ if [ .$OPENSHIFT_URL == . ]; then
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   url=$(ibmcloud ks cluster-get --cluster $CLUSTER_NAME |  awk '/^Master URL/ {print $3}')
   _out OpenShift Master URL $url 
-  echo -e "\nOPENSHIFT_URL=$url\n" >> $CFG_FILE
+  echo "\nOPENSHIFT_URL=$url\n" >> $CFG_FILE
 fi
 }
 
