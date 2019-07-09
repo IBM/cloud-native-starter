@@ -22,10 +22,13 @@ function templates() {
   if [ -f "$cfgfile" ]
   then
     source $cfgfile
+  else
+    AUTHORS_DB=local
+  
   fi
-
   _out DB is $AUTHORS_DB
   _out Cloudant URL is $CLOUDANT_URL
+  
   # '##*@' removes everything up to and including the @ sign
   CLOUDANTHOST=${CLOUDANT_URL##*@}
   cd ${root_folder}/authors-nodejs/deployment
