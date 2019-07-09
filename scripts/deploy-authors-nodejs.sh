@@ -21,7 +21,6 @@ function templates() {
   cfgfile=${root_folder}/local.env
   if [ -f "$cfgfile" ]
   then
-    _out jo
     source $cfgfile
   fi
 
