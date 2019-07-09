@@ -19,7 +19,11 @@ function templates() {
   #fi   
   
   cfgfile=${root_folder}/local.env
-  source $cfgfile
+  if [ -f "$cfgfile" ]
+  then
+    _out jo
+    source $cfgfile
+  fi
 
   _out DB is $AUTHORS_DB
   _out Cloudant URL is $CLOUDANT_URL
@@ -64,4 +68,4 @@ function setup() {
 
 _out Deploying authors-nodejs
 templates
-setup
+#setup
