@@ -67,4 +67,4 @@ function setup() {
 
 _out Deploying authors-nodejs
 templates
-#setup
+setup
