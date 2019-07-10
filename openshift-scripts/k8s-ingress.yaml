@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: cloudnative-ingress
+ namespace: cloud-native-starter
+spec:
+ rules:
+ - host: cloudnative.harald-uebele-openshift2.us-east.containers.appdomain.cloud
+   http:
+     paths:
+     - path: /
+       backend:
+         serviceName: web-app
+         servicePort: 80

@@ -71,7 +71,7 @@ Create an OS Cluster in the IBM Cloud Dashboard
 8. Availability: "Single zone"
 9. Worker zone: select any of the available zones, e.g. "Washington DC 06"
 10. Master service endpoint: "Public endpint only" 
-11. Default worker pool/Flavor: "2 Cores 4 GB RAM, Virtual Shared, u3c.2x4"
+11. Default worker pool/Flavor: "4 Cores 16 GB RAM, Virtual Shared, b3c.4x16"
 12. Worker nodes: 2
 
 Click on "Create Cluster", this will take approximately 15 to 20 minutes.

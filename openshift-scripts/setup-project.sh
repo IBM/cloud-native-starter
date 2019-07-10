@@ -26,6 +26,9 @@ if [ .$OPENSHIFT_URL == . ]; then
   url=$(ibmcloud ks cluster-get --cluster $CLUSTER_NAME |  awk '/^Master URL/ {print $3}')
   _out OpenShift Master URL $url 
   echo  "OPENSHIFT_URL=$url" >> $CFG_FILE
+  ingress=$(ibmcloud ks cluster-get --cluster $CLUSTER_NAME | awk '/^Ingress Subdomain/ {print $3}')
+  _out IBM Cloud Ingress subdomain $ingress
+  echo "INGRESS=$ingress" >> $CFG_FILE
 fi
 }
 
