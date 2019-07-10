@@ -1,4 +1,4 @@
-## Cloud Native Starter for Java/Jakarta EE based Microservices on Kubernetes and Istio
+## Cloud Native Starter for Java EE based Microservices on Kubernetes and Istio
 
 This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. 
 
@@ -7,28 +7,6 @@ The project focusses on how to build microservices with Java EE and the open sou
 The microservices can easily be deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/), [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service), [Minishift](https://docs.okd.io/latest/minishift/index.html) or [OpenShift on the IBM Cloud](https://cloud.ibm.com/docs/containers?topic=containers-openshift_tutorial).
 
 The project showcases the following functionality:
-
-* REST APIs implementations incl. documentation
-* REST API invocations
-* Traffic management
-* Resiliency via fallbacks and circuit breakers
-* Authentication and authorization
-* Distributed tracing and logging
-* Monitoring and metrics
-* Persistence for Java microservices via JPA
-
-This diagram shows the key components:
-
-<kbd><img src="images/architecture-2.png" /></kbd>
-
-The next screenshot shows the web application. More screenshots are in the [images](images) folder.
-
-<kbd><img src="images/web-app.png" /></kbd>
-
-
-### Demos
-
-This project demonstrates several Java EE and Istio key functionality.
 
 * [Containerized Java EE Microservices](documentation/DemoJavaImage.md)
 * [Exposing REST APIs](documentation/DemoExposeRESTAPIs.md)
@@ -41,6 +19,14 @@ This project demonstrates several Java EE and Istio key functionality.
 * [Configuration](documentation/DemoConfiguration.md)
 * [Distributed Logging and Monitoring](documentation/DemoDistributedLoggingMonitoring.md)
 * [Persistence with Java Persistence API (JPA)](documentation/DemoJPA.md)
+
+This diagram shows the key components:
+
+<kbd><img src="images/architecture-2.png" /></kbd>
+
+The next screenshot shows the web application. More screenshots are in the [images](images) folder.
+
+<kbd><img src="images/web-app.png" /></kbd>
 
 
 ### Setup
@@ -167,7 +153,7 @@ The following [slides](https://github.com/nheidloff/cloud-native-starter/blob/ma
 
 * [Setting up a cloud-native Sample App on Minishift in an Hour](http://heidloff.net/article/setup-cloud-native-sample-app-minishift/)
 * [Deploying the Cloud Native Starter microservices on Minishift](https://haralduebele.blog/2019/07/03/deploying-the-cloud-native-starter-microservices-on-minishift/)
-* [Setting up a cloud-native Sample App on OpenShift on the IBM Cloud](https://github.com/IBM/cloud-native-starter/blob/master/documentation/OpenShiftIKSDeployment.md)
+* [Deploying the Cloud Native Starter example on Red Hat OpenShift on the IBM Cloud](https://haralduebele.blog/2019/07/10/deploying-the-cloud-native-starter-example-on-red-hat-openshift-on-the-ibm-cloud/)
 * [Source to Image Builder for Open Liberty Apps on OpenShift](http://heidloff.net/article/source-to-image-builder-open-liberty-openshift/)
 * [How to develop Open Liberty Microservices on OpenShift](http://heidloff.net/article/how-to-develop-open-liberty-microservices-openshift/)
 * [Deploying Open Liberty Microservices to OpenShift](http://heidloff.net/article/deploying-open-liberty-microservices-openshift/)
