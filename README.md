@@ -4,7 +4,7 @@ This project contains sample code that demonstrates how to get started with clou
 
 The project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
 
-The microservices can be easily deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/), [Minishift](https://docs.okd.io/latest/minishift/index.html) (single-node OpenShift cluster inside a VM), or the [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service).
+The microservices can easily be deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/), [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service), [Minishift](https://docs.okd.io/latest/minishift/index.html) or [OpenShift on the IBM Cloud](https://cloud.ibm.com/docs/containers?topic=containers-openshift_tutorial).
 
 The project showcases the following functionality:
 
@@ -47,7 +47,7 @@ This project demonstrates several Java EE and Istio key functionality.
 
 The sample application can be run in four different environments:
 
-1) **Minikube** (locally): See instructions below.
+1) **Minikube** (locally): See instructions below
 2) **IBM Cloud Kubernetes Service** - see [instructions](documentation/IKSDeployment.md)
 3) **Minishift** (locally) - see [instructions](documentation/MinishiftDeployment.md)
 4) **OpenShift on the IBM Cloud** - see [instructions](documentation/OpenShiftIKSDeployment.md)
@@ -127,28 +127,28 @@ $ scripts/delete-istio-ingress.sh
 * [Thomas Südbröcker](https://twitter.com/tsuedbroecker)
 
 
-### Documentation
+### Documentation - Overview
 
 The following [slides](https://github.com/nheidloff/cloud-native-starter/blob/master/documentation/OneHourTalk.pdf) summarize this repo:
 
 [![Slides](images/slides.png)](documentation/OneHourTalk.pdf)
 
-Here is a series of blog entries about this project:
-
 * [Project Description and Design Principles](http://heidloff.net/article/example-java-app-cloud-kubernetes)
 * Presentation at We Are Developers (30 mins): [How to develop your first cloud-native Applications with Java](http://heidloff.net/recording-of-talk-how-to-develop-your-first-cloud-native-applications-with-java/)
-* Slides: [How to develop your first cloud-native Applications with Java](https://github.com/nheidloff/cloud-native-starter/blob/master/documentation/FirstCloudNativeApplicationsJava.pdf) and four [recorded demos](https://www.youtube.com/watch?v=IVd8pxDP8p8)
-* [Setup of a Local Kubernetes and Istio Dev Environment](http://heidloff.net/article/setup-local-development-kubernetes-istio)
-* [Debugging Microservices running in Kubernetes](http://heidloff.net/article/debugging-microservices-kubernetes)
+* Recording of Jakarta Tech Talk (45 mins): [How to develop your first cloud-native Applications with Java](http://heidloff.net/article/recording-jakarta-tech-talk-how-to-develop-microservices/)
+* [Workshop](https://github.com/IBM/cloud-native-starter/tree/master/workshop) (three hours)
+
+
+### Documentation - Kubernetes and MicroProfile
+
+* [How to build and run a Hello World Java Microservice](http://heidloff.net/article/how-to-build-and-run-a-hello-world-java-microservice/)
 * [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
 * [Developing resilient Microservices with Istio and MicroProfile](http://heidloff.net/article/resiliency-microservice-microprofile-java-istio)
-* [Using Quarkus to run Java Apps on Kubernetes](http://heidloff.net/article/quarkus-javaee-microprofile-kubernetes)
 * [Managing Microservices Traffic with Istio](https://haralduebele.blog/2019/03/11/managing-microservices-traffic-with-istio/)
 * [Web Application to demo Traffic Management with Istio](http://heidloff.net/article/sample-app-manage-microservices-traffic-istio)
 * [Implementing and documenting REST APIs with JavaEE](http://heidloff.net/article/rest-apis-microprofile-javaee-jaxrs)
 * [Invoking REST APIs from Java Microservices](http://heidloff.net/invoke-rest-apis-java-microprofile-microservice)
 * [Prometheus Metrics for MicroProfile Microservices in Istio](http://heidloff.net/article/prometheus-metrics-microprofile-microservices-istio/)
-* [Moving from Minikube to IBM Cloud Kubernetes Service](https://haralduebele.blog/2019/04/04/moving-from-minikube-to-ibm-cloud-kubernetes-service/)
 * [Distributed logging with LogDNA and Monitoring with Sysdig](https://haralduebele.blog/2019/04/08/whats-going-on-in-my-cluster/)
 * [Implementing Health Checks with MicroProfile and Istio](http://heidloff.net/article/implementing-health-checks-microprofile-istio)
 * [Configuring Microservices with MicroProfile and Kubernetes](http://heidloff.net/article/configuring-java-microservices-microprofile-kubernetes/)
@@ -156,17 +156,19 @@ Here is a series of blog entries about this project:
 * [Authorization in Cloud-Native Applications via OpenID and Istio](http://heidloff.net/article/authentication-authorization-openid-connect-istio)
 * [Authorization in Microservices with MicroProfile](http://heidloff.net/article/authorization-microservices-java-microprofile/)
 * [Persistence for Java Microservices in Kubernetes via JPA](http://heidloff.net/article/persistence-java-microservices-kubernetes-jpa/)
-* [How to build and run a Hello World Java Microservice](http://heidloff.net/article/how-to-build-and-run-a-hello-world-java-microservice/)
-* [Source to Image Builder for Open Liberty Apps on OpenShift](http://heidloff.net/article/source-to-image-builder-open-liberty-openshift/)
+* [Setup of a Local Kubernetes and Istio Dev Environment](http://heidloff.net/article/setup-local-development-kubernetes-istio)
+* [Moving from Minikube to IBM Cloud Kubernetes Service](https://haralduebele.blog/2019/04/04/moving-from-minikube-to-ibm-cloud-kubernetes-service/)
+* [Recorded demos: Traffic management, resiliency, authorization, logging](http://heidloff.net/article/how-to-develop-your-first-cloud-native-applications-with-java/)
+* [Using Quarkus to run Java Apps on Kubernetes](http://heidloff.net/article/quarkus-javaee-microprofile-kubernetes)
+* [Debugging Microservices running in Kubernetes](http://heidloff.net/article/debugging-microservices-kubernetes)
+
+
+### Documentation - OpenShift
+
 * [Setting up a cloud-native Sample App on Minishift in an Hour](http://heidloff.net/article/setup-cloud-native-sample-app-minishift/)
+* [Deploying the Cloud Native Starter microservices on Minishift](https://haralduebele.blog/2019/07/03/deploying-the-cloud-native-starter-microservices-on-minishift/)
+* [Setting up a cloud-native Sample App on OpenShift on the IBM Cloud](https://github.com/IBM/cloud-native-starter/blob/master/documentation/OpenShiftIKSDeployment.md)
+* [Source to Image Builder for Open Liberty Apps on OpenShift](http://heidloff.net/article/source-to-image-builder-open-liberty-openshift/)
 * [How to develop Open Liberty Microservices on OpenShift](http://heidloff.net/article/how-to-develop-open-liberty-microservices-openshift/)
 * [Deploying Open Liberty Microservices to OpenShift](http://heidloff.net/article/deploying-open-liberty-microservices-openshift/)
-* [Deploying the Cloud Native Starter microservices on Minishift](https://haralduebele.blog/2019/07/03/deploying-the-cloud-native-starter-microservices-on-minishift/)
-
-Here is more information about Microservices, MicroProfile and Istio:
-
-* [MicroProfile, the microservice programming model made for Istio](https://www.eclipse.org/community/eclipse_newsletter/2018/september/MicroProfile_istio.php)
-* [Migrating Java Microservices to MicroProfile – Epilogue](https://www.ibm.com/blogs/bluemix/2019/02/migrating-java-microservices-to-microprofile-epilogue/)
-* Video: [Istio Platform vs Spring and MicroProfile frameworks](https://www.youtube.com/watch?v=lFj8X0VLOFQ)
-* Video: [Java EE, Jakarta EE, MicroProfile, Or Maybe All Of Them?](https://www.youtube.com/watch?v=Jemx1BrB45Y)
-* Video: [Istio: Canaries and Kubernetes, Microservices and Service Mesh](https://www.youtube.com/watch?v=YQLOcjvbo9s)
+* [Accessing private GitLab Repositories from OpenShift](http://heidloff.net/article/accessing-private-gitlab-repositories-from-openshift/)
