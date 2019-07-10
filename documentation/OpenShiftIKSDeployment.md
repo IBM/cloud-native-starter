@@ -101,6 +101,7 @@ $ openshift-scripts/deploy-articles-java-jee.sh
 $ openshift-scripts/deploy-authors-nodejs.sh
 $ openshift-scripts/deploy-web-api-java-jee.sh
 $ openshift-scripts/deploy-web-app.sh
+$ openshift-scripts/show-urls.sh
 
 ```
 

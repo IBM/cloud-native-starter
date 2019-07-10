@@ -4,6 +4,10 @@ root_folder=$(cd $(dirname $0); cd ..; pwd)
 
 exec 3>&1
 
+function _out() {
+  echo "$(date +'%F %H:%M:%S') $@"
+}
+
 CFG_FILE=${root_folder}/local.env
 # Check if config file exists, in this case it will have been modified
 if [ ! -f $CFG_FILE ]; then
@@ -12,9 +16,6 @@ if [ ! -f $CFG_FILE ]; then
 fi  
 source $CFG_FILE
 
-function _out() {
-  echo "$(date +'%F %H:%M:%S') $@"
-}
 
 function login() {
   oc login -u apikey -p $IBMCLOUD_API_KEY --server=$OPENSHIFT_URL
