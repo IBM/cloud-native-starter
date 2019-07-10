@@ -1,4 +1,4 @@
-## Cloud Native Starter for Java/Jakarta EE based Microservices on Kubernetes and Istio
+## Cloud Native Starter for Java EE based Microservices on Kubernetes and Istio
 
 This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. 
 
