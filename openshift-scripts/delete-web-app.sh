@@ -42,6 +42,7 @@ function setup() {
   # Delete previously created objects
   oc delete all -l app=web-app --ignore-not-found
   oc delete pod web-app-1-build --ignore-not-found
+  oc delete istag web-app:1 --ignore-not-found
   
   _out Done Deleting web-app-vuejs
 } 

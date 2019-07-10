@@ -42,6 +42,7 @@ function setup() {
   # Delete previously created objects
   oc delete all -l app=authors --ignore-not-found
   oc delete pod authors-1-build --ignore-not-found
+  oc delete istag authors:1 --ignore-not-found
   
   # Create build and image
   sed -e "s|<URL>|local|g" -e "s|<DB>|local|g" ../config.json.template > ../config.json

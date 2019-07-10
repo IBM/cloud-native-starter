@@ -16,7 +16,7 @@ function openshift_url() {
 # Check if OpenShift Cluster URL has been retreived already  
 if [ .$OPENSHIFT_URL == . ]; then
   _out Cannot find a link your OpenShift cluster! 
-  _out Did you mss to run the script "openshift-scripts/setup-project.sh"?
+  _out Did you miss to run the script "openshift-scripts/setup-project.sh"?
   exit 1
 fi
 }
@@ -52,6 +52,7 @@ function setup() {
   cd ${root_folder}/web-app-vuejs
   oc delete all -l app=web-app --ignore-not-found
   oc delete pod web-app-1-build --ignore-not-found
+  oc delete istag web-app:1 --ignore-not-found
  
   configureVUEminikubeIP
 

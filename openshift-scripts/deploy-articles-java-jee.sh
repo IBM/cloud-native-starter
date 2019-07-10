@@ -42,6 +42,7 @@ function setup() {
   # Delete previously created objects
   oc delete all -l app=articles --ignore-not-found
   oc delete pod articles-1-build --ignore-not-found
+  oc delete istag articles:1 --ignore-not-found
 
   # OpenTracing lib
   file="${root_folder}/articles-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"

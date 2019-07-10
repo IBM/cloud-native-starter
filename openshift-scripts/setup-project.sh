@@ -5,7 +5,7 @@ root_folder=$(cd $(dirname $0); cd ..; pwd)
 exec 3>&1
 
 CFG_FILE=${root_folder}/local.env
-# Check if config file exists, in this case it will have been modified
+# Check if config file exists
 if [ ! -f $CFG_FILE ]; then
      _out Config file local.env is missing!
      _out -- Copy template.local.env to local.env and edit according to our instructions!
@@ -25,7 +25,7 @@ if [ .$OPENSHIFT_URL == . ]; then
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   url=$(ibmcloud ks cluster-get --cluster $CLUSTER_NAME |  awk '/^Master URL/ {print $3}')
   _out OpenShift Master URL $url 
-  echo "\nOPENSHIFT_URL=$url\n" >> $CFG_FILE
+  echo  "OPENSHIFT_URL=$url" >> $CFG_FILE
 fi
 }
 

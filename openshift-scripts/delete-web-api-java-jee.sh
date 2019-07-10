@@ -42,6 +42,7 @@ function setup() {
   # Delete previously created objects
   oc delete all -l app=web-api --ignore-not-found
   oc delete pod web-api-1-build --ignore-not-found
+  oc delete istag web-api:1 --ignore-not-found
   
   _out Done Deleting web-api-java-jee
 } 
