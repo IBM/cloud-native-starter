@@ -19,13 +19,20 @@ function _out() {
 
 function openshift_url() {
 # Check if OpenShift Cluster URL has been retreived already  
-
 if [ .$OPENSHIFT_URL == . ]; then
   ibmcloud api https://cloud.ibm.com 
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   url=$(ibmcloud ks cluster-get --cluster $CLUSTER_NAME |  awk '/^Master URL/ {print $3}')
   _out OpenShift Master URL $url 
   echo  "OPENSHIFT_URL=$url" >> $CFG_FILE
+fi
+}
+
+function ingress_url() {
+# Check if Ingress URL has been retreived already  
+if [ .$INGRESS == . ]; then
+  ibmcloud api https://cloud.ibm.com 
+  ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   ingress=$(ibmcloud ks cluster-get --cluster $CLUSTER_NAME | awk '/^Ingress Subdomain/ {print $3}')
   _out IBM Cloud Ingress subdomain $ingress
   echo "INGRESS=$ingress" >> $CFG_FILE
@@ -41,4 +48,5 @@ function setup() {
 } 
 
 openshift_url
+ingress_url
 setup    

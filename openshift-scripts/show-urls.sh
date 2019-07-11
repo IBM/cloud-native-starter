@@ -95,8 +95,13 @@ function setup() {
   if [ -z "$url" ]; then
     _out web-app is not available. Run 'minishift-scripts/deploy-web-app.sh'
   else 
-  _out Access service via http://$url 
+    _out Access web-app via http://$url 
   fi
+  ingress=$(oc get ingress cloudnative-ingress -o jsonpath={.spec.rules[0].host}) &>/dev/null
+  if [ ! -z "$ingress" ]; then 
+    _out You can also access web-app via Kubernetes Ingress http://$ingress 
+  fi
+
 # Currently no Istio!
 #  httpcode=$(curl -s -o /dev/null -w "%{http_code}" $(oc get route istio-ingressgateway -n istio-system -o jsonpath={.spec.host}))
 #  if [ $httpcode == 503 ]; then

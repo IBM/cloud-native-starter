@@ -101,9 +101,11 @@ $ openshift-scripts/deploy-articles-java-jee.sh
 $ openshift-scripts/deploy-authors-nodejs.sh
 $ openshift-scripts/deploy-web-api-java-jee.sh
 $ openshift-scripts/deploy-web-app.sh
+$ openshift-scripts/create-k8s-ingress.sh
 $ openshift-scripts/show-urls.sh
 
 ```
+Note: The 'create-k8s-ingress.sh' makes the web-app available via the Kubernetes Ingress that is part of a standard (paid) Kubernetes cluster.
 
 You can use this script to login to your OpenShift cluster on IBM Cloud:
 
