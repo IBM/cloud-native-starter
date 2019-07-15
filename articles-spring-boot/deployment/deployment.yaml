@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: authors
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: authors
+        version: v2
+    spec:
+      containers:
+      - name: authors
+        image: authors:1
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/"]
+          initialDelaySeconds: 10
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/health | grep -q UP"]
+          initialDelaySeconds: 20
+      restartPolicy: Always
+---
