@@ -9,17 +9,18 @@ import org.springframework.web.client.RestTemplate;
 public class DependentServiceIndicator implements HealthIndicator {
 	private static Logger LOGGER = Logger.getLogger(DependentServiceIndicator.class.getName());
 	private RestTemplate restTemplate;
-	private String healthEndpoint;
+	private String baseUrl;
+	private static final String HEALTH_ENDPOINT = "/health";
 
 	public DependentServiceIndicator(RestTemplate restTemplate, String articlesHealthEndpoint) {
 		this.restTemplate = restTemplate;
-		this.healthEndpoint = articlesHealthEndpoint;
+		this.baseUrl = articlesHealthEndpoint;
 	}
 
 	@Override
 	public Health health() {
 		try {
-			return Health.status(restTemplate.getForObject(healthEndpoint, DependentServiceHealth.class).status)
+			return Health.status(restTemplate.getForObject(baseUrl + HEALTH_ENDPOINT, DependentServiceHealth.class).status)
 					.build();
 		} catch (Exception e) {
 			LOGGER.warning(e.getMessage());

@@ -7,16 +7,18 @@ import org.springframework.web.client.RestTemplate;
 public class MPDependentServiceIndicator implements HealthIndicator {
 
 	private RestTemplate restTemplate;
-	private String healthEndpoint;
+	private String baseUrl;
+	private static final String HEALTH_ENDPOINT = "/health";
+
 
 	public MPDependentServiceIndicator(RestTemplate restTemplate, String articlesHealthEndpoint) {
 		this.restTemplate = restTemplate;
-		this.healthEndpoint = articlesHealthEndpoint;
+		this.baseUrl = articlesHealthEndpoint;
 	}
 
 	@Override
 	public Health health() {
-		MicroProfileHealth health = restTemplate.getForObject(healthEndpoint, MicroProfileHealth.class);
+		MicroProfileHealth health = restTemplate.getForObject(baseUrl + HEALTH_ENDPOINT, MicroProfileHealth.class);
 		if (health.isUp()) {
 			return Health.up().build();
 		} else {

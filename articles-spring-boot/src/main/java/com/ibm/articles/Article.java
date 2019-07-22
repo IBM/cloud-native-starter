@@ -14,7 +14,7 @@ public class Article {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	@Column(name = "articleId")
-	private String id;
+	private int id;
 
 	@Column(name = "articleTitle")
 	private String title;
@@ -38,11 +38,11 @@ public class Article {
 		this.creationDate = creationDate;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -90,7 +90,7 @@ public class Article {
 		int result = 1;
 		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -115,10 +115,7 @@ public class Article {
 				return false;
 		} else if (!creationDate.equals(other.creationDate))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
 		if (title == null) {
 			if (other.title != null)

@@ -2,8 +2,10 @@ package com.ibm.authors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="AUTHORS")
 public class Author {
 
 	@Id
