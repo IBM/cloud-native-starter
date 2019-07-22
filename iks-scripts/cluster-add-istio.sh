@@ -33,7 +33,7 @@ function test_cluster() {
     exit 1
    else
     _out Saving kubectl config
-    echo '#!/bin/sh' > cluster-config.sh
+    echo '#!/bin/bash' > cluster-config.sh
     echo $(ibmcloud ks cluster-config $CLUSTER_NAME --export) >> iks-scripts/cluster-config.sh
     chmod +x cluster-config.sh
     source cluster-config.sh

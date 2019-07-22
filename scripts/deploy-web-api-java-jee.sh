@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/bash 
 
 root_folder=$(cd $(dirname $0); cd ..; pwd)
 readonly ENV_FILE="${root_folder}/local.env"
