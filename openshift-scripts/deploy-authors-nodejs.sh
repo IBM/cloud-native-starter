@@ -45,7 +45,7 @@ function setup() {
   oc delete istag authors:1 --ignore-not-found
   
   # Create build and image
-  sed -e "s|<URL>|local|g" -e "s|<DB>|local|g" config.json.template > config.json
+  # sed -e "s|<URL>|local|g" -e "s|<DB>|local|g" config.json.template > config.json
   oc new-build --name authors --binary --strategy docker --to authors:1 -l app=authors
   oc start-build authors --from-dir=.
   

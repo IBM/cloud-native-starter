@@ -2,10 +2,9 @@ const log4js = require('log4js');
 const appName = require('./../package').name;
 const logger = log4js.getLogger(appName);
 logger.level = process.env.LOG_LEVEL || 'info';
-const localConfig = require('../config.json');
 
 
-if ( process.env.DATABASE=="local" || localConfig.DATABASE=="local" ) {
+if ( process.env.DATABASE=="local" ) {
 
     //  LOCAL DATABASE
 
@@ -43,8 +42,7 @@ if ( process.env.DATABASE=="local" || localConfig.DATABASE=="local" ) {
         var cloudant_db = require('@cloudant/cloudant')(process.env.CLOUDANT_URL); 
         logger.info("Using DB: " + process.env.CLOUDANT_URL);
     } else {
-        var cloudant_db = require('@cloudant/cloudant')(localConfig.CLOUDANT_URL);
-        logger.info("Using DB: " + localConfig.CLOUDANT_URL);
+        logger.info("You need to set the environment variable CLOUDANT_URL");
     }
     
     const authors = cloudant_db.use("authors");

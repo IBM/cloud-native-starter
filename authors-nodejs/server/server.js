@@ -11,7 +11,6 @@ const appName = require('./../package').name;
 const http = require('http');
 const express = require('express');
 const log4js = require('log4js');
-const localConfig = require('../config.json');
 const path = require('path');
 
 const logger = log4js.getLogger(appName);

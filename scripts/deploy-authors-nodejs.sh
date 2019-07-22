@@ -34,8 +34,8 @@ function templates() {
   cd ${root_folder}/authors-nodejs/deployment
   sed -e "s|<URL>|$CLOUDANT_URL|g" -e "s|<DB>|$AUTHORS_DB|g" deployment.yaml.template > deployment.yaml
   sed "s|<HOST>|$CLOUDANTHOST|g" istio-egress-cloudant.yaml.template > istio-egress-cloudant.yaml
-  cd ${root_folder}/authors-nodejs
-  sed -e "s|<URL>|$CLOUDANT_URL|g" -e "s|<DB>|$AUTHORS_DB|g" config.json.template > config.json
+  # cd ${root_folder}/authors-nodejs
+  # sed -e "s|<URL>|$CLOUDANT_URL|g" -e "s|<DB>|$AUTHORS_DB|g" config.json.template > config.json
 }
 
 function setup() {
