@@ -64,8 +64,11 @@ function setup() {
      kubectl create -f istio-egress-cloudant.yaml
   fi
 
+  
   _out Done deploying authors-nodejs
   _out Wait until the pod has been started: "kubectl get pod --watch | grep authors"
+  nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+  _out Sample API call: curl http://$(minikube ip):${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
 }
 
 _out Deploying authors-nodejs
