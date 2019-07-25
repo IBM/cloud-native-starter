@@ -83,7 +83,7 @@ __>> Needs screenshot__
 
 ####4. Deploy Istio Control Plane
 
-We perform a Single Tenant Installation and for this we require a custom resource which is defined in openshift-scripts/servicemesh-cr.yaml. We use the default from the Maistra website.
+We perform a Single Tenant Installation and for this we require a custom resource which is defined in [openshift-scripts/servicemesh-cr.yaml](../openshift-scripts/servicemesh-cr.yaml). We use the default from the Maistra website.
 
 Deploy the Istio Control Plane with:
 ```
