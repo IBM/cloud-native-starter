@@ -34,13 +34,15 @@ Check that the daemonset runs with this command:
 $ oc get daemonset -n kube-system 
 ```
 
-and check for NAME 'kernel-optimization'. In our OpenShift example setup we have 2 worker nodes, so you should see number 2 for all states. 
+and check for the name 'kernel-optimization'. In our OpenShift example setup we have 2 worker nodes, so you should see number 2 for all states. 
+
+![DaemonSet](../images/openshift-daemonset.png)
 
 ### Installation
 
 Maistra is using multiple Operators to install Istio and its components.
 
-####1. Installing the Kiali Operator
+#### 1. Installing the Kiali Operator
 
 Kiali Operator needs to be installed first:
 
@@ -57,7 +59,7 @@ $ oc get pods -n kiali-operator
 ![Kiali Operator](../images/openshift-kiali-op.png)
 
 
-####2. Installing the Jaeger Operator
+#### 2. Installing the Jaeger Operator
 
 Jaeger is the Distributed Tracing tool used in Istio. Install the Jaeger Operator with:
 
@@ -79,7 +81,7 @@ $ oc get pods -n observability
 ![Jaeger Operator](../images/openshift-jaeger-op.png)
 
 
-####3. Installing the Istio Operator
+#### 3. Installing the Istio Operator
 
 "The Maistra installation process introduces a Kubernetes operator to manage the installation of the Istio control plane within the istio-system namespace. This operator defines and monitors a custom resource related to the deployment, update and deletion of the Istio control plane."
 
@@ -96,7 +98,7 @@ $ oc get pods -n istio-operator -l name=istio-operator
 
 ![Istio Operator](../images/openshift-istio-op.png)
 
-####4. Deploy Istio Control Plane
+#### 4. Deploy Istio Control Plane
 
 We perform a Single Tenant Installation and for this we require a custom resource which is defined in [openshift-scripts/servicemesh-cr.yaml](../openshift-scripts/servicemesh-cr.yaml). We use the default from the Maistra website.
 
