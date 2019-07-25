@@ -1,5 +1,11 @@
 __PRELIMINARY UNTIL ADMISSION-WEBHOOKS ARE ENABLED__
 
+You can login to your OpenShift Cluster on IBM Cloud with 
+
+```
+$ openshift-scripts/oc-login.sh
+```
+
 
 ## Istio on OpenShift
 
@@ -19,8 +25,16 @@ Several Istio components require Elasticsearch which is part of the Istio instal
 
 
 ```
-$ openshift-scripts/oc apply -f openshift-scripts/es-daemonset.yaml
+$ oc apply -f openshift-scripts/es-daemonset.yaml
 ```
+
+Check that the daemonset runs with this command:
+
+```
+$ oc get daemonset -n kube-system 
+```
+
+and check for NAME 'kernel-optimization'. In our OpenShift example setup we have 2 worker nodes, so you should see number 2 for all states. 
 
 ### Installation
 
@@ -40,7 +54,8 @@ Check that the Operator runs with:
 $ oc get pods -n kiali-operator
 ```
 
-__>> Needs screenshot__
+![Kiali Operator](../images/openshift-kiali-op.png)
+
 
 ####2. Installing the Jaeger Operator
 
@@ -61,7 +76,7 @@ Check that the Operator runs with:
 $ oc get pods -n observability
 ```
 
-__>> Needs screenshot__
+![Jaeger Operator](../images/openshift-jaeger-op.png)
 
 
 ####3. Installing the Istio Operator
@@ -79,7 +94,7 @@ To verify the operator is installed correctly, wait for the operator to reach th
 $ oc get pods -n istio-operator -l name=istio-operator
 ```
 
-__>> Needs screenshot__
+![Istio Operator](../images/openshift-istio-op.png)
 
 ####4. Deploy Istio Control Plane
 
@@ -88,15 +103,18 @@ We perform a Single Tenant Installation and for this we require a custom resourc
 Deploy the Istio Control Plane with:
 ```
 $ oc new-project istio-system
-$ oc create -n istio-system -f servicemesh-cr.yaml
+$ oc create -n istio-system -f openshift-scripts/servicemesh-cr.yaml
 ```
 
-Verify installation with:
+This installation takes a couple of minutes. Verify installation with:
+
 ```
 $ oc get pods -n istio-system
 ```
-__>> Needs screenshot__
 
+The list of pods should look similar to this:
+
+![Istio Control Plane](../images/openshift-istio.png)
 
 
 
