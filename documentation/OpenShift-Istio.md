@@ -1,10 +1,6 @@
 __PRELIMINARY UNTIL ADMISSION-WEBHOOKS ARE ENABLED__
 
-You can login to your OpenShift Cluster on IBM Cloud with 
-
-```
-$ openshift-scripts/oc-login.sh
-```
+To install Istio you need to login to your OpenShift Cluster on IBM Cloud on the command line. You can use the "Copy Login Command" in the OpenShift Console for this (upper right corner, in the "avatar" menu).
 
 
 ## Istio on OpenShift
@@ -87,7 +83,7 @@ $ oc get pods -n observability
 
 ```
 $ oc new-project istio-operator
-$ oc apply -n istio-operator -f https://raw.githubusercontent.com/Maistra/istio-operator/maistra-0.11/deploy/maistra-operator.yaml
+$ oc apply -n istio-operator -f https://raw.githubusercontent.com/Maistra/istio-operator/maistra-0.12/deploy/maistra-operator.yaml
 ```
 
 To verify the operator is installed correctly, wait for the operator to reach the running state:

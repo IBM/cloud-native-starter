@@ -1,15 +1,10 @@
 apiVersion: maistra.io/v1
 kind: ServiceMeshControlPlane
 metadata:
-  name: basic-install
+  name: minimal-install
 spec:
-  # NOTE, if you remove all children from an element, you should remove the
-  # element too.  An empty element is interpreted as null and will override all
-  # default values (i.e. no values will be specified for that element, not even
-  # the defaults baked into the chart values.yaml).
   istio:
     global:
-      multitenant: false
       proxy:
         # constrain resources for use in smaller environments
         resources:
@@ -27,8 +22,6 @@ spec:
       istio-ingressgateway:
         # disable autoscaling for use in smaller environments
         autoscaleEnabled: false
-        # set to true to enable IOR
-        ior_enabled: false
 
     mixer:
       policy:
@@ -54,19 +47,38 @@ spec:
       traceSampling: 100.0
 
     kiali:
-      # change to false to disable kiali
+      # to disable kiali
       enabled: true
 
-      # to use oauth, remove the following 'dashboard' section
       # create a secret for accessing kiali dashboard with the following credentials
       dashboard:
         user: admin
         passphrase: admin
 
-    tracing:
-      # change to false to disable tracing (i.e. jaeger)
-      enabled: true
+    # disable grafana
+    grafana:
+      enabled: false
 
-  threeScale:
-    enabled: false
+    # to disable tracing (i.e. jaeger)
+    tracing:
+      enabled: true
+      jaeger:
+        # simple, all-in-one strategy
+        template: all-in-one
+        # production strategy, utilizing elasticsearch
+        #template: production-elasticsearch
+        # if required. only one instance may use agentStrategy=DaemonSet
+        #agentStrategy: DaemonSet
+
+---
+
+apiVersion: maistra.io/v1
+kind: ServiceMeshMemberRoll
+metadata:
+  name: default
+spec:
+  members:
+  # a list of namespaces that should be joined into the service mesh
+  # for example, to add the bookinfo namespace
+  #- bookinfo
 
