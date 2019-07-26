@@ -3,7 +3,7 @@
 
 In this hands-on workshop, we will see, how to develop cloud-native microservices using Jakarta EE and MicroProfile.
 
-When building cloud-native applications, developers are challenged to figure out how to address topics like **building and deploying Containers**, **traffic routing**, **resiliency** and **defining and exposing REST APIs**. Fortunately, most of these new challenges are handled by the orchestration platform Kubernetes and the service mesh Istio. This functionality works generically for microservices, regardless of the language they are implemented in and without changes to the application logic.
+When building [cloud-native](https://www.ibm.com/cloud/learn/cloud-native) applications, developers are challenged to figure out how to address topics like **building and deploying Containers**, **traffic routing**, **resiliency** and **defining and exposing REST APIs**. Fortunately, most of these new challenges are handled by the orchestration platform Kubernetes and the service mesh Istio. This functionality works generically for microservices, regardless of the language they are implemented in and without changes to the application logic.
 
 However, **some functionality can not be covered by orchestration platforms** and service meshes. Instead it must be handled in the business logic of the microservices, for example application specific failover functionality, metrics, and fine-grained authorizations.
 
@@ -130,6 +130,8 @@ Resources:
 
 * ['Dockerizing Java MicroProfile Applications'](http://heidloff.net/article/dockerizing-container-java-microprofile)
 * ['Example Java App running in the Cloud via Kubernetes'](http://heidloff.net/article/example-java-app-cloud-kubernetes)
+* [Cloud Native Computing Foundation ](https://www.cncf.io/)
+* [What is cloud-native? Here a complete guide from IBM.](https://www.ibm.com/cloud/learn/cloud-native)
 
 
 

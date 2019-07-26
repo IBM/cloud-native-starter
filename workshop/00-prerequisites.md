@@ -336,6 +336,28 @@ Sample output:
 2019-06-05 09:07:03 Namespace in IBM Cloud Container Registry created
 ```
 
+If you get to following output in the ```./iks-scripts/create-registry.log``` logfile ```The requested namespace is already in use```.
+
+```sh
+OK
+Adding namespace 'cloud-native'...
+
+FAILED
+The requested namespace is already in use in registry 'us.icr.io'.
+Choose a different namespace.
+```
+
+Namespaces are required to be unique across the entire region that the specific registry is located in, not just unique on one account. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add). 
+
+Change the registry name in the ```local.env``` file, for example to ```REGISTRY_NAMESPACE=cloud-native-YOUR_NAME```.
+
+```sh
+IBM_CLOUD_REGION=us-south
+IBM_CLOUD_CLUSTER_REGION=us-south
+CLUSTER_NAME=cloud-native
+REGISTRY_NAMESPACE=cloud-native-YOUR_NAME
+```
+
 _Optional:_ You can find the created namespace here (https://cloud.ibm.com/kubernetes/registry/main/start):
 
 ![ibm-cloud-registry](images/ibm-cloud-registry.png)
