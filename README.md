@@ -45,7 +45,7 @@ Before the microservices can be installed, make sure you've set up Minikube and 
 Before deploying the application, get the code:
 
 ```
-$ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ git clone https://github.com/IBM/cloud-native-starter.git
 $ cd cloud-native-starter
 $ ROOT_FOLDER=$(pwd)
 ```
