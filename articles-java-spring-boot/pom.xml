@@ -9,10 +9,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ibm.cloud</groupId>
-	<artifactId>articles-spring-boot</artifactId>
+	<artifactId>articles</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>articles-spring-boot</name>
-	<description>Demo project for Spring Boot</description>
+	<name>articles-java-spring-boot</name>
+	<description>Spring Boot implementation of Article service, part of the IBM Cloud Native Starter Project</description>
 
 	<properties>
 		<java.version>11</java.version>
