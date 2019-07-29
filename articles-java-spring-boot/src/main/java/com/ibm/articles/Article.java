@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
+
 @Entity
 @Table(name = "Article")
 public class Article {
@@ -14,6 +20,7 @@ public class Article {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	@Column(name = "articleId")
+	@ApiModelProperty(accessMode=AccessMode.READ_ONLY, dataType="String", notes="READ ONLY")
 	private int id;
 
 	@Column(name = "articleTitle")
@@ -42,8 +49,14 @@ public class Article {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	@JsonGetter("id")//Returning Stringified id for API compatibility with MicroProfile service.  
+	public String getStringId() {
+		return Integer.toString(id);
+	}
+	
+	@JsonIgnore//Id is a generated field, this prevents jackson from setting an user defined value
+	private void setId(int id) {
+		//NO-OP
 	}
 
 	public String getTitle() {
@@ -82,52 +95,6 @@ public class Article {
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", url=" + url + ", author=" + author + ", creationDate="
 				+ creationDate + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((url == null) ? 0 : url.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Article other = (Article) obj;
-		if (author == null) {
-			if (other.author != null)
-				return false;
-		} else if (!author.equals(other.author))
-			return false;
-		if (creationDate == null) {
-			if (other.creationDate != null)
-				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (id != other.id)
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		if (url == null) {
-			if (other.url != null)
-				return false;
-		} else if (!url.equals(other.url))
-			return false;
-		return true;
 	}
 
 }
