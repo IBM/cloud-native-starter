@@ -1,0 +1,2 @@
+INSERT INTO Article (article_id, article_author, creation_date, article_title, article_url) values (1,'John Wick','07-07-2019','Cloud Native Spring Boot','https://ibm.com');
+INSERT INTO Article (article_id, article_author, creation_date, article_title, article_url) values (2,'Steve Rogers','05-07-2012','The Avengers','https://ibm.com');
