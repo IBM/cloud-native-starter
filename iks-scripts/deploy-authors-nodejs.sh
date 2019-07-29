@@ -2,20 +2,34 @@
 
 root_folder=$(cd $(dirname $0); cd ..; pwd)
 
+exec 3>&1
+
+function _out() {
+  echo "$(date +'%F %H:%M:%S') $@"
+}
+
 # Check if IKS deployment, set kubectl environment and IKS deployment options in local.env
-if [[ -e "iks-scripts/cluster-config.sh" ]]; then source iks-scripts/cluster-config.sh; fi
-if [[ -e "local.env" ]]; then source local.env; fi
+CFG_FILE=${root_folder}/local.env
+# Check if config file exists
+if [ ! -f $CFG_FILE ]; then
+     _out Config file local.env is missing! Check our instructions!
+     exit 1
+fi  
+source $CFG_FILE
+CLUSTER_CFG=${root_folder}/iks-scripts/cluster-config.sh
+# Check if config file exists
+if [ ! -f $CLUSTER_CFG ]; then
+     _out Cluster config file iks-scripts/cluster-config.sh is missing! Run iks-scripts/cluster-add-istio.sh first!
+     exit 1
+fi  
+source $CLUSTER_CFG
+
 
 # Login to IBM Cloud Image Registry
 ibmcloud ks region-set $IBM_CLOUD_REGION
 ibmcloud cr region-set $IBM_CLOUD_REGION
 ibmcloud cr login
 
-exec 3>&1
-
-function _out() {
-  echo "$(date +'%F %H:%M:%S') $@"
-}
 
 function templates() {
   _out Preparing YAML files for Kubernetes Deployment
@@ -36,8 +50,8 @@ function templates() {
   cd ${root_folder}/authors-nodejs/deployment
   sed -e "s|<URL>|$CLOUDANT_URL|g" -e "s|<DB>|$AUTHORS_DB|g" deployment.yaml.template > deployment.yaml
   sed "s|<HOST>|$CLOUDANTHOST|g" istio-egress-cloudant.yaml.template > istio-egress-cloudant.yaml
-  cd ${root_folder}/authors-nodejs
-  sed -e "s|<URL>|$CLOUDANT_URL|g" -e "s|<DB>|$AUTHORS_DB|g" config.json.template > config.json
+  # cd ${root_folder}/authors-nodejs
+  # sed -e "s|<URL>|$CLOUDANT_URL|g" -e "s|<DB>|$AUTHORS_DB|g" config.json.template > config.json
 }
 
 function setup() {

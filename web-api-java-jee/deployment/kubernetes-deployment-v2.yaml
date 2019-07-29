@@ -2,10 +2,14 @@ kind: Deployment
 apiVersion: apps/v1beta1
 metadata:
   name: web-api-v2
+  labels:
+    app: web-api  
 spec:
   replicas: 1
   template:
     metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true" 
       labels:
         app: web-api
         version: v2

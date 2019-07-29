@@ -1,4 +1,4 @@
-### Standard Kubernetes Clsuter on IBM Cloud
+### Standard Kubernetes Cluster on IBM Cloud
 
 A Standard (paid) Kubernetes Cluster has a K8s Ingress available together with a default Ingress subdomain. This is not available with free (lite) clusters!
 

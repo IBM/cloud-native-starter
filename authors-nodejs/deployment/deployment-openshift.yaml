@@ -1,0 +1,50 @@
+apiVersion: apps/v1beta2 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: authors
+  labels:
+    app: authors
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: authors
+      version: v1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true"
+      labels:
+        app: authors
+        version: v1
+    spec:
+      containers:
+      - image: docker-registry.default.svc:5000/cloud-native-starter/authors:1
+        name: authors
+        env:
+        - name: DATABASE
+          value: 'local'
+        - name: CLOUDANT_URL
+          value: 'local'
+        ports:
+        - containerPort: 3000
+          name: authors
+      restartPolicy: Always    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authors
+  labels:
+    app: authors
+spec:
+  type: NodePort
+  ports:
+    - port: 3000  
+      protocol: TCP
+      name: http
+  selector:
+    app: authors
+---

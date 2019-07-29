@@ -19,9 +19,21 @@ You will need the following tools installed on your laptop, in order to complete
 - [curl](https://curl.haxx.se/download.html)
 - [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools)
   [IBM Cloud CLI releases](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
-- [Docker](https://docs.docker.com/v17.12/install/) (Windows 10 Pro)
+- [Docker](https://docs.docker.com/v17.12/install/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.) or just install the [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+
+
+_Note:_ 
+
+1. IBM Docker image
+
+There is a Docker image provided by IBM that contains most of the needed cli tools
+[Using IBM Cloud Developer Tools from a Docker Container](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker).
+
+2. Virtual Box
+
+You can also use a VirtualBox with for example [Ubuntu](https://www.osboxes.org/ubuntu/) to install the tools.
 
 To verfiy the major prerequisites on your machine, you can execute following bash script on your machine.
 
@@ -322,6 +334,28 @@ Sample output:
 2019-06-05 09:06:40 Logging into IBM Cloud
 2019-06-05 09:06:48 Creating Namespace cloud-native
 2019-06-05 09:07:03 Namespace in IBM Cloud Container Registry created
+```
+
+If you get to following output in the ```./iks-scripts/create-registry.log``` logfile ```The requested namespace is already in use```.
+
+```sh
+OK
+Adding namespace 'cloud-native'...
+
+FAILED
+The requested namespace is already in use in registry 'us.icr.io'.
+Choose a different namespace.
+```
+
+Namespaces are required to be unique across the entire region that the specific registry is located in, not just unique on one account. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add). 
+
+Change the registry name in the ```local.env``` file, for example to ```REGISTRY_NAMESPACE=cloud-native-YOUR_NAME```.
+
+```sh
+IBM_CLOUD_REGION=us-south
+IBM_CLOUD_CLUSTER_REGION=us-south
+CLUSTER_NAME=cloud-native
+REGISTRY_NAMESPACE=cloud-native-YOUR_NAME
 ```
 
 _Optional:_ You can find the created namespace here (https://cloud.ibm.com/kubernetes/registry/main/start):

@@ -31,6 +31,10 @@ That are the major steps we will follow to replace the  **Authors** service in o
 2. Building and storing of the production container image inside the IBM Cloud Registry
 3. Deploying the containers into the Kuberentes Cluster
 
+_Note:_ By the way, you can use for start of a new JavaEE development project with Micro Profile the [MicroProfile Starter(Beta)](https://start.microprofile.io/) that generates a MicroProfile maven project with examples for you. The gif below shows a short preview:
+
+![authors-java-container-overview](images/microprofile-starter.gif)
+
 ---
 
 # 1. Usage of Maven for Java
@@ -134,7 +138,7 @@ In the following image we see a list of MicroProfiles and the red marked profile
 
 ## 3.2 Needed Java classes to **expose** the **Authors** service
 
-For the implementation for the **Authors** service to **expose** the REST API, we need basicly three classes:
+For the implementation of the **Authors** service to **expose** the REST API, we need basicly three classes:
 
 * **AuthorsApplication** class repesents our web application.
 * **Author** class repesents the data structure we use for the Author.
@@ -146,7 +150,7 @@ For the implementation for the **Authors** service to **expose** the REST API, w
 
 ### 3.2.1 **Class AuthorsApplication**
 
-Our web application does not implement any business or other logic, it simple needs to run on server with no UI. The AuthorsApplication class extends the [javax.ws.rs.core.Application](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_9.0.0/com.ibm.websphere.base.doc/ae/twbs_jaxrs_configjaxrs11method.html) class to do this. With this extension the ```AuthorsApplication``` class provides access to the classes inside from the ```com.ibm.authors``` package during the runtime. With ```@ApplicationPath``` from MicroProfile we define the base path of the application.
+Our web application does not implement any business or other logic, it simply needs to run on server with no UI. The AuthorsApplication class extends the [javax.ws.rs.core.Application](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_9.0.0/com.ibm.websphere.base.doc/ae/twbs_jaxrs_configjaxrs11method.html) class to do this. With this extension the ```AuthorsApplication``` class provides access to the classes inside from the ```com.ibm.authors``` package during the runtime. With ```@ApplicationPath``` from MicroProfile we define the base path of the application.
 
 ```java
 package com.ibm.authors;
@@ -179,9 +183,9 @@ public String blog;
 
 ### 3.2.3 **Class GetAuthor**
 
-This class implements the REST API response for our microservice **Authors**. We implement our REST client with the [MicroProfile REST Client](https://github.com/eclipse/microprofile-rest-client/blob/master/README.adoc) in the code we use profiles statements ```@Path```, ```@Get``` from [JAX-RS](https://jcp.org/en/jsr/detail?id=339) and form the [OpenAPI](https://www.openapis.org/) documentation ```@OpenAPIDefinition``` the [MicroProfile OpenAPI](https://github.com/eclipse/microprofile-open-api), which creates automatically a API explorer.
+This class implements the REST API response for our microservice **Authors**. We implement our REST client with the [MicroProfile REST Client](https://github.com/eclipse/microprofile-rest-client/blob/master/README.adoc). In the code we use profiles following statements ```@Path```, ```@Get``` from [JAX-RS](https://jcp.org/en/jsr/detail?id=339) and form the [OpenAPI](https://www.openapis.org/) documentation ```@OpenAPIDefinition``` the [MicroProfile OpenAPI](https://github.com/eclipse/microprofile-open-api), which creates automatically an OpenAPI explorer.
 
-Let's remember the **server.xml** configuration. We added the **MicroProfile** to the server, as you can see in the code below.
+Let's remember the **server.xml** configuration, where we added the **MicroProfile** to the server, as you can see in the code below.
 
 ```xml
 <featureManager>
@@ -248,7 +252,7 @@ public class GetAuthor {
 
 ## 3.3 Supporting live and readiness probes in Kubernetes with HealthCheck
 
-We add the class **HealthEndpoint** into the **Authors** package  as you can see in the following image.
+We add the class **HealthEndpoint** into the **Authors** package  as you can see in the following diagram.
 
 ![class diagramm HealthEndpoint](images/authors-java-classdiagram-02.png)
 
@@ -256,7 +260,7 @@ Let's understand what we want to support:
 
 > Kubernetes **provides liveness** and **readiness probes** that are used to check the health of your containers, you will work with readiness probes. These probes can check certain files in your containers, check a TCP socket, or make HTTP requests. **MicroProfile Health** exposes a **health endpoint** on your microservices. Kubernetes polls the endpoint as specified by the probes to react appropriately to any change in the microservice’s status. Read the Adding health reports to microservices guide to learn more about MicroProfile Health.
 
-For more information we can use the [Kubernetes Microprofile Health documentation](https://openliberty.io/guides/kubernetes-microprofile-health.html) and the documentation on [GitHub](https://github.com/eclipse/microprofile-health)
+For more information we can use the [Kubernetes Microprofile Health documentation](https://openliberty.io/guides/kubernetes-microprofile-health.html) and the documentation on [GitHub](https://github.com/eclipse/microprofile-health).
 
 This is the implementation for the Health Check for Kubernetes for the **Authors** service in the [HealthEndpoint class](../authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java)
 
@@ -272,7 +276,7 @@ public class HealthEndpoint implements HealthCheck {
 }
 ```
 
-The usage of **HealthEndpoint** we can find in the deployment yaml, we use for the deployment Kubernetes. IN the following yaml extract we can see the ```livenessProbe``` definition.
+The usage of **HealthEndpoint** we can find in the deployment yaml, that we use for the deployment Kubernetes. In the following yaml extract, we see the ```livenessProbe``` definition.
 
 ```yaml
 livenessProbe:
@@ -289,13 +293,13 @@ livenessProbe:
 
 # 4. The Dockerfile and the usage of dockerhub
 
-With the [Dockerfile](authors-java-jee/Dockerfile) we define the  how to build a container. For detailed information we use the [Dockerfile documentation](https://docs.docker.com/engine/reference/builder/)
+With the [Dockerfile](authors-java-jee/Dockerfile), we define the  how to build a container. For detailed information we use the [Dockerfile documentation](https://docs.docker.com/engine/reference/builder/)
 
-If we build a container, we usually start with an existing container image, which contains a minimum on configuration we need, for example: the OS, the Java version or even more. Therefor we examine [dockerhub](https://hub.docker.com/search?q=maven&type=image&image_filter=official) or we search in the internet, to you the the starting point which fits to our needs. We see **maven** container image on dockerhub the following picture.
+If we build a container, we usually start with an existing container image, which contains a minimum on configuration we need, for example: the OS, the Java version or even more. Therefor we examine [dockerhub](https://hub.docker.com/search?q=maven&type=image&image_filter=official) or we search in the internet, to find a starting point which fits to our needs. We see a sample **maven** container image on dockerhub the following picture.
 
 ![dockerhub maven container image](images/dockerhub.png)
 
-Inside the Dockerfile we use **two stages** to build the container image. The reason for the two stages is, we have the objective to be **independed** of local environment settings, when we build our production services. With this concept we don't have to ensure that **Java** and **Maven** (or wrong versions of them) is installed on the local machine of the developers.
+Inside the Dockerfile we use **two stages** to build the container image. The reason for the two stages is, we have the objective to be **independed** of local environment settings, when we build our production services. With this concept, we don't have to ensure that **Java** and **Maven** (or wrong versions of them) is installed on the local machine of the developers.
 
 In short words one container is only responsible to build the microservice, let us call this container **build environment container** and the other container will contain the microservice, we call this the **production** container.
 
@@ -318,7 +322,8 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 
 The starting point for the our **Production container** is the [OpenLiberty container](https://hub.docker.com/_/open-liberty).
 
-We copy the **Authors service** code with the **server.xml** for the OpenLiberty server to this container. 
+We copy the **Authors service** code with the **server.xml** for the OpenLiberty server to this container.
+
 _REMEMBER:_ The **service.xml** contains the ports we use for our **Authors service**.
 
 ```dockerfile
@@ -331,7 +336,7 @@ COPY --from=BUILD /usr/src/app/target/authors.war /config/apps/
 
 # 5.Kubernetes deployment configuration
 
-Now we examine the **deployment** and **service** yaml. The yamls do contain the  deploy the container to a **Pod** and creating **Services** to access them in the Kubernetes Cluster. 
+Now we examine the **deployment** and **service** yaml. The yamls do contain the deployment of the container to a **Pod** and creation of the **Services** to access the **Authors mircoservice** in the Kubernetes Cluster. 
 
 In the following image we see the relevant dependencies for this lab.
 
@@ -386,6 +391,7 @@ spec:
         - containerPort: 3000
         livenessProbe:
 ```
+
 This is the full [deployment.yaml](../authors-java-jee/deployment/deployment.yaml) file.
 
 ```yaml
@@ -428,7 +434,7 @@ _Note:_ Later we get the actual port for the service using the command line: ```
 
 ![authors-java-service-pod-container](images/authors-java-service-pod-container.png)
 
-In the [service.yaml](../authors-java-jee/deployment/service.yaml) we see find our selector to the Pod **authors**. If the service is deployed, it is possible that our **Articles** service can find the **Authors** service.
+In the [service.yaml](../authors-java-jee/deployment/service.yaml) we find our selector to the Pod **authors**. If the service is deployed, it is possible that our **Articles** service can find the **Authors** service.
 
 ```yaml
 kind: Service

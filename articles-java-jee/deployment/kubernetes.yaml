@@ -21,6 +21,8 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true"    
       labels:
         app: articles
         version: v1
@@ -55,6 +57,8 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: articles-config
+  labels:
+    app: articles  
 data:
   samplescreation: CREATE
   inmemory: USE_IN_MEMORY_STORE

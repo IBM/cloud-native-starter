@@ -1,0 +1,65 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: articles
+  labels:
+    app: articles
+spec:
+  selector:
+    app: articles
+  ports:
+    - port: 8080
+      name: http
+  type: NodePort
+---
+
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: articles
+spec:
+  replicas: 1
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true"    
+      labels:
+        app: articles
+        version: v1
+    spec:
+      containers:
+      - name: articles
+        image: docker-registry.default.svc:5000/cloud-native-starter/articles:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: samplescreation
+          valueFrom:
+            configMapKeyRef:
+              name: articles-config
+              key: samplescreation
+        - name: inmemory
+          valueFrom:
+            configMapKeyRef:
+              name: articles-config
+              key: inmemory
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/health | grep -q articles"]
+          initialDelaySeconds: 40
+      restartPolicy: Always
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: articles-config
+  labels:
+    app: articles  
+data:
+  samplescreation: CREATE
+  inmemory: USE_IN_MEMORY_STORE
+---

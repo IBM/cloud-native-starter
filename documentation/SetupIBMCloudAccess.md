@@ -38,7 +38,7 @@ $ cp template.local.env local.env
 
 From the output of `cat cloud-native-starter.json` copy the apikey without " " into IBMCLOUD_API_KEY= in file local.env.
 
-The file local.env has preset values for region, cluster name, and image registry namespace in local.env. You can change them of course if you know what you are doing.
+The file local.env has preset values for region, cluster name, and image registry namespace. You can change them of course if you know what you are doing.
 
 Example local.env:
 

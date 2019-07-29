@@ -1,0 +1,84 @@
+apiVersion: maistra.io/v1
+kind: ServiceMeshControlPlane
+metadata:
+  name: minimal-install
+spec:
+  istio:
+    global:
+      proxy:
+        # constrain resources for use in smaller environments
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 128Mi
+
+    gateways:
+      istio-egressgateway:
+        # disable autoscaling for use in smaller environments
+        autoscaleEnabled: false
+      istio-ingressgateway:
+        # disable autoscaling for use in smaller environments
+        autoscaleEnabled: false
+
+    mixer:
+      policy:
+        # disable autoscaling for use in smaller environments
+        autoscaleEnabled: false
+
+      telemetry:
+        # disable autoscaling for use in smaller environments
+        autoscaleEnabled: false
+        # constrain resources for use in smaller environments
+        resources:
+          requests:
+            cpu: 100m
+            memory: 1G
+          limits:
+            cpu: 500m
+            memory: 4G
+
+    pilot:
+      # disable autoscaling for use in smaller environments
+      autoscaleEnabled: false
+      # increase random sampling rate for development/testing
+      traceSampling: 100.0
+
+    kiali:
+      # to disable kiali
+      enabled: true
+
+      # create a secret for accessing kiali dashboard with the following credentials
+      dashboard:
+        user: admin
+        passphrase: admin
+
+    # disable grafana
+    grafana:
+      enabled: false
+
+    # to disable tracing (i.e. jaeger)
+    tracing:
+      enabled: true
+      jaeger:
+        # simple, all-in-one strategy
+        template: all-in-one
+        # production strategy, utilizing elasticsearch
+        #template: production-elasticsearch
+        # if required. only one instance may use agentStrategy=DaemonSet
+        #agentStrategy: DaemonSet
+
+---
+
+apiVersion: maistra.io/v1
+kind: ServiceMeshMemberRoll
+metadata:
+  name: default
+spec:
+  members:
+  # a list of namespaces that should be joined into the service mesh
+  # for example, to add the bookinfo namespace
+  #- bookinfo
+

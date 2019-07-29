@@ -3,7 +3,14 @@
 
 In this hands-on workshop, we will see, how to develop cloud-native microservices using Jakarta EE and MicroProfile.
 
-When building cloud-native applications, developers are challenged to figure out how to address topics like **building and deploying Containers**, **traffic routing**, **resiliency** and **defining and exposing REST APIs**. Fortunately, most of these new challenges are handled by the orchestration platform Kubernetes and the service mesh Istio. This functionality works generically for microservices, regardless of the language they are implemented in and without changes to the application logic.
+Cloud Native Definition created by the [Cloud Native Computing Foundation](https://www.cncf.io/)
+
+> Cloud native technologies empower organizations to build and run scalable applications in **modern**, **dynamic environments** such as **public**, **private**, and **hybrid clouds**. **Containers**, **service meshes**, **microservices**, **immutable infrastructure**, and **declarative APIs exemplify** this approach.
+
+> These techniques **enable loosely coupled systems** that are **resilient**, **manageable**, and **observable**. Combined with robust automation, they allow engineers to make high-impact changes frequently and predictably with minimal toil.
+
+
+With this definition in mind, when developers building [cloud-native](https://www.ibm.com/cloud/learn/cloud-native) applications, they are challenged to figure out how to address topics like **building and deploying Containers**, **traffic routing**, **resiliency** and **defining and exposing REST APIs**. Fortunately, most of these new challenges are handled by the orchestration platform Kubernetes and the service mesh Istio. This functionality works generically for microservices, regardless of the language they are implemented in and without changes to the application logic.
 
 However, **some functionality can not be covered by orchestration platforms** and service meshes. Instead it must be handled in the business logic of the microservices, for example application specific failover functionality, metrics, and fine-grained authorizations.
 
@@ -13,7 +20,7 @@ Java developers can leverage **Eclipse MicroProfile** to implement this function
 
 ## 1. The "Cloud Native Starter (CNS)" application
 
-With the **"Cloud Native Starter"** application you can **show**, **add** and **remove** articles with authors information. The application is built on microservices with one frontend web application.
+With the **"Cloud Native Starter"** application we can **show**, **add** and **remove** articles with authors information. The application is built on microservices with one frontend web application.
 
 ![architecture](images/architecture.png)
 
@@ -26,7 +33,7 @@ The **"Cloud Native Starter"** application follows these design principles:
 
 * **Leverage platforms as much as possible – do as little as possible in language-specific frameworks**
 
-> The advantage of using Kubernetes and Istio for features like traffic management is, that these features are language agnostic. Cloud-native applications can be, and often are, polyglot. This allows developers to pick the best possible languages for the specific tasks.
+> The advantage of using Kubernetes and Istio for features like traffic management is, that these features are language agnostic. Cloud-native applications can be, and often are, polyglot. This allows developers to **pick the best possible languages** for the **specific tasks** (for exmaple: for the frontend ```JavaScript``` and for the backend ```Java```).
 
 * **Use open-source components for the core services of the application only**
 
@@ -59,9 +66,9 @@ Here you can see a picture of the **Web app** UI.
 
 ### 2.2 ****Web API****
 
-The objective of this microservice is to combine the information from the **Articals** and the **Authors** microservice. 
+The objective of this microservice is to combine the information from the **Articles** and the **Authors** microservice. 
 
-The **Web API** is business related to be consumned by the **VUE** **Web app**. So the Web app can use just **one** REST API and doesn't need more APIs. The **Web API** service implements the **BFF** (backend for frontend pattern). 
+The **Web API** is business related to be consumed by the **VUE** **Web app**. So, the Web app can use just **one** REST API and doesn't need more APIs. The **Web API** service implements the **BFF** (backend for frontend pattern). 
 
 The following image contains a sample instance of the **Web API** using the **Open API explorer**.
 
@@ -84,7 +91,7 @@ In the image blow you can see a sample instance of the Articles,  using the **Op
 The objective of this microservice is to **get** author information from a database and is built on Node.js.
 In this workshop we will use the default implementation, which just creates sample data values.
 
-Sample curl command to get a author from the **Authors** microservice.
+Sample curl command to get an author from the **Authors** microservice.
 
 ```sh
 $ curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff
@@ -130,8 +137,7 @@ Resources:
 
 * ['Dockerizing Java MicroProfile Applications'](http://heidloff.net/article/dockerizing-container-java-microprofile)
 * ['Example Java App running in the Cloud via Kubernetes'](http://heidloff.net/article/example-java-app-cloud-kubernetes)
-
-
-
-
+* [Cloud Native Computing Foundation (CNCF) ](https://www.cncf.io/)
+* [Cloud Native Definition (CNCF)](https://github.com/cncf/toc/blob/master/DEFINITION.md)
+* [What is cloud-native? Here is a complete guide from IBM.](https://www.ibm.com/cloud/learn/cloud-native)
 

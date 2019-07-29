@@ -9,7 +9,7 @@ MicroProfile comes with a REST Client which defines a type safe client programmi
 
 There is pretty good [documentation](https://github.com/OpenLiberty/guide-microprofile-rest-client) about the REST Client available. 
 
-In the following lab describes how we use the MicroProfile REST client in the **Cloud Native Starter** sample application. The application has a **Web API** service which implements the **BFF** (backend for frontend pattern). The **Web API** service uses the REST Client to invoke the **'Articles'** and the **‘Authors’** services
+In the following lab describes how we use the MicroProfile REST client in the **Cloud Native Starter** sample application. The application has a **Web API** service which implements the **BFF** (backend for frontend pattern). The **Web API** service uses the REST Client to invoke the **'Articles'** and the **‘Authors’** services.
 
 ![architecture](images/architecture.png)
 
@@ -21,7 +21,7 @@ In the simplified class diagram below you can see the major high level relations
 
 ![rest-api-classdiagram](images/rest-api-classdiagram.png)
 
-Let's get us a closer to the class implementations. First we need to define the **interface** of the service we want to invoke. Here we use the [interface AuthorsService](../web-api-java-jee/src/main/java/com/ibm/webapi/data/AuthorsService.java). The method **‘getAuthor’** returns an object of the Author class.
+Let's get closer to the class implementations. First we need to define the **interface** of the service we want to invoke. Here we use the [interface AuthorsService](../web-api-java-jee/src/main/java/com/ibm/webapi/data/AuthorsService.java). The method **‘getAuthor’** returns an object of the Author class.
 
 ```java
 import javax.ws.rs.GET;
@@ -50,6 +50,7 @@ public class Author {
 
 The invocation of the **Authors** service happens in [AuthorsServiceDataAccess.java](../web-api-java-jee/src/main/java/com/ibm/webapi/data/AuthorsService.java). 
 The [RestClientBuilder](https://openliberty.io/docs/ref/javadocs/microprofile-1.3-javadoc/org/eclipse/microprofile/rest/client/RestClientBuilder.html) is used to get an implementation of the AuthorsService interface. 
+
 _IMPORTANT:_ The **deserialization** of the **JSON data** into a **Java object** is done automatically.
 
 ```java
@@ -128,8 +129,8 @@ for (int index = 0; index < coreArticles.size(); index++) {
 
 ### 1.3 Expose the REST API with Open API
 
-The **MicroProfile** supports also the definition REST APIs via [JAX-RS](https://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services). We use MircoProfile to create a **Open API** documentation and api explorer. 
-We the **Open API** can use for documentation and testing of the REST API of our microservice. Inside the class [articles](articles-java-jee/src/main/java/com/ibm/articles/apis/) we use the profiles **@GET**, **@Path** and others,  to expose and document REST API with the MicroProfile during writting of the code with **Open API**.
+The **MicroProfile** supports also the definition of REST APIs via [JAX-RS](https://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services). We use MircoProfile to create a **Open API** documentation and api explorer. 
+The **Open API** can be used for documentation and testing of the REST API of our microservice. Inside the class [articles](articles-java-jee/src/main/java/com/ibm/articles/apis/) we use the profiles **@GET**, **@Path** and others, to expose and document REST API with the MicroProfile during writting of the code with **Open API**.
 
 ```java
 package com.ibm.webapi.apis;
