@@ -38,7 +38,7 @@ You can also use a VirtualBox with for example [Ubuntu](https://www.osboxes.org/
 To verfiy the major prerequisites on your machine, you can execute following bash script on your machine.
 
 ```sh
-$ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ git clone https://github.com/IBM/cloud-native-starter.git
 $ cd cloud-native-starter
 $ chmod u+x iks-scripts/*.sh
 $ chmod u+x scripts/*.sh
