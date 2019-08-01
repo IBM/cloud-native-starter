@@ -22,8 +22,8 @@ public class AuthorController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "Author with requested name", response = Author.class),
 			@ApiResponse(code = 404, message = "Author Not Found"),
 			@ApiResponse(code = 500, message = "Internal service error", response = String.class) })
-	@GetMapping(value = "/getauthor", params = "id", produces = "application/json")
-	public ResponseEntity<Author> getAuthor(@RequestParam String authorName) {
-		return ResponseEntity.ok(service.getAuthorByName(authorName));
+	@GetMapping(value = "/getauthor", params = "name", produces = "application/json")
+	public ResponseEntity<Author> getAuthor(@RequestParam(name="name", required = true) String name) {
+		return ResponseEntity.ok(service.getAuthorByName(name));
 	}
 }

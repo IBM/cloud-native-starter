@@ -3,24 +3,21 @@ package com.ibm.articles;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
-
 @Entity
 @Table(name = "Article")
 public class Article {
 
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	@Column(name = "articleId")
-	@ApiModelProperty(accessMode=AccessMode.READ_ONLY, dataType="String", notes="READ ONLY")
+	@GeneratedValue(generator="articles_generator")
+	@SequenceGenerator(name="articles_generator", initialValue = 10)
 	private int id;
 
 	@Column(name = "articleTitle")
@@ -49,14 +46,15 @@ public class Article {
 		return id;
 	}
 
-	@JsonGetter("id")//Returning Stringified id for API compatibility with MicroProfile service.  
+	@JsonGetter("id") // Returning Stringified id for API compatibility with MicroProfile service.
 	public String getStringId() {
 		return Integer.toString(id);
 	}
-	
-	@JsonIgnore//Id is a generated field, this prevents jackson from setting an user defined value
+
+	@JsonIgnore // Id is a generated field, this prevents jackson from setting an user defined
+				// value
 	private void setId(int id) {
-		//NO-OP
+		// NO-OP
 	}
 
 	public String getTitle() {

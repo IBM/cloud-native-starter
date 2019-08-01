@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ibm</groupId>
-	<artifactId>authors-spring-boot</artifactId>
+	<artifactId>authors-java-spring-boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>authors-spring-boot</name>
 	<description>Demo project for Spring Boot</description>
@@ -60,6 +60,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>authors</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

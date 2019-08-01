@@ -1,3 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: authors
+  labels:
+    app: authors
+spec:
+  selector:
+    app: authors
+  ports:
+    - port: 8080
+      name: http
+  type: NodePort
+---
 kind: Deployment
 apiVersion: apps/v1beta1
 metadata:
@@ -6,22 +20,25 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true"      
       labels:
         app: authors
-        version: v2
+        version: v1
     spec:
       containers:
       - name: authors
         image: authors:1
+#        args: ["--spring.profiles.active=deployed"]
         ports:
-        - containerPort: 8080
+        - containerPort: 3000
         livenessProbe:
           exec:
             command: ["sh", "-c", "curl -s http://localhost:8080/"]
-          initialDelaySeconds: 10
+          initialDelaySeconds: 20
         readinessProbe:
           exec:
             command: ["sh", "-c", "curl -s http://localhost:8080/health | grep -q UP"]
-          initialDelaySeconds: 20
+          initialDelaySeconds: 40
       restartPolicy: Always
 ---

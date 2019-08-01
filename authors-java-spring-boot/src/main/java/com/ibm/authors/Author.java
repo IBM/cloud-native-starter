@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="AUTHORS")
+@Table(name="AUTHOR")
 public class Author {
 
 	@Id

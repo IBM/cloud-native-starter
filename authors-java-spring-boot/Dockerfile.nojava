@@ -7,8 +7,6 @@ RUN mvn package
 
 FROM adoptopenjdk:11-jre-openj9
 
-COPY --from=BUILD /usr/src/app/target/articles.jar /
+COPY --from=BUILD /usr/src/app/target/authors.jar /
 
-COPY --from=BUILD /usr/src/app/target/jcc-11.1.4.4.jar /
-
-ENTRYPOINT ["java", "-jar", "articles.jar" ]
+ENTRYPOINT ["java", "-jar", "authors.jar" ]

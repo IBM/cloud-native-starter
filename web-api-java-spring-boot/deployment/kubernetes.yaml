@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: articles
+  name: web-api
   labels:
-    app: articles
+    app: web-api
 spec:
   selector:
-    app: articles
+    app: web-api
   ports:
     - port: 8080
       name: http
@@ -15,23 +15,23 @@ spec:
 kind: Deployment
 apiVersion: apps/v1beta1
 metadata:
-  name: articles
+  name: web-api
 spec:
   replicas: 1
   template:
     metadata:
       annotations: 
-        sidecar.istio.io/inject: "true"    
+        sidecar.istio.io/inject: "true"      
       labels:
-        app: articles
+        app: web-api
         version: v1
     spec:
       containers:
-      - name: articles
-        image: articles:1
+      - name: web-api
+        image: web-api:1
 #        args: ["--spring.profiles.active=deployed"]
         ports:
-        - containerPort: 8080
+        - containerPort: 3000
         livenessProbe:
           exec:
             command: ["sh", "-c", "curl -s http://localhost:8080/"]
