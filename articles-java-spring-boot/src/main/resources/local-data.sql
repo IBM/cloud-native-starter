@@ -1,0 +1,2 @@
+INSERT INTO Article (article_id, article_author, creation_date, article_title, article_url) values (nextval('articles_generator'), 'Billy Korando','07-07-2019','Cloud Native Spring Boot','https://ibm.com');
+INSERT INTO Article (article_id, article_author, creation_date, article_title, article_url) values (nextval('articles_generator'), 'Niklas Heidloff','05-07-2012','The Avengers','https://ibm.com');

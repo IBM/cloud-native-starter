@@ -1,0 +1,2 @@
+INSERT INTO AUTHOR (name, twitter, blog) VALUES ('Billy Korando','@BillyKorando','https://billykorando.com');
+INSERT INTO AUTHOR (name, twitter, blog) VALUES ('Niklas Heidloff','@nheidloff','http://heidloff.net/');
