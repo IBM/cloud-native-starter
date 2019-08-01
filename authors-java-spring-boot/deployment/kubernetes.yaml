@@ -8,7 +8,7 @@ spec:
   selector:
     app: authors
   ports:
-    - port: 8080
+    - port: 3000
       name: http
   type: NodePort
 ---
@@ -32,13 +32,13 @@ spec:
 #        args: ["--spring.profiles.active=deployed"]
         ports:
         - containerPort: 3000
-        livenessProbe:
-          exec:
-            command: ["sh", "-c", "curl -s http://localhost:8080/"]
-          initialDelaySeconds: 20
-        readinessProbe:
-          exec:
-            command: ["sh", "-c", "curl -s http://localhost:8080/health | grep -q UP"]
-          initialDelaySeconds: 40
+#        livenessProbe:
+#          exec:
+#            command: ["sh", "-c", "curl -s http://localhost:3000/"]
+#          initialDelaySeconds: 35
+#        readinessProbe:
+#          exec:
+#            command: ["sh", "-c", "curl -s http://localhost:3000/health | grep -q UP"]
+#          initialDelaySeconds: 40
       restartPolicy: Always
 ---

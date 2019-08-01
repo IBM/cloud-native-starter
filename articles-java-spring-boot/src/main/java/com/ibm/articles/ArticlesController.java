@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/articles/v1")
 public class ArticlesController {
 
 	private ArticlesService service;
