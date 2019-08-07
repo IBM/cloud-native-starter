@@ -43,6 +43,8 @@ spec:
     runAfter:
       - source-to-image
     params:
+      - name: pathToContext
+        value: "${params.pathToContext}"
       - name: pathToDeploymentYamlFile
         value:  "${params.pathToDeploymentYamlFile}"
       - name: pathToServiceYamlFile

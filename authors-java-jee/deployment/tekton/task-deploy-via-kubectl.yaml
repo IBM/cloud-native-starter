@@ -17,6 +17,8 @@ spec:
       - name: imageTag
         description: Tag of the images to be used.
         default: "latest"
+      - name: pathToContext
+        description: The path to the build context, used by Kaniko - within the workspace
   steps:
     - name: update-yaml
       image: alpine
@@ -25,18 +27,18 @@ spec:
         - "-i"
         - "-e"
         - "s;authors:1;${inputs.params.imageUrl}:${inputs.params.imageTag};g"
-        - "/workspace/git-source/${inputs.params.pathToDeploymentYamlFile}"
+        - "/workspace/git-source/${inputs.params.pathToContext}/${inputs.params.pathToDeploymentYamlFile}"
     - name: run-kubectl-deployment
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "/workspace/git-source/${inputs.params.pathToDeploymentYamlFile}"
+        - "/workspace/git-source/${inputs.params.pathToContext}/${inputs.params.pathToDeploymentYamlFile}"
     - name: run-kubectl-service
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "/workspace/git-source/${inputs.params.pathToServiceYamlFile}"
+        - "/workspace/git-source/${inputs.params.pathToContext}/${inputs.params.pathToServiceYamlFile}"

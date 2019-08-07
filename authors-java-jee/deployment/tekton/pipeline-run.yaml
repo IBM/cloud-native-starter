@@ -11,13 +11,13 @@ spec:
         name: resource-git-cloud-native-starter
   params:
     - name: pathToContext
-      value: "authors-java-jee/"
+      value: "authors-java-jee"
     - name: pathToDeploymentYamlFile
       value: "deployment/deployment.yaml"
     - name: pathToServiceYamlFile
       value: "deployment/service.yaml"
     - name: imageUrl
-      value: us.icr.io/niklas-heidloff-cns2/authors
+      value: us.icr.io/niklas-heidloff-cns/authors
     - name: imageTag
       value: "1"
     - name: pathToDockerFile

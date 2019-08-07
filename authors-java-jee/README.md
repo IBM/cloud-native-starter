@@ -80,16 +80,21 @@ Invoke /getmultiple, for example 'http://192.168.99.100:31380/web-api/v1/getmult
 
 IBM provides a free [IBM Cloud Lite](https://ibm.biz/nheidloff) account including a free Kubernetes cluster after having updated to a billable account or having entered a promocode. Create a Kubernetes cluster following these [instructions](https://cloud.ibm.com/docs/containers?topic=containers-getting-started#getting-started).
 
-**Build and push image**
+There are several options to deploy microservices to IBM Cloud Kubernetes:
 
-Set your namespace, for example:
+* [ibmcloud and kubectl](#deploy-via-ibmcloud-and-kubectl)
+* [Deploy via kubectl and Tekton](#deploy-via-kubectl-and-tekton)
+
+Set your namespace and cluster name, for example:
 
 ```
 $ REGISTRY_NAMESPACE=niklas-heidloff-cns
 $ CLUSTER_NAME=niklas-heidloff-free
 ```
 
-Build the image:
+### Deploy via ibmcloud and kubectl
+
+**Build and push image**
 
 ```
 $ cd ${ROOT_FOLDER}/authors-java-jee
@@ -117,6 +122,42 @@ $ open http://${clusterip}:${nodeport}/openapi/ui/
 $ curl -X GET "http://${clusterip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
 ```
 
+### Deploy via kubectl and Tekton
+
+In order to use Tekton, you need to install it first - see [documentation](https://github.com/tektoncd/pipeline/blob/master/docs/install.md#adding-the-tekton-pipelines).
+
+**Set up the Tekton pipleline**
+
+```
+$ cd ${ROOT_FOLDER}/authors-java-jee
+$ ibmcloud login -a cloud.ibm.com -r us-south -g default
+$ ibmcloud ks cluster-config --cluster $CLUSTER_NAME
+$ export ... // for example: export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/niklas-heidloff-free/kube-config-hou02-niklas-heidloff-free.yml
+$ REGISTRY=$(ibmcloud cr info | awk '/Container Registry  /  {print $3}')
+$ ibmcloud cr namespace-add $REGISTRY_NAMESPACE
+$ kubectl apply -f deployment/tekton/resource-git-cloud-native-starter.yaml 
+$ kubectl apply -f deployment/tekton/task-source-to-image.yaml 
+$ kubectl apply -f deployment/tekton/task-deploy-via-kubectl.yaml 
+$ kubectl apply -f deployment/tekton/pipeline.yaml
+$ ibmcloud iam api-key-create tekton -d "tekton" --file tekton.json
+$ cat tekton.json | grep apikey 
+$ kubectl create secret generic ibm-cr-push-secret --type="kubernetes.io/basic-auth" --from-literal=username=iamapikey --from-literal=password=<your-apikey>
+$ kubectl annotate secret ibm-cr-push-secret tekton.dev/docker-0=us.icr.io
+$ kubectl apply -f deployment/tekton/pipeline-account.yaml
+```
+
+**Execute the pipeline and test the service**
+
+In [pipeline-run](deployment/tekton/pipeline-run) replace 'us.icr.io/niklas-heidloff-cns/authors' with your registry DNS name and namespace.
+
+```
+$ kubectl create -f deployment/tekton/pipeline-run.yaml
+$ kubectl describe pipelinerun pipeline-run-cns-authors-<output-from-previous-command>
+$ clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
+$ nodeport=$(kubectl get svc authors --output 'jsonpath={.spec.ports[*].nodePort}')
+$ open http://${clusterip}:${nodeport}/openapi/ui/
+$ curl -X GET "http://${clusterip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff" -H "accept: application/json"
+```
 
 ## Run in Minishift
 
