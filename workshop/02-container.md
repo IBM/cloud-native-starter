@@ -1,29 +1,32 @@
 [home](README.md)
 # Building and deploying Containers
 
-In this lab we build and deploy containers with microservices to Kubernetes. Along this way we inspect the **Dockerfiles** for the container images and we take a look into the configured **yaml files** to create the **deployment** for the microservices. The following diagram shows a high-level overview of the steps in the lab, which are mostly automated with bash scripts.
+In this lab we will build and deploy containers with microservices to Kubernetes. Along this way, we will inspect the **Dockerfiles** for container images and we will take a look into the configured **yaml files** for microservice **deployment**. The following diagram shows a high-level overview of the steps in the lab, which are mostly automated with bash scripts.
 
 ![cns-container-deployment-01](images/cns-container-deployment-01.png)
 
 1. Uploading the container definition
-2. Building and storing of the production container image inside the IBM Cloud Registry
-3. Deploying the containers into the Kuberentes Cluster
+2. Building and storing the production container image in IBM Cloud Registry
+3. Deploying the containers into the Kubernetes Cluster
 
 ## 1. The container images
 
-Before we will execute the bash scripts to build and upload the container images, we will take a look into the Dockerfiles to build these container images. 
+Before we execute the bash scripts to build and upload the container images, we will take a look into the Dockerfiles to build these container images. 
 
-The following picture shows a brief preview of the result of the running container in Kubernetes, when we finished the lab. These are the containers we will storing inside the **container registry** in IBM Cloud.
+The following picture shows a brief preview of the end result: containers running in Kubernetes. These are the containers we will store inside the **container registry** in IBM Cloud, once we have finished the lab.
 
 ![ibm-cloud-pods](images/ibm-cloud-registry-container.png)
 
-Here we can see the created **Pods** for each container inside the **IBM Kubernetes cluster**.
+Here we can see the **Pods** created for each container inside the **IBM Kubernetes cluster**.
 
 |Kubernetes Cluster| Pods|
 |----|----|
 |![ibm-cloud-cluster](images/ibm-cloud-cluster-02.png)|![ibm-cloud-pods](images/ibm-cloud-pods.png)|
 
 
+_Note:_ Here is a 3-min teaser video to the related topic: How to build a container
+
+[![How to build a container](https://img.youtube.com/vi/ZHvASaUo3Vw/0.jpg)](https://www.youtube.com/watch?v=ZHvASaUo3Vw "Click play on youtube")
 
 ---
 
@@ -35,14 +38,14 @@ The **Articles** and the **Authors** microservices are written in Java and they 
 
 #### 1.1.1 Articles container image definition
 
-Let's take a look into the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the Articles service. Inside the Dockerfile we use **two stages** to build the container image. 
-The reason for the two stages is, we have the objective to be **independent** of local environment settings, when we build our production services. With this concept we don't have to ensure that **Java** and **Maven** (or wrong versions of them) is installed on the local machine of the developers.
+Let's take a look at the [Dockerfile](../articles-java-jee/Dockerfile.nojava) to create the Articles service. Inside the Dockerfile we use **two stages** to build the container image. 
+Why two stages? We want to be **independent** of local environment settings, when we build our production services. With this concept we don't have to ensure that **Java** and **Maven** (or wrong versions of them) are installed on the local machine of the developers.
 
-In short words one container is only responsible to build the microservice, let us call this container **build environment container** and the other container will contain the microservice, we call this the **production** container.
+In short: only one container is responsible to build the microservice, let's call this container the **build environment container** and the other container will contain the microservice, we'll call this the **production** container.
 
 * **Build environment container**
 
-In the following Dockerfile extract, we can see how we create our **build environment container** based on the maven 3.5 image from the [dockerhub](https://hub.docker.com/_/maven/) and copy the needed pom.xml file to build the application. (more details about the **pom.xml** are in the [optional lab](06-java-development.md))
+In the following Dockerfile extract, we can see how to create our **build environment container** based on the maven 3.5 image from [dockerhub](https://hub.docker.com/_/maven/) and copy the needed pom.xml file to build the application (more details about the **pom.xml** are in the [optional lab](06-java-development.md)).
 
 ```Dockerfile
 FROM maven:3.5-jdk-8 as BUILD
@@ -50,7 +53,7 @@ COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
 ```
 
-Then we build the executable **articles.war** file inside the **build container** image. Here we use the maven command ```mvn -f pom.xml clean package`` to build the [war](https://en.wikipedia.org/wiki/WAR_(file_format)) file.
+Next we build the executable **articles.war** file inside the **build container** image. Here we use the maven command ```mvn -f pom.xml clean package`` to build the [war](https://en.wikipedia.org/wiki/WAR_(file_format)) file.
 
 ```Dockerfile
 RUN mvn -f /usr/src/app/pom.xml clean package
@@ -58,9 +61,9 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 
 * **Production container**
 
-In the following Dockerfile extract, we do create the **production container** based on the **openliberty** with **microProfile2**.
+In the following Dockerfile extract, we create the **production container** based on **OpenLiberty** with **MicroProfile2**.
 Then we install the **zipkintracer** for later usage. But the **zipkintracer** is not in scope for this lab.
-The server configuration is defined in the server.xml. (more details about the **server.xml** are in the [optional lab](06-java-development.md))
+The server configuration is defined in the server.xml (more details about the **server.xml** are in the [optional lab](06-java-development.md)).
 
 
 ```Dockerfile
@@ -76,13 +79,13 @@ Now it is time to copy the build result **articles.war** from our **build enviro
 ```Dockerfile
 COPY --from=BUILD /usr/src/app/target/articles.war /config/dropins/
 ```
-With this last step the container is ready to be deployed to Kubernetes.
+With this last step, the container is ready to be deployed to Kubernetes.
 
 ---
 
 #### 1.1.2 Web-api-V1 container image definition
 
-The **Web API** [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) to create the **Web API** service, works in the same way as we did  before for the **Articles container**.
+Creating the **Web API** service [Dockerfile](../web-apo-java-jee/Dockerfile.nojava) works in the same way as the **Articles container**.
 
 ---
 
@@ -94,9 +97,9 @@ The **Web app** and the **Authors** services are written in Node.js.
 
 #### 1.2.1 Web app container image definition
 
-The **Web app** [Dockerfile](../web-app-vuejs/Dockerfile) to create the  **Web app** application works in the same way as for **Articles container**. Inside the Dockerfile we use the same two stages to build the **production container** image.
+Creating the **Web application** [Dockerfile](../web-app-vuejs/Dockerfile) works in the same way as the **Articles container**. Inside the Dockerfile we use the same two stages to build the **production container** image.
 
-Here you can see the **build environment container** is based on the alpine 8 image from the [dockerhub](https://hub.docker.com/_/alpine). This container already contains the [yarn](https://yarnpkg.com/en/) package manager to build the [VUE UI](https://vuejs.org/) web  application.
+Here you can see the **build environment container** is based on the alpine 8 image from [dockerhub](https://hub.docker.com/_/alpine). This container already contains the [yarn](https://yarnpkg.com/en/) package manager to build the [VUE UI](https://vuejs.org/) web  application.
 
 ```Dockerfile
 FROM node:8-alpine as BUILD
@@ -119,13 +122,13 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=BUILD /usr/src/app/dist /usr/share/nginx/html
 ```
 
-If last step of the **Dockerfile** is executed, the container is ready to be deployed to Kubernetes.
+Once last step of the **Dockerfile** is executed, the container is ready to be deployed to Kubernetes.
 
 ---
 
 #### 1.2.2 Authors container image definition
 
-The Authors [Dockerfile](../**Authors**/Dockerfile) to create the **Web API** service does directly create the production image and this image is based on the alpine 8 container image from the [dockerhub](https://hub.docker.com/_/alpine).
+The **Authors** [Dockerfile](../**Authors**/Dockerfile) to create the **Web API** service, creates the production image instantly and this image is based on the alpine 8 container image from [dockerhub](https://hub.docker.com/_/alpine).
 
 ```Dockerfile
 FROM node:8-alpine
@@ -145,27 +148,27 @@ EXPOSE 3000
 
 CMD ["npm", "start"]
 ```
-If this last step is executed of the **Dockerfile** the container is ready to be deployed to Kubernetes.
+If this last **Dockerfile** step is executed, the container is ready to be deployed to Kubernetes.
 
 ---
 
-### 1.3 YAML Configurations for the deployment to Kubernetes
+### 1.3 YAML Configurations for deployment to Kubernetes
 
-Now we examine the deployment yamls to deploy the container to **Pods** and creating **Services** to access them in the Kubernetes Cluster. In the following image you can see the deployed **Pods** and **Services** in the Kubernetes cluster:
+Now we examine the deployment yamls to deploy the container to **Pods**, creating **Services** to access them in the Kubernetes Cluster. In the following image you can see the deployed **Pods** and **Services** in the Kubernetes cluster:
 
 |Pods| Services|
 |----|----|
 |![ibm-cloud-pods](images/ibm-cloud-pods.png)    |![ibm-cloud-services](images/ibm-cloud-services.png)|
 
-_Note:_ In the lab **Using traffic management in Kubernetes with Istio** we will take more detailed look into the deployment and service yaml configurations.
+_Note:_ In the lab **Using traffic management in Kubernetes with Istio** we will take more detailed look into deployment and service yaml configurations.
 
 ---
 
 #### 1.3.1 Web app
 
-* Service and Deployment configuration for the micro service
+* Service and Deployment configuration for the microservice
 
-With "[kind: Service](https://kubernetes.io/docs/concepts/services-networking/service/)" we define the access to our microservice inside Kubernetes and the "[kind: Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)" defines how we expose the microservice on a Pod in Kubernetes and even more configuration options we can find on the "[Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)".
+We define the access to our microservice inside Kubernetes with "[kind: Service](https://kubernetes.io/docs/concepts/services-networking/service/)"  and we define how to expose the microservice on a Pod in Kubernetes with the "[kind: Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)". We can find even more configuration options in the "[Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)".
 
 Here we can see the service and deployment configuration for the Kubernetes deployment of the **Web app**.
 
@@ -593,5 +596,3 @@ Resources:
 
 * [Configuring Microservices with MicroProfile and Kubernetes'](http://heidloff.net/article/configuring-java-microservices-microprofile-kubernetes/)
 * [Dockerizing Java MicroProfile Applications](http://heidloff.net/article/dockerizing-container-java-microprofile)
-
-
