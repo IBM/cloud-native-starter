@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  generateName: pipeline-run-cns-authors-
+spec:
+  pipelineRef:
+    name: pipeline
+  resources:
+    - name: git-source
+      resourceRef:
+        name: resource-git-cloud-native-starter
+  params:
+    - name: pathToContext
+      value: "authors-java-jee/"
+    - name: pathToDeploymentYamlFile
+      value: "deployment/deployment.yaml"
+    - name: pathToServiceYamlFile
+      value: "deployment/service.yaml"
+    - name: imageUrl
+      value: us.icr.io/niklas-heidloff-cns2/authors
+    - name: imageTag
+      value: "1"
+    - name: pathToDockerFile
+      value: "Dockerfile"
+  trigger:
+    type: manual
+  serviceAccount: pipeline-account
