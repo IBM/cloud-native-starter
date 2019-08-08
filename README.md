@@ -147,6 +147,7 @@ The following [slides](https://github.com/nheidloff/cloud-native-starter/blob/ma
 * [Recorded demos: Traffic management, resiliency, authorization, logging](http://heidloff.net/article/how-to-develop-your-first-cloud-native-applications-with-java/)
 * [Using Quarkus to run Java Apps on Kubernetes](http://heidloff.net/article/quarkus-javaee-microprofile-kubernetes)
 * [Debugging Microservices running in Kubernetes](http://heidloff.net/article/debugging-microservices-kubernetes)
+* [Deploying MicroProfile Microservices with Tekton](http://heidloff.net/article/deploying-microprofile-microservices-tekton/)
 
 
 ### Documentation - OpenShift
