@@ -75,3 +75,4 @@ images/~$cloud-native-starter.pptx
 workshop/images/~$architecture.pptx
 authors-java-jee/deployment/tekton/pipeline-run-template.yaml.1
 authors-java-jee/deployment/tekton/pipeline-run-template.yaml.2
+authors-java-jee/deployment/tekton/pipeline-run.yaml
