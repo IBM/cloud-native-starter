@@ -17,7 +17,7 @@ spec:
     - name: pathToServiceYamlFile
       value: "deployment/service.yaml"
     - name: imageUrl
-      value: <ip:port>/<namespace>/authors:<tag>
+      value: <ip:port>/<namespace>/authors
     - name: imageTag
       value: "1"
     - name: pathToDockerFile
