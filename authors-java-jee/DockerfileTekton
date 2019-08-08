@@ -10,7 +10,9 @@ FROM open-liberty:microProfile2-java11
 
 COPY --from=0 /usr/src/app/target/authors.war /config/apps/
 
-COPY --from=0 /kaniko/server.xml /config/apps
+COPY --from=0 /kaniko/server.xml /config/apps/
+
+RUN chmod 777 /config/
 
 COPY --from=0 /kaniko/server.xml /config/
 
