@@ -17,7 +17,7 @@ spec:
     - name: pathToServiceYamlFile
       value: "deployment/service.yaml"
     - name: imageUrl
-      value: us.icr.io/niklas-heidloff-cns2/authors
+      value: <ip:port>/<namespace>/authors:<tag>
     - name: imageTag
       value: "1"
     - name: pathToDockerFile

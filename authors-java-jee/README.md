@@ -148,9 +148,13 @@ $ kubectl apply -f deployment/tekton/pipeline-account.yaml
 
 **Execute the pipeline and test the service**
 
-In [pipeline-run](deployment/tekton/pipeline-run) replace 'us.icr.io/niklas-heidloff-cns/authors' with your registry DNS name and namespace.
-
 ```
+$ cd ${ROOT_FOLDER}/authors-java-jee/deployment/tekton
+$ REGISTRY=$(ibmcloud cr info | awk '/Container Registry  /  {print $3}')
+$ sed "s+<namespace>+$REGISTRY_NAMESPACE+g" pipeline-run-template.yaml > pipeline-run-template.yaml.1
+$ sed "s+<ip:port>+$REGISTRY+g" pipeline-run-template.yaml.1 > pipeline-run-template.yaml.2
+$ sed "s+<tag>+1+g" pipeline-run-template.yaml.2 > pipeline-run.yaml
+$ cd ${ROOT_FOLDER}/authors-java-jee
 $ kubectl create -f deployment/tekton/pipeline-run.yaml
 $ kubectl describe pipelinerun pipeline-run-cns-authors-<output-from-previous-command>
 $ clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
