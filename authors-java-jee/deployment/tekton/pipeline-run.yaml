@@ -21,7 +21,7 @@ spec:
     - name: imageTag
       value: "1"
     - name: pathToDockerFile
-      value: "Dockerfile"
+      value: "DockerfileTekton"
   trigger:
     type: manual
   serviceAccount: pipeline-account
