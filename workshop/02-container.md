@@ -160,7 +160,11 @@ Now we examine the deployment yamls to deploy the container to **Pods**, creatin
 |----|----|
 |![ibm-cloud-pods](images/ibm-cloud-pods.png)    |![ibm-cloud-services](images/ibm-cloud-services.png)|
 
-_Note:_ In the lab **Using traffic management in Kubernetes with Istio** we will take more detailed look into deployment and service yaml configurations.
+_Note 01:_ In the lab **Using traffic management in Kubernetes with Istio** we will take more detailed look into deployment and service yaml configurations.
+
+_Note 02:_ Here is a 3-min teaser video to the related topic: Deploy a container image to Kubernetes
+
+[![Deploy a container image to Kubernetes](https://img.youtube.com/vi/7wyTf6gW1Xs/0.jpg)](https://www.youtube.com/watch?v=7wyTf6gW1Xs "Click play on youtube")
 
 ---
 
