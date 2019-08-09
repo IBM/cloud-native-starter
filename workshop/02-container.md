@@ -250,9 +250,9 @@ spec:
 
 #### 1.3.3 Articles
 
-As defined in the [Twelve-Factor-App](https://12factor.net/) it’s important for cloud-native applications to **store configuration externally**, rather than in the code since this makes it possible to deploy applications to different environments. An app’s config is everything that is likely to vary between deploys (staging, production, developer environments, etc). This includes: Resource handles to backing services or credentials to external services.
+As defined in the [Twelve-Factor-App](https://12factor.net/), it’s important for cloud-native applications to **store configuration externally**, rather than in the code since this makes it possible to deploy applications to different environments. An app’s config is everything that is likely to vary between deploys (staging, production, developer environments, etc). This includes: Resource handles to backing services or credentials to external services.
 
-Microservices that are implemented with Java EE can leverage MicroProfile config. The configuration can be done, for example, in **Kubernetes yaml** files and accessed from Java code via annotations and APIs. The **‘Articles’** microservice uses configuration to define whether or not to **create ten articles** the first time it is invoked. In the yaml file an environment variable pointing to a **ConfigMap** is defined.
+Microservices that are implemented with Java EE can leverage MicroProfile config. The configuration can be done in **Kubernetes yaml** files for example, and accessed from Java code via annotations and APIs. The microservice **‘Articles’** uses configuration to define whether or not to **create ten articles** the first time it is invoked. An environment variable pointing to a **ConfigMap** is defined in the yaml file.
 
 In our sample you can find the [environment](articles-java-jee/deployment/kubernetes.yaml#L35) and [ConfigMap](articles-java-jee/deployment/kubernetes.yaml#L54) definition.
 
@@ -278,7 +278,7 @@ data:
           key: samplescreation
 ```
 
-In the Java code the **configuration** can be accessed via **@Inject**  and **@ConfigProperty**.
+In the Java code the **configuration** can be accessed via **@Inject** and **@ConfigProperty**.
 [CoreService class](articles-java-jee/src/main/java/com/ibm/articles/business/CoreService.java)
  
 ```java
@@ -296,7 +296,7 @@ public class CoreService {
     }
 ```
 
-In the deployment yaml for articles, you can inspect the **Service**, the **Deployment** and the **ConfigMap** definition.
+In the deployment yaml for articles, you can inspect the **Service**, the **Deployment**, and the **ConfigMap** definition.
 
 ```yaml
 kind: Service
@@ -361,7 +361,7 @@ data:
 
 ### 1.4 Ingress configuration
 
-You can see in the diagram below, we are using a Ingress from Istio to provide access from the internet to the microservice **Web API** and the **Web app**.
+You can see in the diagram below, we are using an Ingress from Istio to provide access from the internet to the microservice **Web API** and the **Web app**.
 
 ![cns-container-deployment-02](images/cns-container-deployment-02.png)
 
@@ -448,7 +448,7 @@ spec:
 
 ## 2.2 Build and deploy the container
 
-> Before we will execute the given bash scripts, we will get a basic understanding of the content.
+> Before we execute the given bash scripts, we will get a basic understanding of the content.
 
 In the following bash scripts, we use **ibmcloud** and **kubectl** commands to interact with IBM Cloud, IBM Container Registry Service and the IBM Kubernetes service in IBM Cloud. With **sed** and **awk** we extract the output from the comandline.
 
@@ -460,7 +460,7 @@ To build the containers in IBM Cloud we do **not** use Docker commands, because 
 $ ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/articles:1 .
 ```
 
-To deploy the container images into Kubernetes, we use the **kubectl apply** command for the needed yaml configuration files. 
+To deploy container images into Kubernetes, we use the **kubectl apply** command for the needed yaml configuration files. 
 
 * **Example**: How to deploy the container to the Kubernetes Cluster
 
@@ -486,7 +486,7 @@ With [sed](https://en.wikipedia.org/wiki/Sed_(Unix)) and [awk]( https://en.wikip
 
 > Now we will use the bash scripts to build and deploy the container to Kubernetes on IBM Cloud.
 
-1. Invoke following bash scripts to build and deploy the microservices to Kubernetes:
+1. Invoke the following bash scripts to build and deploy the microservices to Kubernetes:
 
     **The scripts do automate following tasks:**
 
@@ -562,7 +562,7 @@ For the next steps use the results of the ```show-urls.sh``` script.
 
   ![cns-container-articels-service-03](images/cns-container-articels-service-03.png)
 
-2. Execute the curl **getauthor** command to get a Author
+2. Execute the curl **getauthor** command to get an Author
 
     ```sh
     $ curl http://YOUR_IP:31078/api/v1/getauthor?name=Niklas%20Heidloff
@@ -585,10 +585,10 @@ For the next steps use the results of the ```show-urls.sh``` script.
     ![cns-container-web-app-04](images/cns-container-web-app-05.png)
 
 ---
-Now, we've finished the **Lab - Building and deploying Containers**.
+Now we've finished the **Lab - Building and deploying Containers**.
 Let's get started with the [Defining and exposing REST APIs](03-rest-api.md).
 
-_Note:_ **Congratulations** :thumbsup:, you have finished the first important step of **hands-on workshop** to get the core **Cloud Native Starter** application running on Kubernetes.
+_Note:_ **Congratulations** :thumbsup:, you have finished the first important step of our **hands-on workshop**, getting the core **Cloud Native Starter** application running on Kubernetes.
 
 ---
 
