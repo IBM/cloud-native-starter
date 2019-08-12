@@ -235,7 +235,7 @@ These are the instructions to install Istio. For this workshop we are using **Is
 1. First, let's check if the cluster is available:
 
     ```sh
-    $ ./iks-scripts/cluster-add-istio.sh
+    $ ../iks-scripts/cluster-get-config.sh
     ```
     If the cluster isn't ready, the script will tell you. Just wait a few more minutes and then try again.
 
