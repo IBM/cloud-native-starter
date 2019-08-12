@@ -39,8 +39,8 @@ function create_cluster() {
   # check if something went wrong
    if [ $? == 0 ]; then 
      _out -- Creating a cluster will take some time, please wait at least 20 minutes before
-     _out -- starting with the next script iks-scripts/cluster-add-istio.sh
-     _out ---- cluster-add-istio.sh will check if the cluster is ready
+     _out -- executing the next script iks-scripts/cluster-get-config.sh
+     _out ---- cluster-get-config.sh will check if the cluster is ready
    else
      _out SOMETHING WENT WRONG! Check the iks-scripts/create-iks-cluster.log
    fi

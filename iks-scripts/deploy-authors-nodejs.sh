@@ -19,7 +19,7 @@ source $CFG_FILE
 CLUSTER_CFG=${root_folder}/iks-scripts/cluster-config.sh
 # Check if config file exists
 if [ ! -f $CLUSTER_CFG ]; then
-     _out Cluster config file iks-scripts/cluster-config.sh is missing! Run iks-scripts/cluster-add-istio.sh first!
+     _out Cluster config file iks-scripts/cluster-config.sh is missing! Run iks-scripts/cluster-get-config.sh first!
      exit 1
 fi  
 source $CLUSTER_CFG

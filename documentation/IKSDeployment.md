@@ -67,34 +67,48 @@ This step creates a lite Kubernetes cluster on IBM Cloud.
 $ iks-scripts/create-iks-cluster.sh
 ```
 
-Creating a cluster takes some time. Please wait at least 20 minutes before you continue with the next step!
+Creating a cluster takes some time, typically at least 20 minutes.
+
+The next command checks if the cluster is ready and if it is ready, it retrieves the cluster configuration (which is needed in most of the other scripts), creates file `iks-scripts/cluster-config.sh`, and stores the cluster configuration in it. If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
+
+```
+$ iks-scripts/cluster-get-config.sh
+```
+
+**NOTE:** You **MUST** run this command to check for completion of the cluster provisioning and it must report that the cluster is ready for Istio installation! This command also retrieves the cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.  
+
+From now on if you want to use `kubectl` commands with your cluster use this command to get access to the cluster:
+
+```
+$ source iks-scripts/cluster-config.sh
+```
+
 
 ### Add Istio
 
 IBM Kubernetes Service has an option to install a managed Istio into a Kubernetes cluster. Unfortunately, the Kubernetes Lite Cluster we created in the previous step does not meet the hardware requirements for managed Istio. Hence we do a manual install of the Istio demo or evaluation version.
 
-First check if the cluster is available:
-
-```
-$ iks-scripts/cluster-add-istio.sh
-```
-
-If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
-
-**NOTE:** You **MUST** run this command to check for completion of the cluster provisioning and it must report that the cluster is ready for Istio installation! This command also retrieves the cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.  
-
 These are the instructions to install Istio. We use Istio 1.1.5 for this project.
 
-1. Download Istio 1.1.5   
+
+1. Get access to your Kubernetes cluster on IBM Cloud:
+
+    ```
+    $ source iks-scripts/cluster-config.sh
+    ```
+
+2. Download Istio 1.1.5   
    ```
    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
    ```
     
-2. Follow the instructions displayed at completion of this command to add the istio-1.1.5/bin directory to your PATH environment variable
+3. Follow the instructions displayed at completion of this command to add the istio-1.1.5/bin directory to your PATH environment variable
 
-3. Change into the extracted directory: `cd istio-1.1.5`
+4. Change into the extracted directory: `cd istio-1.1.5`
 
-4. Install Istio:
+5. Install Istio:
+
+    Install some Istio Custom Resource Definitions first:
 
     ```
     $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
