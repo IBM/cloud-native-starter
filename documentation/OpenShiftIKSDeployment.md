@@ -26,6 +26,20 @@ Run this script to check the prerequisites:
 $ ibm-scripts/IKS-check-prerequisites.sh
 ```
 
+__Important note to non-English users:__ We use the `ibmcloud` CLI to set and retrieve configuration information. By default `ibmcloud` uses the OS environment language as its locale which could lead to errors in some scripts if it is not English. So on non-English systems we advise to set the `ibmcloud` locale to English by using this command:
+
+```
+$ ibmcloud config --locale en_US
+```
+
+To revert this setting, simply execute:
+
+```
+$ ibmcloud config --locale CLEAR
+```
+
+
+
 **Create an API Key**
 
 Note that API keys are only valid for one data center. Right now OpenShift can be used in North America ('us-east') and Europe ('eu-gb').
