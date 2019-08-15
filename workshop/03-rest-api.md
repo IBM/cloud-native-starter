@@ -3,6 +3,10 @@
 
 ## 1. Making the REST API life easier for Java developers with MicroProfile
 
+_Note:_ Here is a 3-min teaser video to the related topic: Expose and consume a REST API built with MicroProfile
+
+[![Expose and consume a REST API built with MicroProfile](https://img.youtube.com/vi/oxoeoimsw_w/0.jpg)](https://www.youtube.com/watch?v=oxoeoimsw_w "Click play on youtube")
+
 ### 1.1 JSON data and Java objects
 
 MicroProfile comes with a REST Client which defines a type safe client programming model. The REST Client makes it easier to convert between the JSON data and Java objects in both directions.
