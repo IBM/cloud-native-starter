@@ -13,6 +13,10 @@ We configure the routing to split the usage between our two instances and versio
 
 ![gif](images/traffic-routing.gif)
 
+_Note:_ Here is a 3-min teaser video to the related topic: Traffic management in Kubernetes with Istio
+
+[![Traffic management in Kubernetes with Istio](https://img.youtube.com/vi/VT9TzuoTEZ0/0.jpg)](https://www.youtube.com/watch?v=VT9TzuoTEZ0 "Click play on youtube")
+
 ## 1.1 Deployment definition
 
 We need to understand; these two versions of the **Web API** do exist as **two** different Kubernetes deployments and they run **in parallel**. That is defined in the [kubernetes-deployment-v1](../web-api-java-jee/deployment/kubernetes-deployment-v1.yaml) and [kubernetes-deployment-v2](web-api-java-jee/deployment/kubernetes-deployment-v2.yaml).
