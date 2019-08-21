@@ -7,7 +7,7 @@ As stated in the [reactive manifesto](https://www.reactivemanifesto.org/) cloud-
 
 In distributed systems we need to **design for failure**. For example, microservices, which invoke other microservices, must be intelligent enough to continue to work even if some of their dependencies are currently not available.
 
-_Note:_ Here is a 3-min teaser video to the related topic: Handle microservice eesiliency with MicroProfile
+_Note:_ Here is a 3-min teaser video to the related topic: Handle microservice resiliency with MicroProfile
 
 [![Handle microservice resiliency with MicroProfile](https://img.youtube.com/vi/JeMI7gzmdO4/0.jpg)](https://www.youtube.com/watch?v=JeMI7gzmdO4 "Click play on youtube")
 
