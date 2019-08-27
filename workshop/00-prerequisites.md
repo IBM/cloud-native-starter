@@ -28,12 +28,14 @@ _Note:_
 
 1. IBM Docker image
 
-There is a Docker image provided by IBM that contains most of the needed cli tools
-[Using IBM Cloud Developer Tools from a Docker Container](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker).
+    There is a Docker image provided by IBM that contains most of the needed cli tools 
+    * [Using IBM Cloud Developer Tools from a Docker Container](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker).
 
 2. Virtual Box
 
-You can also use a VirtualBox to install the tools with [Ubuntu](https://www.osboxes.org/ubuntu/), for example.
+    You can also use a VirtualBox to install the tools with [Ubuntu](https://www.osboxes.org/ubuntu/), for example.
+
+## 2.1 Verfiy the major prerequisites on your machine
 
 To verfiy the major prerequisites on your machine, you can execute following bash script.
 
@@ -235,7 +237,7 @@ These are the instructions to install Istio. For this workshop we are using **Is
 1. First, let's check if the cluster is available:
 
     ```sh
-    $ ../iks-scripts/cluster-get-config.sh
+    $ ./iks-scripts/cluster-get-config.sh
     ```
     If the cluster isn't ready, the script will tell you. Just wait a few more minutes and then try again.
 
