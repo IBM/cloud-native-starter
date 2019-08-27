@@ -173,6 +173,15 @@ _Optional:_ You can verify the new **Web app** version in Kubernetes.
     ```sh
     $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
     ```
+    
+    _Note:_ If you use the **workshop Docker image for Windows**, you have of open **kiali** in a browser on the windows host.
+    
+    ```http://{CLUSTER-IP}:31380/kiali/console/applications?namespaces=default```
+
+
+
+ system a windows hyou don't need to follow these steps. Everything is in place already.
+
 5. Then open http://localhost:20001/kiali in your browser and logon with Username: admin, Password: admin.
 
     ![Kiali installation](images/istio-installation-02.png)

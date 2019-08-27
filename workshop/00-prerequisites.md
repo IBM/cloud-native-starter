@@ -21,23 +21,37 @@ In order to complete the workshop, you will need the following tools installed o
   [IBM Cloud CLI releases](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
 - [Docker](https://docs.docker.com/v17.12/install/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- for Windows, you will need access to a Unix shell (Babun, [Cygwin](https://cygwin.com/install.html), etc.) or just install via the [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 
-_Note:_ 
+### 2.1 Options for Windows
 
-1. IBM Docker image
+For Windows, you will need access to a Unix shell because you will execute predefined bash scripts and other CLI commands. 
 
-    There is a Docker image provided by IBM that contains most of the needed cli tools 
-    * [Using IBM Cloud Developer Tools from a Docker Container](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker).
+You have different options:
 
-2. Virtual Box
+1. [Use a workshop Docker image for Window 10](00-prerequisites-windows-10.md)
+    
+    We tested this option on a Windows 10 machine and documented it.
 
-    You can also use a VirtualBox to install the tools with [Ubuntu](https://www.osboxes.org/ubuntu/), for example.
+2. [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
-## 2.1 Verfiy the major prerequisites on your machine
+3. IBM Docker image
+
+    There is a Docker image provided by IBM that contains most of the CLI tools needed
+    
+    * [Using IBM Cloud Developer Tools from a Docker Container](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker). 
+    
+    _Note:_ You need to share the downloaded GitHub repo on your Windows filesystem with the running Docker image.
+
+4. Virtual Box
+
+    You can also use [VirtualBox](https://www.virtualbox.org) or [Hyper-V](https://docs.microsoft.com/de-de/virtualization/hyper-v-on-windows/about/) to create an [Ubuntu](https://www.osboxes.org/ubuntu/) VM and run the workshop directly in the VM in a Linux environment.
+
+## 3. Verfiy the major prerequisites on your machine
 
 To verfiy the major prerequisites on your machine, you can execute following bash script.
+
+_Note:_ If you use the **workshop Docker image for Windows** described above, you don't need to follow these steps. Everything is in place already.
 
 ```sh
 $ git clone https://github.com/IBM/cloud-native-starter.git
@@ -47,7 +61,8 @@ $ chmod u+x scripts/*.sh
 $ ./iks-scripts/check-prerequisites.sh
 ```
 
-## 3. Setup IBM Cloud Kubernetes cluster<a name="home"></a>
+
+## 4. Setup IBM Cloud Kubernetes cluster<a name="home"></a>
 
 By default, deployment is set in Dallas, USA (us-south). 
 
@@ -64,7 +79,7 @@ _Note:_ If you already have a lite cluster in Dallas, some of these scripts will
 
 ---
 
-### 3.1 Register for IBM Cloud <a name="part-SETUP-00"></a>
+### 4.1 Register for IBM Cloud <a name="part-SETUP-00"></a>
 
 1. Open a browser window and navigate to the IBM Cloud [Registration page](https://ibm.biz/Bd2JHx).
 
@@ -83,7 +98,7 @@ In order to create a free Kubernetes cluster, you need a **promo** or **feature 
 
 ---
 
-### 3.2 Insert promo code <a name="part-SETUP-01"></a>
+### 4.2 Insert promo code <a name="part-SETUP-01"></a>
 [<home>](#home)
 
 In order to execute the workshop easily, we provide **promotional codes** to create free Kubernetes clusters, so no credit card details are required.
@@ -94,8 +109,10 @@ _Note:_ Free clusters expire after one month.
 
 ---
 
-### 3.3 Setup the IBM Cloud CLI <a name="part-SETUP-02"></a>
+### 4.3 Setup the IBM Cloud CLI <a name="part-SETUP-02"></a>
 [<home>](#home)
+
+_Note:_ If you use the **workshop Docker image for Windows** described above, you don't need to follow these steps. Everything is in place already.
 
 Follow the steps listed under the [Install from shell](https://cloud.ibm.com/docs/cli/reference/bluemix_cli?topic=cloud-cli-install-ibmcloud-cli#shell_install) section to download and install the IBM Cloud CLI.
 
@@ -107,7 +124,7 @@ Follow the steps listed under the [Install from shell](https://cloud.ibm.com/doc
 
 ---
 
-### 3.4 Get an IBM platform key <a name="part-SETUP-08"></a>
+### 4.4 Get an IBM platform key <a name="part-SETUP-08"></a>
 
 We will need an IBM platform key to use the bash script automation later. 
 
@@ -147,6 +164,8 @@ _Optional:_ We can verify the key in IBM Cloud, as you can see in the image belo
 
 3. Create a copy of the **template.local.env** and paste the file into the same folder. Rename the new file to **local.env**. Then insert the platform key, which we created before, into the **local.env** file as the value for the ```IBMCLOUD_API_KEY``` variable, which we can see in step 4.
 
+_Note:_ If you use the **custom Docker image**, you don't need to follow these steps.
+
 ```sh
 $ cp template.local.env local.env
 $ cat local.env
@@ -155,6 +174,8 @@ $ cat local.env
 4. Verify the entries in the local.env file.
 
 Open file **local.env** in a editor.
+
+_Note:_ If you use the **custom Docker image**, open the file with the nano editor. ```nano local.env```
 
 We can see the file has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
 
@@ -180,8 +201,10 @@ CLOUDANT_URL=
 ```
 ---
 
-### 3.5 Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
+### 4.5 Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
 [<home>](#home)
+
+_Note:_ If you use the **workshop Docker image for Windows** described above, you don't need to follow these steps. Everything is in place already.
 
 Let's log in to the IBM Cloud CLI tool: `ibmcloud login`.
 If you are an IBMer, include the `--sso` flag: `ibmcloud login --sso`.
@@ -206,14 +229,14 @@ Note: all subsequent CLI commands will operate in that region.
 
 ---
 
-### 3.6 Create a IBM Cloud Kubernetes Service and add ISTIO<a name="part-SETUP-04"></a>
+### 4.6 Create a IBM Cloud Kubernetes Service and add ISTIO<a name="part-SETUP-04"></a>
 [<home>](#home)
 
 For the following steps we use bash scripts from the github project.
 
 ---
 
-#### 3.6.1 Automated creation of a Cluster with Istio for the workshop
+#### 4.6.1 Automated creation of a Cluster with Istio for the workshop
 
 * **create cluster**
 
@@ -366,7 +389,7 @@ _Optional:_ You can find the created namespace here (https://cloud.ibm.com/kuber
 
 ---
 
-#### 3.6.2  Manual creation of a Cluster (optional)
+#### 4.6.2  Manual creation of a Cluster (optional)
 
 You can create an IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
 
@@ -374,7 +397,7 @@ _Note:_ When using the CLI or the Cloud console in a browser, always make sure t
 
 ---
 
-### 3.7 Accessing the Kubernetes cluster manually (optional) <a name="part-SETUP-05"></a>
+### 4.7 Accessing the Kubernetes cluster manually (optional) <a name="part-SETUP-05"></a>
 
 Now let's see how to set the context to work with our clusters by using the ```kubectl``` CLI, how to access the Kubernetes dashboard, and how to gather basic information about our cluster.
 
@@ -425,7 +448,7 @@ $ kubectl get svc,deploy,po --all-namespaces
 
 ---
 
-### 3.8 Access the IBM Cloud Container Registry manually (optional) <a name="part-SETUP-06"></a>
+### 4.8 Access the IBM Cloud Container Registry manually (optional) <a name="part-SETUP-06"></a>
 [<home>](#home)
 
 In order to build and distribute Container images, we need a Container registry. We can use the **IBM Container Registry** which can be accessed straight from our Kubernetes cluster. Let's log in to the Container Registry service via the `ibmcloud` CLI and obtain the information about our registry:
