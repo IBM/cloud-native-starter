@@ -26,14 +26,14 @@ function setup() {
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
   _out ------------------------------------------------------------------------------------
   
-  _out kiali (using port-forward local pc)
+  _out kiali - using port-forward on local pc
   command1="kubectl -n istio-system port-forward $"
   command2="(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001"
   _out Run the command: ${command1}${command2}
   _out Then open http://localhost:20001 with username: admin, password: admin
   _out ------------------------------------------------------------------------------------
 
-  _out kiali (using Istio virtual service mapping)
+  _out kiali - using Istio virtual service mapping
   ingress=$(kubectl get gateway --ignore-not-found default-gateway-ingress-http --output 'jsonpath={.spec}')
   if [ -z "$ingress" ]; then
     _out Ingress not available. Run 'scripts/deploy-istio-ingress-v1.sh'
