@@ -8,7 +8,7 @@ RUN apt-get --assume-yes install wget
 RUN apt-get --assume-yes install nano
 # setup network tools
 RUN apt-get --assume-yes install apt-utils
-RUN apt-get --assume-yes install net-tools
+# RUN apt-get --assume-yes install net-tools
 # zip
 RUN apt-get --assume-yes install unzip
 RUN apt-get --assume-yes install zip
@@ -30,13 +30,12 @@ RUN curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
 
 #Docker
 WORKDIR /
-RUN curl -fsSL https://get.docker.com -o get-docker.sh
-RUN sh get-docker.sh
-
-RUN docker --version
+# RUN curl -fsSL https://get.docker.com -o get-docker.sh
+# RUN sh get-docker.sh
+# RUN docker --version
 
 # Docker
-RUN apt-get update
+# RUN apt-get update
 # RUN apt-get --assume-yes install docker-ce 
 RUN apt-get --assume-yes install docker-ce-cli 
 # RUN apt-get --assume-yes install containerd.io
@@ -46,16 +45,18 @@ RUN apt-get --assume-yes install docker-ce-cli
 RUN apt-get update && apt-get install -y apt-transport-https
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-RUN apt-get update
+# RUN apt-get update
 RUN apt-get install -y kubectl
 
 # IBM Cloud CLI
+
 # RUN  curl -sL http://ibm.biz/idt-installer | bash # Full installation in not needed in that case
 # https://cloud.ibm.com/docs/cli?topic=cloud-cli-install-ibmcloud-cli
 RUN  curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
 RUN ibmcloud plugin install container-service
 RUN ibmcloud plugin install container-registry
 
+# Ports
 #kiali
 EXPOSE 20001
 #grafana 

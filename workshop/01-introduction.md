@@ -14,7 +14,7 @@ With this definition in mind, when developers are building [cloud-native](https:
 
 However **some functionality can not be covered by orchestration platforms** and service meshes. Instead, it must be handled in the business logic of the microservices, application specific failover functionality, metrics, and fine-grained authorizations, for example.
 
-Java developers can leverage **Eclipse MicroProfile** to implement this functionality. MicroProfile is an extension to [Java EE (Enterprise Edition)](https://www.oracle.com/technetwork/java/javaee/overview/index.html) to build microservices-based architectures and it complements both [Kubernetes](https://kubernetes.io/de/) and [Istio](https://istio.io) capabilities. In addition to the application-specific logic which Kubernetes and Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example mechanisms to invoke REST APIs and functionality to implement REST APIs including their documentation.
+Java developers can leverage **Eclipse MicroProfile** to implement this functionality. MicroProfile is an extension to [Java EE (Enterprise Edition)](https://www.oracle.com/technetwork/java/javaee/overview/index.html) to build microservices-based architectures and it complements both [Kubernetes](https://kubernetes.io/de/) and [Istio](https://istio.io) capabilities. In addition to the application-specific logic which Kubernetes and Istio can't handle, it also comes with convenience functionality that you typically need when developing microservices, for example mechanisms to invoke REST APIs and functionality to implement REST APIs including their documentation.
 
 ---
 
@@ -51,14 +51,14 @@ The **"Cloud Native Starter"** application follows these design principles:
 
 ## 2. **Microservices and Web app**
 
-These are the responsibilities of the different microservices and the Web app. The implementation and organization of these services  follow the [clean architecture software design philosophy](https://whatis.techtarget.com/definition/clean-architecture).
+These are the responsibilities of the different microservices and the Web app. The implementation and organization of these services follow the [clean architecture software design philosophy](https://whatis.techtarget.com/definition/clean-architecture).
 
 ---
 
 ### 2.1 **Web app**
 
-The Web app is the UI to display the given entries and is built with **VUE**.
-Here you can see a picture of the **Web app** UI.
+The Web app is the UI, displays the given entries articles and is built with **VUE**.
+Here you see a picture of the **Web app** UI.
 
 ![cns-introduction-01](images/cns-introduction-01.png)
 
@@ -88,10 +88,10 @@ In the image blow you can see a sample instance of the Articles, using the **Ope
 
 ### 2.4 **Authors microservice**
 
-The objective of this microservice is to **get** author information from a database, it is built on Node.js.
+The objective of this microservice is to **get** author information from a database and it is built on Node.js.
 In this workshop we will use the default implementation, which just creates sample data values.
 
-Sample curl command to get an author from the **Authors** microservice.
+Here you see a sample curl command to get author information from the **Authors** microservice.
 
 ```sh
 $ curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff
@@ -118,13 +118,13 @@ _Note:_ Distributed tracing is not in scope of the current workshop material.
 
 ### 3.2 MicroProfile
 
-For cloud-native applications, Kubernetes and Istio deliver a lot of important functionality straight out of the box, to ensure **resiliency** and **scalability**, for example. This functionality works generically for microservices, regardless of which language they have been implemented in and independent from the application logic.
+For cloud-native applications, Kubernetes and Istio delivers a lot of important functionality straight out of the box, to ensure **resiliency** and **scalability**, for example. This functionality works generically for microservices, regardless of which language they have been implemented in and independent from the application logic.
 
-However some cloud-native functionality cannot be handled by Kubernetes and Istio, since it needs to be handled in the business logic of the microservices: application specific failover functionality, metrics, and fine-grained authorization, for example.
+However, some cloud-native functionality can't be handled by Kubernetes and Istio, since it needs to be handled in the business logic of the microservices: application specific failover functionality, metrics, and fine-grained authorization, for example.
 
-That’s why we use **Eclipse MicroProfile**, a **JavaEE** extension, to build microservices-based architectures and a great programming model for **Istio**. In addition to the application specific logic that Istio cannot handle, it also comes with convenience functionality that you typically need when developing microservices, for example invoking and implementing REST APIs,  including their documentation.
+That’s why we use **Eclipse MicroProfile**, a **JavaEE** extension, to build microservices-based architectures and a great programming model for **Istio**. In addition to the application specific logic that Istio can't handle, it also comes with convenience functionality that you typically need when developing microservices, for example invoking and implementing REST APIs,  including their documentation.
 
-In the following image you can see a list of MicroProfiles, we will use those marked red minimally here.
+In the following image you see a list of MicroProfiles, we will use the  marked red in minimum.
 
 ![microprofiles](images/microprofiles.png)
 
