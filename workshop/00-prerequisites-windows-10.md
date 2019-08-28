@@ -32,6 +32,9 @@ We have defined a ```Dockerfile``` that with the needed configuration to setup a
 
 You are ready to go and you can move on to follow the steps in the [prerequisites](00-prerequisites.md).
 
+_Note:_ You can find more detailed information in that blog post _"[definition of a dockerfile to use bash scripts on a Windows 10 machine for our Cloud-Native-Starter workshop](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/)"_.
+
+
 
 
 
