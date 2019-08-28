@@ -30,14 +30,14 @@ RUN curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
 
 #Docker
 WORKDIR /
-# RUN curl -fsSL https://get.docker.com -o get-docker.sh
-# RUN sh get-docker.sh
-# RUN docker --version
+RUN curl -fsSL https://get.docker.com -o get-docker.sh
+RUN sh get-docker.sh
+RUN docker --version
 
 # Docker
 # RUN apt-get update
 # RUN apt-get --assume-yes install docker-ce 
-RUN apt-get --assume-yes install docker-ce-cli 
+# RUN apt-get --assume-yes install docker-ce-cli 
 # RUN apt-get --assume-yes install containerd.io
 # RUN dockerd
 
