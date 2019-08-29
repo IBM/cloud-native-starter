@@ -1,4 +1,8 @@
 [home](README.md)
+
+_Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
+The hands-on tasks starting in chapter **2. Hands-on tasks - Resiliency**.
+
 # Resiliency
 
 As stated in the [reactive manifesto](https://www.reactivemanifesto.org/) cloud-native reactive applications need to be **resilient**:

@@ -1,4 +1,8 @@
 [home](README.md)
+
+_Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
+The hands-on tasks starting in chapter **2. Hands-on tasks - Traffic Routing**.
+
 # Using traffic management in Kubernetes with Istio
 
 The **“Cloud Native Starter”** is a sample [polyglot](https://en.wikipedia.org/wiki/Polyglot_(disambiguation)) microservices application with Java and Node.js on Kubernetes using Istio for traffic management, tracing, metrics, fault injection, fault tolerance, etc.
@@ -105,11 +109,11 @@ We can verify the traffic in Kiali:
 
 ---
 
-## 1.7 Hands-on tasks - Traffic Routing
+## 2. Hands-on tasks - Traffic Routing
 
 In order to demonstrate **traffic routing** we run the following  commands. We will configure the **Cloud Native Starter** application that **20 %** of the **Web API** API request will return 10 articles as defined in version 2 and **80 %** of the requests are still showing only 5 articles which is version 1. 
 
-### 1.7.1 Gain access to your cluster
+### 2.1 Gain access to your cluster
 
 1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
 
@@ -135,7 +139,7 @@ $ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/han
 $ kubectl get nodes
 ```
 
-### 1.7.2 Traffic Routing
+### 2.2 Traffic Routing
 
 In the following bash scripts we use **ibmcloud** and **kubectl** commands to interact with IBM Cloud, IBM Container Registry Service and the IBM Kubernetes service in IBM Cloud. With ```sed``` and ```awk``` we extract the output from the comandline.
 

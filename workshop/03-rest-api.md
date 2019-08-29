@@ -1,4 +1,8 @@
 [home](README.md)
+
+_Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
+The hands-on tasks starting in chapter **2. Hands-on tasks - Defining and exposing REST APIs**.
+
 # Defining and exposing REST APIs
 
 ## 1. Making the REST API life easier for Java developers with MicroProfile

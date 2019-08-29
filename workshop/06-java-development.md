@@ -1,4 +1,8 @@
 [home](README.md)
+
+_Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
+The hands-on tasks starting in chapter **2. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation**.
+
 # Optional - Lab - Replace the Node.js Authors microservice with a simple Java implementation
 
 In that optional lab we will replace the existing Authors microservice written in Node.js with a Java implementation, as you can see in the gif below.
@@ -37,7 +41,7 @@ _Note:_ By the way, you can use for start of a new JavaEE development project wi
 
 ---
 
-# 1. Usage of Maven for Java
+# 1.1. Usage of Maven for Java
 
 Let’s start with the [Maven](https://maven.apache.org/)
 project for our Java project.
@@ -86,7 +90,7 @@ In the **pom** file we define the configuation of our Java project, with **depen
 ```
 ---
 
-# 2. Configuration the Open Liberty Server
+# 1.2. Configuration the Open Liberty Server
 
 Our **Authors** mircroserice runs later on **OpenLiberty** Server in a container on Kubernetes.
 
@@ -116,13 +120,13 @@ Also the name of the executable **web application** is definied in that **server
 
 ---
 
-# 3. Implementation of the REST GET endpoint with MicroProfile
+# 1.3. Implementation of the REST GET endpoint with MicroProfile
 
 The sequence diagram below shows a simplified view how the **REST API** is used to get all articles. We will just replace the **Authors** microservice.
 
 ![rest-api-sequencediagram](images/rest-api-sequencediagram.png)
 
-## 3.1 MicroProfile basics
+## 1.3.1 MicroProfile basics
 
 In the most of the following classes we will use [MicroProfile](https://openliberty.io/docs/intro/microprofile.html).
 
@@ -148,7 +152,7 @@ For the implementation of the **Authors** service to **expose** the REST API, we
 
 ---
 
-### 3.2.1 **Class AuthorsApplication**
+### 1.3.2.1 **Class AuthorsApplication**
 
 Our web application does not implement any business or other logic, it simply needs to run on server with no UI. The AuthorsApplication class extends the [javax.ws.rs.core.Application](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_9.0.0/com.ibm.websphere.base.doc/ae/twbs_jaxrs_configjaxrs11method.html) class to do this. With this extension the ```AuthorsApplication``` class provides access to the classes inside from the ```com.ibm.authors``` package during the runtime. With ```@ApplicationPath``` from MicroProfile we define the base path of the application.
 
@@ -165,7 +169,7 @@ public class AuthorsApplication extends Application {
 
 ---
 
-### 3.2.2 **Class Author**
+### 1.3.2.2 **Class Author**
 
 This class simply repesents the data structure we use for the [Author](../authors-java-jee/src/main/java/com/ibm/authors/). No MircoProfile is used here.
 
@@ -181,7 +185,7 @@ public String blog;
 
 ---
 
-### 3.2.3 **Class GetAuthor**
+### 1.3.2.3 **Class GetAuthor**
 
 This class implements the REST API response for our microservice **Authors**. We implement our REST client with the [MicroProfile REST Client](https://github.com/eclipse/microprofile-rest-client/blob/master/README.adoc). In the code we use profiles following statements ```@Path```, ```@Get``` from [JAX-RS](https://jcp.org/en/jsr/detail?id=339) and form the [OpenAPI](https://www.openapis.org/) documentation ```@OpenAPIDefinition``` the [MicroProfile OpenAPI](https://github.com/eclipse/microprofile-open-api), which creates automatically an OpenAPI explorer.
 
@@ -250,7 +254,7 @@ public class GetAuthor {
 }
 ```
 
-## 3.3 Supporting live and readiness probes in Kubernetes with HealthCheck
+## 1.3.3 Supporting live and readiness probes in Kubernetes with HealthCheck
 
 We add the class **HealthEndpoint** into the **Authors** package  as you can see in the following diagram.
 
@@ -291,7 +295,7 @@ livenessProbe:
 
 ---
 
-# 4. The Dockerfile and the usage of dockerhub
+# 1.4. The Dockerfile and the usage of dockerhub
 
 With the [Dockerfile](authors-java-jee/Dockerfile), we define the  how to build a container. For detailed information we use the [Dockerfile documentation](https://docs.docker.com/engine/reference/builder/)
 
@@ -334,7 +338,7 @@ COPY --from=BUILD /usr/src/app/target/authors.war /config/apps/
 ```
 ---
 
-# 5.Kubernetes deployment configuration
+# 1.5.Kubernetes deployment configuration
 
 Now we examine the **deployment** and **service** yaml. The yamls do contain the deployment of the container to a **Pod** and creation of the **Services** to access the **Authors mircoservice** in the Kubernetes Cluster. 
 
@@ -342,7 +346,7 @@ In the following image we see the relevant dependencies for this lab.
 
 ![authors-java-service-pod-container](images/authors-java-service-pod-container.png)
 
-## 5.1 Deployment
+## 1.5.1 Deployment
 
 The deployment will deploy the container to a Pod in Kubernetes.
 For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for Pods.
@@ -422,7 +426,7 @@ spec:
           initialDelaySeconds: 40
       restartPolicy: Always
 ```
-## 5.2 Service
+## 1.5.2 Service
 
 After the definition of the **Pod** we need to define how to access the Pod, therefor we use a **service** in Kubernetes. For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/service/) for service.
 
@@ -453,7 +457,7 @@ spec:
 ---
 ```
 
-# 5. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation
+# 2. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation
 
 ### 2.1 Gain access to your cluster
 

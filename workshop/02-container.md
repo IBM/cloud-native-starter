@@ -1,4 +1,9 @@
 [home](README.md)
+
+_Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
+The hands-on tasks starting in chapter **2. Hands-on tasks - Deploy the containers to the Kubernetes Cluster**.
+
+
 # Building and deploying Containers
 
 In this lab we will build and deploy containers with microservices to Kubernetes. Along this way, we will inspect the **Dockerfiles** for container images and we will take a look into the configured **yaml files** for microservice **deployment**. The following diagram shows a high-level overview of the steps in the lab, which are mostly automated with bash scripts.
