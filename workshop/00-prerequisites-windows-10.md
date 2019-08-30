@@ -15,7 +15,7 @@ We have defined a ```Dockerfile``` that with the needed configuration to setup a
 
 4. **Navigate** to the folder ```[YOUR FOLDER]/cloud-native-starter/workshop```
 
-5. **Execute** the command ```docker build -t my-workshop-image:v1 .``` to build the Docker image. 
+5. **Execute** the command ```docker build -t my-workshop-image:v1 .``` to build the Docker image or you can directly use the image from [dockerhub](https://hub.docker.com/r/tsuedbroecker/cns-starter-workshop) with `docker run -it --rm tsuedbroecker/cns-starter-workshop:v1`.
 
     _Note:_ You can open [Dockerfile](./Dockerfile) in a editor, if you want to get familiar with the setup of the Docker image.
 
