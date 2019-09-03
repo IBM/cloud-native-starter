@@ -1,4 +1,4 @@
-# Hands-on Part of Workshop
+# Hands-on only part of the workshop
 
 This page summarizes the steps of the workshop.
 
