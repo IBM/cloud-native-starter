@@ -394,7 +394,7 @@ _Optional:_ You can find the created namespace here (https://cloud.ibm.com/kuber
 
 ---
 
-#### 3.6.2  Manual creation of a Cluster (optional)
+#### 4.6.2  Manual creation of a Cluster (optional)
 
 You can create an IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
 
