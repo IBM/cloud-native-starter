@@ -1,7 +1,7 @@
 [home](README.md)
 
 _Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
-The hands-on tasks starting in chapter **2. Hands-on tasks - Deploy the containers to the Kubernetes Cluster**.
+The hands-on tasks starting in chapter [2. Hands-on tasks - Deploy the containers to the Kubernetes Cluster](#lab-hands-on) in that lab.
 
 
 # Building and deploying Containers
@@ -425,7 +425,7 @@ spec:
 
 ---
 
-# 2. Hands-on tasks - Deploy the containers to the Kubernetes Cluster
+# 2. Hands-on tasks - Deploy the containers to the Kubernetes Cluster <a name="lab-workshop"></a>
 
 ## 2.1 Gain access to your cluster
 
