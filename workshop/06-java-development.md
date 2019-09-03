@@ -1,7 +1,7 @@
 [home](README.md)
 
 _Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
-The hands-on tasks starting in chapter **2. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation**.
+The hands-on tasks starting in chapter [2. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation](#lab-hands-on).
 
 # Optional - Lab - Replace the Node.js Authors microservice with a simple Java implementation
 
@@ -457,7 +457,7 @@ spec:
 ---
 ```
 
-# 2. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation
+# 2. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation <a name="lab-workshop"></a>
 
 ### 2.1 Gain access to your cluster
 

@@ -61,7 +61,6 @@ $ chmod u+x scripts/*.sh
 $ ./iks-scripts/check-prerequisites.sh
 ```
 
-
 ## 4. Setup IBM Cloud Kubernetes cluster<a name="home"></a>
 
 By default, deployment is set in Dallas, USA (us-south). 

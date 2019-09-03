@@ -1,7 +1,7 @@
 [home](README.md)
 
 _Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
-The hands-on tasks starting in chapter **2. Hands-on tasks - Traffic Routing**.
+The hands-on tasks starting in chapter [2. Hands-on tasks - Traffic Routing](#lab-hands-on).
 
 # Using traffic management in Kubernetes with Istio
 
@@ -109,7 +109,7 @@ We can verify the traffic in Kiali:
 
 ---
 
-## 2. Hands-on tasks - Traffic Routing
+## 2. Hands-on tasks - Traffic Routing <a name="lab-workshop"></a>
 
 In order to demonstrate **traffic routing** we run the following  commands. We will configure the **Cloud Native Starter** application that **20 %** of the **Web API** API request will return 10 articles as defined in version 2 and **80 %** of the requests are still showing only 5 articles which is version 1. 
 
