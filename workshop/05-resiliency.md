@@ -74,7 +74,7 @@ public List<Article> fallbackNoArticlesService() {
 ```
 ---
 
-## 2. Hands-on tasks - Resiliency <a name="lab-workshop"></a>
+## 2. Hands-on tasks - Resiliency <a name="lab-hands-on"></a>
 
 Resiliency is part of the code: if an API call is not answered because of an error ar a timeout, the business logic must have a implementation of a fallback. 
 

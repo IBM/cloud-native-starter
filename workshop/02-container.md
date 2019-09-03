@@ -425,7 +425,7 @@ spec:
 
 ---
 
-# 2. Hands-on tasks - Deploy the containers to the Kubernetes Cluster <a name="lab-workshop"></a>
+# 2. Hands-on tasks - Deploy the containers to the Kubernetes Cluster <a name="lab-hands-on"></a>
 
 ## 2.1 Gain access to your cluster
 
