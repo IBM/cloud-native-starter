@@ -48,5 +48,45 @@ $ cd cloud-native-starter
 $ ./iks-scripts/create-iks-cluster.sh
 ```
 
+## Step 6
 
+Add Istio
 
+```
+$ ./iks-scripts/cluster-get-config.sh
+$ ibmcloud ks cluster-config cloud-native
+$ export KUBECONFIG=/<home>/.bluemix/plugins/container-service/clusters/mycluster/kube-config-<region>-<cluster-name>.yml
+$ cd workshop
+$ curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
+$ export PATH=$PWD/istio-1.1.5/bin:$PATH
+$ cd istio-1.1.5
+$ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
+$ kubectl apply -f install/kubernetes/istio-demo.yaml
+$ kubectl get pod -n istio-system
+$ kubectl label namespace default istio-injection=enabled
+$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
+```
+
+Open [Kiali](http://localhost:20001/kiali)
+
+## Step 7
+
+Create registry
+
+```
+$ cd ../..
+$ ./iks-scripts/create-registry.sh
+```
+
+## Step 8
+
+Create services
+
+```
+$ ./iks-scripts/deploy-articles-java-jee.sh
+$ ./iks-scripts/deploy-authors-nodejs.sh
+$ ./iks-scripts/deploy-web-api-java-jee.sh
+$ ./iks-scripts/deploy-web-app-vuejs.sh
+$ ./scripts/deploy-istio-ingress-v1.sh
+$ ./iks-scripts/show-urls.sh
+```
