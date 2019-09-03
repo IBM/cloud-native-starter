@@ -457,7 +457,9 @@ spec:
 
 ## 2.2 Build and deploy the container
 
-> Before we execute the given bash scripts, we will get a basic understanding of the content.
+### Understand the bash scripts
+
+> Before we execute the given bash scripts, we will get a basic understanding of the content of the bash scripts and what we do automated for you.
 
 In the following bash scripts, we use **ibmcloud** and **kubectl** commands to interact with IBM Cloud, IBM Container Registry Service and the IBM Kubernetes service in IBM Cloud. With **sed** and **awk** we extract the output from the comandline.
 
@@ -492,6 +494,8 @@ With [sed](https://en.wikipedia.org/wiki/Sed_(Unix)) and [awk]( https://en.wikip
   $ nodeport=$(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
 ```
 ---
+
+### Execute following steps on your machine
 
 > Now we will use the bash scripts to build and deploy the container to Kubernetes on IBM Cloud.
 
