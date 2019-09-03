@@ -347,7 +347,7 @@ These are the instructions to install Istio. For this workshop we are using **Is
     
     ![Istio installation](images/istio-installation-01.png)
 
-ustomize the IBM Cloud RegistryConfigure the IBM Cloud Container Registry**
+Customize the IBM Cloud Registry Configure
 
 1. Ensure you are are in the project directory and then execute the script.
 
