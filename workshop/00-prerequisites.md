@@ -70,6 +70,7 @@ By default, deployment is set in Dallas, USA (us-south).
 2. [Insert promo code](#part-SETUP-01)
 3. [Setup the IBM Cloud CLI](#part-SETUP-02)
 4. [Get IBM platform key](#part-SETUP-08)
+   4.1 [Customize the IBM Cloud Registry name](#part-SETUP-08-1)
 5. [Setup the IBM Cloud Kubernetes CLI](#part-SETUP-03)
 6. [Create a IBM Cloud Kubernetes Service and add Istio](#part-SETUP-04)
 7. [Access the Kubernetes cluster manually (optional)](#part-SETUP-05)
@@ -171,19 +172,23 @@ $ cp template.local.env local.env
 $ cat local.env
 ```
 
-4. Verify the entries in the local.env file.
+1. Verify the entries in the `local.env` file.
 
-Open file **local.env** in a editor.
+2. Open file **local.env** in a editor.
 
 _Note:_ If you use the **custom Docker image**, open the file with the nano editor. ```nano local.env```
 
-We can see the file has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
+We see the file has preset values for regions, cluster name, and image registry namespace in local.env. You can adjust them to your needs.
 
-Insert the copied ```"apikey":"KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx"```from the json output to ```IBMCLOUD_API_KEY=KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx``` and save the file.
+3. Insert the copied ```"apikey":"KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx"```from the json output to ```IBMCLOUD_API_KEY=KMAdgh4Aw-vhWcqcCsljX26O0dyScfKBaILgxxxxx``` and save the file.
 
-Change the ```CLUSTER_NAME=cloud-native``` to ```cloud-native-yourname```
+### 4.4.1 Customize the IBM Cloud Registry name <a name="part-SETUP-08-1"></a>
 
-_Note:_ Changing the name is necessary because namespaces are required to be **unique** across the entire **region** that the **specific registry** is located in, not just ***unique to your account**. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add).
+1. Edit the `local.env` file.
+
+2. Change the ```CLUSTER_NAME=cloud-native``` to ```cloud-native-yourname```
+
+_Note:_ `yourname` must be maximum 5 charters. Changing the name is necessary, because namespaces are required to be **unique** across the entire **region** that the **specific registry** is located in, not just ***unique to your account**. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add).
 
 **Example** local.env:
 
@@ -209,7 +214,7 @@ _Note:_ If you use the **workshop Docker image for Windows** described above, yo
 Let's log in to the IBM Cloud CLI tool: `ibmcloud login`.
 If you are an IBMer, include the `--sso` flag: `ibmcloud login --sso`.
 
-Install the IBM Cloud Kubernetes Service plug-ins:
+1. Install the IBM Cloud Kubernetes Service plug-ins:
 
 ```sh
 $ ibmcloud plugin install container-service
@@ -219,7 +224,7 @@ $ ibmcloud plugin install container-registry
 To verify that the plug-in is installed properly, run `ibmcloud plugin list`.
 The Container Service plug-in is displayed in the results as `container-service/kubernetes-service`.
 
-Initialize the Container Service plug-in and point the endpoint to your region with the `ks` sub command:
+2. Initialize the Container Service plug-in and point the endpoint to your region with the `ks` sub command:
 
 ```sh
 $ ibmcloud ks region-set us-south
@@ -342,7 +347,7 @@ These are the instructions to install Istio. For this workshop we are using **Is
     
     ![Istio installation](images/istio-installation-01.png)
 
-* **Configure the IBM Cloud Container Registry**
+ustomize the IBM Cloud RegistryConfigure the IBM Cloud Container Registry**
 
 1. Ensure you are are in the project directory and then execute the script.
 
@@ -389,7 +394,7 @@ _Optional:_ You can find the created namespace here (https://cloud.ibm.com/kuber
 
 ---
 
-#### 4.6.2  Manual creation of a Cluster (optional)
+#### 3.6.2  Manual creation of a Cluster (optional)
 
 You can create an IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
 
