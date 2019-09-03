@@ -172,7 +172,7 @@ The following image shows an automatically created **Open API explorer** for the
 
 ---
 
-## 2. Hands-on tasks - Defining and exposing REST APIs <a name="lab-workshop"></a>
+## 2. Hands-on tasks - Defining and exposing REST APIs <a name="lab-hands-on"></a>
 
 ### 2.1 Gain access to your cluster
 

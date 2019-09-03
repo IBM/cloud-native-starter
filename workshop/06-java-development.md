@@ -457,7 +457,7 @@ spec:
 ---
 ```
 
-# 2. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation <a name="lab-workshop"></a>
+# 2. Hands-on tasks - Replace the Node.js Authors microservice with a simple Java implementation <a name="lab-hands-on"></a>
 
 ### 2.1 Gain access to your cluster
 

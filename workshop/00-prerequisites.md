@@ -185,7 +185,7 @@ We see the file has preset values for regions, cluster name, and image registry 
 
 1. Edit the `local.env` file.
 
-2. Change the ```CLUSTER_NAME=cloud-native``` to ```cloud-native-yourname```
+2. Change the ```REGISTRY_NAMESPACE=cloud-native``` to ```cloud-native-yourname```
 
 _Note:_ `yourname` must be maximum 5 charters. Changing the name is necessary, because namespaces are required to be **unique** across the entire **region** that the **specific registry** is located in, not just ***unique to your account**. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add).
 
