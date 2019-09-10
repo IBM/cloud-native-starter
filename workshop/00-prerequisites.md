@@ -134,6 +134,8 @@ We will need an IBM platform key to use the bash script automation later.
 $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
 ```
 
+_Note:_ If this statement does not work, please please change **d**efault to **D**efault
+
 2. Create an IBM platform for your API key and name it (**cloud-native-starter-key**, for example) and provide a filename  (**cloud-native-starter-key.json**, for example).
 
 ```sh
