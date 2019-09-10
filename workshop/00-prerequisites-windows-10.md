@@ -15,18 +15,25 @@ We have defined a ```Dockerfile``` that with the needed configuration to setup a
 
 4. **Navigate** to the folder ```[YOUR FOLDER]/cloud-native-starter/workshop```
 
-5. **Execute** the command ```docker build -t my-workshop-image:v1 .``` to build the Docker image or you can directly use the image from [dockerhub](https://hub.docker.com/r/tsuedbroecker/cns-starter-workshop) with `docker run -it --rm tsuedbroecker/cns-starter-workshop:v1`.
+5. **Execute** you can directly use the image from [dockerhub](https://hub.docker.com/r/tsuedbroecker/cns-starter-workshop) with the following cli command. That opens directly the Docker image in a **terminal session**.
 
-    _Note:_ You can open [Dockerfile](./Dockerfile) in a editor, if you want to get familiar with the setup of the Docker image.
+```docker run -it --rm tsuedbroecker/cns-starter-workshop:v1```
 
-6. **Execute** the command ```docker run -ti  my-workshop-image:v1``` to run the Docker image and that opens directly the Ubuntu **terminal session**.
-
-7. **Navigate** to **cloud native starter** project inside the Docker image
+6. **Navigate** to **cloud native starter** project inside the Docker image
     ```cd usr/cns/cloud-native-starter```
 
-8. **Execute** the ```iks/scripts/check-prerequisites.sh``` to verify the setup.
+7. **Execute** the ```iks/scripts/check-prerequisites.sh``` to verify the setup.
 
     ![image](images/windows-setup-02.png)
+
+
+_Optional:_ 
+* You can build your own d
+Docker image on your local PC with the command ```docker build -t my-workshop-image:v1 .```
+
+* **Execute** the Docker image with the command ```docker run -ti  my-workshop-image:v1```. That opens directly the Docker image in a **terminal session**.
+
+_Note:_ You can open [Dockerfile](./Dockerfile) in a editor, if you want to get familiar with the setup of the Docker image.
 
 ---
 
