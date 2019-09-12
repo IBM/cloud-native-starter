@@ -279,7 +279,7 @@ Step |  |
 3 | [Move on with the lab](./3-java.md#step-1-in-getauthorjava-change-the-returned-author-name-to-something-else-like-my-name).
 
 
-### Step 1: Change the contextRoot in [server.xml](../authors-java-jee/liberty/server.xml) to something similar like "myapi".
+#### Step 1: Change the contextRoot in [server.xml](../authors-java-jee/liberty/server.xml) to something similar like "myapi".
 
 Open the file ```cloud-native-starter/authors-java-jee/liberty/server.xml``` in a editor and change the value.
 
@@ -314,7 +314,7 @@ public class AuthorsApplication extends Application {
 }
 ```
 
-### Step 3: In the class [GetAuthor.java](../authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java) change the returned author name to something similar like "MY NAME".
+#### Step 3: In the class [GetAuthor.java](../authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java) change the returned author name to something similar like "MY NAME".
 
 Open the file ```cloud-native-starter/authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java``` in a editor and change the value.
 
@@ -335,7 +335,7 @@ public Response getAuthor(@Parameter(
 	}
 ```
 
-### Step 4: In the class [HealthEndpoint.java](../authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java) change the returned information to something similar like "ok for the workshop".
+#### Step 4: In the class [HealthEndpoint.java](../authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java) change the returned information to something similar like "ok for the workshop".
 
 ```java
 @Health
@@ -349,7 +349,7 @@ public class HealthEndpoint implements HealthCheck {
 }
 ```
 
-### Step 5: To test and see how the code works you can run the code locally as a Docker container:
+#### Step 5: To test and see how the code works you can run the code locally as a Docker container:
 
 ```
 $ cd $ROOT_FOLDER/authors-java-jee
@@ -357,13 +357,13 @@ $ docker build -t authors .
 $ docker run -i --rm -p 3000:3000 authors
 ```
 
-### Step 6: Open the swagger UI of the mircoservice in a browser and verfiy the changes
+#### Step 6: Open the swagger UI of the mircoservice in a browser and verfiy the changes
 
 ```http://localhost:3000/openapi/ui/```
 
 ![Swagger UI](images/changed-authors-open-api.png)
 
-### Step 7: Open the health check of the mircoservice in a browser and verfiy the changes
+#### Step 7: Open the health check of the mircoservice in a browser and verfiy the changes
 
 ```http://localhost:3000/health```
 
