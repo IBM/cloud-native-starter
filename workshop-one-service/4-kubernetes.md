@@ -315,31 +315,32 @@ Step |  |
 
 ---
 
-#### Step 1: Ensure you are in the ```$ROOT_FOLDER/authors-java-jee/deployment```
+#### Step 1: Ensure you are in the `$ROOT_FOLDER/authors-java-jee/deployment`
 
-    ```
-    $ cd $ROOT_FOLDER/authors-java-jee/deployment
-    ```
+  ```sh
+  $ cd $ROOT_FOLDER/authors-java-jee/deployment
+  ```
 
 #### Step 2: Apply the service specification
 
-    ```sh
-    $ cd 
-    $ kubectl apply -f deployment/service.yaml
-    ```
+  ```sh
+  $ cd 
+  $ kubectl apply -f deployment/service.yaml
+  ```
 
 #### Step 3: Verify the service in Kubernetes with kubectl
 
-    ```sh
-    $ kubectl get services
-    ```
+  ```sh
+  $ kubectl get services
+  ```
 
-    Sample output:
-    ```sh
+  Sample output:
+
+  ```sh
     $ NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
     $ authors      NodePort    172.21.107.135   <none>        3000:31347/TCP   22s
     $ kubernetes   ClusterIP   172.21.0.1       <none>        443/TCP          28h
-    ``` 
+  ```
 
 #### Step 4: Verify the service in the **Kubernetes dashboard** 
 
