@@ -61,7 +61,7 @@ Ensure you set following values in the creation dialog:
 
 #### Step 6: Press "Create custer"
 
-#### Step 7: Now you will be forwarded to you cluster on IBM Cloud and you can verify the status of the creation of you cluster
+#### Step 7: Now you will be forwarded to your cluster on IBM Cloud and you can verify the status of the creation of your cluster
 
 The creation of the custer takes up to 20 min.
 

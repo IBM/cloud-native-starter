@@ -115,4 +115,4 @@ http://localhost:3000/openapi/ui/
 
 ---
 
-__Continue with [Lab 3 - Understanding the Java Implementation](./3-java.md#lab-3---understanding-the-java-implementation)__
+:star: __Continue with [Lab 3 - Understanding the Java Implementation](./3-java.md#lab-3---understanding-the-java-implementation)__

@@ -371,4 +371,4 @@ $ docker run -i --rm -p 3000:3000 authors
 
 ---
 
-__Continue with [Lab 4 - Deploying to Kubernetes](./4-kubernetes.md)__
+:star: __Continue with [Lab 4 - Deploying to Kubernetes](./4-kubernetes.md)__

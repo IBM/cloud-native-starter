@@ -150,4 +150,4 @@ $ ./iks-scripts/check-prerequisites.sh
 
 ---
 
-__Continue with [Lab 2 - Running the Java Microservice locally](./2-docker.md#lab-2---running-the-java-microservice-locally)__ 
+:star: __Continue with [Lab 2 - Running the Java Microservice locally](./2-docker.md#lab-2---running-the-java-microservice-locally)__ 

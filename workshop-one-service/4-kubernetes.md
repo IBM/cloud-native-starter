@@ -410,6 +410,6 @@ Step |  |
 
 ---
 
-**Congratulations** :thumbsup: you have finished this **hands-on workshop :checkered_flag:.
+:star: **Congratulations** :thumbsup: you have finished this **hands-on workshop :checkered_flag:.
 
 
