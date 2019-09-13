@@ -16,7 +16,6 @@ The following gif is an animation of the simplified steps above in a sequence.
 
 ![overview gif](images/lab-4-overview.gif)
 
-
 # 1. Build and save the container image
 
 ### [Tools - Option 1](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
@@ -120,24 +119,24 @@ Let's start with the deployment yaml. For more details see the [Kubernetes docum
 
 Definition of `kind` defines this as a `Deployment` configuration.
 
-```yml
-kind: Deployment
-apiVersion: apps/v1beta1
-metadata:
-  name: authors
-```
+  ```yml
+  kind: Deployment
+  apiVersion: apps/v1beta1
+  metadata:
+    name: authors
+  ```
 
 Inside the `spec` section we specify an app name and version label.
 
-```yml
-spec:
-  ...
-  template:
-    metadata:
-      labels:
-        app: authors
-        version: v1
-```
+  ```yml
+  spec:
+    ...
+    template:
+      metadata:
+        labels:
+          app: authors
+          version: v1
+  ```
 
 Then we define a `name` for the container and we provide the container `image` location, e.g. where the container can be found in the **Container Registry**. 
 
@@ -146,46 +145,46 @@ The `containerPort` depends on the port definition inside our Dockerfile and in 
 We have previously talked about the usage of the HealthEndpoint class for our Authors service and here we see it the `livenessProbe` definition.
 
 
-```yml
-spec:
-      containers:
-      - name: authors
-        image: authors:1
-        ports:
-        - containerPort: 3000
-        livenessProbe:
-```
+  ```yml
+  spec:
+        containers:
+        - name: authors
+          image: authors:1
+          ports:
+          - containerPort: 3000
+          livenessProbe:
+  ```
 
 This is the full [deployment.yaml](../deployment/deployment.yaml) file.
 
-```yaml
-kind: Deployment
-apiVersion: apps/v1beta1
-metadata:
-  name: authors
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: authors
-        version: v1
-    spec:
-      containers:
-      - name: authors
-        image: us.icr.io/cloud-native-suedbro/authors:1
-        ports:
-        - containerPort: 3000
-        livenessProbe:
-          exec:
-            command: ["sh", "-c", "curl -s http://localhost:3000/"]
-          initialDelaySeconds: 20
-        readinessProbe:
-          exec:
-            command: ["sh", "-c", "curl -s http://localhost:3000/health | grep -q authors"]
-          initialDelaySeconds: 40
-      restartPolicy: Always
-```
+  ```yaml
+  kind: Deployment
+  apiVersion: apps/v1beta1
+  metadata:
+    name: authors
+  spec:
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          app: authors
+          version: v1
+      spec:
+        containers:
+        - name: authors
+          image: us.icr.io/cloud-native-suedbro/authors:1
+          ports:
+          - containerPort: 3000
+          livenessProbe:
+            exec:
+              command: ["sh", "-c", "curl -s http://localhost:3000/"]
+            initialDelaySeconds: 20
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "curl -s http://localhost:3000/health | grep -q authors"]
+            initialDelaySeconds: 40
+        restartPolicy: Always
+  ```
 
 ### [Tools - Option 1](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
@@ -218,20 +217,20 @@ Step |  |
 
 _REMEMBER:_ You should have saved the IBM Container Registry information somewhere.
 
-    Before:
+  Before:
 
-    ```yml
+  ```yml
     image: authors:1
-    ```
+  ```
 
-    Sample change:
+  Sample change:
 
-    ```yml
+  ```yml
     image: us.icr.io/cloud-native-suedbro/authors:1
     imagePullPolicy: Always
     ports:
         - containerPort: 3000
-    ```
+  ```
 
 3. Now we apply the deployment we will create the new **Authors** Pod.
 

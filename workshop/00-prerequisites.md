@@ -414,9 +414,11 @@ The Kubernetes CLI uses this variable to find a local configuration file and cer
 
 1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
 
-```sh
-    $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
-```
+    ```sh
+        $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+    ```
+
+    _Note:_ If this statement does not work, please change **d**efault to **D**efault
 
 2. List the available clusters: ```ibmcloud ks clusters```.
 This command should now show the cluster which is being created.
@@ -424,15 +426,15 @@ This command should now show the cluster which is being created.
 
 3. Download the configuration file and certificates for the cluster using the ```cluster-config``` command:
 
-```sh
-$ ibmcloud ks cluster-config <cluster-name>
-```
+    ```sh
+    $ ibmcloud ks cluster-config <cluster-name>
+    ```
 
 4. Copy and paste the **output** from the command in the previous step to set the `KUBECONFIG` environment variable and configure the CLI to run `kubectl` commands against the cluster:
 
-```sh
-$ export KUBECONFIG=/<home>/.bluemix/plugins/container-service/clusters/mycluster/kube-config-<region>-<cluster-name>.yml
-```
+    ```sh
+    $ export KUBECONFIG=/<home>/.bluemix/plugins/container-service/clusters/mycluster/kube-config-<region>-<cluster-name>.yml
+    ```
 
 5. Get basic information about the cluster and its worker nodes.
 This information can help you both manage the cluster and troubleshoot issues.
@@ -441,16 +443,16 @@ Get the details of your cluster: `ibmcloud ks cluster-get <cluster-name>`
 
 6. Verify the nodes in the cluster:
 
-```sh
-$ ibmcloud ks workers <cluster-name>
-$ kubectl get nodes
-```
+    ```sh
+    $ ibmcloud ks workers <cluster-name>
+    $ kubectl get nodes
+    ```
 
 7. View the currently available services, deployments, and pods:
 
-```sh
-$ kubectl get svc,deploy,po --all-namespaces
-```
+    ```sh
+    $ kubectl get svc,deploy,po --all-namespaces
+    ```
 
 ---
 
@@ -459,12 +461,12 @@ $ kubectl get svc,deploy,po --all-namespaces
 
 In order to build and distribute Container images, we need a Container registry. We can use the **IBM Container Registry** which can be accessed straight from our Kubernetes cluster. Let's log in to the Container Registry service via the `ibmcloud` CLI and obtain the information about our registry:
 
-```sh
-$ ibmcloud cr login
-$ ibmcloud cr region-set us-south
-$ ibmcloud cr region
-You are targeting region 'us-south', the registry is 'You are targeting region 'us-south', the registry is 'us.icr.io'.'.
-```
+    ```sh
+    $ ibmcloud cr login
+    $ ibmcloud cr region-set us-south
+    $ ibmcloud cr region
+    You are targeting region 'us-south', the registry is 'You are targeting region 'us-south', the registry is 'us.icr.io'.'.
+    ```
 
 ---
 

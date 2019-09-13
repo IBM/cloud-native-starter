@@ -87,6 +87,8 @@ Resiliency is part of the code: if an API call is not answered because of an err
    ```sh
    $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
    ```
+   
+   _Note:_ If this statement does not work, please change **d**efault to **D**efault
 
 2. Download the kubeconfig files for your cluster.
 

@@ -117,27 +117,29 @@ In order to demonstrate **traffic routing** we run the following  commands. We w
 
 1. Log in to your IBM Cloud account. Include the --sso option if using a federated ID.
 
-```sh
-$ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
-```
+    ```sh
+    $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+    ```
+
+    _Note:_ If this statement does not work, please change **d**efault to **D**efault
 
 2. Download the kubeconfig files for your cluster.
 
-```sh
-$ ibmcloud ks cluster-config --cluster cloud-native
-```
+    ```sh
+    $ ibmcloud ks cluster-config --cluster cloud-native
+    ```
 
 3. Set the ```KUBECONFIG``` environment variable. Copy the output from the previous command and paste it in your terminal. The command output looks similar to the following example:
 
-```sh
-$ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
-```
+    ```sh
+    $ export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/hands-on-verification/kube-config-mil01-cloud-native.yml
+    ```
 
 4. Verify that you can connect to your cluster by listing your worker nodes.
 
-```sh
-$ kubectl get nodes
-```
+    ```sh
+    $ kubectl get nodes
+    ```
 
 ### 2.2 Traffic Routing
 

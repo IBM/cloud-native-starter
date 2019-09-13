@@ -182,6 +182,8 @@ The following image shows an automatically created **Open API explorer** for the
    $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
    ```
 
+   _Note:_ If this statement does not work, please change **d**efault to **D**efault
+
 2. Download the kubeconfig files for your cluster.
 
    ```sh

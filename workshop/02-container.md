@@ -435,6 +435,8 @@ spec:
     $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
     ```
 
+    _Note:_ If this statement does not work, please change **d**efault to **D**efault
+
 2. Download the kubeconfig files for your cluster.
 
     ```sh
@@ -467,32 +469,32 @@ To build the containers in IBM Cloud we do **not** use Docker commands, because 
 
 * **Example**: How to upload and build the container inside the **IBM Cloud Registry**
 
-```sh
-$ ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/articles:1 .
-```
+  ```sh
+  $ ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/articles:1 .
+  ```
 
 To deploy container images into Kubernetes, we use the **kubectl apply** command for the needed yaml configuration files. 
 
 * **Example**: How to deploy the container to the Kubernetes Cluster
 
-```sh
-$ kubectl apply -f deployment/IKS-kubernetes.yaml
-```
+  ```sh
+  $ kubectl apply -f deployment/IKS-kubernetes.yaml
+  ```
 
 With [sed](https://en.wikipedia.org/wiki/Sed_(Unix)) and [awk]( https://en.wikipedia.org/wiki/AWK) we extract the output of the command line executions and put them into variables, or we write the information into files, to use them later as input for the next commands inside the bash script.
 
 * **Example**: How to write registry information into a yaml file with **sed**.
 
-```sh
-  $ sed "s+articles:1+$REGISTRY/$REGISTRY_NAMESPACE/articles:1+g" deployment/kubernetes.yaml
-```
+  ```sh
+    $ sed "s+articles:1+$REGISTRY/$REGISTRY_NAMESPACE/articles:1+g" deployment/kubernetes.yaml
+  ```
 
 * **Example**: How to extract output information for a cluster ip into a bash variable, with **awk**.
 
-```sh
-  $ clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
-  $ nodeport=$(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
-```
+  ```sh
+    $ clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
+    $ nodeport=$(kubectl get svc articles --output 'jsonpath={.spec.ports[*].nodePort}')
+  ```
 ---
 
 ### Execute following steps on your machine
