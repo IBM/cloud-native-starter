@@ -263,6 +263,12 @@ The IBM Kubernetes Service has an option to install a managed Istio mesh into a 
 
 These are the instructions to install Istio. For this workshop we are using **Istio 1.1.5**.
 
+_Note:_ Ensure you are logged on to IBM Cloud in your terminal session.
+        ```sh
+        $ ibmcloud login -a https://cloud.ibm.com -r us-south -g default
+        ```
+        _Note:_ If this statement does not work, please change **d**efault to **D**efault
+
 1. First, let's check if the cluster is available:
 
     ```sh
