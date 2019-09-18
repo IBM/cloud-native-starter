@@ -42,7 +42,7 @@ Step |  |
 Now we want to build and save a container image in the IBM Cloud Container Registry. 
 
 1. Ensure you logon on to IBM Cloud.
-   REMEMBER: I now from the prerequisites, you can follow the steps in the **Access** tab, by starting from **After your cluster provision ..** and inserting the commands into your terminal session.
+   REMEMBER: You should know from the prerequisites, you can follow the steps in the **Access** tab, by starting from **After your cluster provision ..** and inserting the commands into your terminal session.
 
     ![Follow the steps in the Access tab, by starting from "After your cluster provision" and inserting the commands into your terminal session.](images/verify-cluster-access-4.png)
 
