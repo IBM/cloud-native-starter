@@ -62,7 +62,7 @@ root@3f46c41f7303:/cloud-native-starter# ./iks-scripts/check-prerequisites.sh
 
 ### Tools - Option 2: Prebuilt Image with Code in Container
 
-There is an image on DockerHub with all required tools. This option works for Mac, Linux and Windows. To get started as quickly as possible, use this image.
+There is an image on DockerHub with all required tools. This option works for Mac, Linux and Windows. To get started as quickly as possible, use this image (see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) for more).
 
 #### Step 1: Run this command in a terminal
 
