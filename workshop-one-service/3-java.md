@@ -261,7 +261,7 @@ This HealthEndpoint is configured in the Kubernetes deployment yaml. In the foll
 
 _Note_: Here are some additional instructions based on your choosen setup.
 
-### [Tools - Option 1](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
+### [Tools - Option 1 (prefered for Mac and Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
 Step |  |
 --- | --- 
@@ -270,7 +270,7 @@ Step |  |
 3 | [Move on with the lab](./3-java.md#step-1-in-getauthorjava-change-the-returned-author-name-to-something-else-like-my-name).
 
 
-### [Tools - Option 2](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
+### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
 
 Step |  |
 --- | --- 

@@ -25,9 +25,11 @@ In order to complete the workshop, you need to install [Docker Desktop](https://
 
 Several other tools are needed. There are different options to install these tools.
 
+Based on our experience the option 2 is the best choice for Windows users. For more background, why we provide these different options, see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/).
+
 ---
 
-### Tools - Option 1: Prebuilt Image with local Code
+### Tools - Option 1 (prefered for Mac or Linux): Prebuilt Image with local Code
 
 There is an image on DockerHub with all required tools. In order to use local IDEs and editors to modify code and configuraton files a Docker volume is used. This option  works only for Mac and Linux.
 
@@ -60,7 +62,7 @@ root@3f46c41f7303:/cloud-native-starter# ./iks-scripts/check-prerequisites.sh
 #### Step 4: Move on with [Verify Access your free Kubernetes Cluster on the IBM Cloud](./1-prereqs.md#verify-access-to-kubernetes-on-the-ibm-cloud)
 
 
-### Tools - Option 2: Prebuilt Image with Code in Container
+### Tools - Option 2 (prefered for Windows): Prebuilt Image with Code in Container
 
 There is an image on DockerHub with all required tools. This option works for Mac, Linux and Windows. To get started as quickly as possible, use this image (see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) for more).
 
@@ -91,9 +93,10 @@ root@3f46c41f7303:/cloud-native-starter# ./iks-scripts/check-prerequisites.sh
 #### Step 4: Move on with [Verify Access to Kubernetes on the IBM Cloud](./1-prereqs.md#verify-access-to-kubernetes-on-the-ibm-cloud)
 
 
-### Tools - Option 3: Install Tools on your Notebook
+### Tools - Option 3 (prefered for developers with Mac or Linux): Install Tools on your Notebook
 
 This approach works only for Mac and Linux (see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) for more).
+Here you install all tool on you machine. This is the most time-consuming option, if you have to install all the tools.
 
 #### Step 1: Install the following tools:
 

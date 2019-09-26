@@ -295,7 +295,7 @@ spec:
 ---
 ```
 
-### [Tools - Option 1](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
+### [Tools - Option 1 (prefered for Windows)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
 Step |  |
 --- | --- 
@@ -304,7 +304,7 @@ Step |  |
 3 | [Move on with the lab](./4-kubernetes.md#step-1-ensure-you-are-in-the-root_folderauthors-java-jeedeployment).
 
 
-### [Tools - Option 2](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
+### [Tools - Option 2 (prefered for Mac and Linux)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
 
 Step |  |
 --- | --- 
