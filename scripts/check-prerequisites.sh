@@ -24,7 +24,7 @@ function checkPrerequisites() {
       _out You have all necessary prerequisites installed
     fi
     if ! kubectl describe namespace default | grep istio-injection=enabled > /dev/null ; then
-       _out "Istio automatic sidecar injection needs to be enabled. See LocalEnvironment.md"
+       _out "Istio automatic sidecar injection needs to be enabled. See documentation/SetupLocalEnvironment.md"
     fi   
 }
 
