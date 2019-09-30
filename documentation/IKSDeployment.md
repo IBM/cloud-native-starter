@@ -112,12 +112,12 @@ These are the instructions to install Istio. We use Istio 1.3.0 for this project
 
 2. Download Istio 1.3.0   
    ```
-   curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.3.0 sh -
+   $ curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.3.0 sh -
    ```
     
 3. Follow the instructions displayed at completion of this command to add the directory with `istioctl` to your PATH environment variable
 
-4. Change into the extracted Istio directory: `cd istio-1.3.0`
+4. Change into the extracted Istio directory: `$ cd istio-1.3.0`
 
 5. Install Istio:
 
