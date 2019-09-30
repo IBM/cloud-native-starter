@@ -115,9 +115,9 @@ These are the instructions to install Istio. We use Istio 1.1.5 for this project
    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
    ```
     
-3. Follow the instructions displayed at completion of this command to add the istio-1.1.5/bin directory to your PATH environment variable
+3. Follow the instructions displayed at completion of this command to add the directory with `istioctl` to your PATH environment variable
 
-4. Change into the extracted directory: `cd istio-1.1.5`
+4. Change into the extracted Istio directory: `cd istio-1.1.5`
 
 5. Install Istio:
 

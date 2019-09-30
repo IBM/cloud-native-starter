@@ -24,7 +24,13 @@ In order to display the metrics with the Prometheus UI, Prometheus needs to be c
 $ scripts/configure-prometheus.sh
 ```
 
-After this wait until the Prometheus pod has been restarted. Then run the command to forward the Prometheus port which is displayed as result of 'scripts/configure-prometheus.sh'.
+After this wait until the Prometheus pod has been restarted: 
+
+```
+$ kubectl get pod -n istio-system | grep prometheus
+```
+
+Then run the command to forward the Prometheus port which is displayed as result of 'scripts/configure-prometheus.sh'.
 
 The metrics are displayed in the Prometheus UI (http://localhost:9090) when you search for 'web-api' or 'articles'.
 

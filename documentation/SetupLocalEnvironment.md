@@ -33,22 +33,32 @@ $ minikube stop
 
 ### Istio
 
-To install Istio, follow these instructions. We use Istio 1.1.5 for this project.
+To install Istio, follow these instructions. We use Istio 1.3.0 for this project.
 
-1. Download Istio, this will create a directory istio-1.1.5:
+1. Download Istio, this will create a directory istio-1.3.0:
    ```
-   curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
+   curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.3.0 sh -
    ```
 
-3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`:
+3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
 
     ```
-    export PATH=$PWD/istio-1.1.5/bin:$PATH
+    export PATH="$PATH:/path/to/istio-1.3.0/bin"
     ```
 
-4. Change into the extracted directory: `cd istio-1.1.5`
+4. Verify the Istio installation:
 
-5. Install Istio:
+   ```
+   $ istioctl verify-install
+   ```
+
+5. Change into the Istio directory: 
+
+   ```
+   $ cd istio-1.3.0
+   ```
+
+6. Install Istio on Minikube:
 
     ```
     $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
