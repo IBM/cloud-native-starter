@@ -74,7 +74,8 @@ function setup() {
   else 
   _out Access service via http://$url 
   fi
-  httpcode=$(curl -s -o /dev/null -w "%{http_code}" $(oc get route istio-ingressgateway -n istio-system -o jsonpath={.spec.host}))
+  url=$(oc get route istio-ingressgateway -n istio-system -o jsonpath={.spec.host}) 
+  httpcode=$(curl -s -o /dev/null -w "%{http_code}" $url)
   if [ $httpcode == 503 ]; then
     _out Istio Ingress is not configured. Run 'minishift-scripts/deploy-istio-ingress-v1.sh'
   else 
