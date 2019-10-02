@@ -1,6 +1,6 @@
 ## Cloud Native Starter for Java EE based Microservices on Kubernetes and Istio
 
-This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. 
+This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures.  
 
 The project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
 
