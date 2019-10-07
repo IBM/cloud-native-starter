@@ -317,6 +317,7 @@ Step |  |
 #### Step 1: Ensure you are in the `$ROOT_FOLDER/authors-java-jee/deployment`
 
   ```sh
+  $ ROOT_FOLDER=$(pwd)
   $ cd $ROOT_FOLDER/authors-java-jee/deployment
   ```
 
