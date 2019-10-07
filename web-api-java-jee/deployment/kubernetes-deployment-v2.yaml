@@ -1,10 +1,13 @@
 kind: Deployment
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 metadata:
   name: web-api-v2
   labels:
     app: web-api  
 spec:
+  selector:                
+    matchLabels:     
+      app: web-api  
   replicas: 1
   template:
     metadata:

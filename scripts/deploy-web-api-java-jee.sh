@@ -58,8 +58,12 @@ function setup() {
   kubectl apply -f deployment/kubernetes-deployment-v1.yaml
   kubectl apply -f deployment/istio-service-v1.yaml
 
-  cd ${root_folder}/istio
-  kubectl apply -f protect-web-api.yaml
+  if [ -f "$protectyaml" ]
+  then
+      cd ${root_folder}/istio
+      kubectl apply -f protect-web-api.yaml
+  fi
+
 
   if [ -z "$APPID_ISSUER" ]
   then

@@ -14,10 +14,13 @@ spec:
 ---
 
 kind: Deployment
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 metadata:
   name: authentication
 spec:
+  selector:
+    matchLabels:
+      app: authentication
   replicas: 1
   template:
     metadata:

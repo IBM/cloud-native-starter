@@ -11,9 +11,10 @@ function configureVUEminikubeIP(){
   
   _out configure API endpoint in web-app
   minikubeip=$(minikube ip)
+  _out Minikube IP - $minikubeip
 
   rm "store.js"
-  cp "store.js.template" "store.js"
+#  cp "store.js.template" "store.js"
   sed "s/endpoint-api-ip/$minikubeip/g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs
@@ -34,8 +35,8 @@ function setup() {
   kubectl apply -f deployment/kubernetes.yaml
   kubectl apply -f deployment/istio.yaml
 
-  cd ${root_folder}/web-app-vuejs/src
-  cp "store.js.template" "store.js"
+#  cd ${root_folder}/web-app-vuejs/src
+#  cp "store.js.template" "store.js"
 
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc web-app --output 'jsonpath={.spec.ports[*].nodePort}')

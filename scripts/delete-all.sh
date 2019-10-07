@@ -26,9 +26,12 @@ function setup() {
 
   scripts/delete-istio-ingress.sh
 
-  kubectl replace --force -f ${root_folder}/istio/prometheus-config-org.yaml
-  pod=$(kubectl get pods -n istio-system | grep prometheus | awk ' {print $1} ')
-  kubectl delete pod $pod -n istio-system
+  # Make sure original prometheus configuration is being restored, only req'd when Metrics demo has been run 
+  if [ -f ${root_folder}/istio/prometheus-config-org.yaml ]; then
+    kubectl replace --force -f ${root_folder}/istio/prometheus-config-org.yaml
+    pod=$(kubectl get pods -n istio-system | grep prometheus | awk ' {print $1} ')
+    kubectl delete pod $pod -n istio-system
+  fi
 
 }
 

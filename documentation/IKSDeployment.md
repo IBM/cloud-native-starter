@@ -101,7 +101,7 @@ $ source iks-scripts/cluster-config.sh
 
 IBM Kubernetes Service has an option to install a managed Istio into a Kubernetes cluster. Unfortunately, the Kubernetes Lite Cluster we created in the previous step does not meet the hardware requirements for managed Istio. Hence we do a manual install of the Istio demo or evaluation version.
 
-These are the instructions to install Istio. We use Istio 1.1.5 for this project.
+These are the instructions to install Istio. We use Istio 1.3.0 for this project.
 
 
 1. Get access to your Kubernetes cluster on IBM Cloud:
@@ -110,14 +110,14 @@ These are the instructions to install Istio. We use Istio 1.1.5 for this project
     $ source iks-scripts/cluster-config.sh
     ```
 
-2. Download Istio 1.1.5   
+2. Download Istio 1.3.0   
    ```
-   curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
+   $ curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.3.0 sh -
    ```
     
-3. Follow the instructions displayed at completion of this command to add the istio-1.1.5/bin directory to your PATH environment variable
+3. Follow the instructions displayed at completion of this command to add the directory with `istioctl` to your PATH environment variable
 
-4. Change into the extracted directory: `cd istio-1.1.5`
+4. Change into the extracted Istio directory: `$ cd istio-1.3.0`
 
 5. Install Istio:
 
