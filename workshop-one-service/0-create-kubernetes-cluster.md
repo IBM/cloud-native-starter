@@ -57,6 +57,8 @@ Ensure you set following values in the creation dialog:
 * Geography:        North America
 * Metro:            Dallas
 
+_Note:_ In the new IBM Cloud UI it seems the enties for Geography and Metro are no longer available.
+
 ![create Kubernetes service](images/ibmcloud-create-kubernetes-2.png)
 
 #### Step 6: Press "Create custer"
