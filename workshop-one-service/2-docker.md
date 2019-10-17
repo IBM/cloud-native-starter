@@ -71,34 +71,15 @@ COPY --from=BUILD /usr/src/app/target/authors.war /config/apps/
 EXPOSE 3000
 ```
 
-## Run the Container locally
-
-_Note_: Here are some additional instructions based on your choosen setup.
-
-### [Tools - Option 1 (prefered for Mac and Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
-
-Step |  |
---- | --- 
-1 | You need to open a new local terminal |
-2 |  Navigate to your local project folder ```cloud-native-starter/authors-java-jee```
-3 | [Move on with the lab](./2-docker.md#step-1-to-test-and-see-how-the-code-works-you-can-run-the-code-locally-as-a-docker-container).
-
-
-### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
-
-Step |  |
---- | --- 
-1 | You need to download or clone the project onto your local PC, first. ```$ git clone https://github.com/IBM/cloud-native-starter ``` 
-2 |  Open a new terminal and navigate tp your local project folder ```cloud-native-starter/authors-java-jee```
-3 | [Move on with the lab](./2-docker.md#step-1-to-test-and-see-how-the-code-works-you-can-run-the-code-locally-as-a-docker-container).
-
----
-
 ### Run the container locally
+
+That lab does only need Docker and a terminal session on your local machine.
 
 #### Step 1: To test and see how the code works you can run the code locally as a Docker container
 
 ```
+$ git clone https://github.com/IBM/cloud-native-starter 
+$ ROOT_FOLDER=$(pwd)
 $ cd $ROOT_FOLDER/authors-java-jee
 $ docker build -t authors .
 $ docker run -i --rm -p 3000:3000 authors

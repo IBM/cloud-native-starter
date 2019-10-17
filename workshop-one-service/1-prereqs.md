@@ -23,6 +23,8 @@ Follow the [instructions](0-create-kubernetes-cluster.md) to set up a free Kuber
 
 In order to complete the workshop, you need to install [Docker Desktop](https://docs.docker.com/install/). Docker Desktop is available for Mac and Windows and the Docker Engine can be run natively on Linux.
 
+**The tools options are only relevant from lab 4. All other labs do only need Docker and a terminal session on your local machine.**
+
 Several other tools are needed. There are different options to install these tools.
 
 Based on our experience the option 2 is the best choice for Windows users. For more background, why we provide these different options, see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/).
