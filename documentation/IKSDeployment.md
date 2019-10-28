@@ -8,7 +8,7 @@ A Kubernetes lite cluster itself is free of charge but it can not be created in 
 ### Get the code:
 
 ```
-$ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ git clone https://github.com/IBM/cloud-native-starter.git
 $ cd cloud-native-starter
 ```
 ### Prerequisites:
