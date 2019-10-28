@@ -21,11 +21,20 @@ Follow the [instructions](0-create-kubernetes-cluster.md) to set up a free Kuber
 
 ## Tools
 
-In order to complete the workshop, you need to install [Docker Desktop](https://docs.docker.com/install/). Docker Desktop is available for Mac and Windows and the Docker Engine can be run natively on Linux.
+We created a Docker image you will use, that Docker image contains all needed CLIs such as:
 
-**The tools options are only relevant from lab 4. All other labs do only need Docker and a terminal session on your local machine.**
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
+- [curl](https://curl.haxx.se/download.html)
+- [IBM Cloud CLI](https://cloud.ibm.com/docs/home/tools)
+  [IBM Cloud CLI releases](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
+- [Docker](https://docs.docker.com/v17.12/install/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-Several other tools are needed. There are different options to install these tools.
+So, in order to complete the workshop, you only need to install [Docker Desktop](https://docs.docker.com/install/). Docker Desktop is available for Mac and Windows and the Docker Engine can be run natively on Linux.
+
+**The following tools options are only relevant from lab 4. All other labs do only need Docker and a terminal session on your local machine.**
+
+There are different options to install or use these tools.
 
 Based on our experience the option 2 is the best choice for Windows users. For more background, why we provide these different options, see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/).
 
@@ -70,7 +79,7 @@ There is an image on DockerHub with all required tools. This option works for Ma
 
 #### Step 1: Run this command in a terminal
 
-```
+```sh
 $ docker run -ti tsuedbroecker/cns-workshop-tools:v1
 ```
 _Note:_ If you using Windows you also need to download or clone the project to your local workstation for the upcoming Docker and Java lab, because you can't use Docker in the 'cns-workshop-tools' Docker image.
