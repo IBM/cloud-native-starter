@@ -86,7 +86,7 @@ _Note:_ Namespaces are required to be **unique** across the entire **region** th
 ![Verify the namespace was created](images/ibmcloud-configure-container-registry-3.png)
 
 
-_Note:_ We notice that the button **create namespace** currently not available in the IBM Cloud UI, if you have not a existing IBM Cloud Container registry namespace in place. You must create your first **IBM Cloud Container registry namespace** with the IBM Cloud CLI and follow the steps in the **quick guide** you can see below in the image.
+_Note:_ We notice that the button **create namespace** is currently not available in the IBM Cloud UI, if you have not a existing IBM Cloud Container registry namespace in place. You must create your first **IBM Cloud Container registry namespace** with the IBM Cloud CLI and follow the steps in the **quick guide**. The  **quick guide** is displayed in the image below.
 
 ![quick guide](images/create-registry-namespace.png)
 
