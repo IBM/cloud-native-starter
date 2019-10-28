@@ -21,7 +21,8 @@ Follow the [instructions](0-create-kubernetes-cluster.md) to set up a free Kuber
 
 ## Tools
 
-We created a Docker image you will use, that Docker image contains all needed CLIs such as:
+We created a Docker image you can use in that workshop.
+That Docker image contains all needed CLIs such as:
 
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
 - [curl](https://curl.haxx.se/download.html)
