@@ -59,7 +59,7 @@ Prerequisites:
 * [curl](https://curl.haxx.se/download.html)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-Docker always needs to be installed locally. The tools git, curl and kubectl (and ibmcloud) can be installed locally or you can use a [Docker image](https://cloud.ibm.com/docs/cli?topic=cloud-cli-using-idt-from-docker) that comes with these tools.
+Docker always needs to be installed locally. The tools git, curl and kubectl (and ibmcloud) can be installed locally or you can use a [Docker image](https://github.com/IBM/cloud-native-starter/blob/master/workshop-one-service/1-prereqs.md#tools) that comes with these tools.
 
 ```
 $ cd ${ROOT_FOLDER}
