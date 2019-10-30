@@ -1,4 +1,4 @@
-FROM node:8-alpine as BUILD
+FROM node:12-alpine as BUILD
  
 COPY src /usr/src/app/src
 COPY public /usr/src/app/public

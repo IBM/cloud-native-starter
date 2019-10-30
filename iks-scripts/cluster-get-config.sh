@@ -24,8 +24,6 @@ source $CFG_FILE
 function test_cluster() {
   _out Logging into IBM Cloud
   ibmcloud config --check-version=false
-  ibmcloud api --unset
-  ibmcloud api https://cloud.ibm.com 
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   _out Check if Kubernetes Cluster is available ...
   STATE=$(ibmcloud ks cluster-get $CLUSTER_NAME -s | awk '/^State:/ {print $2}')
