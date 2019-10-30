@@ -18,7 +18,7 @@ The following gif is an animation of the simplified steps above in a sequence.
 
 # 1. Build and save the container image
 
-### [Tools - Option 1](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
+### [Tools - Option 1 (prefered for Mac or Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
 Step |  |
 --- | --- 
@@ -27,7 +27,7 @@ Step |  |
 3 | [Move on with the lab](./4-kubernetes.md#step-1-build-and-save-the-container-image-in-the-ibm-cloud-container-registry).
 
 
-### [Tools - Option 2](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
+### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
 
 Step |  |
 --- | --- 
@@ -186,7 +186,7 @@ This is the full [deployment.yaml](../deployment/deployment.yaml) file.
         restartPolicy: Always
   ```
 
-### [Tools - Option 1](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
+### [Tools - Option 1 (prefered for Mac or Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
 Step |  |
 --- | --- 
@@ -195,7 +195,7 @@ Step |  |
 3 | [Move on with the lab](./4-kubernetes.md#step-1-apply-the-deployment).
 
 
-### [Tools - Option 2](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
+### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
 
 Step |  |
 --- | --- 
@@ -295,7 +295,7 @@ spec:
 ---
 ```
 
-### [Tools - Option 1 (prefered for Windows)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
+### [Tools - Option 1 (prefered for Mac and Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
 Step |  |
 --- | --- 
@@ -304,7 +304,7 @@ Step |  |
 3 | [Move on with the lab](./4-kubernetes.md#step-1-ensure-you-are-in-the-root_folderauthors-java-jeedeployment).
 
 
-### [Tools - Option 2 (prefered for Mac and Linux)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
+### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
 
 Step |  |
 --- | --- 
@@ -317,6 +317,7 @@ Step |  |
 #### Step 1: Ensure you are in the `$ROOT_FOLDER/authors-java-jee/deployment`
 
   ```sh
+  $ ROOT_FOLDER=$(pwd)
   $ cd $ROOT_FOLDER/authors-java-jee/deployment
   ```
 

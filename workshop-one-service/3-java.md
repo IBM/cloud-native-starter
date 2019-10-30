@@ -259,25 +259,13 @@ This HealthEndpoint is configured in the Kubernetes deployment yaml. In the foll
 
 ## Change the code of the authors microservice and run the service in a container locally
 
-_Note_: Here are some additional instructions based on your choosen setup.
+That lab does only need Docker and a terminal session on your local machine.
 
-### [Tools - Option 1 (prefered for Mac and Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
-
-Step |  |
---- | --- 
-1 | You need to open a new local terminal |
-2 |  Navigate to your local project folder ```cloud-native-starter/authors-java-jee```
-3 | [Move on with the lab](./3-java.md#step-1-in-getauthorjava-change-the-returned-author-name-to-something-else-like-my-name).
-
-
-### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
-
-Step |  |
---- | --- 
-1 | You need to download or clone the project onto your local PC, first. ```$ git clone https://github.com/IBM/cloud-native-starter.git ``` 
-2 |  Open a new terminal and navigate tp your local project folder ```cloud-native-starter/authors-java-jee```
-3 | [Move on with the lab](./3-java.md#step-1-in-getauthorjava-change-the-returned-author-name-to-something-else-like-my-name).
-
+```sh 
+$ cd $ROOT_FOLDER/authors-java-jee
+$ docker build -t authors .
+$ docker run -i --rm -p 3000:3000 authors
+```
 
 #### Step 1: Change the contextRoot in [server.xml](../authors-java-jee/liberty/server.xml) to something similar like "myapi".
 

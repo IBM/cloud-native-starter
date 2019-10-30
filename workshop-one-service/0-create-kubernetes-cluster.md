@@ -57,6 +57,8 @@ Ensure you set following values in the creation dialog:
 * Geography:        North America
 * Metro:            Dallas
 
+_Note:_ In the new IBM Cloud UI it seems the enties for Geography and Metro are no longer available.
+
 ![create Kubernetes service](images/ibmcloud-create-kubernetes-2.png)
 
 #### Step 6: Press "Create custer"
@@ -83,6 +85,16 @@ _Note:_ Namespaces are required to be **unique** across the entire **region** th
 
 ![Verify the namespace was created](images/ibmcloud-configure-container-registry-3.png)
 
+
+_Note:_ We notice that the button **create namespace** is currently not available in the IBM Cloud UI, if you have not a existing IBM Cloud Container registry namespace in place. You must create your first **IBM Cloud Container registry namespace** with the IBM Cloud CLI and follow the steps in the **quick guide**. The  **quick guide** is displayed in the image below.
+
+![quick guide](images/create-registry-namespace.png)
+
+If you have not installed the IBM Cloud CLI tools on you machine, you can use the provided Docker image:
+
+```sh
+$ docker run -ti tsuedbroecker/cns-workshop-tools:v1
+```
 ---
 
 Now we have created a free IBM Kubernetes Cluster and we configured the IBM Cloud Container Registry.
