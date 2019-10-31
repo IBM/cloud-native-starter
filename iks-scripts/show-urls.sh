@@ -14,6 +14,7 @@ function _out() {
 
 function setup() {
   _out Logging into IBM Cloud, please wait
+  ibmcloud config --check-version=false
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   ibmcloud ks region-set $IBM_CLOUD_REGION
   clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
