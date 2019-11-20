@@ -52,6 +52,8 @@ public class GetAuthor {
             example = "Niklas Heidloff",
             schema = @Schema(type = SchemaType.STRING))
 			@QueryParam("name") String name) {
+		        
+		        System.out.println("com.ibm.authors.GetAuthor.getAuthor /getauthor invoked");
 		
 			Author author = new Author();
 			author.name = "Niklas Heidloff";
