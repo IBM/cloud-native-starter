@@ -137,6 +137,7 @@ The following [slides](https://github.com/nheidloff/cloud-native-starter/blob/ma
 * [Project Description and Design Principles](http://heidloff.net/article/example-java-app-cloud-kubernetes)
 * Presentation at We Are Developers (30 mins): [How to develop your first cloud-native Applications with Java](http://heidloff.net/recording-of-talk-how-to-develop-your-first-cloud-native-applications-with-java/)
 * Recording of Jakarta Tech Talk (45 mins): [How to develop your first cloud-native Applications with Java](http://heidloff.net/article/recording-jakarta-tech-talk-how-to-develop-microservices/)
+* Recording of code.talks session in German: [Wie entwickle ich meine ersten Cloud-nativen Applikationen mit Java?](https://www.youtube.com/watch?v=oabKnZO2mUA)
 * [Hands-on workshop with MircoProfile, Kubernetes and Istio](https://github.com/IBM/cloud-native-starter/tree/master/workshop) (three hours)
 * [Hands-on workshop YouTube playlist](https://ibm.biz/Bdzpdp)(6 * 3 min)
 * [Hands-on workshop build and deploy one microservice using Java, MircoProfile and Kubernetes](https://github.com/IBM/cloud-native-starter/tree/master/workshop-one-service) (one hour)
