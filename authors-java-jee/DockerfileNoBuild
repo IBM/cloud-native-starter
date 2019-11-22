@@ -1,4 +1,4 @@
-FROM open-liberty:microProfile2-java11
+FROM open-liberty:19.0.0.9-microProfile3-java11
 
 COPY liberty/server.xml /config/
 
