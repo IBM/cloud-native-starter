@@ -25,6 +25,18 @@
 
 	<build>
 		<finalName>authors</finalName>
+		<!-- the following plug is only for local development with the libertyMavenPlugin 
+		<plugins>
+          <plugin>
+            <groupId>io.openliberty.tools</groupId>
+            <artifactId>liberty-maven-plugin</artifactId>
+			<configuration>
+                	<serverName>authorsDevServer</serverName>
+					<configFile>liberty/server.xml</configFile>
+            	</configuration>
+          </plugin>
+        </plugins>
+		-->
 	</build>
 
 	<properties>

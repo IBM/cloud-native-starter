@@ -28,7 +28,7 @@ In the pom file we define the configuration of our Java project with dependencie
 		<dependency>
 			<groupId>org.eclipse.microprofile</groupId>
 			<artifactId>microprofile</artifactId>
-			<version>2.1</version>
+			<version>3.2</version>
 			<scope>provided</scope>
 			<type>pom</type>
 		</dependency>
@@ -73,8 +73,7 @@ Also the name of the executable web application is definied in the server.xml.
 <server description="OpenLiberty Server">
 	
     <featureManager>
-        <feature>webProfile-8.0</feature>
-        <feature>microProfile-2.1</feature>
+        <feature>microProfile-3</feature>
     </featureManager>
 
     <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="3000" httpsPort="9443"/>
@@ -153,7 +152,7 @@ _REMEMBER:_ In the server.xml configuration we added **MicroProfile** to the Ope
 
 ```xml
 <featureManager>
-        <feature>microProfile-2.1</feature>
+        <feature>microProfile-3</feature>
         ....
 </featureManager> 
 ```
@@ -231,8 +230,7 @@ For more information check the [Kubernetes Microprofile Health documentation](ht
 This is the implementation of the Health Check for Kubernetes in the [HealthEndpoint class](../authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java) of the Authors service:
 
 ```java
-@Health
-@ApplicationScoped
+@Readiness
 public class HealthEndpoint implements HealthCheck {
 
     @Override

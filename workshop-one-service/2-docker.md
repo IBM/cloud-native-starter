@@ -63,10 +63,15 @@ We copy the Authors service code together with the server.xml for the OpenLibert
 _REMEMBER:_ The service.xml contains the ports we use for our Authors service.
 
 ```dockerfile
-FROM openliberty/open-liberty:microProfile2-java8-openj9 
+FROM open-liberty:19.0.0.9-kernel-java11
 
 COPY liberty/server.xml /config/
-COPY --from=BUILD /usr/src/app/target/authors.war /config/apps/
+
+COPY --from=0 /usr/src/app/target/authors.war /config/apps/
+
+# This script will add the requested XML snippets, grow image to be fit-for-purpose and apply interim fixes
+# https://github.com/WASdev/ci.docker
+RUN configure.sh
 
 EXPOSE 3000
 ```
