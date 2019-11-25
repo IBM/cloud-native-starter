@@ -62,15 +62,9 @@ In the **pom** file we define the configuation of our Java project, with **depen
 
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>8.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.eclipse.microprofile</groupId>
 			<artifactId>microprofile</artifactId>
-			<version>2.1</version>
+			<version>3.2</version>
 			<scope>provided</scope>
 			<type>pom</type>
 		</dependency>
@@ -107,8 +101,7 @@ Also the name of the executable **web application** is definied in that **server
 <server description="OpenLiberty Server">
 	
     <featureManager>
-        <feature>webProfile-8.0</feature>
-        <feature>microProfile-2.1</feature>
+        <feature>microProfile-3</feature>
     </featureManager>
 
     <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="3000" httpsPort="9443"/>
@@ -269,7 +262,7 @@ For more information we can use the [Kubernetes Microprofile Health documentatio
 This is the implementation for the Health Check for Kubernetes for the **Authors** service in the [HealthEndpoint class](../authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java)
 
 ```java
-@Health
+@Readiness
 @ApplicationScoped
 public class HealthEndpoint implements HealthCheck {
 
@@ -331,10 +324,17 @@ We copy the **Authors service** code with the **server.xml** for the OpenLiberty
 _REMEMBER:_ The **service.xml** contains the ports we use for our **Authors service**.
 
 ```dockerfile
-FROM openliberty/open-liberty:microProfile2-java8-openj9 
+FROM open-liberty:19.0.0.9-kernel-java11
 
 COPY liberty/server.xml /config/
-COPY --from=BUILD /usr/src/app/target/authors.war /config/apps/
+
+COPY --from=0 /usr/src/app/target/authors.war /config/apps/
+
+# This script will add the requested XML snippets, grow image to be fit-for-purpose and apply interim fixes
+# https://github.com/WASdev/ci.docker
+RUN configure.sh
+
+EXPOSE 3000
 ```
 ---
 
