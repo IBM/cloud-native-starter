@@ -1,8 +1,10 @@
 package com.ibm.articles.data;
 
 import com.ibm.articles.business.Article;
-import javax.inject.Inject;
 import com.ibm.articles.business.ArticleDoesNotExist;
+
+import javax.inject.Inject;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;

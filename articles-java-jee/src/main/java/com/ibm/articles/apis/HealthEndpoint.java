@@ -1,12 +1,12 @@
 package com.ibm.articles.apis;
 
-import org.eclipse.microprofile.health.Health;
+import org.eclipse.microprofile.health.Readiness;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 
-@Health
+@Readiness
 @ApplicationScoped
 public class HealthEndpoint implements HealthCheck {
 

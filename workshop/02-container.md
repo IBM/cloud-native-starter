@@ -72,11 +72,13 @@ The server configuration is defined in the server.xml (more details about the **
 
 
 ```Dockerfile
-FROM openliberty/open-liberty:microProfile2-java8-openj9
-ADD liberty-opentracing-zipkintracer-1.2-sample.zip /
-RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
- && rm liberty-opentracing-zipkintracer-1.2-sample.zip
+FROM open-liberty:19.0.0.9-kernel-java11
+ADD liberty-opentracing-zipkintracer-1.3-sample.zip /
+RUN unzip liberty-opentracing-zipkintracer-1.3-sample.zip -d /opt/ol/wlp/usr/ \
+ && rm liberty-opentracing-zipkintracer-1.3-sample.zip
 COPY liberty/server.xml /config/
+RUN configure.sh
+EXPOSE 8080
 ```
 
 Now it is time to copy the build result **articles.war** from our **build environment container** into the correct place inside the **production container**.

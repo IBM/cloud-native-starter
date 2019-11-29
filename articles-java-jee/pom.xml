@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<dependencies>
-		<dependency>
+	    <dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>8.0</version>
@@ -17,15 +17,21 @@
 		<dependency>
 			<groupId>org.eclipse.microprofile</groupId>
 			<artifactId>microprofile</artifactId>
-			<version>2.1</version>
+			<version>3.0</version>
 			<scope>provided</scope>
 			<type>pom</type>
 		</dependency>
+		<dependency>
+		    <groupId>io.openliberty</groupId>
+			<artifactId>openliberty-runtime</artifactId>
+			<version>19.0.0.11</version>
+			<type>zip</type>
+		</dependency>
 		<!-- the following dependency is only needed if the persistence datastore db2 is used -->
 		<dependency>
-    	<groupId>com.ibm.db2</groupId>
-    	<artifactId>jcc</artifactId>
-    	<version>11.1.4.4</version>
+    	   <groupId>com.ibm.db2</groupId>
+    	   <artifactId>jcc</artifactId>
+    	   <version>11.1.4.4</version>
 		</dependency> 
 	</dependencies>
 
@@ -51,6 +57,16 @@
 							</execution>
 					</executions>
 			</plugin>
+			<!-- the following plug is only for local development with the libertyMavenPlugin
+			<plugin>
+            	<groupId>io.openliberty.tools</groupId>
+            	<artifactId>liberty-maven-plugin</artifactId>
+				<configuration>
+                		<serverName>authorsDevServer</serverName>
+						<configFile>liberty/server.xml</configFile>
+            	</configuration>
+          	</plugin>
+			-->	
 		</plugins>
 	</build>
 
