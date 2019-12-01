@@ -58,17 +58,17 @@ _Note:_ With the `--rm` option in the docker run command the container is delete
 #### Step 2: Inside your running Docker image you can access your the local github project 
 
 ```
-root@3f46c41f7303:/usr/local/bin# cd /cloud-native-starter/
-root@3f46c41f7303:/cloud-native-starter# ls
-root@3f46c41f7303:/cloud-native-starter# ROOT_FOLDER=$(pwd)
+$ cd /cloud-native-starter/
+$ ls
+$ ROOT_FOLDER=$(pwd)
 ```
 
 #### Step 3: Verfiy the tool prerequisites on for the workshop
 
 ```
-root@3f46c41f7303:/cloud-native-starter# chmod u+x iks-scripts/*.sh
-root@3f46c41f7303:/cloud-native-starter# chmod u+x scripts/*.sh
-root@3f46c41f7303:/cloud-native-starter# ./iks-scripts/check-prerequisites.sh
+$ chmod u+x iks-scripts/*.sh
+$ chmod u+x scripts/*.sh
+$ ./iks-scripts/check-prerequisites.sh
 ```
 
 #### Step 4: Move on with [Verify Access your free Kubernetes Cluster on the IBM Cloud](./1-prereqs.md#verify-access-to-kubernetes-on-the-ibm-cloud)
@@ -88,18 +88,18 @@ _Note:_ If you using Windows you also need to download or clone the project to y
 #### Step 2: After the container has been started, run these commands inside your running Docker image to get the lastest version of the workshop:
 
 ```
-root@3f46c41f7303:/usr/local/bin# cd /
-root@3f46c41f7303:/usr/local/bin# git clone https://github.com/IBM/cloud-native-starter.git
-root@3f46c41f7303:/usr/local/bin# cd cloud-native-starter
-root@3f46c41f7303:/usr/local/bin# ROOT_FOLDER=$(pwd)
+$ cd /
+$ git clone https://github.com/IBM/cloud-native-starter.git
+$ cd cloud-native-starter
+$ ROOT_FOLDER=$(pwd)
 ```
 
 #### Step 3: Verfiy the tool prerequisites on for the workshop
 
 ```
-root@3f46c41f7303:/cloud-native-starter# chmod u+x iks-scripts/*.sh
-root@3f46c41f7303:/cloud-native-starter# chmod u+x scripts/*.sh
-root@3f46c41f7303:/cloud-native-starter# ./iks-scripts/check-prerequisites.sh
+$ chmod u+x iks-scripts/*.sh
+$ chmod u+x scripts/*.sh
+$ ./iks-scripts/check-prerequisites.sh
 ```
 
 #### Step 4: Move on with [Verify Access to Kubernetes on the IBM Cloud](./1-prereqs.md#verify-access-to-kubernetes-on-the-ibm-cloud)
