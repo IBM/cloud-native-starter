@@ -98,7 +98,7 @@ In order to create a free Kubernetes cluster, you need a **promo** or **feature 
 
 ---
 
-### 4.2 Insert promo code <a name="part-SETUP-01"></a>
+### 4.2 Insert feature code <a name="part-SETUP-01"></a>
 [<home>](#home)
 
 In order to execute the workshop easily, we provide **promotional codes** to create free Kubernetes clusters, so no credit card details are required.
@@ -386,7 +386,7 @@ Choose a different namespace.
 
 Namespaces are required to be unique across the entire region that the specific registry is located in, not just unique on each account. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add). 
 
-Change the registry name in the ```local.env``` file, for example to ```REGISTRY_NAMESPACE=cloud-native-YOUR_NAME```.
+_Optional:_ Change the registry name in the ```local.env``` file, for example to ```REGISTRY_NAMESPACE=cloud-native-YOUR_NAME```. The `REGISTRY_NAMESPACE` will be change by a bash script later.
 
 ```sh
 IBM_CLOUD_REGION=us-south

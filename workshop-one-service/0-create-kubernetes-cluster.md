@@ -1,7 +1,7 @@
 # Table of Content
 
 1. [Register for IBM Cloud](#part-SETUP-00)
-2. [Insert promo code](#part-SETUP-01)
+2. [Insert feature code](#part-SETUP-01)
 3. [Create a free Kubernetes cluster](#part-SETUP-02)
 4. [Configure the IBM Cloud Container Registry](#part-SETUP-03)
 
@@ -20,11 +20,11 @@
 _Note:_ By default, all new IBM Cloud accounts are set to a [lite version](https://www.ibm.com/cloud/pricing).
 
 The lite account provides free access to a subset of IBM Cloud resources. Lite accounts **don't need a credit-card** to sign up and they **don't expire** after a certain period of time. 
-In order to create a free Kubernetes cluster, you need a **promo** or **feature code**.
+In order to create a free Kubernetes cluster, you need a **feature code**.
 
 ---
 
-# 2 Insert promo/feature code <a name="part-SETUP-01"></a>
+# 2 Insert feature code <a name="part-SETUP-01"></a>
 
 In order to execute the workshop easily, we provide **feature codes** to create free Kubernetes clusters, so no credit card details are required.
 To apply the feature code to your [Cloud Account](https://cloud.ibm.com/account), navigate to your "`Account settings`" and then to ("`Manage`" -> "`Account`").

@@ -28,7 +28,7 @@ In the pom file we define the configuration of our Java project with dependencie
 		<dependency>
 			<groupId>org.eclipse.microprofile</groupId>
 			<artifactId>microprofile</artifactId>
-			<version>3.2</version>
+			<version>3.0</version>
 			<scope>provided</scope>
 			<type>pom</type>
 		</dependency>
