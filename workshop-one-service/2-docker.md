@@ -83,7 +83,8 @@ That lab does only need Docker and a terminal session on your local machine.
 #### Step 1: To test and see how the code works you can run the code locally as a Docker container
 
 ```
-$ git clone https://github.com/IBM/cloud-native-starter 
+$ git clone https://github.com/IBM/cloud-native-starter
+$ cd cloud-native-starter
 $ ROOT_FOLDER=$(pwd)
 $ cd $ROOT_FOLDER/authors-java-jee
 $ docker build -t authors .
