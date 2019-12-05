@@ -641,7 +641,19 @@ Now, we've finished the **Replace the Node.js Authors microservice with a simple
 
 ---
 
-Resources:
+# Java Microservices simplified class overviews
+
+The following class diagrams are only a simplified overview of the classes inside the Microservices.
+
+* Articles
+
+![articles-classoverview](images/classoverview-articles.jpg)
+
+* Web-API
+
+![WebAPI-classoverview](images/classoverview-webapi.jpg)
+
+# Additional Resources:
 
 * ['Simplest possible Microservice in Java'](../authors-java-jee/README.md)
 * ['How to deploy a container to the IBM Cloud Kubernetes Service](https://suedbroecker.net/2019/03/05/how-to-deploy-a-container-to-the-ibm-cloud-kubernetes-service/)
