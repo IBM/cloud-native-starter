@@ -3,7 +3,7 @@
 	
     <featureManager>
         <feature>webProfile-8.0</feature>
-        <feature>microProfile-2.1</feature>
+        <feature>microProfile-3.0</feature>
         <feature>usr:opentracingZipkin-0.31</feature>    
         <feature>monitor-1.0</feature> 
         <feature>mpJwt-1.1</feature>

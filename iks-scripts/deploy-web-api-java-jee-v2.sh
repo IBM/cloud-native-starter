@@ -7,7 +7,7 @@ if [[ -e "iks-scripts/cluster-config.sh" ]]; then source iks-scripts/cluster-con
 if [[ -e "local.env" ]]; then source local.env; fi
 
 # Login to IBM Cloud Image Registry
-ibmcloud ks region-set $IBM_CLOUD_REGION
+ibmcloud ks region set $IBM_CLOUD_REGION
 ibmcloud cr region-set $IBM_CLOUD_REGION
 ibmcloud cr login
 
@@ -22,14 +22,14 @@ function setup() {
   
   cd ${root_folder}/web-api-java-jee
 
-  file="${root_folder}/web-api-java-jee/liberty-opentracing-zipkintracer-1.2-sample.zip"
+  file="${root_folder}/web-api-java-jee/liberty-opentracing-zipkintracer-1.3-sample.zip"
   if [ -f "$file" ]
   then
 	  echo "$file found"
   else
-	  curl -L -o $file https://github.com/WASdev/sample.opentracing.zipkintracer/releases/download/1.2/liberty-opentracing-zipkintracer-1.2-sample.zip
+	  curl -L -o $file https://github.com/WASdev/sample.opentracing.zipkintracer/releases/download/1.3/liberty-opentracing-zipkintracer-1.3-sample.zip
   fi
-  unzip -o liberty-opentracing-zipkintracer-1.2-sample.zip -d liberty-opentracing-zipkintracer/
+  unzip -o liberty-opentracing-zipkintracer-1.3-sample.zip -d liberty-opentracing-zipkintracer/
 
   sed 's/5/10/' src/main/java/com/ibm/webapi/business/Service.java > src/main/java/com/ibm/webapi/business/Service2.java
   rm src/main/java/com/ibm/webapi/business/Service.java

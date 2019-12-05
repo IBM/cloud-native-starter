@@ -49,8 +49,8 @@ public class GetArticles {
 	@Counted(name = "getArticlesCounted",
 	        absolute = true,
 	        displayName = "web-api /getmultiple count",
-	        description = "Number of times com.ibm.webapi.apis.GetArticles.getArticles has been invoked",
-	        monotonic = true)
+	        description = "Number of times com.ibm.webapi.apis.GetArticles.getArticles has been invoked")
+			// monotonic = true) removed see issue - https://github.com/eclipse/microprofile-metrics/issues/499
 	@Metered(name = "getArticlesMetered",
 	        displayName = "web-api /getmultiple frequency",
 	        description = "Rate the throughput of com.ibm.webapi.apis.GetArticles.getArticles")

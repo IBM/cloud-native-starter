@@ -10,7 +10,6 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.InvalidArticle;
 import com.ibm.webapi.business.NoDataAccess;
-import com.ibm.webapi.business.Service;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;

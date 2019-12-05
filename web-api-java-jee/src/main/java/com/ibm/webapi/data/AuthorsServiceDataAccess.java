@@ -1,27 +1,13 @@
 package com.ibm.webapi.data;
 
 import com.ibm.webapi.business.Author;
-import com.ibm.webapi.business.CoreArticle;
-import com.ibm.webapi.business.InvalidArticle;
 import com.ibm.webapi.business.NonexistentAuthor;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-import javax.json.JsonObject;
-import javax.ws.rs.ProcessingException;
 
 public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 	

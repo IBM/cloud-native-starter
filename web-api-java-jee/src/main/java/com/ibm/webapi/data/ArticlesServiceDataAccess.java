@@ -4,20 +4,13 @@ import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.InvalidArticle;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
-import javax.inject.Inject;
-import javax.json.JsonObject;
-import javax.ws.rs.ProcessingException;
 
 public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 	

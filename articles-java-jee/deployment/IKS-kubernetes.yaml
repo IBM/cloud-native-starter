@@ -32,7 +32,6 @@ spec:
       containers:
       - name: articles
         image: us.icr.io/cloud-native-tsuedbro/articles:1
-        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:

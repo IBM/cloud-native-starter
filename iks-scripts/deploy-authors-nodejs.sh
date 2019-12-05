@@ -26,7 +26,7 @@ source $CLUSTER_CFG
 
 
 # Login to IBM Cloud Image Registry
-ibmcloud ks region-set $IBM_CLOUD_REGION
+ibmcloud ks region set $IBM_CLOUD_REGION
 ibmcloud cr region-set $IBM_CLOUD_REGION
 ibmcloud cr login
 
