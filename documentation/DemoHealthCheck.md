@@ -7,12 +7,12 @@ With the Kubernetes livenessProbe it is determined whether, as the name indicate
 Here is the [Java code](../articles-java-jee/src/main/java/com/ibm/articles/apis/HealthEndpoint.java) which returns for the 'articles' service that the microservice is ready. 
 
 ```
-import org.eclipse.microprofile.health.Health;
+import org.eclipse.microprofile.health.Readiness;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import javax.enterprise.context.ApplicationScoped;
 
-@Health
+@Readiness
 @ApplicationScoped
 public class HealthEndpoint implements HealthCheck {
 
