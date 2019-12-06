@@ -37,7 +37,9 @@ $ minikube stop
 
 ### Istio
 
-We used Istio 1.4.0 for this project. Note that the installation for Istio 1.4.0 has changed from previous versions. 
+We used Istio 1.4.0 for this project. 
+
+Note that the installation for Istio 1.4.0 has changed and also some commands, most notably those to open the Kiali, Jaeger, Prometheus, and Grafana dashboards were different in older Istio versions.
 
 We will use `istioctl` to install Istio:
 

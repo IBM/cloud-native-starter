@@ -15,7 +15,6 @@ function setup() {
 
   _out ------------------------------------------------------------------------------------
   _out kiali
-  _out =====
   _out Run the command: istioctl dashboard kiali
 #  _out otherwise, for older Istio versions:
 #  command1="kubectl -n istio-system port-forward $"
@@ -25,7 +24,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out prometheus
-  _out ==========
   _out Run the command: istioctl dashboard prometheus
 #  _out otherwise, for older Istio versions:
 #  command1="kubectl -n istio-system port-forward $"
@@ -35,7 +33,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out jaeger
-  _out ======
   _out Run the command: istioctl dashboard jaeger
 #  _out otherwise, for older Istio versions:
 #  command1="kubectl -n istio-system port-forward $"
@@ -45,7 +42,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out grafana
-  _out =======
   _out Run the command: istioctl dashboard grafana
 #  _out otherwise, for older Istio versions:
 #  command1="kubectl -n istio-system port-forward $"
@@ -55,7 +51,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out articles
-  _out ========
   nodeport=$(kubectl get svc articles --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
   if [ -z "$nodeport" ]; then
     _out articles is not available. Run 'scripts/deploy-articles-java-jee.sh'
@@ -66,7 +61,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out authors
-  _out =======
   nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
   if [ -z "$nodeport" ]; then
     _out authors is not available. Run 'scripts/deploy-authors-nodejs.sh'
@@ -76,7 +70,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
   
   _out authentication
-  _out ==============
   nodeport=$(kubectl get svc authentication --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
   if [ -z "$nodeport" ]; then
     _out authentication is not available. Run 'scripts/deploy-authentication-nodejs.sh'
@@ -93,7 +86,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out web-api
-  _out =======
   nodeport=$(kubectl get svc web-api --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
   if [ -z "$nodeport" ]; then
     _out web-api is not available. Run 'scripts/deploy-web-api-java-jee.sh'
@@ -112,7 +104,6 @@ function setup() {
   _out ------------------------------------------------------------------------------------
   
   _out web-app
-  _out =======
   nodeport=$(kubectl get svc web-app --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
   if [ -z "$nodeport" ]; then
     _out web-app is not available. Run 'scripts/deploy-web-app-vuejs.sh'
