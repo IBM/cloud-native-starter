@@ -15,7 +15,10 @@ $ scripts/deploy-istio-ingress-v1-v2.sh
 $ scripts/show-urls.sh
 ```
 
+Open Kiali with `$ istioctl dashboard kiali` and log in with user: admin and password: admin. 
+
 <kbd><img src="../images/traffic-management-1.png" /></kbd>
+
 
 Check out the [animated gif](../images/traffic-management.gif) to see traffic management in action.
 

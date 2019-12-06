@@ -12,10 +12,11 @@ function configureVUEminikubeIP(){
   _out configure API endpoint in web-app
   minikubeip=$(minikube ip)
   _out Minikube IP - $minikubeip
+  ingressport=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+  _out Istio Ingress NodePort - ${ingressport}
 
   rm "store.js"
-#  cp "store.js.template" "store.js"
-  sed "s/endpoint-api-ip/$minikubeip/g" store.js.template > store.js
+  sed -e "s/endpoint-api-ip/$minikubeip/g" -e "s/ingress-np/${ingressport}/g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs
 }
@@ -35,17 +36,14 @@ function setup() {
   kubectl apply -f deployment/kubernetes.yaml
   kubectl apply -f deployment/istio.yaml
 
-#  cd ${root_folder}/web-app-vuejs/src
-#  cp "store.js.template" "store.js"
-
-  minikubeip=$(minikube ip)
-  nodeport=$(kubectl get svc web-app --output 'jsonpath={.spec.ports[*].nodePort}')
-  _out Minikube IP: ${minikubeip}
-  _out NodePort: ${nodeport}
+#  minikubeip=$(minikube ip)
+#  nodeport=$(kubectl get svc web-app --output 'jsonpath={.spec.ports[*].nodePort}')
+#  _out Minikube IP: ${minikubeip}
+#  _out NodePort: ${nodeport}
   
   _out Done deploying web-app-vuejs
   _out Wait until the pod has been started: "kubectl get pod --watch | grep web-app"
-  _out Open the app: http://${minikubeip}:${nodeport}/
+  _out Open the app: http://${minikubeip}:${ingressport}/
 }
 
 setupLog

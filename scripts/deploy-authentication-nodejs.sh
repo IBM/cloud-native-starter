@@ -27,12 +27,13 @@ function setup() {
 
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc authentication --output 'jsonpath={.spec.ports[*].nodePort}')
+  ingressport=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
   _out Minikube IP: ${minikubeip}
   _out NodePort: ${nodeport}
 
   _out Done deploying authentication-nodejs
   _out Wait until the pod has been started: "kubectl get pod --watch | grep authentication"
-  _out Login URL: http://${minikubeip}:31380/login
+  _out Login URL: http://${minikubeip}:${ingressport}/login
 }
 
 setup

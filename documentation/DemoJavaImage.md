@@ -17,7 +17,7 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM open-liberty:19.0.0.9-kernel-java11
-ADD liberty-opentracing-zipkintracer-1.2-sample.zip /
+ADD liberty-opentracing-zipkintracer-1.3-sample.zip /
 RUN unzip liberty-opentracing-zipkintracer-1.2-sample.zip -d /opt/ol/wlp/usr/ \
  && rm liberty-opentracing-zipkintracer-1.2-sample.zip
 COPY liberty/server.xml /config/

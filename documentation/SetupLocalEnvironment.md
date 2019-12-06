@@ -7,17 +7,21 @@ After following these instructions you will be able to use the Kubernetes dashbo
 
 ### Minikube
 
-Follow the [instructions](https://kubernetes.io/docs/setup/minikube/) to install Minikube. This project has been tested with Minikube version 1.4.0. After this run these commands:
+Follow the [instructions](https://kubernetes.io/docs/tasks/tools/install-minikube/) to install Minikube. 
+
+This project has been tested with Minikube version 1.5.2. 
+
+Once installed, run these commands:
 
 ```
-$ minikube config set cpus 4
+$ minikube config set cpus 2
 $ minikube config set memory 8192
 $ minikube config set disk-size 50g
 $ minikube start
 $ eval $(minikube docker-env)
 ```
 
-After this you can get the Minikube IP address and open the dashboard via these commands:
+When Minikube is started you can get the IP address and open the Kubernetes dashboard with these commands:
 
 ```
 $ minikube ip
@@ -33,92 +37,103 @@ $ minikube stop
 
 ### Istio
 
-To install Istio, follow these instructions. We use Istio 1.3.0 for this project.
+We used Istio 1.4.0 for this project. Note that the installation for Istio 1.4.0 has changed from previous versions. 
 
-1. Download Istio, this will create a directory istio-1.3.0:
-   ```
-   curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.3.0 sh -
-   ```
+We will use `istioctl` to install Istio:
 
-3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
+1. Download Istio, this will create a directory istio-1.4.0:
 
     ```
-    export PATH="$PATH:/path/to/istio-1.3.0/bin"
+    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.4.0 sh -
     ```
 
-4. Verify the Istio installation:
+2. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
 
-   ```
-   $ istioctl verify-install
-   ```
-
-5. Change into the Istio directory: 
-
-   ```
-   $ cd istio-1.3.0
-   ```
-
-6. Install Istio on Minikube:
 
     ```
-    $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
-    ```
-    
-    Wait a few seconds before issuing the next command:
-
-    ```
-    $ kubectl apply -f install/kubernetes/istio-demo.yaml
+    export PATH="$PATH:/path/to/istio-1.4.0/bin"
     ```
 
-Check that all pods are running or completed before continuing.
+3. Verify the `istioctl` installation:
 
-```
-$ kubectl get pod -n istio-system
-```
 
-Enable automatic sidecar injection:
+    ```
+    $ istioctl version 
+    ```
 
-```
-$ kubectl label namespace default istio-injection=enabled
-```
+4. Install Istio on Minikube:
+
+    We will use the `demo` profile to install Istio. 
+
+    **Note:** This is a "...configuration designed to showcase Istio functionality with modest resource requirements. ... **This profile enables high levels of tracing and access logging so it is not suitable for performance tests!**"
+
+    ```
+    $ istioctl manifest apply --set profile=demo
+    ```
+
+
+5. Check that all pods are running or completed before continuing.
+  
+    ```
+    $ kubectl get pod -n istio-system
+    ```
+
+6. Verify Istio installation
+
+    This generates a manifest file for the demo profile we used to install Istion and then verifies the installation against this profile.
+
+    ```
+    $ istioctl manifest generate --set profile=demo > generated-manifest.yaml
+    $ istioctl verify-install -f generated-manifest.yaml
+    ```
+
+    Result of the second command (last 3 lines) looks like this:
+
+     ```
+     Checked 23 crds
+	 Checked 9 Istio Deployments
+	 Istio is installed successfully
+	 ```
+ 
+7. Enable automatic sidecar injection for `default`namespace:
+
+    ```
+    $ kubectl label namespace default istio-injection=enabled
+    ```
 
 After this you can use the following tools:
 
+*(Please note that these commands do not work with Istio versions prior to 1.4.0! For prior versions check the Istio documentation.)*
+
 [**Kiali Dashboard**](https://www.kiali.io/gettingstarted/)
 
-With recent Istio versions, Kiali is automatically installed together with Istio.
 
 ```
-kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
+$ istioctl dashboard kiali
 ```
-
-http://localhost:20001/kiali/console
-
 (User: admin, Password: admin)
 
 [**Jaeger Dashboard**](https://www.jaegertracing.io/docs/1.6/getting-started/)
 
 ```
-$ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686
+$ istioctl dashboard jaeger
 ```
 
-http://localhost:16686
 
 [**Grafana Dashboard**](https://grafana.com/dashboards)
 
 ```
-$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &
+$ istioctl dashboard grafana
 ```
 
-http://localhost:3000/dashboard/db/istio-mesh-dashboard
 
 [**Prometheus Dashboard**](https://prometheus.io/docs/practices/consoles/)
 
 ```
-$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &
+$ istioctl dashboard prometheus
 ```
 
-http://localhost:9090
+
 
 
 

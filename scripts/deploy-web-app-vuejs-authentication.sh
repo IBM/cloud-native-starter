@@ -11,12 +11,13 @@ function configureVUEminikubeIP(){
   
   _out configure API endpoint in web-app
   minikubeip=$(minikube ip)
+  ingressport=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
 
   rm "store.js"
   cp "store.js.template" "store.js"
-  sed "s/endpoint-api-ip/$minikubeip/g" store.js.template > store.js.1
+  sed -e "s/endpoint-api-ip/$minikubeip/g" -e "s/ingress-np/${ingressport}/g" store.js.template > store.js.1
   sed "s/endpoint-login-ip/$minikubeip/g" store.js.1 > store.js.2
-  sed "s/endpoint-login-port/31380/g" store.js.2 > store.js.3
+  sed "s/endpoint-login-port/${ingressport}/g" store.js.2 > store.js.3
   sed "s/authentication-enabled-no/authentication-enabled-yes/g" store.js.3 > store.js
   rm store.js.1
   rm store.js.2

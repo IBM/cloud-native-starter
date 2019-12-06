@@ -20,11 +20,12 @@ function _out() {
 
 function createDemoLoad(){
   minikubeip=$(minikube ip)
-  _out starting calling curl http://$minikubeip:31380/web-api/v1/getmultiple
+  ingressport=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+  _out starting calling curl http://$minikubeip:${ingressport}/web-api/v1/getmultiple
   i="0"
   while [ $i -lt $max ]
   do
-   curl http://$minikubeip:31380/web-api/v1/getmultiple
+   curl http://$minikubeip:${ingressport}/web-api/v1/getmultiple
    i=$[$i+1]
    _out loop $i
    sleep .5
