@@ -1,11 +1,8 @@
 package com.ibm.cns.articles.boundary;
 
-import com.ibm.cns.articles.control.ArticleDoesNotExist;
-import com.ibm.cns.articles.control.DataAccessFacade;
-import com.ibm.cns.articles.control.NoConnectivity;
-import com.ibm.cns.articles.control.NoDataAccess;
+import com.ibm.cns.articles.control.DataAccess;
+import com.ibm.cns.articles.control.MPConfigured;
 import com.ibm.cns.articles.entity.Article;
-import com.ibm.cns.articles.entity.InvalidArticle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,7 +27,8 @@ public class ArticlesService {
     String samplescreation;
 
     @Inject
-    DataAccessFacade dataAccessManager;
+    @MPConfigured
+    DataAccess dataAccess;
 
     @PostConstruct
     private void addArticles() {
@@ -41,84 +39,45 @@ public class ArticlesService {
         }
     }
 
-    public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
-        if (title == null) {
-            throw new InvalidArticle();
-        }
-
-        long id = new java.util.Date().getTime();
-        String idAsString = String.valueOf(id);
-
-        if (url == null) {
-            url = "Unknown";
-        }
-        if (author == null) {
-            author = "Unknown";
-        }
-
-        Article article = new Article();
-        article.title = title;
-        article.creationDate = idAsString;
-        article.id = (int) id;
-        article.url = url;
-        article.author = author;
-
-        try {
-            dataAccessManager.getDataAccess().addArticle(article);
-            return article;
-        } catch (NoConnectivity e) {
-            e.printStackTrace();
-            throw new NoDataAccess(e);
-        }
+    public Article addArticle(Article article) {
+        this.dataAccess.addArticle(article);
+        return article;
     }
 
-    public Article getArticle(String id) throws NoDataAccess, ArticleDoesNotExist {
-        Article article;
-        try {
-            article = dataAccessManager.getDataAccess().getArticle(id);
-            return article;
-        } catch (NoConnectivity e) {
-            e.printStackTrace();
-            throw new NoDataAccess(e);
-        }
+    public Article getArticle(String id) {
+        return this.dataAccess.getArticle(id);
     }
 
-    public List<Article> getArticles(int requestedAmount) throws NoDataAccess, InvalidInputParamters {
+    public List<Article> getArticles(int requestedAmount) {
         if (requestedAmount < 0) {
-            throw new InvalidInputParamters();
+            throw new InvalidInputParamters("Requested article amount is < 0");
         }
-        List<Article> articles;
-        try {
-            articles = dataAccessManager.getDataAccess().getArticles();
+        List<Article> articles = this.dataAccess.getArticles();
 
-            Comparator<Article> comparator = new Comparator<Article>() {
-                @Override
-                public int compare(Article left, Article right) {
-                    try {
-                        int leftDate = Integer.valueOf(left.creationDate.substring(6));
-                        int rightDate = Integer.valueOf(right.creationDate.substring(6));
-                        return rightDate - leftDate;
-                    } catch (NumberFormatException e) {
-                        return 0;
-                    }
+        Comparator<Article> comparator = new Comparator<Article>() {
+            @Override
+            public int compare(Article left, Article right) {
+                try {
+                    int leftDate = Integer.valueOf(left.creationDate.substring(6));
+                    int rightDate = Integer.valueOf(right.creationDate.substring(6));
+                    return rightDate - leftDate;
+                } catch (NumberFormatException e) {
+                    return 0;
                 }
-            };
-            Collections.sort(articles, comparator);
-
-            int amount = articles.size();
-            if (amount > requestedAmount) {
-                amount = requestedAmount;
-                List<Article> output = new ArrayList<Article>(amount);
-                for (int index = 0; index < amount; index++) {
-                    output.add(articles.get(index));
-                }
-                articles = output;
             }
-            return articles;
-        } catch (NoConnectivity e) {
-            e.printStackTrace();
-            throw new NoDataAccess(e);
+        };
+        Collections.sort(articles, comparator);
+
+        int amount = articles.size();
+        if (amount > requestedAmount) {
+            amount = requestedAmount;
+            List<Article> output = new ArrayList<Article>(amount);
+            for (int index = 0; index < amount; index++) {
+                output.add(articles.get(index));
+            }
+            articles = output;
         }
+        return articles;
     }
 
     private void addSampleArticles() {
@@ -154,9 +113,17 @@ public class ArticlesService {
             this.addArticle("Debugging Microservices running in Kubernetes",
                     "http://heidloff.net/article/debugging-microservices-kubernetes", "Niklas Heidloff");
             System.out.println("com.ibm.articles.business.Service.addSampleArticles: Sample articles have been created");
-        } catch (NoDataAccess | InvalidArticle | InterruptedException e) {
+        } catch (InterruptedException e) {
             System.out.println("com.ibm.articles.business.Service.addSampleArticles: Sample articles have NOT been created");
             e.printStackTrace();
         }
+    }
+
+    void addArticle(String title, String link, String author) {
+        Article article = new Article();
+        article.author = author;
+        article.title = title;
+        article.url = link;
+        this.addArticle(article);
     }
 }
