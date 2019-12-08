@@ -1,13 +1,11 @@
 package com.ibm.cns.articles.control;
 
-public class NoConnectivity extends Exception {
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
-	private static final long serialVersionUID = 1L;
-
-	public NoConnectivity() {
-	}
+public class NoConnectivity extends WebApplicationException {
 
 	public NoConnectivity(String message) {
-		super(message);
+            super(Response.status(500).header("info", message).build());
 	}
 }
