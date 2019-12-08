@@ -1,6 +1,8 @@
 package com.ibm.cns.articles.entity;
 
 import java.io.Serializable;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,19 +22,19 @@ public class ArticleEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "articleId")
-    private int id;
+    public int id;
 
     @Column(name = "articleTitle")
-	private String title;
+    public String title;
 
     @Column(name = "articleUrl")
-    private String url;
+    public String url;
 
     @Column(name = "articleAuthor")
-    private String author;
+    public String author;
 
     @Column(name = "creationDate")
-    private String creationDate;
+    public String creationDate;
 
     public ArticleEntity() {        
     }
@@ -44,45 +46,11 @@ public class ArticleEntity implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public int getId() {
-        return id;
+    public JsonObject toJSON() {
+        return Json.createObjectBuilder().add("id", this.id).add("title", this.title).add("url", this.url)
+                .add("author", this.author).build();
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
 
     @Override
     public String toString() {
