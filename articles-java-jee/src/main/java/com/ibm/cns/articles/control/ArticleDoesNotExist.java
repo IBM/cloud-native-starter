@@ -1,13 +1,11 @@
 package com.ibm.cns.articles.control;
 
-public class ArticleDoesNotExist extends Exception {
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
-	private static final long serialVersionUID = 1L;
+public class ArticleDoesNotExist extends WebApplicationException {
 
-	public ArticleDoesNotExist() {
-	}
-
-	public ArticleDoesNotExist(String message) {
-		super(message);
+    public ArticleDoesNotExist(String message) {
+        super(Response.status(204).header("info", "message").build());
 	}
 }
