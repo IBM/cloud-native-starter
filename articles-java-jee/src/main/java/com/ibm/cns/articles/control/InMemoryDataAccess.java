@@ -25,7 +25,7 @@ public class InMemoryDataAccess implements DataAccess {
     public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist { 	
         Article article = articles.get(id);
         if (article == null) {
-        	throw new ArticleDoesNotExist();
+            throw new ArticleDoesNotExist("No article found for " + id);
         }
 
         return article;

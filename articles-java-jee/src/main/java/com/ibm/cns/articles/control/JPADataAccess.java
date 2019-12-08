@@ -25,7 +25,7 @@ public class JPADataAccess implements DataAccess {
             utx.commit();
         } catch (Exception e) {
             System.out.println(e);
-            throw new NoConnectivity();
+            throw new NoConnectivity("Transaction problem");
         }
     }
 
@@ -58,29 +58,28 @@ public class JPADataAccess implements DataAccess {
     }
 
      
-    public Article addArticle(Article article) throws NoConnectivity {
-        long currentTime = new java.util.Date().getTime();
+    public Article addArticle(Article article) {
         this.createArticle(article);
         List<Article> articleEntities = this.findArticle(article.title, article.url, article.author);
         if (articleEntities.size() < 1) {
-            throw new NoConnectivity();
+            throw new NoConnectivity("No articles were found - assuming there is no DB connection");
         }
         else {
             return articleEntities.get(0);
         }
     }
 
-    public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist { 
+    public Article getArticle(String id) {
         int idInt;
         try {
             idInt = Integer.parseInt(id);	
         }
         catch (Exception exception) {
-            throw new ArticleDoesNotExist();
+            throw new ArticleDoesNotExist("ID " + id + " is not convertible to integer");
         }	
         Article article = this.readArticle(idInt);
         if (article == null) {
-            throw new ArticleDoesNotExist();
+            throw new ArticleDoesNotExist("Article with " + id + " not found");
         }
         else {
             return article;
