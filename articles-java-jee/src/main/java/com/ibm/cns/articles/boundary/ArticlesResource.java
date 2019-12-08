@@ -1,9 +1,6 @@
 package com.ibm.cns.articles.boundary;
 
-import com.ibm.cns.articles.control.NoDataAccess;
 import com.ibm.cns.articles.entity.Article;
-import com.ibm.cns.articles.control.ArticleDoesNotExist;
-import com.ibm.cns.articles.entity.InvalidArticle;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.JsonArray;
@@ -62,21 +59,8 @@ public class ArticlesResource {
             content = @Content(schema = @Schema(implementation = Article.class))) Article newArticle) {
         System.out.println("com.ibm.articles.apis.CreateNewArticle.addArticle");
 
-        String title = newArticle.title;
-        String url = newArticle.url;
-        String author = newArticle.author;
-
-        Article article;
-        try {
-            article = coreService.addArticle(title, url, author);
-
-            return Response.status(Response.Status.CREATED).entity(article.toJSON()).build();
-        } catch (InvalidArticle excpetion) {
-            return Response.status(Response.Status.NO_CONTENT).build();
-        } catch (NoDataAccess e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
+        Article article = coreService.addArticle(newArticle);
+        return Response.status(Response.Status.CREATED).entity(article.toJSON()).build();
     }
 
     @GET
@@ -111,16 +95,8 @@ public class ArticlesResource {
             @QueryParam("id") String id) {
         System.out.println("com.ibm.articles.apis.GetArticle.getArticle");
 
-        Article article;
-        try {
-            article = coreService.getArticle(id);
-            return Response.ok(article.toJSON()).build();
-        } catch (ArticleDoesNotExist exception) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        } catch (NoDataAccess e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
+        Article article = coreService.getArticle(id);
+        return Response.ok(article.toJSON()).build();
     }
 
     @GET
@@ -135,18 +111,9 @@ public class ArticlesResource {
             @Parameter(description = "The amount of articles", required = true, example = "10", schema = @Schema(type = SchemaType.INTEGER)) @QueryParam("amount") int amount) {
         System.out.println("com.ibm.articles.apis.GetArticles.getArticles");
 
-        JsonArray jsonArray;
-        try {
-            jsonArray = coreService.getArticles(amount).stream()
-                    .map(Article::toJSON).
-                    collect(JsonCollectors.toJsonArray());
-            return Response.ok(jsonArray).build();
-        } catch (NoDataAccess e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        } catch (InvalidInputParamters e) {
-            return Response.status(Response.Status.NO_CONTENT).build();
-        }
+        JsonArray jsonArray = coreService.getArticles(amount).stream().map(Article::toJSON).
+                collect(JsonCollectors.toJsonArray());
+        return Response.ok(jsonArray).build();
     }
 
 }
