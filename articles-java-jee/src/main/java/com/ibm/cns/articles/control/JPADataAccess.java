@@ -1,23 +1,67 @@
 package com.ibm.cns.articles.control;
 
-import com.ibm.cns.articles.control.ArticleDao;
-import com.ibm.cns.articles.entity.Article;
 import com.ibm.cns.articles.entity.Article;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 
 @ApplicationScoped
 public class JPADataAccess implements DataAccess {
-     
-    @Inject
-    private ArticleDao articleDAO;
 
+    @PersistenceContext(name = "jpa-unit")
+    private EntityManager em;
+
+    @Resource
+    UserTransaction utx;
+
+    public void createArticle(Article article) throws NoConnectivity {
+        try {
+            utx.begin();
+            em.persist(article);
+            utx.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new NoConnectivity();
+        }
+    }
+
+    public Article readArticle(int articleId) {
+        return em.find(Article.class, articleId);
+    }
+
+    public void updateArticle(Article article) {
+        em.merge(article);
+    }
+
+    public void deleteArticle(Article article) {
+        em.remove(article);
+    }
+
+    public List<Article> readAllArticles() {
+        return em.createNamedQuery("Article.findAll", Article.class).getResultList();
+    }
+
+    public List<Article> find(int articleId) {
+        return em.createNamedQuery("Article.findArticle", Article.class).
+                setParameter("id", articleId)
+                .getResultList();
+
+    }
+
+    public List<Article> findArticle(String title, String url, String author) {
+        return em.createNamedQuery("Article.findArticle", Article.class).setParameter("title", title)
+                .setParameter("url", url).setParameter("author", author).getResultList();
+    }
+
+     
     public Article addArticle(Article article) throws NoConnectivity {
         long currentTime = new java.util.Date().getTime();
-        articleDAO.createArticle(article);
-        List<Article> articleEntities = articleDAO.findArticle(article.title, article.url, article.author);
+        this.createArticle(article);
+        List<Article> articleEntities = this.findArticle(article.title, article.url, article.author);
         if (articleEntities.size() < 1) {
             throw new NoConnectivity();
         }
@@ -34,7 +78,7 @@ public class JPADataAccess implements DataAccess {
         catch (Exception exception) {
             throw new ArticleDoesNotExist();
         }	
-        Article article = articleDAO.readArticle(idInt);
+        Article article = this.readArticle(idInt);
         if (article == null) {
             throw new ArticleDoesNotExist();
         }
@@ -46,7 +90,7 @@ public class JPADataAccess implements DataAccess {
     public List<Article> getArticles() throws NoConnectivity {          
         List<Article> articleEntities = new ArrayList<>();
         
-        for (Article articleEntity : articleDAO.readAllArticles()) {
+        for (Article articleEntity : this.readAllArticles()) {
             articleEntities.add(articleEntity);
         }
         return articleEntities;
