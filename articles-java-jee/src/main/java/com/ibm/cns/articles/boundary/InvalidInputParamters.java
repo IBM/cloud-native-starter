@@ -1,13 +1,11 @@
 package com.ibm.cns.articles.boundary;
 
-public class InvalidInputParamters extends Exception {
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
-	private static final long serialVersionUID = 2L;
-
-	public InvalidInputParamters() {
-	}
+public class InvalidInputParamters extends WebApplicationException {
 
 	public InvalidInputParamters(String message) {
-		super(message);
+            super(Response.status(400).header("info", message).build());
 	}
 }
