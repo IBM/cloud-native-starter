@@ -1,4 +1,4 @@
-package com.ibm.cns.articles.entity;
+package com.ibm.cns.articles.control;
 
 public class ArticleDoesNotExist extends Exception {
 
