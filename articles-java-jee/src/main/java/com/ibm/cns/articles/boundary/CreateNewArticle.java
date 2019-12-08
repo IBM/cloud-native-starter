@@ -1,29 +1,30 @@
-package com.ibm.articles.apis;
+package com.ibm.cns.articles.boundary;
 
+import com.ibm.cns.articles.control.NoDataAccess;
+import com.ibm.cns.articles.entity.Article;
+import com.ibm.cns.articles.entity.ArticleAsJson;
+import com.ibm.cns.articles.entity.InvalidArticle;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-import com.ibm.articles.business.Article;
-import com.ibm.articles.business.InvalidArticle;
-import com.ibm.articles.business.NoDataAccess;
-import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
-import javax.enterprise.context.ApplicationScoped;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 @ApplicationScoped
 @Path("/v1")
 public class CreateNewArticle {
 
 	@Inject
-	ArticleAsJson articleAsJson;
+    ArticleAsJson articleAsJson;
 	
 	@Inject 
-	com.ibm.articles.business.CoreService coreService;
+    com.ibm.cns.articles.boundary.CoreService coreService;
 
 	@POST
 	@Path("/create")

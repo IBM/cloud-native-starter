@@ -1,7 +1,10 @@
-package com.ibm.articles.data;
+package com.ibm.cns.articles.entity;
 
-import com.ibm.articles.business.Article;
-import com.ibm.articles.business.ArticleDoesNotExist;
+import com.ibm.cns.articles.entity.DataAccess;
+import com.ibm.cns.articles.entity.ArticleEntity;
+import com.ibm.cns.articles.control.ArticleDao;
+import com.ibm.cns.articles.entity.Article;
+import com.ibm.cns.articles.entity.ArticleDoesNotExist;
 
 import javax.inject.Inject;
 

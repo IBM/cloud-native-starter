@@ -1,5 +1,6 @@
-package com.ibm.articles.data;
+package com.ibm.cns.articles.entity;
 
+import com.ibm.cns.articles.entity.DataAccess;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

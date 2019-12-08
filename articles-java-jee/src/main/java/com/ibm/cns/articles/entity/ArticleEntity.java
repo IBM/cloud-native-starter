@@ -1,4 +1,4 @@
-package com.ibm.articles.data;
+package com.ibm.cns.articles.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;

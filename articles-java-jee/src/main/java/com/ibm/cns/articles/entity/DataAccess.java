@@ -1,9 +1,9 @@
-package com.ibm.articles.data;
+package com.ibm.cns.articles.entity;
 
 import java.util.List;
 
-import com.ibm.articles.business.Article;
-import com.ibm.articles.business.ArticleDoesNotExist;
+import com.ibm.cns.articles.entity.Article;
+import com.ibm.cns.articles.entity.ArticleDoesNotExist;
 
 public interface DataAccess {
 	public Article addArticle(Article article) throws NoConnectivity;

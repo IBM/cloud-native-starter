@@ -1,5 +1,6 @@
-package com.ibm.articles.apis;
+package com.ibm.cns.articles.boundary;
 
+import com.ibm.cns.articles.entity.ArticleAsJson;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -7,9 +8,9 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-import com.ibm.articles.business.Article;
-import com.ibm.articles.business.ArticleDoesNotExist;
-import com.ibm.articles.business.NoDataAccess;
+import com.ibm.cns.articles.entity.Article;
+import com.ibm.cns.articles.entity.ArticleDoesNotExist;
+import com.ibm.cns.articles.control.NoDataAccess;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import javax.ws.rs.QueryParam;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -24,7 +25,7 @@ public class GetArticle {
 	ArticleAsJson articleAsJson;
 	
 	@Inject 
-	com.ibm.articles.business.CoreService coreService;
+	com.ibm.cns.articles.boundary.CoreService coreService;
 
 	@GET
 	@Path("/getone")

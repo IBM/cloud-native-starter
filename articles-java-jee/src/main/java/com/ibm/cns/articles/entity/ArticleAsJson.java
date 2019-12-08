@@ -1,10 +1,10 @@
-package com.ibm.articles.apis;
+package com.ibm.cns.articles.entity;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-import com.ibm.articles.business.Article;
+import com.ibm.cns.articles.entity.Article;
 
 @ApplicationScoped
 public class ArticleAsJson {

@@ -1,5 +1,6 @@
-package com.ibm.articles.apis;
+package com.ibm.cns.articles.boundary;
 
+import com.ibm.cns.articles.entity.ArticleAsJson;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.stream.JsonCollectors;
@@ -12,9 +13,8 @@ import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-import com.ibm.articles.business.Article;
-import com.ibm.articles.business.InvalidInputParamters;
-import com.ibm.articles.business.NoDataAccess;
+import com.ibm.cns.articles.entity.Article;
+import com.ibm.cns.articles.control.NoDataAccess;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -31,7 +31,7 @@ public class GetArticles {
 	ArticleAsJson articleAsJson;
 	
 	@Inject 
-	com.ibm.articles.business.CoreService coreService;
+	com.ibm.cns.articles.boundary.CoreService coreService;
 
 	@GET
 	@Path("/getmultiple")

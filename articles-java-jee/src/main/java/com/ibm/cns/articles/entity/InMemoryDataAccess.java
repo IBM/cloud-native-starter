@@ -1,7 +1,8 @@
-package com.ibm.articles.data;
+package com.ibm.cns.articles.entity;
 
-import com.ibm.articles.business.Article;
-import com.ibm.articles.business.ArticleDoesNotExist;
+import com.ibm.cns.articles.entity.DataAccess;
+import com.ibm.cns.articles.entity.Article;
+import com.ibm.cns.articles.entity.ArticleDoesNotExist;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayList;

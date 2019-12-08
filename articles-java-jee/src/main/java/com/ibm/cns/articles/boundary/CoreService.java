@@ -1,7 +1,11 @@
-package com.ibm.articles.business;
+package com.ibm.cns.articles.boundary;
 
-import com.ibm.articles.data.DataAccessManager;
-import com.ibm.articles.data.NoConnectivity;
+import com.ibm.cns.articles.entity.InvalidArticle;
+import com.ibm.cns.articles.control.NoDataAccess;
+import com.ibm.cns.articles.entity.ArticleDoesNotExist;
+import com.ibm.cns.articles.entity.Article;
+import com.ibm.cns.articles.entity.DataAccessManager;
+import com.ibm.cns.articles.entity.NoConnectivity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

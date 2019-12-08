@@ -1,5 +1,7 @@
-package com.ibm.articles.data;
+package com.ibm.cns.articles.control;
 
+import com.ibm.cns.articles.entity.ArticleEntity;
+import com.ibm.cns.articles.entity.NoConnectivity;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

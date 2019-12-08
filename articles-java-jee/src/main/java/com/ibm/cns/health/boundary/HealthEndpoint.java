@@ -1,4 +1,4 @@
-package com.ibm.articles.apis;
+package com.ibm.cns.health.boundary;
 
 import org.eclipse.microprofile.health.Readiness;
 import org.eclipse.microprofile.health.HealthCheck;
