@@ -65,7 +65,7 @@ Check out the [animated gif](../images/login.gif) to see the authentication flow
 
 ### Authorization via Istio
 
-Invocations of the endpoint 'create' of the 'web-api' service have been [protected](https://github.com/nheidloff/cloud-native-starter/blob/master/istio/protect-web-api.yaml.template) via Istio. Only authenticated users can invoke this endpoint by passing in the bearer token in the HTTP header.
+Invocations of the endpoint 'create' of the 'web-api' service have been [protected](https://github.com/IBM/cloud-native-starter/blob/master/istio/protect-web-api.yaml.template) via Istio. Only authenticated users can invoke this endpoint by passing in the bearer token in the HTTP header.
 
 When you invoke the endpoint without bearer token, you get an exception.
 
@@ -101,3 +101,37 @@ For the user 'user@demo.email' an error is thrown.
 <kbd><img src="../images/authorization-microprofile-user.png" /></kbd>
 
 Watch the [animated gif](../images/authorization-microprofile.gif) to see the flow in action.
+
+---
+
+### Additional more detailed configuration information
+
+#### APP ID
+
+Here is more detailed information about the APP ID configuration.
+
+##### 1. Identity Providers
+
+We did enable following Identity Providers:
+
+* Cloud Directory
+* Facebook
+* Google
+* Anonymous (Associate custom attributes with your users as they interact with your app, before they sign-in.)
+
+<kbd><img src="../images/appid-identity-providers.png" /></kbd>
+
+##### 2. Cloud Directory
+
+Here we did configure two user in our Cloud Directory:
+
+* user 'user@demo.email, verysecret'
+* admin 'admin@demo.email, verysecret'
+
+<kbd><img src="../images/appid-users.png" /></kbd>
+
+##### 3. Service credential 
+
+We created one service credential.
+
+<kbd><img src="../images/appid-service-credential.png" /></kbd>
