@@ -100,9 +100,10 @@ function setup() {
   printf "\nAPPID_MGMTURL=$APPID_MGMTURL" >> $ENV_NODEJS_FILE
 
   minikubeip=$(minikube ip)
-  REDIRECT_URL_CALLBACK=http://$minikubeip:31380/callback
+  ingressport=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+  REDIRECT_URL_CALLBACK=http://$minikubeip:$ingressport/callback
   printf "\nREDIRECT_URL_CALLBACK=$REDIRECT_URL_CALLBACK" >> $ENV_NODEJS_FILE
-  REDIRECT_URL_WEB_APP=http://$minikubeip:31380/loginwithtoken
+  REDIRECT_URL_WEB_APP=http://$minikubeip:$ingressport/loginwithtoken
   printf "\nREDIRECT_URL_WEB_APP=$REDIRECT_URL_WEB_APP" >> $ENV_NODEJS_FILE
   
   DEMO_EMAIL=user@demo.email
