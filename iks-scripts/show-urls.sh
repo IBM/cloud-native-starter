@@ -18,6 +18,7 @@ function setup() {
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   ibmcloud ks region set $IBM_CLOUD_REGION
   clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
+  inodeport=$(kubectl get svc web-app --output 'jsonpath={.spec.ports[*].nodePort}')
    
   _out ------------------------------------------------------------------------------------
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
@@ -27,41 +28,45 @@ function setup() {
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
   _out ------------------------------------------------------------------------------------
   
-  _out kiali - using port-forward on local pc
-  command1="kubectl -n istio-system port-forward $"
-  command2="(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001"
-  _out Run the command: ${command1}${command2}
-  _out Then open http://localhost:20001 with username: admin, password: admin
+  _out kiali
+  _out Run the command: istioctl dashboard kiali
+  #command1="kubectl -n istio-system port-forward $"
+  #command2="(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001"
+  #_out Run the command: ${command1}${command2}
+  #_out Then open http://localhost:20001 with username: admin, password: admin
   _out ------------------------------------------------------------------------------------
 
-  _out kiali - using Istio virtual service mapping
-  ingress=$(kubectl get gateway --ignore-not-found default-gateway-ingress-http --output 'jsonpath={.spec}')
-  if [ -z "$ingress" ]; then
-    _out Ingress not available. Run 'scripts/deploy-istio-ingress-v1.sh'
-  else
-    _out Web app: http://${clusterip}:31380/kiali
-  fi
-  _out ------------------------------------------------------------------------------------
+  #_out kiali - using Istio virtual service mapping
+  #ingress=$(kubectl get gateway --ignore-not-found default-gateway-ingress-http --output 'jsonpath={.spec}')
+  #if [ -z "$ingress" ]; then
+  #  _out Ingress not available. Run 'scripts/deploy-istio-ingress-v1.sh'
+  #else
+  #  _out Web app: http://${clusterip}:31380/kiali
+  #fi
+  #_out ------------------------------------------------------------------------------------
 
   _out prometheus
-  command1="kubectl -n istio-system port-forward $"
-  command2="(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &"
-  _out Run the command: ${command1}${command2}
-  _out Then open http://localhost:9090/
+  _out Run the command: istioctl dashboard prometheus
+  #command1="kubectl -n istio-system port-forward $"
+  #command2="(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &"
+  #_out Run the command: ${command1}${command2}
+  #_out Then open http://localhost:9090/
   _out ------------------------------------------------------------------------------------
 
   _out jaeger
-  command1="kubectl -n istio-system port-forward $"
-  command2="(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686 &"
-  _out Run the command: ${command1}${command2}
-  _out Then open http://localhost:16686
+  _out Run the command: istioctl dashboard jaeger
+  #command1="kubectl -n istio-system port-forward $"
+  #command2="(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686 &"
+  #_out Run the command: ${command1}${command2}
+  #_out Then open http://localhost:16686
   _out ------------------------------------------------------------------------------------
 
   _out grafana
-  command1="kubectl -n istio-system port-forward $"
-  command2="(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &"
-  _out Run the command: ${command1}${command2}
-  _out Then open http://localhost:3000/dashboard/db/istio-mesh-dashboard
+  _out Run the command: istioctl dashboard grafana
+  #command1="kubectl -n istio-system port-forward $"
+  #command2="(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &"
+  #_out Run the command: ${command1}${command2}
+  #_out Then open http://localhost:3000/dashboard/db/istio-mesh-dashboard
   _out ------------------------------------------------------------------------------------
 
   _out articles
@@ -94,9 +99,9 @@ function setup() {
       _out Metrics: http://${clusterip}:${nodeport}/metrics/application
       _out Sample API: curl http://${clusterip}:${nodeport}/web-api/v1/getmultiple
     else 
-      _out API explorer: http://${clusterip}:31380/openapi/ui/
+      _out API explorer: http://${clusterip}:${inodeport}/openapi/ui/
       _out Metrics: http://${clusterip}:${nodeport}/metrics/application
-      _out Sample API: curl http://${clusterip}:31380/web-api/v1/getmultiple
+      _out Sample API: curl http://${clusterip}:${inodeport}/web-api/v1/getmultiple
     fi
   fi
   _out ------------------------------------------------------------------------------------
@@ -110,7 +115,7 @@ function setup() {
     if [ -z "$ingress" ]; then
       _out Ingress not available. Run 'scripts/deploy-istio-ingress-v1.sh'
     else
-      _out Web app: http://${clusterip}:31380/
+      _out Web app: http://${clusterip}:${inodeport}/
     fi
   fi
   _out ------------------------------------------------------------------------------------

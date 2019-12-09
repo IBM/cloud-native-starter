@@ -101,7 +101,7 @@ $ source iks-scripts/cluster-config.sh
 
 IBM Kubernetes Service has an option to install a managed Istio into a Kubernetes cluster. Unfortunately, the Kubernetes Lite Cluster we created in the previous step does not meet the hardware requirements for managed Istio. Hence we do a manual install of the Istio demo or evaluation version.
 
-These are the instructions to install Istio. We use Istio 1.3.0 for this project.
+These are the instructions to install Istio. We use Istio 1.4.0 for this project. Please be aware that these installation instructions will not work with Istio versions prior to 1.4.0! 
 
 
 1. Get access to your Kubernetes cluster on IBM Cloud:
@@ -110,48 +110,73 @@ These are the instructions to install Istio. We use Istio 1.3.0 for this project
     $ source iks-scripts/cluster-config.sh
     ```
 
-2. Download Istio 1.3.0   
-   ```
-   $ curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.3.0 sh -
-   ```
-    
-3. Follow the instructions displayed at completion of this command to add the directory with `istioctl` to your PATH environment variable
-
-4. Change into the extracted Istio directory: `$ cd istio-1.3.0`
-
-5. Install Istio:
-
-    Install some Istio Custom Resource Definitions first:
+2. Download Istio, this will create a directory istio-1.4.0:
 
     ```
-    $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
-    ```
-    
-    Wait a few seconds before issuing the next command:
-
-    ```
-    $ kubectl apply -f install/kubernetes/istio-demo.yaml
+    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.4.0 sh -
     ```
 
-Check that all pods are running or completed before continuing.
+3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
 
-```
-$ kubectl get pod -n istio-system
-```
 
-Enable automatic sidecar injection:
+    ```
+    export PATH="$PATH:/path/to/istio-1.4.0/bin"
+    ```
 
-```
-$ kubectl label namespace default istio-injection=enabled
-```
+4. Verify the `istioctl` installation:
 
+
+    ```
+    $ istioctl version 
+    ```
+
+5. Install Istio on the Kubernetes cluster:
+
+    We will use the `demo` profile to install Istio. 
+
+    **Note:** This is a "...configuration designed to showcase Istio functionality with modest resource requirements. ... **This profile enables high levels of tracing and access logging so it is not suitable for performance tests!**"
+
+    ```
+    $ istioctl manifest apply --set profile=demo
+    ```
+
+
+6. Check that all pods are running before continuing.
+  
+    ```
+    $ kubectl get pod -n istio-system
+    ```
+
+7. Verify Istio installation
+
+    This generates a manifest file for the demo profile we used to install Istion and then verifies the installation against this profile.
+
+    ```
+    $ istioctl manifest generate --set profile=demo > generated-manifest.yaml
+    $ istioctl verify-install -f generated-manifest.yaml
+    ```
+
+    Result of the second command (last 3 lines) looks like this:
+
+     ```
+     Checked 23 crds
+	 Checked 9 Istio Deployments
+	 Istio is installed successfully
+	 ```
+ 
+8. Enable automatic sidecar injection for `default`namespace:
+
+    ```
+    $ kubectl label namespace default istio-injection=enabled
+    ```
 
 Once complete, the Kiali dashboard can be accessed with this command:
 
 ```
-$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
+$ istioctl dashboard kiali
 ```
-Then open http://localhost:20001/kiali in your browser, log in with Username: admin, Password: admin
+
+Log in with Username: admin, Password: admin
 
 ### Create Container Registry
 

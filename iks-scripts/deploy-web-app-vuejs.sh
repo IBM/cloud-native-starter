@@ -20,10 +20,11 @@ function configureVUEminikubeIP(){
   
   _out configure API endpoint in web-app
   clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
+  ingressport=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
 
   rm "store.js"
-  cp "store.js.template" "store.js"
-  sed "s/endpoint-api-ip/$clusterip/g" store.js.template > store.js
+  # cp "store.js.template" "store.js"
+  sed -e "s/endpoint-api-ip/$minikubeip/g" -e "s/ingress-np/${ingressport}/g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs
 }
