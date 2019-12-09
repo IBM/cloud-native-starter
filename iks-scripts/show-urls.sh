@@ -18,7 +18,7 @@ function setup() {
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   ibmcloud ks region set $IBM_CLOUD_REGION
   clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
-  inodeport=$(kubectl get svc web-app --output 'jsonpath={.spec.ports[*].nodePort}')
+  ingressport=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
    
   _out ------------------------------------------------------------------------------------
   _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
@@ -95,7 +95,7 @@ function setup() {
   else 
     _out API explorer: http://${clusterip}:${nodeport}/openapi/ui/
     _out Metrics: http://${clusterip}:${nodeport}/metrics/application
-    _out Sample API: curl http://${clusterip}:${nodeport}/web-api/v1/getmultiple
+    _out Sample API: curl http://${clusterip}:${ingressport}/web-api/v1/getmultiple
   fi
   _out ------------------------------------------------------------------------------------
   
@@ -108,7 +108,7 @@ function setup() {
     if [ -z "$ingress" ]; then
       _out Ingress not available. Run 'scripts/deploy-istio-ingress-v1.sh'
     else
-      _out Web app: http://${clusterip}:${inodeport}/
+      _out Web app: http://${clusterip}:${ingressport}/
     fi
   fi
   _out ------------------------------------------------------------------------------------
