@@ -56,7 +56,7 @@ function setup() {
     _out articles is not available. Run 'scripts/deploy-articles-java-jee.sh'
   else 
     _out API explorer: http://${minikubeip}:${nodeport}/openapi/ui/
-    _out Sample API: curl http://${minikubeip}:${nodeport}/articles/v1/getmultiple?amount=10
+    _out Sample API: curl "http://${minikubeip}:${nodeport}/articles/v1/getmultiple?amount=10"
   fi
   _out ------------------------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ function setup() {
   if [ -z "$nodeport" ]; then
     _out authors is not available. Run 'scripts/deploy-authors-nodejs.sh'
   else 
-    _out Sample API: curl http://${minikubeip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+    _out Sample API: curl "http://${minikubeip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff"
   fi
   _out ------------------------------------------------------------------------------------
   
@@ -94,11 +94,11 @@ function setup() {
     if [ -z "$ingress" ]; then
       _out API explorer: http://${minikubeip}:${nodeport}/openapi/ui/
       _out Metrics: http://${minikubeip}:${nodeport}/metrics/application
-      _out Sample API: curl http://${minikubeip}:${nodeport}/web-api/v1/getmultiple
+      _out Sample API: curl "http://${minikubeip}:${nodeport}/web-api/v1/getmultiple"
     else 
       _out API explorer: http://${minikubeip}:${ingressport}/openapi/ui/
       _out Metrics: http://${minikubeip}:${nodeport}/metrics/application
-      _out Sample API: curl http://${minikubeip}:${ingressport}/web-api/v1/getmultiple
+      _out Sample API: curl "http://${minikubeip}:${ingressport}/web-api/v1/getmultiple"
     fi
   fi
   _out ------------------------------------------------------------------------------------
