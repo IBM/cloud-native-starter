@@ -36,6 +36,9 @@ function ibmcloud_login() {
   ibmcloud api --unset
   ibmcloud api https://cloud.ibm.com
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
+  # Get default resource group name (can be 'default' or 'Default')
+  RG=$(ibmcloud resource groups --default | grep -i ^default | awk '{print $1}')
+  ibmcloud target -g $RG
 }
 
 function setup() {
