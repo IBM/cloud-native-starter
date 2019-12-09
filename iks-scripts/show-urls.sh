@@ -93,16 +93,9 @@ function setup() {
   if [ -z "$nodeport" ]; then
     _out web-api is not available. Run 'scripts/deploy-web-api-java-jee.sh'
   else 
-    ingress=$(kubectl get gateway --ignore-not-found default-gateway-ingress-http --output 'jsonpath={.spec}')
-    if [ -z "$ingress" ]; then
-      _out API explorer: http://${clusterip}:${nodeport}/openapi/ui/
-      _out Metrics: http://${clusterip}:${nodeport}/metrics/application
-      _out Sample API: curl http://${clusterip}:${nodeport}/web-api/v1/getmultiple
-    else 
-      _out API explorer: http://${clusterip}:${inodeport}/openapi/ui/
-      _out Metrics: http://${clusterip}:${nodeport}/metrics/application
-      _out Sample API: curl http://${clusterip}:${inodeport}/web-api/v1/getmultiple
-    fi
+    _out API explorer: http://${clusterip}:${nodeport}/openapi/ui/
+    _out Metrics: http://${clusterip}:${nodeport}/metrics/application
+    _out Sample API: curl http://${clusterip}:${nodeport}/web-api/v1/getmultiple
   fi
   _out ------------------------------------------------------------------------------------
   

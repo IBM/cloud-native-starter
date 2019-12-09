@@ -24,7 +24,7 @@ function configureVUEminikubeIP(){
 
   rm "store.js"
   # cp "store.js.template" "store.js"
-  sed -e "s/endpoint-api-ip/$minikubeip/g" -e "s/ingress-np/${ingressport}/g" store.js.template > store.js
+  sed -e "s/endpoint-api-ip/$clusterip/g" -e "s/ingress-np/${ingressport}/g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs
 }
