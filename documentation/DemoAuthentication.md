@@ -104,13 +104,59 @@ Watch the [animated gif](../images/authorization-microprofile.gif) to see the fl
 
 ---
 
-### Additional more detailed configuration information
+### Additional information
 
-#### APP ID
+For the authentication is it useful to understand [JSON Web Tokens](https://jwt.io/) and [OpenID](https://openid.net/what-is-openid/). 
 
-Here is more detailed information about the APP ID configuration.
+The additional information does contain a _simplified view_ of the authentication implementation and _the configuration for services and of the environment_.
 
-##### 1. Identity Providers
+#### Simplified view of the authentication
+
+Here you can see a higher and simplified view, how the authentication was implemented with: 
+
+* JSON Web Token (JWT)
+* IBM App ID
+* Authenication Microservice (Node.js)
+* Istio
+* MicroProfile
+
+##### 1. Get the JSON Web Token (JWT)
+
+The following gifs will you show a simplified walkthrough, how to get the JSON Web Token from [IBM App ID](https://console.bluemix.net/catalog/services/appid) service. Some of the relevant code is shown and marked with yellow in the gif.
+
+* Request JWT using the Authentication Microservice with   IBM App ID Service. The gif shows a simplified sequence.
+
+<kbd><img src="../images/authentication-appid-01.gif" /></kbd>
+
+* The IBM App ID Service creates a login dialog for the user authentication and validates the login. The gif shows a simplified sequence.
+
+<kbd><img src="../images/authentication-appid-02.gif" /></kbd>
+
+* The IBM App ID Service provides the JWT and than the Authentication Microservice extracts the user information. The gif shows a simplified sequence.
+
+<kbd><img src="../images/authentication-appid-04.gif" /></kbd>
+
+##### 2. Using JSON Web Token (JWT) with Istio
+
+We use the given JWT incombination with [Istio Policy](https://istio.io/docs/concepts/security/#origin-authentication) to secure the access to endpoint to create a article in our Microservices based application. In our case IBM App ID provides the needed OpenID information for Istio. 
+The gif shows a simplified sequence and some of the relevant code, which is marked in yellow inside the gif.
+
+<kbd><img src="../images/authentication-appid-05.gif" /></kbd>
+
+##### 2. Using JSON Web Token (JWT) and MicroProfile
+
+Inside the _Web-API_ Microservice the JWT will be used to verify the _admin user_, to do that [MicroProfile JWT-AUTH](https://microprofile.io/project/eclipse/microprofile-jwt-auth) is used. The gif shows a simplified sequence and some of the relevant code is shown, which is marked in yellow inside the gif.
+
+<kbd><img src="../images/authentication-appid-07.gif" /></kbd>
+
+
+#### Configuration for services and the environment 
+
+##### 1. APP ID
+
+Here is more detailed information about the IBM App ID configuration.
+
+###### a. Identity Providers
 
 We did enable following Identity Providers:
 
@@ -121,7 +167,7 @@ We did enable following Identity Providers:
 
 <kbd><img src="../images/appid-identity-providers.png" /></kbd>
 
-##### 2. Cloud Directory
+###### b. Cloud Directory
 
 Here we did configure two user in our Cloud Directory:
 
@@ -130,8 +176,24 @@ Here we did configure two user in our Cloud Directory:
 
 <kbd><img src="../images/appid-users.png" /></kbd>
 
-##### 3. Service credential 
+###### c. Service credential 
 
 We created one service credential.
 
 <kbd><img src="../images/appid-service-credential.png" /></kbd>
+
+##### 2. Environment configuration
+
+The setup `ibm-scripts/create-app-id.sh` script will add following entries into you `local.env` file.
+
+```sh
+APPID_ISSUER=https://us-south.appid.cloud.ibm.com/oauth/v4/a21df9e8-...977
+APPID_OPENID_CONFIG=https://us-south.appid.cloud.ibm.com/oauth/v4/a21df9e8-...977/.well-known/openid-configuration
+APPID_AUTHORIZATION_ENDPOINT=https://us-south.appid.cloud.ibm.com/oauth/v4/a21df9e8-....977/authorization
+APPID_TOKEN_ENDPOINT=https://us-south.appid.cloud.ibm.com/oauth/v4/a21df9e8-....977/token
+APPID_USERINFO_ENDPOINT=https://us-south.appid.cloud.ibm.com/oauth/v4/a21df9e8-....977/userinfo
+APPID_JWKS_URI=https://us-south.appid.cloud.ibm.com/oauth/v4/a21df9e8-....977/publickeys
+APPID_CLIENTID=9cc6a03e-....-1bc4268b111e
+APPID_SECRET=NzUyYWRjZDUtMjBiYS...I5ZTk4ODM3
+APPID_MGMTURL=https://us-south.appid.cloud.ibm.com/management/v4/a21df9e8-....977
+```
