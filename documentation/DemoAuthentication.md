@@ -122,7 +122,7 @@ Here you can see a higher and simplified view, how the authentication was implem
 
 ##### 1. Get the JSON Web Token (JWT)
 
-The following gifs will you show a simplified walkthrough, how to get the JSON Web Token from [IBM App ID](https://console.bluemix.net/catalog/services/appid) service. Some of the relevant code is shown and marked with yellow in the gif.
+The following gifs shows a simplified walkthrough, how to get the JSON Web Token from [IBM App ID](https://console.bluemix.net/catalog/services/appid) service. Some of the relevant code is shown and marked with yellow in the gif.
 
 * Request JWT using the Authentication Microservice with   IBM App ID Service. The gif shows a simplified sequence.
 
