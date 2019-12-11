@@ -4,7 +4,7 @@ In order to authenticate users, you need an OpenID identity provider.
 
 You can use [IBM App ID](https://console.bluemix.net/catalog/services/appid) or you can use an OpenID identity provider of your choice.
 
-Before running the scripts below, make sure you can [access the IBM Cloud](SetupIBMCloudAccess.md).
+>Before running the scripts below, make sure you can [access the IBM Cloud](SetupIBMCloudAccess.md) and you did setup the local [Minikube environment](SetupLocalEnvironment.md).
 
 
 **Create new App ID service instance**

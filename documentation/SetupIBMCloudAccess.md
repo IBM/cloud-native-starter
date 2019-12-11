@@ -7,7 +7,7 @@ First get an [IBM Cloud Lite account](http://ibm.biz/nheidloff). It's free, ther
 **Get the code**
 
 ```
-$ git clone https://github.com/nheidloff/cloud-native-starter.git
+$ git clone https://github.com/IBM/cloud-native-starter.git
 $ cd cloud-native-starter
 ```
 
@@ -46,5 +46,5 @@ Example local.env:
 IBMCLOUD_API_KEY=AbcD3fg7hIj65klMn9derHHb9zge5
 IBM_CLOUD_REGION=us-south
 CLUSTER_NAME=cloud-native
-REGISTRY_NAMESPACE=cloud-native
+REGISTRY_NAMESPACE=cloud-native-123456
 ```
