@@ -67,7 +67,7 @@ public class ArticlesResource {
     @Path("/getone")
     @APIResponses(value = {
         @APIResponse(
-                responseCode = "404",
+                responseCode = "204",
                 description = "Article Not Found"
         ),
         @APIResponse(
