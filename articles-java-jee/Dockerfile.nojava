@@ -1,4 +1,4 @@
-FROM maven:3.6-jdk-8 as BUILD
+FROM adoptopenjdk/maven-openjdk11 as BUILD
  
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
