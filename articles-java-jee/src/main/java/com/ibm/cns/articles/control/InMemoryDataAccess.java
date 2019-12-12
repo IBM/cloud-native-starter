@@ -18,6 +18,16 @@ public class InMemoryDataAccess implements DataAccess {
     }
 
     public Article addArticle(Article article) throws NoConnectivity {
+        long id = new java.util.Date().getTime();
+        String idAsString = String.valueOf(id);
+        article.creationDate = idAsString;
+        if (article.id == 0) {
+            idAsString = idAsString.substring(6, idAsString.length());
+            try {
+                article.id = Integer.parseInt(idAsString);
+            }
+            catch (Exception parseException) {}
+        }
         articles.put(article.getIDAsString(), article);
         return article;
     }
