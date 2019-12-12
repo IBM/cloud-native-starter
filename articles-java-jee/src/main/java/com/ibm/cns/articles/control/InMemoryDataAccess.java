@@ -1,11 +1,10 @@
-package com.ibm.articles.data;
+package com.ibm.cns.articles.control;
 
-import com.ibm.articles.business.Article;
-import com.ibm.articles.business.ArticleDoesNotExist;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.ibm.cns.articles.entity.Article;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -19,14 +18,14 @@ public class InMemoryDataAccess implements DataAccess {
     }
 
     public Article addArticle(Article article) throws NoConnectivity {
-        articles.put(article.id, article);
+        articles.put(article.getIDAsString(), article);
         return article;
     }
 
     public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist { 	
         Article article = articles.get(id);
         if (article == null) {
-        	throw new ArticleDoesNotExist();
+            throw new ArticleDoesNotExist("No article found for " + id);
         }
 
         return article;
