@@ -1,0 +1,65 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: articles-reactive
+  labels:
+    app: articles-reactive
+spec:
+  selector:
+    app: articles-reactive
+  ports:
+    - port: 8080
+      name: http
+  type: NodePort
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: articles-reactive
+spec:
+  selector:
+    matchLabels:
+      app: articles-reactive
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: articles-reactive
+        version: v1
+    spec:
+      containers:
+      - name: articles-reactive
+        image: articles-reactive:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: samplescreation
+          valueFrom:
+            configMapKeyRef:
+              name: articles-config
+              key: samplescreation
+        - name: inmemory
+          valueFrom:
+            configMapKeyRef:
+              name: articles-config
+              key: inmemory
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/health/live"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/health/ready"]
+          initialDelaySeconds: 40
+      restartPolicy: Always
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: articles-config
+  labels:
+    app: articles  
+data:
+  samplescreation: CREATE
+  inmemory: USE_IN_MEMORY_STORE
+---

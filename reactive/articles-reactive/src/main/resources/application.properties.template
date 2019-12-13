@@ -1,0 +1,7 @@
+quarkus.swagger-ui.always-include=true
+quarkus.swagger-ui.path=/explorer
+
+mp.messaging.incoming.new-article-created.connector=smallrye-kafka
+mp.messaging.incoming.new-article-created.value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+
+kafka.bootstrap.servers=KAFKA_BOOTSTRAP_SERVERS
