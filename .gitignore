@@ -80,3 +80,4 @@ authors-java-jee/deployment/tekton/pipeline-run-template.yaml.2
 authors-java-jee/deployment/tekton/pipeline-run.yaml
 
 reactive/articles-reactive/src/main/resources/application.properties
+reactive/web-api-reactive/src/main/resources/application.properties

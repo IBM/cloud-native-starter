@@ -13,6 +13,8 @@ function setup() {
   cd ${root_folder}/articles-reactive
   kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
 
+  cd ${root_folder}/web-api-reactive
+  kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
 }
 
 setup
