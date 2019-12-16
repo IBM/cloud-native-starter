@@ -29,12 +29,21 @@ $ scripts/deploy-kafka.sh
 
 **Run the sample locally**
 
+First terminal: 
+
 ```
 $ cd ${ROOT_FOLDER}
 $ scripts/run-locally-articles-reactive.sh
 ```
 
-In a separate terminal create a new article. You will see some log statements in the first terminal.
+Second terminal: 
+
+```
+$ cd ${ROOT_FOLDER}
+$ scripts/run-locally-web-api-reactive.sh
+```
+
+Third terminal: Create a new article. You will see some log statements in the second terminal.
 
 ```
 $ cd ${ROOT_FOLDER}
@@ -47,6 +56,7 @@ $ curl -X POST "http://localhost:8080/v1/create" ...
 ```
 $ cd ${ROOT_FOLDER}
 $ scripts/deploy-articles-reactive.sh
+$ scripts/deploy-web-api-reactive.sh
 ```
 
 Create a new article either via the API explorer or curl. You can find log statements in the logs, for example via the Minikube dashboard.

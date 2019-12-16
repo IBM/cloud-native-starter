@@ -18,10 +18,8 @@ function setup() {
   sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties
 
   cd ${root_folder}/articles-reactive
-  mvn -f ${root_folder}/articles-reactive/pom.xml package
-
   eval $(minikube docker-env) 
-  docker build -f ${root_folder}/articles-reactive/Dockerfile -t articles-reactive:1 .
+  docker build -f ${root_folder}/articles-reactive/Dockerfile -t articles-reactive:latest .
 
   kubectl apply -f deployment/kubernetes.yaml
   
@@ -31,8 +29,8 @@ function setup() {
   _out NodePort: ${nodeport}
   
   _out Done deploying articles-reactive
-  _out API Explorer: curl http://${minikubeip}:${nodeport}/explorer
-  _out Sample API: curl http://${minikubeip}:${nodeport}/v1/getmultiple?amount=10
+  _out API Explorer: http://${minikubeip}:${nodeport}/explorer
+  _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v1/getmultiple?amount=10\" -H \"accept: application/json\"
   _out Wait until the pod has been started: "kubectl get pod --watch | grep articles-reactive"
 }
 
