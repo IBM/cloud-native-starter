@@ -10,39 +10,41 @@ Istio is installed with the help of multiple operators and is called "Red Hat Op
 * Kiali
 * OpenShift Service Mesh (= Istio)
 
-1. In the OpenShift dashboard, switch to the Adminstrator view, the open Operators and OperatorHub. This will show the OperatorHub catalog in a moment:
+Follow these steps:
+
+1. In the OpenShift dashboard, switch to the Adminstrator view, then open Operators and OperatorHub. This will show the OperatorHub catalog (could take a moment):
 
    ![operatorhub](../images/operatorhub-catalog.png)
 
-    Enter "elasticsearch" in the search field, and select the "Elasticsearch Operator provided by Red Hat, Inc".
+2. Enter "elasticsearch" in the search field, and select the "Elasticsearch Operator provided by Red Hat, Inc".
 
-2. Click "Install"
+3. Click "Install"
 
-3. Keep the defaults for Installation Mode, Update Channel, and Approval Strategy and click "Subscribe"
+4. Keep the defaults for Installation Mode, Update Channel, and Approval Strategy and click "Subscribe"
 
    ![crt subscr](../images/create-operator-subscription.png)
 
-4. The dashboard switches to the "Installed Operators" view. Wait a few minutes until the status shows "InstallSucceeded".
+5. The dashboard switches to the "Installed Operators" view. Wait a few minutes until the status shows "InstallSucceeded".
 
    ![install succeeded](../images/install-succeeded.png)
 
-   Go back to the "OperatorHub" view.
+6. Go back to the "OperatorHub" view.
 
-5. Continue these steps for Jaeger, Kiali, and Service Mesh, in this sequence. 
+7. Repeat steps 2 to 6 for Jaeger, Kiali, and Service Mesh, in this sequence. 
 
     Always make sure to select the operator "provided by Red Hat, Inc" and not the Community one. 
     
     Always use the defaults for the subcription.
 
-6. In the end you should see these 4 operators:
+7. In the end you should see these 4 operators:
 
    ![installed ops](../images/installed-operators.png)
 
    This shows that we have the required operators in place. Next we will create the Istio / Service Mesh control plane.
 
-In upstream Kubernetes you install (upstream) Istio or its control plane only once. In OpenShift you can install multiple Service Mesh control planes with different configurations that watch different projects/namespaces. 
+In upstream Kubernetes you install (upstream) Istio or its control plane only once. In OpenShift you can install multiple Service Mesh control planes with different configurations that control different projects/namespaces. 
 
-1. Create a project for the Service Mesh control plane. I will call it "istio-system" to be consisten with my other Istio installations but it can have any name you like.
+1. Create a project for the Service Mesh control plane. I will call it "istio-system" to be consistent with my other Istio installations.
 
    Use the OpenShift Console (Administrator view -> Home -> Projects -> "Create Project") or the `oc` CLI for this.
 
@@ -71,7 +73,7 @@ In upstream Kubernetes you install (upstream) Istio or its control plane only on
 
    Click on the route, accept the self-signed certificate.
 
-   Using `crc`loging with user "kubeadmin" and the password displayed when you started `crc` or use `crc console --credentials` to redisplay them for you.
+   When using `crc`, log in with user "kubeadmin" and the password displayed when you started `crc` or use `crc console --credentials` to redisplay them for you.
 
    You should see the Kiali console now.
 
@@ -93,4 +95,6 @@ Istio aka OpenShift Service Mesh is now installed and functional in your OpenShi
 
 With upstream Istio you would add a label to the cloud-native-starter namespace to enable Istio sidecar auto injection. This is not available in OpenShift. Instead, you need to opt in and add an annotation to each of your deployment YAML files to add [sidecar auto injection](https://docs.openshift.com/container-platform/3.11/servicemesh-install/servicemesh-install.html#automatic-sidecar-injection). "Opting in ensures the sidecar injection does not interfere with other OpenShift features such as builder pods used by numerous frameworks within the OpenShift ecosystem."
 
-**Continue** with the [Cloud Native Starter on OpenShift](OS4Deployment.md)
+---
+
+**Continue** with the [Requirements for OpenShift](OS4Requirements.md)

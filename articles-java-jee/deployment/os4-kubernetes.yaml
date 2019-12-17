@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: articles
-        image: articles:1
+        image: image-registry.openshift-image-registry.svc:5000/cloud-native-starter/articles:1
         ports:
         - containerPort: 8080
         env:
