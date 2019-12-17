@@ -81,3 +81,5 @@ authors-java-jee/deployment/tekton/pipeline-run.yaml
 
 reactive/articles-reactive/src/main/resources/application.properties
 reactive/web-api-reactive/src/main/resources/application.properties
+
+.sts4-cache
