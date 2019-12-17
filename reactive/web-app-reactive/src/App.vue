@@ -39,6 +39,8 @@ export default {
   components: {
     Home
   },
+  mounted() {
+  },
   computed: {
     isAuthenticated() {
       return this.$store.state.user.isAuthenticated;
