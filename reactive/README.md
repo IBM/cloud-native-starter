@@ -43,7 +43,9 @@ $ cd ${ROOT_FOLDER}
 $ scripts/run-locally-web-api-reactive.sh
 ```
 
-Third terminal: Create a new article. You will see some log statements in the second terminal.
+Third terminal: Create a new article. 
+
+Browser: Open the stream endpoint in a browser.
 
 ```
 $ cd ${ROOT_FOLDER}
@@ -59,5 +61,5 @@ $ scripts/deploy-articles-reactive.sh
 $ scripts/deploy-web-api-reactive.sh
 ```
 
-Create a new article either via the API explorer or curl. You can find log statements in the logs, for example via the Minikube dashboard.
+Create a new article either via the API explorer or curl. Open the stream endpoint in a browser.
 

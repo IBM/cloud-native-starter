@@ -99,7 +99,7 @@ public class CreateNewArticle {
 
 		KafkaProducerRecord<String, String> record = KafkaProducerRecord.create("new-article-created", article.id);
 		producer.write(record, done -> {
-			System.out.println("Kafka record written: new-article-created");
+			System.out.println("Kafka message sent: new-article-created - " + article.id);
 		});
 	}
 }
