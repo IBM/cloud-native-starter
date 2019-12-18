@@ -15,6 +15,9 @@ function setup() {
 
   cd ${root_folder}/web-api-reactive
   kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
+
+  cd ${root_folder}/web-app-reactive
+  kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
 }
 
 setup

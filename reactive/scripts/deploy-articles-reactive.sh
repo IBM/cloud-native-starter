@@ -25,9 +25,7 @@ function setup() {
   
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc articles-reactive --output 'jsonpath={.spec.ports[*].nodePort}')
-  _out Minikube IP: ${minikubeip}
-  _out NodePort: ${nodeport}
-  
+   
   _out Done deploying articles-reactive
   _out API Explorer: http://${minikubeip}:${nodeport}/explorer
   _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v1/getmultiple?amount=10\" -H \"accept: application/json\"

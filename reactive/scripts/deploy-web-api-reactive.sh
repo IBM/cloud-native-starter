@@ -25,8 +25,6 @@ function setup() {
   
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc web-api-reactive --output 'jsonpath={.spec.ports[*].nodePort}')
-  _out Minikube IP: ${minikubeip}
-  _out NodePort: ${nodeport}
   
   _out Done deploying web-api-reactive
   _out API Explorer: http://${minikubeip}:${nodeport}/explorer

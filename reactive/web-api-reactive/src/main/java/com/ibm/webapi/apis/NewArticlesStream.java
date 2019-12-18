@@ -13,7 +13,7 @@ import org.jboss.resteasy.annotations.SseElementType;
 public class NewArticlesStream { 
 
     @Inject
-    @Channel("my-data-stream") Publisher<String> newArticles;
+    @Channel("stream-new-article") Publisher<String> newArticles;
 
 	@GET
     @Path("/stream")

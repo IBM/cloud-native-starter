@@ -58,26 +58,37 @@ export default {
     };
   },
   mounted() {
-    this.loading = true;
-    const axiosService = axios.create({
-      timeout: 5000,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    this.readArticles();
+    var source = new EventSource(this.$store.state.endpoints.api + "stream");
     let that = this;
-    axiosService
-      .get(this.webApiUrl)
-      .then(function(response) {
-        that.articles = response.data;
-        that.loading = false;
-        that.error = "";
-      })
-      .catch(function(error) {
-        console.log(error);
-        that.loading = false;
-        that.error = error;
+    source.onmessage = function (event) {
+      that.readArticles();
+    };
+  },
+  methods: {
+    readArticles() {
+      this.loading = true;
+      const axiosService = axios.create({
+        timeout: 5000,
+        headers: {
+          "Content-Type": "application/json"
+        }
       });
+      let that = this;
+      axiosService
+        .get(this.webApiUrl)
+        .then(function(response) {
+          that.articles = response.data;
+          that.loading = false;
+          that.error = "";
+          that.$store.commit("addArticles", response.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+          that.loading = false;
+          that.error = error;
+        });
+    }
   }
 };
 </script>
