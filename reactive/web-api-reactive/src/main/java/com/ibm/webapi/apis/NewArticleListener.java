@@ -9,14 +9,11 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 public class NewArticleListener {
 
     @Incoming("new-article-created")
-    @Outgoing("my-data-stream")
+    @Outgoing("stream-new-article")
     @Broadcast
     public String process(String articleId) {
         System.out.println("Kafka message received: new-article-created - " + articleId);
         return articleId;
     }
     
-    @Incoming("my-data-stream")
-    public void processWorkaround(String articleId) {
-    }
 }
