@@ -51,6 +51,17 @@ function setup() {
   _out -- API explorer: http://localhost:8080/explorer
   _out -- Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/getmultiple\" -H \"accept: application/json\"
   _out ------------------------------------------------------------------------------------
+
+  _out Web app: web-app-reactive
+  nodeport=$(kubectl get svc web-app-reactive --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+  if [ -z "$nodeport" ]; then
+    _out web-app-reactive is not available. Run the command: sh scripts/deploy-web-app-reactive.sh
+  else 
+    _out Home page: http://${minikubeip}:${nodeport}
+  fi
+  _out URL when running locally:
+  _out -- Home page: http://localhost:8080
+  _out ------------------------------------------------------------------------------------
 }
 
 setup
