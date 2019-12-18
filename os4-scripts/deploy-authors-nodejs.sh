@@ -9,68 +9,37 @@ function _out() {
 }
 
 function templates() {
-  _out Preparing YAML files for Kubernetes Deployment
+  _out --- Preparing YAML files for Kubernetes Deployment
 
-  # Check if config file exists, in this case it will have been modified
-  #template=${root_folder}/scripts/template.deploy-authors-nodejs.cfg
-  #cfgfile=${root_folder}/scripts/deploy-authors-nodejs.cfg
-  #if [ ! -f $cfgfile ]; then
-  #   cp $template $cfgfile
-  #fi   
-  
-  cfgfile=${root_folder}/local.env
-  if [ -f "$cfgfile" ]
-  then
-    source $cfgfile
-  else
-    AUTHORS_DB=local
-  
-  fi
-  _out DB is $AUTHORS_DB
-  _out Cloudant URL is $CLOUDANT_URL
-  
-  # '##*@' removes everything up to and including the @ sign
-  CLOUDANTHOST=${CLOUDANT_URL##*@}
-  cd ${root_folder}/authors-nodejs/deployment
-  sed -e "s|<URL>|$CLOUDANT_URL|g" -e "s|<DB>|$AUTHORS_DB|g" deployment.yaml.template > deployment.yaml
-  sed "s|<HOST>|$CLOUDANTHOST|g" istio-egress-cloudant.yaml.template > istio-egress-cloudant.yaml
-  # cd ${root_folder}/authors-nodejs
-  # sed -e "s|<URL>|$CLOUDANT_URL|g" -e "s|<DB>|$AUTHORS_DB|g" config.json.template > config.json
-}
+  cd ${root_folder}/authors-nodejs/deployment  
+  sed -e "s+<URL>+ +g" -e "s+<DB>+local+g" -e "s+authors:1+$REGISTRY/$PROJECT/authors:1+g" deployment.yaml.template > os4-deployment.yaml
+  # sed "s|<HOST>|$CLOUDANTHOST|g" istio-egress-cloudant.yaml.template > istio-egress-cloudant.yaml
+  }
 
 function setup() {
 
-  _out Clean-up Minikube
-  if [ $AUTHORS_DB != "local" ]; then
-     kubectl delete serviceentry cloudant --ignore-not-found
-     kubectl delete gateway istio-egressgateway --ignore-not-found
-     kubectl delete destinationrule egressgateway-for-cloudant --ignore-not-found
-  fi
-
-  kubectl delete all -l app=authors --ignore-not-found
-
+  _out --- Clean-up 
+  oc delete all -l app=authors --ignore-not-found
+  oc delete is authors
   
-  _out Build Docker Image
+  _out --- Build Docker Image
   cd ${root_folder}/authors-nodejs
-  eval $(minikube docker-env)
   docker build -f Dockerfile -t  authors:1 .
+  docker tag authors:1 $REGISTRYURL/$PROJECT/authors:1
+  docker push $REGISTRYURL/$PROJECT/authors:1
 
-  _out Deploy to Minikube
+  _out --- Deploy to OpenShift
   cd ${root_folder}/authors-nodejs/deployment
-  kubectl apply -f deployment.yaml
-  kubectl apply -f istio.yaml
+  oc apply -f os4-deployment.yaml
+  oc expose svc/authors
+  oc apply -f istio.yaml
 
-  if [ $AUTHORS_DB != "local" ]; then
-     kubectl create -f istio-egress-cloudant.yaml
-  fi
-
-  
   _out Done deploying authors-nodejs
   _out Wait until the pod has been started: "kubectl get pod --watch | grep authors"
-  nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
-  _out Sample API call: curl http://$(minikube ip):${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+  _out Sample API call: curl http://$(oc get route authors --template='{{ .spec.host }}')/api/v1/getauthor?name=Niklas%20Heidloff
 }
 
 _out Deploying authors-nodejs
+source ${root_folder}/os4-scripts/login.sh
 templates
 setup

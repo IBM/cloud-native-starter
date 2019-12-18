@@ -36,11 +36,11 @@ We will use scripts to install our microservices. You need to have these tools l
 
 **Note:** Docker always needs to be installed locally. 
 
-The tools git, curl and kubectl (and ibmcloud) can be installed locally or you can use a [Docker image](https://github.com/IBM/cloud-native-starter/blob/master/workshop-one-service/1-prereqs.md#tools) that comes with these tools. Using the Docker image is an **option for Windows users** since many of our scripts will not run unmodified on Windows.
+The tools git, curl, sed, and oc can be installed locally or you can use a [Docker image](https://github.com/IBM/cloud-native-starter/blob/master/workshop-one-service/1-prereqs.md#tools) that comes with these tools. Using the Docker image is an **option for Windows users** since many of our scripts will not run unmodified on Windows.
 
 ```
 $ cd ${ROOT_FOLDER}
-$ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm ibmcom/ibm-cloud-developer-tools-amd64
+$ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-workshop-tools:v1
 ```
 
 ## Access OpenShift via CLI
