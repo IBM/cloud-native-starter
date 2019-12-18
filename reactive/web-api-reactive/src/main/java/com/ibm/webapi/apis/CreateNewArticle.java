@@ -26,7 +26,7 @@ public class CreateNewArticle {
 	ArticleAsJson articleAsJson;
 
 	@POST
-	@Path("/create")
+	@Path("/articles")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@APIResponses(value = {

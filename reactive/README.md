@@ -16,25 +16,25 @@ $ ROOT_FOLDER=$(pwd)
 
 ```
 $ cd ${ROOT_FOLDER}
-$ scripts/check-prerequisites.sh
+$ sh scripts/check-prerequisites.sh
 ```
 
 **4. Start Minikube and install Kafka**
 
 ```
 $ cd ${ROOT_FOLDER}
-$ scripts/start-minikube.sh
-$ scripts/deploy-kafka.sh
+$ sh scripts/start-minikube.sh
+$ sh scripts/deploy-kafka.sh
 ```
 
 **5. Deploy and run the sample in Minikube**
 
 ```
 $ cd ${ROOT_FOLDER}
-$ scripts/deploy-articles-reactive.sh
-$ scripts/deploy-web-api-reactive.sh
-$ scripts/deploy-web-app-reactive.sh
-$ scripts/show-urls.sh
+$ sh scripts/deploy-articles-reactive.sh
+$ sh scripts/deploy-web-api-reactive.sh
+$ sh scripts/deploy-web-app-reactive.sh
+$ sh scripts/show-urls.sh
 ```
 
 Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
@@ -54,8 +54,8 @@ Here is an example how to run the web-api service locally:
 
 ```
 $ cd ${ROOT_FOLDER}
-$ scripts/deploy-articles-reactive.sh
-$ scripts/run-locally-web-api-reactive.sh
+$ sh scripts/deploy-articles-reactive.sh
+$ sh scripts/run-locally-web-api-reactive.sh
 ```
 
 *Browser*
@@ -66,6 +66,6 @@ Open the stream endpoint in a browser.
 
 ```
 $ cd ${ROOT_FOLDER}
-$ scripts/show-urls.sh
-$ curl -X POST "http://localhost:8080/v1/create" ...
+$ sh scripts/show-urls.sh
+$ curl -X POST "http://localhost:8080/v1/articles" ...
 ```

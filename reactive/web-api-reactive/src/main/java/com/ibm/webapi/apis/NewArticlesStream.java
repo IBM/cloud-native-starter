@@ -16,7 +16,7 @@ public class NewArticlesStream {
     @Channel("stream-new-article") Publisher<String> newArticles;
 
 	@GET
-    @Path("/stream")
+    @Path("/server-sent-events")
     @Produces(MediaType.SERVER_SENT_EVENTS) 
     @SseElementType("text/plain") 
     public Publisher<String> stream() { 

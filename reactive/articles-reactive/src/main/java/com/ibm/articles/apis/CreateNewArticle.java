@@ -36,7 +36,7 @@ public class CreateNewArticle {
     private Vertx vertx;
 
 	@POST
-	@Path("/create")
+	@Path("/articles")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@APIResponses(value = {
@@ -88,18 +88,23 @@ public class CreateNewArticle {
 	String kafkaBootstrapServer;
 
 	public void sendMessageToKafka(Article article){
-		KafkaProducer<String, String> producer;
+		try {
+			KafkaProducer<String, String> producer;
 
-		Map<String, String> config = new HashMap<>();
-        config.put("bootstrap.servers", kafkaBootstrapServer);
-        config.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-		config.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");										
+			Map<String, String> config = new HashMap<>();
+			config.put("bootstrap.servers", kafkaBootstrapServer);
+			config.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+			config.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");										
 
-		producer = KafkaProducer.create(vertx, config);
+			producer = KafkaProducer.create(vertx, config);
 
-		KafkaProducerRecord<String, String> record = KafkaProducerRecord.create("new-article-created", article.id);
-		producer.write(record, done -> {
-			System.out.println("Kafka message sent: new-article-created - " + article.id);
-		});
+			KafkaProducerRecord<String, String> record = KafkaProducerRecord.create("new-article-created", article.id);
+			producer.write(record, done -> {
+				System.out.println("Kafka message sent: new-article-created - " + article.id);
+			});
+		}
+		catch (Exception e) {
+			// allow to run this functionality if Kafka hasn't been set up
+		}
 	}
 }

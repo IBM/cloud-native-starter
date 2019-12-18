@@ -2,9 +2,7 @@ package com.ibm.webapi.data;
 
 import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.InvalidArticle;
-
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 
 	public List<CoreArticle> getArticles(int amount) throws NoConnectivity {		
 		try {
-			URL apiUrl = new URL(BASE_URL + "getmultiple?amount=" + amount);
+			URL apiUrl = new URL(BASE_URL + "articles?amount=" + amount);
 			System.out.println(apiUrl);
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
 					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
@@ -40,7 +38,7 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 	
 	public CoreArticle addArticle(CoreArticle article) throws NoConnectivity, InvalidArticle {
 		try {
-			URL apiUrl = new URL(BASE_URL + "create");
+			URL apiUrl = new URL(BASE_URL + "articles");
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
 					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
 			

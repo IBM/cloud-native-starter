@@ -10,18 +10,14 @@ import javax.json.stream.JsonCollectors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
-
 import com.ibm.webapi.business.Article;
-import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.NoDataAccess;
-import com.ibm.webapi.business.Service;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -39,7 +35,7 @@ public class GetArticles {
 	ArticleAsJson articleAsJson;
 
 	@GET
-	@Path("/getmultiple")
+	@Path("/articles")
 	@Produces(MediaType.APPLICATION_JSON)
 	@APIResponses(value = {
 			@APIResponse(responseCode = "200", description = "Get most recently added articles", content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.ARRAY, implementation = Article.class))),			

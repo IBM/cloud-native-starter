@@ -51,7 +51,7 @@ export default {
   name: "Home",
   data() {
     return {
-      webApiUrl: this.$store.state.endpoints.api + "getmultiple",
+      webApiUrl: this.$store.state.endpoints.api + "articles",
       articles: [],
       loading: false,
       error: ""
@@ -59,7 +59,7 @@ export default {
   },
   mounted() {
     this.readArticles();
-    var source = new EventSource(this.$store.state.endpoints.api + "stream");
+    var source = new EventSource(this.$store.state.endpoints.api + "server-sent-events");
     let that = this;
     source.onmessage = function (event) {
       that.readArticles();

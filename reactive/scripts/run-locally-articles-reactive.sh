@@ -17,8 +17,8 @@ function setup() {
   else 
     _out Press Ctrl-C twice to stop articles
     _out API explorer: http://localhost:8080/explorer
-    _out Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/getmultiple?amount=10\" -H \"accept: application/json\"
-    _out Sample API - Create article: curl -X POST \"http://localhost:8080/v1/create\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
+    _out Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/articles?amount=10\" -H \"accept: application/json\"
+    _out Sample API - Create article: curl -X POST \"http://localhost:8080/v1/articles\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
    
     cd ${root_folder}/articles-reactive/src/main/resources
     sed "s/KAFKA_BOOTSTRAP_SERVERS/${minikubeip}:${nodeport}/g" application.properties.template > application.properties

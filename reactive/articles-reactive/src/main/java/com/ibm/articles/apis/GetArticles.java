@@ -34,7 +34,7 @@ public class GetArticles {
 	com.ibm.articles.business.CoreService coreService;
 
 	@GET
-	@Path("/getmultiple")
+	@Path("/articles")
 	@Produces(MediaType.APPLICATION_JSON)
 	@APIResponses(value = {
 			@APIResponse(responseCode = "200", description = "Get most recently added articles", content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.ARRAY, implementation = Article.class))),

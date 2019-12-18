@@ -16,9 +16,9 @@ function setup() {
     _out Kafka is not available. Run the command: sh scripts/deploy-kafka.sh
   else 
     _out Press Ctrl-C twice to stop web-api-reactive
+    _out Stream endpoint: http://localhost:8080/v1/server-sent-events
     _out API explorer: http://localhost:8080/explorer
-    _out Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/getmultiple\" -H \"accept: application/json\"
-    _out Sample API - Create article: curl -X POST \"http://localhost:8080/v1/create\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
+    _out Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/articles\" -H \"accept: application/json\"
    
     cd ${root_folder}/web-api-reactive/src/main/resources
     sed "s/KAFKA_BOOTSTRAP_SERVERS/${minikubeip}:${nodeport}/g" application.properties.template > application.properties

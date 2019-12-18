@@ -31,7 +31,7 @@ export default {
   name: "CreateArticle",
   data() {
     return {
-      webApiUrl: this.$store.state.endpoints.api + "create",
+      webApiUrl: this.$store.state.endpoints.api + "articles",
       loading: false,
       createResponse: "",
       form: {
