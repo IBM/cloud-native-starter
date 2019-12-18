@@ -1,7 +1,6 @@
 #!/bin/bash 
 
 root_folder=$(cd $(dirname $0); cd ..; pwd)
-readonly ENV_FILE="${root_folder}/local.env"
 
 exec 3>&1
 
@@ -19,11 +18,13 @@ function setup() {
     kubectl delete -f protect-web-api.yaml --ignore-not-found
   fi
   
+  _out --- Cleanup
   cd ${root_folder}/web-api-java-jee
-  kubectl delete -f deployment/kubernetes-service.yaml --ignore-not-found
-  kubectl delete -f deployment/kubernetes-deployment-v1.yaml --ignore-not-found
-  kubectl delete -f deployment/kubernetes-deployment-v2.yaml --ignore-not-found
-  kubectl delete -f deployment/istio-service-v2.yaml --ignore-not-found
+  oc delete -f deployment/kubernetes-service.yaml --ignore-not-found
+  oc delete -f deployment/kubernetes-deployment-v1.yaml --ignore-not-found
+  oc delete -f deployment/kubernetes-deployment-v2.yaml --ignore-not-found
+  oc delete -f deployment/istio-service-v2.yaml --ignore-not-found
+  oc delete istag web-api:1
 
   file="${root_folder}/web-api-java-jee/liberty-opentracing-zipkintracer-1.3-sample.zip"
   if [ -f "$file" ]
@@ -51,12 +52,17 @@ function setup() {
     mv liberty/server2.xml liberty/server.xml
   fi
   
-  eval $(minikube docker-env) 
+  _out --- Build Docker Image
   docker build -f Dockerfile.nojava -t web-api:1 .
+  docker tag web-api:1 $REGISTRYURL/$PROJECT/web-api:1
+  docker push $REGISTRYURL/$PROJECT/web-api:1
 
-  kubectl apply -f deployment/kubernetes-service.yaml
-  kubectl apply -f deployment/kubernetes-deployment-v1.yaml
-  kubectl apply -f deployment/istio-service-v1.yaml
+   _out --- Deploy to OpenShift
+  sed "s+web-api:1+$REGISTRY/$PROJECT/web-api:1+g" deployment/kubernetes-deployment-v1.yaml > deployment/os4-kubernetes-deployment-v1.yaml
+  oc apply -f deployment/kubernetes-service.yaml
+  oc apply -f deployment/os4-kubernetes-deployment-v1.yaml
+  oc apply -f deployment/istio-service-v1.yaml
+  oc expose svc/web-api
 
   if [ -f "$protectyaml" ]
   then
@@ -75,22 +81,12 @@ function setup() {
     mv liberty/server2.xml liberty/server.xml
   fi
 
-  minikubeip=$(minikube ip)
-  nodeport=$(kubectl get svc web-api --output 'jsonpath={.spec.ports[*].nodePort}')
-  _out Minikube IP: ${minikubeip}
-  _out NodePort: ${nodeport}
   
   _out Done deploying web-api-java-jee v1
   _out Wait until the pod has been started: "kubectl get pod --watch | grep web-api"
-  _out Open the OpenAPI explorer: http://${minikubeip}:${nodeport}/openapi/ui/
+  _out Open the OpenAPI explorer: http://$(oc get route web-api --template='{{ .spec.host }}')/openapi/ui/
 }
 
-function readEnv() {
-  if [ -f "$ENV_FILE" ]
-  then
-	  source $ENV_FILE
-  fi
-}
 
-readEnv 
+source ${root_folder}/os4-scripts/login.sh
 setup

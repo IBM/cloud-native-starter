@@ -8,45 +8,12 @@ function _out() {
   echo "$(date +'%F %H:%M:%S') $@"
 }
 
-function login() {
-    CFG_FILE=${root_folder}/local.env
-    # Check if config file exists, in this case it will have been modified
-    if [ ! -f $CFG_FILE ]; then
-        _out Config file local.env is missing! Check our instructions!
-        exit 1
-    else
-        _out --- Config file local.env found 
-    fi  
-    source $CFG_FILE
-
-    _out --- Login to OpenShift
-    oc login --token=$APITOKEN --server=$OS4SERVER > /dev/null
-    if [ $? != 0 ]; then 
-       _out Log in to OpenShift failed!
-       exit 1   
-    else
-       _out ----- OK   
-    fi
-
-    _out --- Login to OpenShift Container Registry
-    docker login -u developer -p $(oc whoami -t) $REGISTRYURL > /dev/null 2>&1
-    if [ $? != 0 ]; then 
-       _out Log in to OpenShift Container Registry failed!
-       exit 1 
-    else
-       _out ----- OK 
-    fi
-
-    oc new-project $PROJECT  > /dev/null 2>&1
-    if [ $? != 0 ]; then 
-      oc project $PROJECT
-    fi
-}
-
 function setup() {
   _out --- Deploying articles-java-jee
   
   cd ${root_folder}/articles-java-jee
+
+  _out --- Clean-up   
   oc delete all -l app=articles
   oc delete is articles
   #oc delete -f deployment/istio.yaml --ignore-not-found
@@ -68,7 +35,7 @@ function setup() {
   docker push $REGISTRYURL/$PROJECT/articles:1
 
   # Add OS repo tags to K8s deployment.yaml  
-  _out --- Deploy to Openshift
+  _out --- Deploy to OpenShift
   sed "s+articles:1+$REGISTRY/$PROJECT/articles:1+g" deployment/kubernetes.yaml > deployment/os4-kubernetes.yaml
   oc apply -f deployment/os4-kubernetes.yaml
   oc apply -f deployment/istio.yaml
@@ -79,5 +46,5 @@ function setup() {
   _out Open the OpenAPI explorer: http://$(oc get route articles --template='{{ .spec.host }}')/openapi/ui/
 }
 
-login
+source ${root_folder}/os4-scripts/login.sh
 setup
