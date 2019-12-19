@@ -103,14 +103,19 @@ public class CoreService {
 	public CompletionStage<List<Article>> getArticlesReactive(int requestedAmount) {
 		CompletableFuture<List<Article>> future = new CompletableFuture<>();
 
-        dataAccessManager.getDataAccess().getArticlesReactive().thenApplyAsync(articles -> {
-            articles = this.sortArticles(articles);
-			articles = this.applyAmountFilter(articles, requestedAmount);
+		if (requestedAmount < 0) {
+			future.completeExceptionally(new InvalidInputParamters());
+		}
+		else {
+			dataAccessManager.getDataAccess().getArticlesReactive().thenApplyAsync(articles -> {
+				articles = this.sortArticles(articles);
+				articles = this.applyAmountFilter(articles, requestedAmount);
 
-			return articles;
-        }).whenComplete((articles, th) -> {
-            future.complete(articles);          
-        });
+				return articles;
+			}).whenComplete((articles, throwable) -> {
+				future.complete(articles);          
+			});
+		}
 
         return future;
 	}

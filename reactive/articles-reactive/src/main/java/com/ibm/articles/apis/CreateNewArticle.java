@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ApplicationScoped
-@Path("/v1")
+@Path("/v1") // synchronous
 public class CreateNewArticle {
 
 	@Inject

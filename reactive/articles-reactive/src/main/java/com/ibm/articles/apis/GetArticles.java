@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-@Path("/v1")
+@Path("/v1") // synchronous
 @OpenAPIDefinition(info = @Info(title = "Articles Service", version = "1.0", description = "Articles Service APIs", contact = @Contact(url = "https://github.com/nheidloff/cloud-native-starter", name = "Niklas Heidloff"), license = @License(name = "License", url = "https://github.com/nheidloff/cloud-native-starter/blob/master/LICENSE")))
 public class GetArticles {
 
@@ -38,7 +38,7 @@ public class GetArticles {
 	@Produces(MediaType.APPLICATION_JSON)
 	@APIResponses(value = {
 			@APIResponse(responseCode = "200", description = "Get most recently added articles", content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.ARRAY, implementation = Article.class))),
-			@APIResponse(responseCode = "204", description = "Input not valid (no amount)"),
+			@APIResponse(responseCode = "204", description = "Input not valid (no valid amount)"),
 			@APIResponse(responseCode = "500", description = "Internal service error") })
 	@Operation(summary = "Get most recently added articles", description = "Get most recently added articles")
 	public Response getArticles(
