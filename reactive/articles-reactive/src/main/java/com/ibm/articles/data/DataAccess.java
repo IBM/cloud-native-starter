@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.ArticleDoesNotExist;
+import java.util.concurrent.CompletionStage;
 
 public interface DataAccess {
 	public Article addArticle(Article article) throws NoConnectivity;
@@ -11,4 +12,6 @@ public interface DataAccess {
     public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist;
     
     public List<Article> getArticles() throws NoConnectivity;
+
+    public CompletionStage<List<Article>> getArticlesReactive();
 }

@@ -10,6 +10,9 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import io.vertx.axle.core.Vertx;
 
 @ApplicationScoped
 public class CoreService {
@@ -17,6 +20,9 @@ public class CoreService {
 	private static final String CREATE_SAMPLES = "CREATE";
 	private static final String USE_IN_MEMORY_STORE = "USE_IN_MEMORY_STORE";
 
+	@Inject
+	Vertx vertx;
+	
 	@Inject
 	@ConfigProperty(name = "inmemory", defaultValue = USE_IN_MEMORY_STORE)
 	private String inmemory;
@@ -82,34 +88,61 @@ public class CoreService {
 		try {
 			articles = dataAccessManager.getDataAccess().getArticles();
 
-			Comparator<Article> comparator = new Comparator<Article>() {
-				@Override
-				public int compare(Article left, Article right) {
-					try {
-						int leftDate = Integer.valueOf(left.creationDate.substring(6));
-						int rightDate = Integer.valueOf(right.creationDate.substring(6));
-						return rightDate - leftDate;
-					} catch (NumberFormatException e) {
-						return 0;
-					}
-				}
-			};
-			Collections.sort(articles, comparator);
+			articles = dataAccessManager.getDataAccess().getArticles();
 
-			int amount = articles.size();
-			if (amount > requestedAmount) {
-				amount = requestedAmount;
-				List<Article> output = new ArrayList<Article>(amount);
-				for (int index = 0; index < amount; index++) {
-					output.add(articles.get(index));
-				}
-				articles = output;
-			}
+			articles = this.sortArticles(articles);
+			articles = this.applyAmountFilter(articles, requestedAmount);
+
 			return articles;
 		} catch (NoConnectivity e) {
 			e.printStackTrace();
 			throw new NoDataAccess(e);
 		}
+	}
+
+	public CompletionStage<List<Article>> getArticlesReactive(int requestedAmount) {
+		CompletableFuture<List<Article>> future = new CompletableFuture<>();
+
+        dataAccessManager.getDataAccess().getArticlesReactive().thenApplyAsync(articles -> {
+            articles = this.sortArticles(articles);
+			articles = this.applyAmountFilter(articles, requestedAmount);
+
+			return articles;
+        }).whenComplete((articles, th) -> {
+            future.complete(articles);          
+        });
+
+        return future;
+	}
+
+	private List<Article> sortArticles(List<Article> articles) {
+		Comparator<Article> comparator = new Comparator<Article>() {
+			@Override
+			public int compare(Article left, Article right) {
+				try {
+					int leftDate = Integer.valueOf(left.creationDate.substring(6));
+					int rightDate = Integer.valueOf(right.creationDate.substring(6));
+					return rightDate - leftDate;
+				} catch (NumberFormatException e) {
+					return 0;
+				}
+			}
+		};
+		Collections.sort(articles, comparator);
+		return articles;
+	}
+
+	private List<Article> applyAmountFilter(List<Article> articles, int requestedAmount) {
+		int amount = articles.size();
+		if (amount > requestedAmount) {
+			amount = requestedAmount;
+			List<Article> output = new ArrayList<Article>(amount);
+			for (int index = 0; index < amount; index++) {
+				output.add(articles.get(index));
+			}
+			articles = output;
+		}
+		return articles;
 	}
 
 	private void addSampleArticles() {
