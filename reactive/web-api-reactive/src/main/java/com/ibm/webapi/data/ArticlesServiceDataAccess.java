@@ -1,5 +1,6 @@
 package com.ibm.webapi.data;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.InvalidArticle;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
@@ -8,18 +9,59 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.inject.Inject;
+import io.vertx.axle.core.Vertx;
+import java.util.concurrent.CompletionStage;
+import javax.enterprise.context.ApplicationScoped;
+import io.vertx.axle.ext.web.client.WebClient;
+import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.client.WebClientOptions;
+import javax.annotation.PostConstruct;
 
-
+@ApplicationScoped
 public class ArticlesServiceDataAccess implements ArticlesDataAccess {
-	
-	static final String BASE_URL = "http://articles-reactive:8080/v1/";
 	
 	public ArticlesServiceDataAccess() {
 	}	
 
+	static String ARTICLES_DNS = "articles-reactive";
+	static String ARTICLES_PORT = "8080";
+	
+	@ConfigProperty(name = "cloud-native-starter.local")
+	String LOCAL_MODE;
+
+	@ConfigProperty(name = "cloud-native-starter.minikube.ip")
+	String MINIKUBE_IP;
+
+	@ConfigProperty(name = "cloud-native-starter.articles.port")
+	String ARTICLES_LOCAL_PORT;
+
+	@Inject
+	Vertx vertx;
+
+	private WebClient client;
+
+	@PostConstruct
+    void initialize() {		
+		if (LOCAL_MODE.equalsIgnoreCase("true")) {
+			ARTICLES_DNS = MINIKUBE_IP;
+			ARTICLES_PORT = ARTICLES_LOCAL_PORT;
+		}
+
+		int articlesPortInt = 8080;
+		try {
+			articlesPortInt = Integer.parseInt(ARTICLES_PORT);
+		}
+		catch(Exception e) {
+		}
+        this.client = WebClient.create(vertx,
+                new WebClientOptions().setDefaultHost(ARTICLES_DNS).setDefaultPort(articlesPortInt).setSsl(false));
+    }
+
 	public List<CoreArticle> getArticles(int amount) throws NoConnectivity {		
 		try {
-			URL apiUrl = new URL(BASE_URL + "articles?amount=" + amount);
+			URL apiUrl = new URL("http://" + ARTICLES_DNS + ":" + ARTICLES_PORT + "/v1/articles?amount=" + amount);
 			System.out.println(apiUrl);
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
 					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
@@ -35,10 +77,50 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 			throw new NoConnectivity(e);
 		}
 	}
-	
+
+	public CompletionStage<List<CoreArticle>> getArticlesReactive(int amount) {			
+		return this.client.get("/v2/articles?amount=" + amount)
+			.send()
+			.thenApply(resp -> {
+				System.out.println("start 2");
+				if (resp.statusCode() == 200) {
+					System.out.println("status code 200");
+					List<CoreArticle> articles = this.convertJsonToCoreArticleList(resp.bodyAsJsonArray());
+					return articles;
+				} else {
+					// to be done: add error handling
+					//return new JsonObject()
+						//       .put("code", resp.statusCode())
+						//     .put("message", resp.bodyAsString());
+						return null;
+				}
+			});
+	}
+
+	private CoreArticle convertJsonToCoreArticle(io.vertx.core.json.JsonObject jsonObject) {
+		CoreArticle article = new CoreArticle();
+		article.id = jsonObject.getString("id", "");
+		article.author = jsonObject.getString("author", "");
+		article.title = jsonObject.getString("title", "");
+		article.url = jsonObject.getString("url", "");
+		return article;
+	}
+
+	private List<CoreArticle> convertJsonToCoreArticleList(io.vertx.core.json.JsonArray jsonArray) {
+		List<CoreArticle> articles = new ArrayList<CoreArticle>();
+		if (jsonArray != null) {
+			List list = jsonArray.getList();
+			for (int index = 0; index < list.size(); index++) {
+				io.vertx.core.json.JsonObject object = new JsonObject((Map<String, Object>) list.get(index));
+				articles.add(this.convertJsonToCoreArticle(object));
+			}
+		}
+		return articles;
+	}
+
 	public CoreArticle addArticle(CoreArticle article) throws NoConnectivity, InvalidArticle {
 		try {
-			URL apiUrl = new URL(BASE_URL + "articles");
+			URL apiUrl = new URL("http://" + ARTICLES_DNS + ":" + ARTICLES_PORT + "/v1/articles");
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
 					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
 			

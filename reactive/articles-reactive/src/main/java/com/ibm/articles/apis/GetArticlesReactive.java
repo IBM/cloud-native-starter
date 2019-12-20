@@ -47,6 +47,7 @@ public class GetArticlesReactive {
     public CompletionStage<Response> getArticlesReactive(
             @Parameter(description = "The amount of articles", required = true, example = "10", schema = @Schema(type = SchemaType.INTEGER)) 
             @QueryParam("amount") int amount) {
+        System.out.println("com.ibm.articles.apis.GetArticlesReactive.getArticlesReactive");
         CompletableFuture<Response> future = new CompletableFuture<>();
 
         coreService.getArticlesReactive(amount).thenApplyAsync(articles -> {

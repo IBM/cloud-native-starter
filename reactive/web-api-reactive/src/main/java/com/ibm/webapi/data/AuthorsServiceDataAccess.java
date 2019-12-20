@@ -8,7 +8,9 @@ import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import javax.enterprise.context.ApplicationScoped;
 
+@ApplicationScoped
 public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 	
 	static final String BASE_URL = "http://authors:3000/api/v1/";

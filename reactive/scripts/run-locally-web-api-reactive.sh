@@ -21,7 +21,18 @@ function setup() {
     _out Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/articles\" -H \"accept: application/json\"
    
     cd ${root_folder}/web-api-reactive/src/main/resources
-    sed "s/KAFKA_BOOTSTRAP_SERVERS/${minikubeip}:${nodeport}/g" application.properties.template > application.properties
+    sed "s/KAFKA_BOOTSTRAP_SERVERS/${minikubeip}:${nodeport}/g" application.properties.template > application.properties.tmp
+
+    nodeport=$(kubectl get svc articles-reactive --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+    sed "s/CNS_ARTICLES_PORT/${nodeport}/g" application.properties.tmp > application.properties.tmp2
+
+    nodeport=$(kubectl get svc articles-reactive --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+    sed "s/CNS_MINIKUBE_IP/${minikubeip}/g" application.properties.tmp2 > application.properties.tmp3
+
+    sed "s/CNS_LOCAL/true/g" application.properties.tmp3 > application.properties
+    rm application.properties.tmp
+    rm application.properties.tmp2
+    rm application.properties.tmp3
   
     cd ${root_folder}/web-api-reactive
     mvn compile quarkus:dev 
