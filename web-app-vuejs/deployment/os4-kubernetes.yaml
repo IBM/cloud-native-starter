@@ -8,7 +8,7 @@ spec:
   selector:
     app: web-app
   ports:
-    - port: 80
+    - port: 8080
       name: http
   type: NodePort
 ---
@@ -17,6 +17,8 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: web-app
+  labels:
+    app: web-app
 spec:
   selector:                
     matchLabels:     
@@ -32,8 +34,8 @@ spec:
     spec:
       containers:
       - name: web-app
-        image: image-registry.openshift-image-registry.svc:5000/cloud-native-starter/web-app:1
+        image: image-registry.openshift-image-registry.svc:5000/cloud-native-starter/web-app:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
       restartPolicy: Always
 ---

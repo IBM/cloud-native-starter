@@ -11,9 +11,9 @@ function _out() {
 function setup() {
   _out Deploying Istio Ingress definitions for web-api v1 only
   
-  cd ${root_folder}/istio
-  kubectl apply -f istio-ingress-gateway.yaml
-  kubectl apply -f istio-ingress-service-web-api-v1-only.yaml
+  cd ${root_folder}/os4-scripts
+  oc apply -f istio-ingress-gateway.yaml
+  oc apply -f istio-ingress-service-web-api-v1-only.yaml
   
   _out Done deploying Istio Ingress definitions
 }

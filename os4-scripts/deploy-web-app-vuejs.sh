@@ -15,7 +15,7 @@ function configureVUEminikubeIP(){
   _out ----  Istio Ingress Gateway - ${ingressgw}
 
   rm "store.js"
-  sed -e "s/endpoint-api-ip:ingress-np/$ingressgw/g"  store.js.template > store.js
+  sed -e "s/endpoint-api-ip:ingress-np/$ingressgw/g" store.js.template > store.js
   
   cd ${root_folder}/web-app-vuejs
 }
@@ -27,22 +27,27 @@ function setup() {
   cd ${root_folder}/web-app-vuejs
   oc delete -f deployment/kubernetes.yaml --ignore-not-found
   oc delete -f deployment/istio.yaml --ignore-not-found
+  oc delete build web-app-1
   oc delete is web-app
   
   configureVUEminikubeIP
 
-  _out --- Build Docker image
-  docker build -f Dockerfile.nonroot -t web-app:1 .
-  docker tag web-app:1 $REGISTRYURL/$PROJECT/web-app:1
-  docker push $REGISTRYURL/$PROJECT/web-app:1
+  _out --- OpenShift Binary Build
+  cp Dockerfile Dockerfile.ORG 
+  cp Dockerfile.os4 Dockerfile
+  oc new-build --name web-app --binary --strategy docker -l app=web-app
+  oc start-build web-app --from-dir=.
+  cp Dockerfile.ORG Dockerfile
 
   _out --- Deploying to OpenShift
-  sed "s+web-app:1+$REGISTRY/$PROJECT/web-app:1+g" deployment/kubernetes.yaml > deployment/os4-kubernetes.yaml
+  sed -e "s+web-app:1+$REGISTRY/$PROJECT/web-app:latest+g" -e "s/ort: 80/ort: 8080/g" deployment/kubernetes.yaml > deployment/os4-kubernetes.yaml
   oc apply -f deployment/os4-kubernetes.yaml
   oc apply -f deployment/istio.yaml
+  oc expose svc/web-app 
 
   _out Done deploying web-app-vuejs
-  _out Wait until the pod has been started: "kubectl get pod --watch | grep web-app"
+  _out Wait until the build pod web-app-1-build is Completed and the pod itself has been started: 
+  _out "oc get pod --watch | grep web-app"
   _out Open the app: http://${ingressgw}/
 }
 

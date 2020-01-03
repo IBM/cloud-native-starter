@@ -22,14 +22,14 @@ source $CFG_FILE
 _out --- Login to OpenShift
 oc login --token=$APITOKEN --server=$OS4SERVER > /dev/null
     if [ $? != 0 ]; then 
-    _out Log in to OpenShift failed!
+    _out Log in to OpenShift failed, most likely due to expired API token in local.env
     exit 1   
 else
     _out ----- OK   
 fi
 
 _out --- Login to OpenShift Container Registry
-docker login -u developer -p $(oc whoami -t) $REGISTRYURL > /dev/null 2>&1
+docker login -u developer -p $(oc whoami -t) $REGISTRYURL > /dev/null 
 if [ $? != 0 ]; then 
     _out Log in to OpenShift Container Registry failed!
     exit 1 
@@ -37,8 +37,8 @@ else
     _out ----- OK 
 fi
 
-oc new-project $PROJECT  > /dev/null 2>&1
+oc project $PROJECT  > /dev/null 2>&1
 if [ $? != 0 ]; then 
-    oc project $PROJECT
+    oc new-project $PROJECT
 fi
 
