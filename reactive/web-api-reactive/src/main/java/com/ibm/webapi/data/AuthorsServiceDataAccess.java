@@ -31,7 +31,7 @@ public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 	@ConfigProperty(name = "cloud-native-starter.minikube.ip")
 	String MINIKUBE_IP;
 
-	@ConfigProperty(name = "cloud-native-starter.authors.port")
+	@ConfigProperty(name = "cloud-native-starter.authors.port", defaultValue = "3000")
 	String AUTHORS_LOCAL_PORT;
 
 	@Inject
@@ -98,6 +98,9 @@ public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 						future.completeExceptionally(new NoConnectivity());
 					}
 				}
+			}).exceptionally(throwable -> {
+				future.completeExceptionally(new NoConnectivity());
+				return null;
 			});
 
 		return future;

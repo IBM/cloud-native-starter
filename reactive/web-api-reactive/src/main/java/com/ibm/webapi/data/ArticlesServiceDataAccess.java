@@ -35,7 +35,7 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 	@ConfigProperty(name = "cloud-native-starter.minikube.ip")
 	String MINIKUBE_IP;
 
-	@ConfigProperty(name = "cloud-native-starter.articles.port")
+	@ConfigProperty(name = "cloud-native-starter.articles.port", defaultValue = "8080")
 	String ARTICLES_LOCAL_PORT;
 
 	@Inject
@@ -91,6 +91,9 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 				} else {
 					future.completeExceptionally(new NoConnectivity());
 				}
+			}).exceptionally(throwable -> {
+				future.completeExceptionally(new NoConnectivity());
+				return null;
 			});
 
 		return future;

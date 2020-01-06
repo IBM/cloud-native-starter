@@ -56,6 +56,12 @@ public class Service {
 		}
 	}
 
+	public List<Article> fallbackNoArticlesService() {
+		System.err.println("com.ibm.webapi.business.fallbackNoArticlesService: Cannot connect to articles service");
+		if (lastReadArticles == null) lastReadArticles = new ArrayList<Article>();
+		return lastReadArticles;
+	}
+
 	@Fallback(fallbackMethod = "fallbackNoArticlesService")
 	public List<Article> getArticles() throws NoDataAccess {
 		List<Article> articles = new ArrayList<Article>();	
@@ -122,6 +128,17 @@ public class Service {
 				article.authorTwitter = author.twitter;
 				article.authorBlog = author.blog;
 				return articles;
+			}).exceptionally(throwable -> {
+				if (throwable.getCause().toString().equals(NoConnectivity.class.getName().toString())) {
+					System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to authors service");
+					article.authorTwitter = "";
+					article.authorBlog = "";  	
+				}
+				if (throwable.getCause().toString().equals(NonexistentAuthor.class.getName().toString())) {
+					article.authorTwitter = "";
+					article.authorBlog = "";  	
+				}	
+				return articles; 				
 			}).whenComplete((articlesWithAuthors, throwable) -> {
 				amountReadAuthors++;
 				if (amountReadAuthors == amountArticles) {
@@ -131,13 +148,7 @@ public class Service {
 		}
 		
 		return future;
-	}
-
-	public List<Article> fallbackNoArticlesService() {
-		System.err.println("com.ibm.webapi.business.fallbackNoArticlesService: Cannot connect to articles service");
-		if (lastReadArticles == null) lastReadArticles = new ArrayList<Article>();
-		return lastReadArticles;
-	}
+	}	
 
 	public CompletionStage<List<Article>> getArticlesReactive() {
 		CompletableFuture<List<Article>> future = new CompletableFuture<>();
@@ -148,10 +159,15 @@ public class Service {
 		}).thenCompose(articles -> {					
 			return this.addAuthorsReactive(articles);
 		}).exceptionally(throwable -> {  
-			future.completeExceptionally(new NoDataAccess());
-			return null; 
+			if (lastReadArticles == null) {
+				future.completeExceptionally(new NoDataAccess());
+				return null; 
+			} else {
+				return lastReadArticles;
+			}
         }).whenComplete((articles, throwable) -> {
 			if (articles != null) {
+				lastReadArticles = articles;
 				future.complete(articles);          
 			}
 		});
