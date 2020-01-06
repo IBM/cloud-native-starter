@@ -9,6 +9,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.webapi.business.Article;
+import com.ibm.webapi.business.NoDataAccess;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -48,7 +49,12 @@ public class GetArticlesReactive {
         }).thenApplyAsync(jsonArray -> {            
             return Response.ok(jsonArray).build();
         }).exceptionally(throwable -> {  
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+			if (throwable.getCause().toString().equals(NoDataAccess.class.getName().toString())) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+            else {            
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
         }).whenComplete((response, throwable) -> {
             future.complete(response);          
         });

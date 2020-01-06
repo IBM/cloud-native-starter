@@ -112,9 +112,15 @@ public class Service {
 		dataAccessArticles.getArticlesReactive(requestedAmount).thenApplyAsync(coreArticles -> {
 			List<Article> articles = this.createArticleList(coreArticles);			
 			return articles;
-		}).whenComplete((articles, throwable) -> {
-			future.complete(articles);          
-		});
+		}).exceptionally(throwable -> {  
+			future.completeExceptionally(new NoDataAccess());
+			return null; 
+        }).whenComplete((articles, throwable) -> {
+			if (articles != null) {
+				future.complete(articles);          
+			}
+		})
+		;
 
         return future;
 	}

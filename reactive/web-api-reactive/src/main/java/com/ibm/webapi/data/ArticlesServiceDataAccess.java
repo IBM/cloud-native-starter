@@ -18,6 +18,7 @@ import io.vertx.axle.ext.web.client.WebClient;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClientOptions;
 import javax.annotation.PostConstruct;
+import java.util.concurrent.CompletableFuture;
 
 @ApplicationScoped
 public class ArticlesServiceDataAccess implements ArticlesDataAccess {
@@ -78,23 +79,21 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 		}
 	}
 
-	public CompletionStage<List<CoreArticle>> getArticlesReactive(int amount) {			
-		return this.client.get("/v2/articles?amount=" + amount)
+	public CompletionStage<List<CoreArticle>> getArticlesReactive(int amount) {		
+		CompletableFuture<List<CoreArticle>> future = new CompletableFuture<>();
+
+		this.client.get("/v2/articles?amount=" + amount)
 			.send()
-			.thenApply(resp -> {
-				System.out.println("start 2");
+			.thenAcceptAsync(resp -> {
 				if (resp.statusCode() == 200) {
-					System.out.println("status code 200");
 					List<CoreArticle> articles = this.convertJsonToCoreArticleList(resp.bodyAsJsonArray());
-					return articles;
+					future.complete(articles);
 				} else {
-					// to be done: add error handling
-					//return new JsonObject()
-						//       .put("code", resp.statusCode())
-						//     .put("message", resp.bodyAsString());
-						return null;
+					future.completeExceptionally(new NoConnectivity());
 				}
 			});
+
+		return future;
 	}
 
 	private CoreArticle convertJsonToCoreArticle(io.vertx.core.json.JsonObject jsonObject) {
