@@ -67,7 +67,7 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
 					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
 			
-			// collections do not work in MicroProfile 2.1, but should work in 2.2: https://github.com/OpenLiberty/open-liberty/pull/6564
+			// not sure why the conversion is not done automatically
 			// as workaround the output is converted manually
 			List output = customRestClient.getArticlesFromService();
 			return convertToArticleList(output);

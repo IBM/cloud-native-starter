@@ -73,16 +73,41 @@ public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 			e.printStackTrace();
 			throw new NonexistentAuthor(e);			
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new NoConnectivity(e);
 		}
 	}
 
 	public CompletionStage<Author> getAuthorReactive(String name) {
 		CompletableFuture<Author> future = new CompletableFuture<>();
-
-		// to be done
+		
+		try {
+			name = URLEncoder.encode(name, "UTF-8").replace("+", "%20");
+		}
+		catch (Exception e) {}
+		this.client.get("/api/v1/getauthor?name=" + name)
+			.send()
+			.thenAcceptAsync(resp -> {
+				if (resp.statusCode() == 200) {
+					Author author = this.convertJsonToAuthor(resp.bodyAsJsonObject());
+					future.complete(author);
+				} else {
+					if (resp.statusCode() == 204) {
+						future.completeExceptionally(new NonexistentAuthor());
+					}
+					else {
+						future.completeExceptionally(new NoConnectivity());
+					}
+				}
+			});
 
 		return future;
+	}
+
+	private Author convertJsonToAuthor(io.vertx.core.json.JsonObject jsonObject) {
+		Author author = new Author();
+		author.blog = jsonObject.getString("blog", "");
+		author.name = jsonObject.getString("name", "");
+		author.twitter = jsonObject.getString("twitter", "");
+		return author;
 	}
 }

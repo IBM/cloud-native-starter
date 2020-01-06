@@ -69,6 +69,8 @@ public class Service {
 		}		
 		
 		articles = this.createArticleList(coreArticles);
+		articles = this.addAuthors(articles);
+		lastReadArticles = articles;
 				
 		return articles;
 	}
@@ -82,8 +84,18 @@ public class Service {
 			article.title = coreArticle.title;
 			article.url = coreArticle.url;
 			article.authorName = coreArticle.author;
+			article.authorBlog = "";
+			article.authorTwitter = "";
+			articles.add(article);
+		}
+		return articles;
+	}
+
+	private List<Article> addAuthors(List<Article> articles) {
+		for (int index = 0; index < articles.size(); index++) {
+			Article article = articles.get(index);
 			try {
-				Author author = dataAccessAuthors.getAuthor(coreArticle.author);
+				Author author = dataAccessAuthors.getAuthor(article.authorName);
 				article.authorBlog = author.blog;
 				article.authorTwitter = author.twitter;
 			} catch (NoConnectivity e) {	
@@ -94,10 +106,31 @@ public class Service {
 				article.authorBlog = "";
 				article.authorTwitter = "";
 			}
-			articles.add(article);
 		}
-		lastReadArticles = articles;
 		return articles;
+	}
+
+	int amountReadAuthors;
+	private CompletionStage<List<Article>> addAuthorsReactive(List<Article> articles) {
+		CompletableFuture<List<Article>> future = new CompletableFuture<>();
+
+		amountReadAuthors = 0;
+		int amountArticles = articles.size();
+		for (int index = 0; index < articles.size(); index++) {
+			Article article = articles.get(index);
+			dataAccessAuthors.getAuthorReactive(article.authorName).thenApplyAsync(author -> {
+				article.authorTwitter = author.twitter;
+				article.authorBlog = author.blog;
+				return articles;
+			}).whenComplete((articlesWithAuthors, throwable) -> {
+				amountReadAuthors++;
+				if (amountReadAuthors == amountArticles) {
+					future.complete(articlesWithAuthors);
+				}
+			});
+		}
+		
+		return future;
 	}
 
 	public List<Article> fallbackNoArticlesService() {
@@ -112,6 +145,8 @@ public class Service {
 		dataAccessArticles.getArticlesReactive(requestedAmount).thenApplyAsync(coreArticles -> {
 			List<Article> articles = this.createArticleList(coreArticles);			
 			return articles;
+		}).thenCompose(articles -> {					
+			return this.addAuthorsReactive(articles);
 		}).exceptionally(throwable -> {  
 			future.completeExceptionally(new NoDataAccess());
 			return null; 
@@ -119,8 +154,7 @@ public class Service {
 			if (articles != null) {
 				future.complete(articles);          
 			}
-		})
-		;
+		});
 
         return future;
 	}
