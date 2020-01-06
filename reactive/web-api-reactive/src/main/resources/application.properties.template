@@ -9,3 +9,4 @@ kafka.bootstrap.servers=KAFKA_BOOTSTRAP_SERVERS
 cloud-native-starter.local=CNS_LOCAL
 cloud-native-starter.minikube.ip=CNS_MINIKUBE_IP
 cloud-native-starter.articles.port=CNS_ARTICLES_PORT
+cloud-native-starter.authors.port=CNS_AUTHORS_PORT
