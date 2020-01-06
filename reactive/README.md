@@ -29,6 +29,8 @@ $ sh scripts/deploy-kafka.sh
 
 **5. Deploy and run the sample in Minikube**
 
+*Demo 1: Web application is refreshed automatically when new articles are created*
+
 ```
 $ cd ${ROOT_FOLDER}
 $ sh scripts/deploy-articles-reactive.sh
@@ -38,6 +40,21 @@ $ sh scripts/show-urls.sh
 ```
 
 Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
+
+*Demo 2: Reactive REST Endpoint '/articles' in web-api service*
+
+Open the API explorer of the web-api service and invoke the '/articles' endpoint. See the output of 'show-urls.sh' for the URL.
+
+In order to test resiliency, try different combinations of the appliation with and without the articles and authors services being available.
+
+```
+$ cd ${ROOT_FOLDER}
+$ sh scripts/deploy-web-api-reactive.sh
+$ sh scripts/deploy-articles-reactive.sh
+$ sh scripts/deploy-authors.sh
+$ sh scripts/delete-authors.sh
+$ sh scripts/delete-articles-reactive.sh
+```
 
 **Optional: Run the sample locally**
 

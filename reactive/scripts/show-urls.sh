@@ -52,6 +52,15 @@ function setup() {
   _out -- Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/articles\" -H \"accept: application/json\"
   _out ------------------------------------------------------------------------------------
 
+  _out Service: authors
+  nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
+  if [ -z "$nodeport" ]; then
+    _out authors is not available. Run the command: sh scripts/deploy-authors.sh
+  else 
+    _out Sample API call: curl http://$(minikube ip):${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+  fi
+  _out ------------------------------------------------------------------------------------
+
   _out Web app: web-app-reactive
   nodeport=$(kubectl get svc web-app-reactive --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
   if [ -z "$nodeport" ]; then
