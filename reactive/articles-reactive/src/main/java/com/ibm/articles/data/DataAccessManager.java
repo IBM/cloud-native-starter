@@ -16,15 +16,16 @@ public class DataAccessManager {
     @Inject
 	InMemoryDataAccess inMemoryDataAccess;
 
-    
+    @Inject
+	PostgresDataAccess postgresDataAccess;
 	
 	public DataAccess getDataAccess() { 
-
         if (inmemory.equalsIgnoreCase(USE_IN_MEMORY_STORE)) {
             return inMemoryDataAccess;            
+            //return postgresDataAccess;
         }
         else {
-            return inMemoryDataAccess; // no persistence for now
+            return inMemoryDataAccess;
         }
     } 
 }

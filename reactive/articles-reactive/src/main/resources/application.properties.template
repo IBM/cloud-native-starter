@@ -2,3 +2,7 @@ quarkus.swagger-ui.always-include=true
 quarkus.swagger-ui.path=/explorer
 
 kafka.bootstrap.servers=KAFKA_BOOTSTRAP_SERVERS
+
+quarkus.datasource.url=vertx-reactive:postgresql://localhost:5432/quarkus_test
+quarkus.datasource.username=quarkus_test
+quarkus.datasource.password=quarkus_test
