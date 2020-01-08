@@ -25,7 +25,8 @@ public class DataAccessManager {
             //return postgresDataAccess;
         }
         else {
-            return inMemoryDataAccess;
+            return inMemoryDataAccess;            
+            //return postgresDataAccess;
         }
     } 
 }

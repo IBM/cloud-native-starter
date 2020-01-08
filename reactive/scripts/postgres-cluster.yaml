@@ -1,18 +1,19 @@
-apiVersion: acid.zalan.do/v1
-kind: postgresql
+apiVersion: postgresql.dev4devs.com/v1alpha1
+kind: Database
 metadata:
-  name: acid-minimal-cluster
+  name: database-articles
+  namespace: my-postgresql-operator-dev4devs-com
 spec:
-  databases:
-    foo: zalando
-  numberOfInstances: 2
-  postgresql:
-    version: '11'
-  teamId: ACID
-  users:
-    foo_user: []
-    zalando:
-      - superuser
-      - createdb
-  volume:
-    size: 1Gi
+  databaseCpu: 30m
+  databaseCpuLimit: 60m
+  databaseMemoryLimit: 512Mi
+  databaseMemoryRequest: 128Mi
+  databaseName: postgres
+  databaseNameKeyEnvVar: POSTGRESQL_DATABASE
+  databasePassword: postgres
+  databasePasswordKeyEnvVar: POSTGRESQL_PASSWORD
+  databaseStorageRequest: 1Gi
+  databaseUser: postgres
+  databaseUserKeyEnvVar: POSTGRESQL_USER
+  image: centos/postgresql-96-centos7
+  size: 1

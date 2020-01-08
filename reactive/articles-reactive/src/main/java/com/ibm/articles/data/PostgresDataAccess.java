@@ -26,13 +26,11 @@ public class PostgresDataAccess implements DataAccess {
     }
 
     private void initdb() {
-        System.out.println("initdb");
         client.query("DROP TABLE IF EXISTS articles")
                 .thenCompose(r -> client.query("CREATE TABLE articles (id SERIAL PRIMARY KEY, title TEXT NOT NULL, url TEXT, author TEXT, creationDate TEXT)"))
                 .thenCompose(r -> client.query("INSERT INTO articles (title) VALUES ('Orange')"))                
                 .toCompletableFuture()
                 .join();
-        System.out.println("initdb2");
     }
 
     // not implemented
@@ -58,6 +56,7 @@ public class PostgresDataAccess implements DataAccess {
             for (Row row : pgRowSet) {
                 list.add(from(row));
             }
+            // TBD
             //future.complete(list);
             return list;
         });
@@ -69,6 +68,7 @@ public class PostgresDataAccess implements DataAccess {
         Article article = new Article();
         article.id = row.getLong("id").toString();
         article.title = row.getString("title");
+        System.out.println(article.title);
         return article;        
     }
 }

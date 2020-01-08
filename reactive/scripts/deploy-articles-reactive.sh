@@ -15,7 +15,10 @@ function setup() {
   kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
 
   cd ${root_folder}/articles-reactive/src/main/resources
-  sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties
+  sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties.temp
+
+  sed "s/POSTGRES_URL/database-articles.my-postgresql-operator-dev4devs-com:5432/g" application.properties.temp > application.properties
+  rm application.properties.temp
 
   cd ${root_folder}/articles-reactive
   eval $(minikube docker-env) 
@@ -29,7 +32,7 @@ function setup() {
   _out Done deploying articles-reactive
   _out API Explorer: http://${minikubeip}:${nodeport}/explorer
   _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v1/articles?amount=10\" -H \"accept: application/json\"
-  _out Wait until the pod has been started: "kubectl get pod --watch | grep articles-reactive"
+  _out Wait until the pod has been started: \"kubectl get pod --watch | grep articles-reactive\"
 }
 
 setup

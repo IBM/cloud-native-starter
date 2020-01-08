@@ -9,18 +9,17 @@ function _out() {
 }
 
 function setup() {
-  _out Deploying pgadmin
+  _out Deploying postgres admin UI
 
   eval $(minikube docker-env)
 
   kubectl create ns demo
   kubectl create -f https://raw.githubusercontent.com/kubedb/cli/0.9.0/docs/examples/postgres/quickstart/pgadmin.yaml
 
-  _out Done deploying pgadmin
-  _out Wait until the pod has been started: "kubectl get pods -n demo --watch"
-  
-  _out "minikube service pgadmin -n demo --url"
-  _out "admin, admin"
+  _out Done deploying postgres admin UI
+  _out Wait until the pod has been started: \"kubectl get pods -n demo --watch\"
+  _out URL: \"minikube service pgadmin -n demo --url\"
+  _out Credentials - user: admin, password: admin
 }
 
 setup
