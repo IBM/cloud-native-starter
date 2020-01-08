@@ -1,4 +1,36 @@
-## Work in Progress
+## Reactive Java Microservices 
+
+This part of the cloud-native-starter project describes how to implement reactive microservices with the following technologies:
+
+* [Quarkus](https://quarkus.io/)
+* [Eclipse MicroProfile](https://microprofile.io/)
+* [Eclipse Vert.x](https://vertx.io/)
+* [Eclipse OpenJ9](https://www.eclipse.org/openj9/)
+* [Kubernetes](https://kubernetes.io/)
+* [Minikube](https://minikube.sigs.k8s.io/)
+* [Apache Kafka](https://kafka.apache.org/)
+* [PostgreSQL](https://www.postgresql.org/)
+
+This diagram desribes the high level architecture.
+
+<kbd><img src="documentation/architecture-small.png" /></kbd>
+
+### Functionality
+
+At this point the project demonstrates this functionality:
+
+* Sending events from a microservice to a web application via Server Sent Events
+* Sending in-memory messages via MicroProfile
+* Sending and receiving Kafka messages via MicroProfile
+* Sending Kafka messages via Kafka API
+* Reactive REST endpoints via CompletionStage
+* Exception handling in chained reactive invocations
+* Resiliency of reactive microservices
+* Reactive REST invocations via Vertx Axle Web Client
+* Reactive REST invocations via MicroProfile REST Client
+* Reactive CRUD operations for Postgres
+
+### Setup
 
 **1. Install Minikube**
 
@@ -19,17 +51,22 @@ $ cd ${ROOT_FOLDER}
 $ sh scripts/check-prerequisites.sh
 ```
 
-**4. Start Minikube and install Kafka**
+**4. Start Minikube and install Kafka and Postgres**
+
+After every step follow the instructions in the output of the commands to check when the components have been started before moving on. It's also recommended to doublecheck whether all components in all namespaces have the 'green' status in the Minikube dashboard ($ minikube dashboard).
 
 ```
 $ cd ${ROOT_FOLDER}
 $ sh scripts/start-minikube.sh
 $ sh scripts/deploy-kafka.sh
+$ sh scripts/deploy-postgres-operator.sh
+$ sh scripts/deploy-postgres-database.sh
+$ sh scripts/deploy-postgres-admin.sh
 ```
 
-**5. Deploy and run the sample in Minikube**
+### Deploy and run the sample in Minikube
 
-*Demo 1: Web application is refreshed automatically when new articles are created*
+**Demo 1: Web application is refreshed automatically when new articles are created**
 
 ```
 $ cd ${ROOT_FOLDER}
@@ -41,7 +78,7 @@ $ sh scripts/show-urls.sh
 
 Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
 
-*Demo 2: Reactive REST Endpoint '/articles' in web-api service*
+**Demo 2: Reactive REST Endpoint '/articles' in web-api service**
 
 Open the API explorer of the web-api service and invoke the '/articles' endpoint. See the output of 'show-urls.sh' for the URL.
 
