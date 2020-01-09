@@ -16,10 +16,12 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 @RequestScoped
-@Path("/v1") // synchronous
-public class GetArticle {
+@Path("/v2") // asynchronous
+public class GetArticleReactive {
 
 	@Inject
 	ArticleAsJson articleAsJson;
@@ -48,26 +50,31 @@ public class GetArticle {
 	    )
 	})
 	@Operation(
-		    summary = "Get specific article",
+		    summary = "Get specific article (reactive)",
 		    description = "Get specific article"
 	)
-	public Response getArticle(@Parameter(
+	public CompletionStage<Response> getArticleReactive(@Parameter(
             description = "The unique id of the article",
             required = true,
             example = "1551176445313",
             schema = @Schema(type = SchemaType.STRING))
 			@PathParam("id") String id) {
-		System.out.println("com.ibm.articles.apis.GetArticle.getArticle");
+		System.out.println("com.ibm.articles.apis.GetArticleReactive.getArticleReactive");
+		CompletableFuture<Response> future = new CompletableFuture<>();
 
-		Article article;
-		try {
-			article = coreService.getArticle(id);
+		coreService.getArticleReactive(id).thenApply(article -> {
 			return Response.ok(articleAsJson.createJson(article)).build();
-		} catch (ArticleDoesNotExist exception) {
-			return Response.status(Response.Status.NO_CONTENT).build();
-		} catch (NoDataAccess e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}		
+		}).exceptionally(throwable -> {  
+            if (throwable.getCause().toString().equals(ArticleDoesNotExist.class.getName().toString())) {
+                return Response.status(Response.Status.NO_CONTENT).build();
+            }
+            else {            
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+        }).whenComplete((response, throwable) -> {
+            future.complete(response);          
+        });
+
+		return future;
 	}
 }

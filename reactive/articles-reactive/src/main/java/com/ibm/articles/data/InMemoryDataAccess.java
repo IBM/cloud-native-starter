@@ -53,4 +53,33 @@ public class InMemoryDataAccess implements DataAccess {
 
         return future;
     }
+
+    public CompletionStage<Article> addArticleReactive(Article article) {
+        CompletableFuture<Article> future = new CompletableFuture<Article>();
+
+        // simulate database access
+        vertx.setTimer(10, handler -> {
+            articles.put(article.id, article);
+            future.complete(article);
+        });
+
+        return future;
+    }
+
+    public CompletionStage<Article> getArticleReactive(String id) {
+        CompletableFuture<Article> future = new CompletableFuture<Article>();
+
+        // simulate database access
+        vertx.setTimer(10, handler -> {
+            Article article = articles.get(id);
+            if (article == null) {
+                future.completeExceptionally(new ArticleDoesNotExist());
+            }
+            else {
+                future.complete(article);
+            }
+        });
+
+        return future;
+    }
 }

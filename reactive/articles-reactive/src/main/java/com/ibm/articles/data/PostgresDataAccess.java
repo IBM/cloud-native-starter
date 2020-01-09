@@ -27,38 +27,52 @@ public class PostgresDataAccess implements DataAccess {
 
     private void initdb() {
         client.query("DROP TABLE IF EXISTS articles")
-                .thenCompose(r -> client.query("CREATE TABLE articles (id SERIAL PRIMARY KEY, title TEXT NOT NULL, url TEXT, author TEXT, creationDate TEXT)"))
-                .thenCompose(r -> client.query("INSERT INTO articles (title) VALUES ('Orange')"))                
-                .toCompletableFuture()
-                .join();
+            .thenCompose(r -> client.query("CREATE TABLE articles (id SERIAL PRIMARY KEY, title TEXT NOT NULL, url TEXT, author TEXT, creationdate TEXT)"))
+            .exceptionally(throwable -> {
+                System.err.println(throwable);
+                return null;
+            })              
+            .toCompletableFuture()
+            .join();
     }
 
-    // not implemented
-    public Article addArticle(Article article) throws NoConnectivity {
-        return null;
+    private String generateSQLStatementToInsertArticle(Article article) {
+        String statement = "INSERT INTO articles (title, url, author, creationdate) VALUES ('" + article.title + "', '"
+            + article.url + "', '" + article.author + "', '" + article.creationDate + "') RETURNING (id)";
+
+        return statement;
     }
 
-    // not implemented
-    public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist { 	
-        return null;
+    public CompletionStage<Article> addArticleReactive(Article article) {
+        CompletableFuture<Article> future = new CompletableFuture<Article>();
+
+        String statement = generateSQLStatementToInsertArticle(article);
+        client.preparedQuery(statement)
+            .thenAccept(pgRowSet -> {
+                article.id = pgRowSet.iterator().next().getLong("id").toString();
+                future.complete(article);
+            });
+
+        return future;
     }
 
-    // not implemented
-    public List<Article> getArticles() throws NoConnectivity {  	        
-        return null;
+    public CompletionStage<Article> getArticleReactive(String id) {
+        CompletableFuture<Article> future = new CompletableFuture<Article>();
+
+       // TBD
+
+        return future;
     }
 
     public CompletionStage<List<Article>> getArticlesReactive() {
         CompletableFuture<List<Article>> future = new CompletableFuture<List<Article>>();
 
-        client.query("SELECT id, title FROM articles ORDER BY title ASC").thenApply(pgRowSet -> {
+        client.query("SELECT id, title, url, author, creationdate FROM articles ORDER BY id ASC").thenAccept(pgRowSet -> {
             List<Article> list = new ArrayList<>(pgRowSet.size());
             for (Row row : pgRowSet) {
                 list.add(from(row));
             }
-            // TBD
-            //future.complete(list);
-            return list;
+            future.complete(list);
         });
 
         return future;
@@ -68,7 +82,24 @@ public class PostgresDataAccess implements DataAccess {
         Article article = new Article();
         article.id = row.getLong("id").toString();
         article.title = row.getString("title");
-        System.out.println(article.title);
+        article.author = row.getString("author");
+        article.creationDate = row.getString("creationdate");
+        article.url = row.getString("url");
         return article;        
+    }
+
+    // not supported
+    public Article addArticle(Article article) throws NoConnectivity {
+        throw new NoConnectivity();
+    }
+
+    // not supported
+    public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist { 	
+        throw new NoConnectivity();
+    }
+
+    // not supported
+    public List<Article> getArticles() throws NoConnectivity { 
+        throw new NoConnectivity();
     }
 }

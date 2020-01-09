@@ -8,16 +8,17 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.InvalidArticle;
-import com.ibm.articles.business.NoDataAccess;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import javax.enterprise.context.ApplicationScoped;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 @ApplicationScoped
-@Path("/v1") // synchronous
-public class CreateNewArticle {
+@Path("/v2") // asynchronous
+public class CreateNewArticleReactive {
 
 	@Inject
 	ArticleAsJson articleAsJson;
@@ -48,27 +49,31 @@ public class CreateNewArticle {
   	    )
 	})
 	@Operation(
-		    summary = "Create a new article",
+		    summary = "Create a new article (reactive)",
 		    description = "Create a new article"
 	)
-	public Response addArticle(@RequestBody(description = "New article", required = true,
+	public CompletionStage<Response> addArticleReactive(@RequestBody(description = "New article", required = true,
             content = @Content(schema = @Schema(implementation = Article.class))) Article newArticle) {
-		System.out.println("com.ibm.articles.apis.CreateNewArticle.addArticle");
+		System.out.println("com.ibm.articles.apis.CreateNewArticleReactive.addArticleReactive");
+		CompletableFuture<Response> future = new CompletableFuture<>();
 
 		String title = newArticle.title;
 		String url = newArticle.url;
 		String author = newArticle.author;
-
-		Article article;
-		try {
-			article = coreService.addArticle(title, url, author);
-
+	
+		coreService.addArticleReactive(title, url, author).thenApply(article -> {
 			return Response.status(Response.Status.CREATED).entity(articleAsJson.createJson(article)).build();
-		} catch (InvalidArticle excpetion) {
-			return Response.status(Response.Status.NO_CONTENT).build();
-		} catch (NoDataAccess e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+		}).exceptionally(throwable -> {  
+            if (throwable.getCause().toString().equals(InvalidArticle.class.getName().toString())) {
+                return Response.status(Response.Status.NO_CONTENT).build();
+            }
+            else {            
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+        }).whenComplete((response, throwable) -> {
+            future.complete(response);          
+        });
+
+		return future;
 	}
 }

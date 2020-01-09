@@ -22,7 +22,7 @@ function setup() {
   _out Done installing Kafka
   _out Wait until the pods have been started
   _out Run this command \(potentially multiple times\): \"kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka\"
-  _out After this run \"sh scripts/show-urls\" to get the Kafka broker URL
+  _out After this run \"sh scripts/show-urls.sh\" to get the Kafka broker URL
 }
 
 setup

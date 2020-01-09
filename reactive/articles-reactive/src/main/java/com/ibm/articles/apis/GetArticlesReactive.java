@@ -7,7 +7,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import io.vertx.axle.core.Vertx;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import javax.enterprise.context.ApplicationScoped;
@@ -33,9 +32,6 @@ public class GetArticlesReactive {
 	@Inject 
 	com.ibm.articles.business.CoreService coreService;
 
-	@Inject
-    Vertx vertx;
-
 	@GET
 	@Path("/articles")
     @Produces(MediaType.APPLICATION_JSON)
@@ -50,12 +46,12 @@ public class GetArticlesReactive {
         System.out.println("com.ibm.articles.apis.GetArticlesReactive.getArticlesReactive");
         CompletableFuture<Response> future = new CompletableFuture<>();
 
-        coreService.getArticlesReactive(amount).thenApplyAsync(articles -> {
+        coreService.getArticlesReactive(amount).thenApply(articles -> {
             JsonArray jsonArray = articles.stream()
                 .map(article -> articleAsJson.createJson(article))
                 .collect(JsonCollectors.toJsonArray());            
             return jsonArray;
-        }).thenApplyAsync(jsonArray -> {            
+        }).thenApply(jsonArray -> {            
             return Response.ok(jsonArray).build();
         }).exceptionally(throwable -> {  
             if (throwable.getCause().toString().equals(InvalidInputParamters.class.getName().toString())) {

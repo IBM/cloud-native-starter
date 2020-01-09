@@ -50,13 +50,13 @@ function setup() {
     _out articles-reactive is not available. Run the command: \"sh scripts/deploy-articles-reactive.sh\"
   else 
     _out API explorer: http://${minikubeip}:${nodeport}/explorer
-    _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v1/articles?amount=10\" -H \"accept: application/json\"
-    _out Sample API - Create article: curl -X POST \"http://${minikubeip}:${nodeport}/v1/articles\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
+    _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v2/articles?amount=10\" -H \"accept: application/json\"
+    _out Sample API - Create article: curl -X POST \"http://${minikubeip}:${nodeport}/v2/articles\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
   fi
   _out Endpoints when running locally:
   _out -- API explorer: http://localhost:8080/explorer
-  _out -- Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/articles?amount=10\" -H \"accept: application/json\"
-  _out -- Sample API - Create article: curl -X POST \"http://localhost:8080/v1/articles\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
+  _out -- Sample API - Read articles: curl -X GET \"http://localhost:8080/v2/articles?amount=10\" -H \"accept: application/json\"
+  _out -- Sample API - Create article: curl -X POST \"http://localhost:8080/v2/articles\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
   _out ------------------------------------------------------------------------------------
 
   _out Service: web-api-reactive

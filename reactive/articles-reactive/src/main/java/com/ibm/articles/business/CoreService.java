@@ -12,7 +12,14 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import io.vertx.axle.core.Vertx;
+import com.ibm.articles.business.Article;
+import com.ibm.articles.business.InvalidArticle;
+import com.ibm.articles.business.NoDataAccess;
+import io.vertx.kafka.client.producer.KafkaProducer;
+import io.vertx.kafka.client.producer.KafkaProducerRecord;
+import java.util.HashMap;
+import java.util.Map;
+import io.vertx.core.Vertx;
 
 @ApplicationScoped
 public class CoreService {
@@ -42,10 +49,7 @@ public class CoreService {
 		//}
 	}
 
-	public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
-		if (title == null)
-			throw new InvalidArticle();
-
+	private Article createArticle(String title, String url, String author) {
 		long id = new java.util.Date().getTime();
 		String idAsString = String.valueOf(id);
 
@@ -61,12 +65,64 @@ public class CoreService {
 		article.url = url;
 		article.author = author;
 
+		return article;
+	}
+
+	public Article addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
+		if (title == null)
+			throw new InvalidArticle();
+
+		Article article = createArticle(title, url, author);
+
 		try {
 			dataAccessManager.getDataAccess().addArticle(article);
+
+			sendMessageToKafka(article);
+
 			return article;
 		} catch (NoConnectivity e) {
 			e.printStackTrace();
 			throw new NoDataAccess(e);
+		}
+	}
+
+	public CompletionStage<Article> addArticleReactive(String title, String url, String author) {
+		CompletableFuture<Article> future = new CompletableFuture<>();
+
+		if (title == null) {
+			future.completeExceptionally(new InvalidArticle());
+		}
+		else {
+			Article article = createArticle(title, url, author);
+			dataAccessManager.getDataAccess().addArticleReactive(article).thenAccept(newArticle -> {
+				sendMessageToKafka(newArticle);
+				future.complete(newArticle);
+			});
+		}
+		return future;
+	}
+
+	@ConfigProperty(name = "kafka.bootstrap.servers")
+	String kafkaBootstrapServer;
+
+	private void sendMessageToKafka(Article article){
+		try {
+			KafkaProducer<String, String> producer;
+
+			Map<String, String> config = new HashMap<>();
+			config.put("bootstrap.servers", kafkaBootstrapServer);
+			config.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+			config.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");										
+
+			producer = KafkaProducer.create(vertx, config);
+
+			KafkaProducerRecord<String, String> record = KafkaProducerRecord.create("new-article-created", article.id);
+			producer.write(record, done -> {
+				System.out.println("Kafka message sent: new-article-created - " + article.id);
+			});
+		}
+		catch (Exception e) {
+			// allow to run this functionality if Kafka hasn't been set up
 		}
 	}
 
@@ -81,13 +137,15 @@ public class CoreService {
 		}
 	}
 
+	public CompletionStage<Article> getArticleReactive(String id) {
+		return dataAccessManager.getDataAccess().getArticleReactive(id);
+	}
+
 	public List<Article> getArticles(int requestedAmount) throws NoDataAccess, InvalidInputParamters {
 		if (requestedAmount < 0)
 			throw new InvalidInputParamters();
 		List<Article> articles;
 		try {
-			articles = dataAccessManager.getDataAccess().getArticles();
-
 			articles = dataAccessManager.getDataAccess().getArticles();
 
 			articles = this.sortArticles(articles);
@@ -107,7 +165,7 @@ public class CoreService {
 			future.completeExceptionally(new InvalidInputParamters());
 		}
 		else {
-			dataAccessManager.getDataAccess().getArticlesReactive().thenApplyAsync(articles -> {
+			dataAccessManager.getDataAccess().getArticlesReactive().thenApply(articles -> {
 				articles = this.sortArticles(articles);
 				articles = this.applyAmountFilter(articles, requestedAmount);
 
