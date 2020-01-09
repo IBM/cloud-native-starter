@@ -15,11 +15,8 @@ import java.util.concurrent.CompletionStage;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.InvalidArticle;
 import com.ibm.articles.business.NoDataAccess;
-import io.vertx.kafka.client.producer.KafkaProducer;
-import io.vertx.kafka.client.producer.KafkaProducerRecord;
-import java.util.HashMap;
-import java.util.Map;
 import io.vertx.core.Vertx;
+import io.vertx.axle.core.eventbus.EventBus;
 
 @ApplicationScoped
 public class CoreService {
@@ -100,30 +97,13 @@ public class CoreService {
 			});
 		}
 		return future;
-	}
+	}	
 
-	@ConfigProperty(name = "kafka.bootstrap.servers")
-	String kafkaBootstrapServer;
+	@Inject
+  	EventBus bus; 
 
-	private void sendMessageToKafka(Article article){
-		try {
-			KafkaProducer<String, String> producer;
-
-			Map<String, String> config = new HashMap<>();
-			config.put("bootstrap.servers", kafkaBootstrapServer);
-			config.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-			config.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");										
-
-			producer = KafkaProducer.create(vertx, config);
-
-			KafkaProducerRecord<String, String> record = KafkaProducerRecord.create("new-article-created", article.id);
-			producer.write(record, done -> {
-				System.out.println("Kafka message sent: new-article-created - " + article.id);
-			});
-		}
-		catch (Exception e) {
-			// allow to run this functionality if Kafka hasn't been set up
-		}
+	private void sendMessageToKafka(Article article) {
+		bus.publish("com.ibm.articles.apis.NewArticleCreated", article.id);
 	}
 
 	public Article getArticle(String id) throws NoDataAccess, ArticleDoesNotExist {
