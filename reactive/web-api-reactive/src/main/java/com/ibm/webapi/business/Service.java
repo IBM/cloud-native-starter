@@ -1,7 +1,10 @@
 package com.ibm.webapi.business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import com.ibm.webapi.data.ArticlesDataAccess;
 import com.ibm.webapi.data.AuthorsDataAccess;
@@ -10,6 +13,7 @@ import org.eclipse.microprofile.faulttolerance.Fallback;
 import javax.inject.Inject;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class Service {
@@ -116,39 +120,56 @@ public class Service {
 		return articles;
 	}
 
-	int amountReadAuthors;
 	private CompletionStage<List<Article>> addAuthorsReactive(List<Article> articles) {
 		CompletableFuture<List<Article>> future = new CompletableFuture<>();
+		List<CompletableFuture<Author>> futuresOfAuthors = new ArrayList<CompletableFuture<Author>>();
+		
+		articles.stream().forEach(article -> {
+			futuresOfAuthors.add(dataAccessAuthors.getAuthorReactive(article.authorName)
+				.thenApply(author -> {
+					if (author == null) author = new Author();
+					return author;
+				})
+				.exceptionally(throwable -> {
+					if (throwable.getCause().toString().equals(NoConnectivity.class.getName().toString())) {
+						System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to authors service");
+					}
+					return new Author();
+				})
+			);
+		});
 
-		amountReadAuthors = 0;
-		int amountArticles = articles.size();
-		for (int index = 0; index < articles.size(); index++) {
-			Article article = articles.get(index);
-			dataAccessAuthors.getAuthorReactive(article.authorName).thenApplyAsync(author -> {
-				article.authorTwitter = author.twitter;
-				article.authorBlog = author.blog;
-				return articles;
-			}).exceptionally(throwable -> {
-				if (throwable.getCause().toString().equals(NoConnectivity.class.getName().toString())) {
-					System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to authors service");
+		join(futuresOfAuthors).thenAccept(authors -> {
+			Map<String, Author> authorsMap = getAuthorsMap(authors);
+			articles.forEach(article -> {
+				Author author = authorsMap.get(article.authorName);
+				if (author == null) {
+					article.authorBlog = "";
 					article.authorTwitter = "";
-					article.authorBlog = "";  	
 				}
-				if (throwable.getCause().toString().equals(NonexistentAuthor.class.getName().toString())) {
-					article.authorTwitter = "";
-					article.authorBlog = "";  	
-				}	
-				return articles; 				
-			}).whenComplete((articlesWithAuthors, throwable) -> {
-				amountReadAuthors++;
-				if (amountReadAuthors == amountArticles) {
-					future.complete(articlesWithAuthors);
+				else {
+					article.authorBlog = author.blog;
+					article.authorTwitter = author.twitter;
 				}
 			});
-		}
+			future.complete(articles);
+		});
 		
 		return future;
 	}	
+
+	private static Map<String, Author> getAuthorsMap(List<Author> authors) {
+		Map<String, Author> output = new HashMap<String, Author>();
+		authors.forEach(author -> {
+			output.put(author.name, author);
+		});
+		return output;
+	}
+
+	private static CompletableFuture<List<Author>> join(List<CompletableFuture<Author>> listCompletableFutureAuthor) {
+		CompletableFuture<Void> joined = CompletableFuture.allOf(listCompletableFutureAuthor.toArray(CompletableFuture[]::new));
+		return joined.thenApply(nothing -> listCompletableFutureAuthor.stream().map(CompletableFuture::join).collect(Collectors.toList()));
+	}
 
 	public CompletableFuture<List<Article>> getArticlesReactive() {
 		CompletableFuture<List<Article>> future = new CompletableFuture<>();
