@@ -4,6 +4,7 @@ import com.ibm.articles.business.Article;
 import com.ibm.articles.business.ArticleDoesNotExist;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -19,9 +20,9 @@ public class InMemoryDataAccess implements DataAccess {
 
     @Inject
     Vertx vertx;
-     
+
     public InMemoryDataAccess() {
-		articles = new ConcurrentHashMap<>();
+        articles = new ConcurrentHashMap<>();
     }
 
     public Article addArticle(Article article) throws NoConnectivity {
@@ -29,48 +30,74 @@ public class InMemoryDataAccess implements DataAccess {
         return article;
     }
 
-    public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist { 	
+    public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist {
         Article article = articles.get(id);
         if (article == null) {
-        	throw new ArticleDoesNotExist();
+            throw new ArticleDoesNotExist();
         }
 
         return article;
     }
 
-    public List<Article> getArticles() throws NoConnectivity {  	        
+    public List<Article> getArticles() throws NoConnectivity {
         return new ArrayList<Article>(articles.values());
     }
 
-    public CompletionStage<List<Article>> getArticlesReactive() {
+    public CompletableFuture<List<Article>> getArticlesReactive() {
         CompletableFuture<List<Article>> future = new CompletableFuture<List<Article>>();
 
-        // simulate database access
-        vertx.setTimer(10, handler -> {
+        CompletableFuture.supplyAsync(() -> {
+            // simulate database access
+            try {
+                TimeUnit.MILLISECONDS.sleep(50);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }).thenAccept(nothing -> {
             List<Article> articlesList = new ArrayList<Article>(articles.values());
             future.complete(articlesList);
+        }).orTimeout(5000, TimeUnit.MILLISECONDS)
+        .exceptionally(throwable -> {
+            future.completeExceptionally(new NoConnectivity());
+            return null;
         });
 
         return future;
     }
 
-    public CompletionStage<Article> addArticleReactive(Article article) {
+    public CompletableFuture<Article> addArticleReactive(Article article) {
         CompletableFuture<Article> future = new CompletableFuture<Article>();
 
-        // simulate database access
-        vertx.setTimer(10, handler -> {
+        CompletableFuture.supplyAsync(() -> {
+            // simulate database access
+            try {
+                TimeUnit.MILLISECONDS.sleep(50);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }).thenAccept(nothing -> {
             articles.put(article.id, article);
             future.complete(article);
+        }).orTimeout(5000, TimeUnit.MILLISECONDS)
+        .exceptionally(throwable -> {
+            future.completeExceptionally(new NoConnectivity());
+            return null;
         });
 
         return future;
     }
 
-    public CompletionStage<Article> getArticleReactive(String id) {
+    public CompletableFuture<Article> getArticleReactive(String id) {
         CompletableFuture<Article> future = new CompletableFuture<Article>();
 
-        // simulate database access
-        vertx.setTimer(10, handler -> {
+        CompletableFuture.supplyAsync(() -> {
+            // simulate database access
+            try {
+                TimeUnit.MILLISECONDS.sleep(50);
+            } catch (InterruptedException e) {
+            }
+            return null;
+        }).thenAccept(nothing -> {
             Article article = articles.get(id);
             if (article == null) {
                 future.completeExceptionally(new ArticleDoesNotExist());
@@ -78,6 +105,10 @@ public class InMemoryDataAccess implements DataAccess {
             else {
                 future.complete(article);
             }
+        }).orTimeout(5000, TimeUnit.MILLISECONDS)
+        .exceptionally(throwable -> {
+            future.completeExceptionally(new NoConnectivity());
+            return null;
         });
 
         return future;

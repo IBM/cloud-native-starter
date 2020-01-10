@@ -45,7 +45,7 @@ public class PostgresDataAccess implements DataAccess {
         return statement;
     }
 
-    public CompletionStage<Article> addArticleReactive(Article article) {
+    public CompletableFuture<Article> addArticleReactive(Article article) {
         CompletableFuture<Article> future = new CompletableFuture<Article>();
 
         String statement = generateSQLStatementToInsertArticle(article);
@@ -58,7 +58,7 @@ public class PostgresDataAccess implements DataAccess {
         return future;
     }
 
-    public CompletionStage<Article> getArticleReactive(String id) {
+    public CompletableFuture<Article> getArticleReactive(String id) {
         CompletableFuture<Article> future = new CompletableFuture<Article>();
 
         String statement = "SELECT id, title, url, author, creationdate FROM articles WHERE id = " + id;
@@ -76,7 +76,7 @@ public class PostgresDataAccess implements DataAccess {
         return future;
     }
 
-    public CompletionStage<List<Article>> getArticlesReactive() {
+    public CompletableFuture<List<Article>> getArticlesReactive() {
         CompletableFuture<List<Article>> future = new CompletableFuture<List<Article>>();
 
         client.query("SELECT id, title, url, author, creationdate FROM articles ORDER BY id ASC")

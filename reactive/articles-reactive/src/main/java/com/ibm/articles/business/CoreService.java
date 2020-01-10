@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.InvalidArticle;
 import com.ibm.articles.business.NoDataAccess;
@@ -75,7 +76,7 @@ public class CoreService {
 		}
 	}
 
-	public CompletionStage<Article> addArticleReactive(String title, String url, String author) {
+	public CompletableFuture<Article> addArticleReactive(String title, String url, String author) {
 		CompletableFuture<Article> future = new CompletableFuture<>();
 
 		if (title == null) {
@@ -109,7 +110,7 @@ public class CoreService {
 		}
 	}
 
-	public CompletionStage<Article> getArticleReactive(String id) {
+	public CompletableFuture<Article> getArticleReactive(String id) {
 		return dataAccessManager.getDataAccess().getArticleReactive(id);
 	}
 
@@ -130,14 +131,15 @@ public class CoreService {
 		}
 	}
 
-	public CompletionStage<List<Article>> getArticlesReactive(int requestedAmount) {
+	public CompletableFuture<List<Article>> getArticlesReactive(int requestedAmount) {
 		CompletableFuture<List<Article>> future = new CompletableFuture<>();
-
+		
 		if (requestedAmount < 0) {
 			future.completeExceptionally(new InvalidInputParamters());
 		}
 		else {
-			dataAccessManager.getDataAccess().getArticlesReactive().thenApply(articles -> {
+			dataAccessManager.getDataAccess().getArticlesReactive()
+			.thenApply(articles -> {
 				articles = this.sortArticles(articles);
 				articles = this.applyAmountFilter(articles, requestedAmount);
 
