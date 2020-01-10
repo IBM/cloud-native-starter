@@ -15,7 +15,7 @@ public interface ArticlesService {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public List getArticlesFromService();
+  public List<CoreArticle> getArticlesFromService();
   
   @POST
   @Consumes(MediaType.APPLICATION_JSON)

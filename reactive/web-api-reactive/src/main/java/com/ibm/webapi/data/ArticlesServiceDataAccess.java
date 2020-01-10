@@ -7,7 +7,6 @@ import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -64,16 +63,12 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 
 	public List<CoreArticle> getArticles(int amount) throws NoConnectivity {		
 		try {
-			URL apiUrl = new URL("http://" + ARTICLES_DNS + ":" + ARTICLES_PORT + "/v1/articles?amount=" + amount);
+			URL apiUrl = new URL("http://" + ARTICLES_DNS + ":" + ARTICLES_PORT + "/v2/articles?amount=" + amount);
 			System.out.println(apiUrl);
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
 					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
 			
-			// not sure why the conversion is not done automatically
-			// as workaround the output is converted manually
-			List output = customRestClient.getArticlesFromService();
-			return convertToArticleList(output);
-	
+			return customRestClient.getArticlesFromService();	
 		} catch (MalformedURLException e) {
 			throw new NoConnectivity(e);
 		} catch (Exception e) {
@@ -142,20 +137,5 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 		} catch (Exception e) {
 			throw new NoConnectivity(e);
 		}
-	}
-	
-	private CoreArticle convertToArticle(HashMap object) {
-		CoreArticle article = new CoreArticle();
-		article.id = object.get("id").toString();
-		article.title = object.get("title").toString();
-		article.author = object.get("author").toString();
-		article.url = object.get("url").toString();
-		return article;
-	}	
-	
-	private List<CoreArticle> convertToArticleList(List<HashMap> objects) {
-		ArrayList<CoreArticle> output = new ArrayList<CoreArticle>();
-		objects.stream().forEach(object -> output.add(convertToArticle(object)));
-		return output;
 	}
 }
