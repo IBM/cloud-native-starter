@@ -79,7 +79,7 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 		}
 	}
 
-	public CompletionStage<List<CoreArticle>> getArticlesReactive(int amount) {		
+	public CompletableFuture<List<CoreArticle>> getArticlesReactive(int amount) {		
 		CompletableFuture<List<CoreArticle>> future = new CompletableFuture<>();
 
 		this.client.get("/v2/articles?amount=" + amount)

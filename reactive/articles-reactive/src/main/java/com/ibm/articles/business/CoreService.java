@@ -11,8 +11,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.TimeUnit;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.InvalidArticle;
 import com.ibm.articles.business.NoDataAccess;

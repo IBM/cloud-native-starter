@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import io.vertx.axle.core.Vertx;
 import javax.inject.Inject;
 
@@ -17,6 +16,9 @@ import javax.inject.Inject;
 public class InMemoryDataAccess implements DataAccess {
 
     private Map<String, Article> articles;
+
+    private static int DELAY = 50;
+    private static int MAXIMAL_DURATION = 5000;
 
     @Inject
     Vertx vertx;
@@ -26,11 +28,23 @@ public class InMemoryDataAccess implements DataAccess {
     }
 
     public Article addArticle(Article article) throws NoConnectivity {
+        // simulate database access
+        try {
+            TimeUnit.MILLISECONDS.sleep(DELAY);
+        } catch (InterruptedException e) {
+        }
+
         articles.put(article.id, article);
         return article;
     }
 
     public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist {
+        // simulate database access
+        try {
+            TimeUnit.MILLISECONDS.sleep(DELAY);
+        } catch (InterruptedException e) {
+        }
+
         Article article = articles.get(id);
         if (article == null) {
             throw new ArticleDoesNotExist();
@@ -40,6 +54,12 @@ public class InMemoryDataAccess implements DataAccess {
     }
 
     public List<Article> getArticles() throws NoConnectivity {
+        // simulate database access
+        try {
+            TimeUnit.MILLISECONDS.sleep(DELAY);
+        } catch (InterruptedException e) {
+        }
+
         return new ArrayList<Article>(articles.values());
     }
 
@@ -49,14 +69,14 @@ public class InMemoryDataAccess implements DataAccess {
         CompletableFuture.supplyAsync(() -> {
             // simulate database access
             try {
-                TimeUnit.MILLISECONDS.sleep(50);
+                TimeUnit.MILLISECONDS.sleep(DELAY);
             } catch (InterruptedException e) {
             }
             return null;
         }).thenAccept(nothing -> {
             List<Article> articlesList = new ArrayList<Article>(articles.values());
             future.complete(articlesList);
-        }).orTimeout(5000, TimeUnit.MILLISECONDS)
+        }).orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
         .exceptionally(throwable -> {
             future.completeExceptionally(new NoConnectivity());
             return null;
@@ -71,14 +91,14 @@ public class InMemoryDataAccess implements DataAccess {
         CompletableFuture.supplyAsync(() -> {
             // simulate database access
             try {
-                TimeUnit.MILLISECONDS.sleep(50);
+                TimeUnit.MILLISECONDS.sleep(DELAY);
             } catch (InterruptedException e) {
             }
             return null;
         }).thenAccept(nothing -> {
             articles.put(article.id, article);
             future.complete(article);
-        }).orTimeout(5000, TimeUnit.MILLISECONDS)
+        }).orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
         .exceptionally(throwable -> {
             future.completeExceptionally(new NoConnectivity());
             return null;
@@ -93,7 +113,7 @@ public class InMemoryDataAccess implements DataAccess {
         CompletableFuture.supplyAsync(() -> {
             // simulate database access
             try {
-                TimeUnit.MILLISECONDS.sleep(50);
+                TimeUnit.MILLISECONDS.sleep(DELAY);
             } catch (InterruptedException e) {
             }
             return null;
@@ -105,7 +125,7 @@ public class InMemoryDataAccess implements DataAccess {
             else {
                 future.complete(article);
             }
-        }).orTimeout(5000, TimeUnit.MILLISECONDS)
+        }).orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
         .exceptionally(throwable -> {
             future.completeExceptionally(new NoConnectivity());
             return null;

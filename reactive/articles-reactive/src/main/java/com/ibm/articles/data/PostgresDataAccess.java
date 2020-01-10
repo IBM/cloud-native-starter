@@ -4,17 +4,18 @@ import com.ibm.articles.business.Article;
 import com.ibm.articles.business.ArticleDoesNotExist;
 import io.vertx.axle.sqlclient.Row;
 import io.vertx.axle.sqlclient.RowSet;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 @ApplicationScoped
 public class PostgresDataAccess implements DataAccess {
+
+    private static int MAXIMAL_DURATION = 5000;
 
     @Inject
     io.vertx.axle.pgclient.PgPool client;
@@ -50,10 +51,15 @@ public class PostgresDataAccess implements DataAccess {
 
         String statement = generateSQLStatementToInsertArticle(article);
         client.preparedQuery(statement)
+            .toCompletableFuture() 
+            .orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
             .thenAccept(pgRowSet -> {
                 article.id = pgRowSet.iterator().next().getLong("id").toString();
                 future.complete(article);
-            });
+            }).exceptionally(throwable -> {
+                future.completeExceptionally(new NoConnectivity());
+                return null;
+            }); 
 
         return future;
     }
@@ -63,6 +69,8 @@ public class PostgresDataAccess implements DataAccess {
 
         String statement = "SELECT id, title, url, author, creationdate FROM articles WHERE id = " + id;
         client.preparedQuery(statement)
+            .toCompletableFuture() 
+            .orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
             .thenApply(RowSet::iterator) 
             .thenAccept(iterator -> { 
                 if (iterator.hasNext()) {
@@ -72,7 +80,10 @@ public class PostgresDataAccess implements DataAccess {
                 else {
                     future.completeExceptionally(new ArticleDoesNotExist());
                 }
-            });
+            }).exceptionally(throwable -> {
+                future.completeExceptionally(new NoConnectivity());
+                return null;
+            }); 
         return future;
     }
 
@@ -80,13 +91,18 @@ public class PostgresDataAccess implements DataAccess {
         CompletableFuture<List<Article>> future = new CompletableFuture<List<Article>>();
 
         client.query("SELECT id, title, url, author, creationdate FROM articles ORDER BY id ASC")
+            .toCompletableFuture() 
+            .orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
             .thenAccept(pgRowSet -> {
                 List<Article> list = new ArrayList<>(pgRowSet.size());
                 for (Row row : pgRowSet) {
                     list.add(from(row));
                 }
                 future.complete(list);
-            });
+            }).exceptionally(throwable -> {
+                future.completeExceptionally(new NoConnectivity());
+                return null;
+            }); 
 
         return future;
     }
