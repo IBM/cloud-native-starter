@@ -39,11 +39,6 @@ spec:
             configMapKeyRef:
               name: articles-config
               key: samplescreation
-        - name: inmemory
-          valueFrom:
-            configMapKeyRef:
-              name: articles-config
-              key: inmemory
         livenessProbe:
           exec:
             command: ["sh", "-c", "curl -s http://localhost:8080/health/live"]
@@ -62,5 +57,4 @@ metadata:
     app: articles  
 data:
   samplescreation: CREATE
-  inmemory: USE_IN_MEMORY_STORE
 ---

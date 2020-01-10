@@ -17,8 +17,11 @@ function setup() {
   cd ${root_folder}/articles-reactive/src/main/resources
   sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties.temp
 
-  sed "s/POSTGRES_URL/database-articles.my-postgresql-operator-dev4devs-com:5432/g" application.properties.temp > application.properties
+  sed "s/IN_MEMORY_STORE/yes/g" application.properties.temp > application.properties.temp2
+
+  sed "s/POSTGRES_URL/database-articles.my-postgresql-operator-dev4devs-com:5432/g" application.properties.temp2 > application.properties
   rm application.properties.temp
+  rm application.properties.temp2
 
   cd ${root_folder}/articles-reactive
   eval $(minikube docker-env) 

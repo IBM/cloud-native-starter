@@ -22,28 +22,20 @@ import io.vertx.axle.core.eventbus.EventBus;
 public class CoreService {
 
 	private static final String CREATE_SAMPLES = "CREATE";
-	private static final String USE_IN_MEMORY_STORE = "USE_IN_MEMORY_STORE";
+
+	@Inject
+	@ConfigProperty(name = "samplescreation", defaultValue = "CREATE")
+	private String samplescreation;
 
 	@Inject
 	Vertx vertx;
-	
-	@Inject
-	@ConfigProperty(name = "inmemory", defaultValue = USE_IN_MEMORY_STORE)
-	private String inmemory;
-
-	@Inject
-	@ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
-	private String samplescreation;
 
 	@Inject
 	private DataAccessManager dataAccessManager;
 
 	@PostConstruct
 	private void addArticles() {
-		//if (inmemory.equalsIgnoreCase(USE_IN_MEMORY_STORE)) {
-			//if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
-				addSampleArticles();
-		//}
+		if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES)) addSampleArticles();
 	}
 
 	private Article createArticle(String title, String url, String author) {
@@ -191,39 +183,36 @@ public class CoreService {
 	private void addSampleArticles() {
 		System.out.println("com.ibm.articles.business.Service.addSampleArticles");
 		try {
-			this.addArticle("Blue Cloud Mirror — (Don’t) Open The Doors!",
+			this.addArticleReactive("Blue Cloud Mirror — (Don’t) Open The Doors!",
 					"https://haralduebele.blog/2019/02/17/blue-cloud-mirror-dont-open-the-doors/", "Harald Uebele");
 			Thread.sleep(5);
-			this.addArticle("Recent Java Updates from IBM", "http://heidloff.net/article/recent-java-updates-from-ibm",
+			this.addArticleReactive("Recent Java Updates from IBM", "http://heidloff.net/article/recent-java-updates-from-ibm",
 					"Niklas Heidloff");
 			Thread.sleep(5);
-			this.addArticle("Developing and debugging Microservices with Java",
+			this.addArticleReactive("Developing and debugging Microservices with Java",
 					"http://heidloff.net/article/debugging-microservices-java-kubernetes", "Niklas Heidloff");
 			Thread.sleep(5);
-			this.addArticle("IBM announced Managed Istio and Managed Knative",
+			this.addArticleReactive("IBM announced Managed Istio and Managed Knative",
 					"http://heidloff.net/article/managed-istio-managed-knative", "Niklas Heidloff");
 			Thread.sleep(5);
-			this.addArticle("Three Minutes Demo of Blue Cloud Mirror",
+			this.addArticleReactive("Three Minutes Demo of Blue Cloud Mirror",
 					"http://heidloff.net/article/blue-cloud-mirror-demo-video", "Niklas Heidloff");
 			Thread.sleep(5);
-			this.addArticle("Blue Cloud Mirror Architecture Diagrams",
+			this.addArticleReactive("Blue Cloud Mirror Architecture Diagrams",
 					"http://heidloff.net/article/blue-cloud-mirror-architecture-diagrams", "Niklas Heidloff");
 			Thread.sleep(5);
-			this.addArticle("Three awesome TensorFlow.js Models for Visual Recognition",
+			this.addArticleReactive("Three awesome TensorFlow.js Models for Visual Recognition",
 					"http://heidloff.net/article/tensorflowjs-visual-recognition", "Niklas Heidloff");
 			Thread.sleep(5);
-			this.addArticle("Install Istio and Kiali on IBM Cloud or Minikube",
+			this.addArticleReactive("Install Istio and Kiali on IBM Cloud or Minikube",
 					"https://haralduebele.blog/2019/02/22/install-istio-and-kiali-on-ibm-cloud-or-minikube/", "Harald Uebele");
 			Thread.sleep(5);
-			this.addArticle("Dockerizing Java MicroProfile Applications",
+			this.addArticleReactive("Dockerizing Java MicroProfile Applications",
 					"http://heidloff.net/article/dockerizing-container-java-microprofile", "Niklas Heidloff");
 			Thread.sleep(5);
-			this.addArticle("Debugging Microservices running in Kubernetes",
-					"http://heidloff.net/article/debugging-microservices-kubernetes", "Niklas Heidloff");
-			System.out.println("com.ibm.articles.business.Service.addSampleArticles: Sample articles have been created");
-		} catch (NoDataAccess | InvalidArticle | InterruptedException e) {
-			System.out.println("com.ibm.articles.business.Service.addSampleArticles: Sample articles have NOT been created");
-			e.printStackTrace();
+			this.addArticleReactive("Debugging Microservices running in Kubernetes",
+					"http://heidloff.net/article/debugging-microservices-kubernetes", "Niklas Heidloff");			
+		} catch (InterruptedException e) {			
 		}
 	}
 }

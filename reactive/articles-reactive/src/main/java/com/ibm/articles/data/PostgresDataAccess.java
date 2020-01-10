@@ -67,13 +67,14 @@ public class PostgresDataAccess implements DataAccess {
     public CompletionStage<List<Article>> getArticlesReactive() {
         CompletableFuture<List<Article>> future = new CompletableFuture<List<Article>>();
 
-        client.query("SELECT id, title, url, author, creationdate FROM articles ORDER BY id ASC").thenAccept(pgRowSet -> {
-            List<Article> list = new ArrayList<>(pgRowSet.size());
-            for (Row row : pgRowSet) {
-                list.add(from(row));
-            }
-            future.complete(list);
-        });
+        client.query("SELECT id, title, url, author, creationdate FROM articles ORDER BY id ASC")
+            .thenAccept(pgRowSet -> {
+                List<Article> list = new ArrayList<>(pgRowSet.size());
+                for (Row row : pgRowSet) {
+                    list.add(from(row));
+                }
+                future.complete(list);
+            });
 
         return future;
     }

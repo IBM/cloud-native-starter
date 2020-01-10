@@ -3,7 +3,6 @@ package com.ibm.articles.apis;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import com.ibm.articles.business.Article;
 import io.vertx.kafka.client.producer.KafkaProducer;
 import io.vertx.kafka.client.producer.KafkaProducerRecord;
 import java.util.HashMap;
@@ -19,12 +18,6 @@ public class NewArticleCreated {
 	
 	@ConfigProperty(name = "kafka.bootstrap.servers")
 	String kafkaBootstrapServer;
-
-	//@ConsumeEvent
-	//public void test(String kjhg) {
-	//System.out.println(kjhg);
-	//}
-
 
 	@ConsumeEvent
 	public void sendMessageToKafka(String articleId) {

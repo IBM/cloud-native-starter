@@ -7,10 +7,10 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class DataAccessManager {
 
-    private static final String USE_IN_MEMORY_STORE = "USE_IN_MEMORY_STORE";
+    private static final String USE_IN_MEMORY_STORE = "yes";
 
     @Inject
-	@ConfigProperty(name = "inmemory", defaultValue = USE_IN_MEMORY_STORE)
+	@ConfigProperty(name = "custom.in-memory-store", defaultValue = "yes")
 	private String inmemory;
 
     @Inject
@@ -21,12 +21,10 @@ public class DataAccessManager {
 	
 	public DataAccess getDataAccess() { 
         if (inmemory.equalsIgnoreCase(USE_IN_MEMORY_STORE)) {
-            return inMemoryDataAccess;            
-            //return postgresDataAccess;
+            return inMemoryDataAccess;                        
         }
         else {
-            return inMemoryDataAccess;            
-            //return postgresDataAccess;
+            return postgresDataAccess;
         }
     } 
 }

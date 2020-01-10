@@ -70,7 +70,7 @@ $ sh scripts/deploy-postgres-admin.sh
 
 ```
 $ cd ${ROOT_FOLDER}
-$ sh scripts/deploy-articles-reactive.sh
+$ sh scripts/deploy-articles-reactive-postgres.sh
 $ sh scripts/deploy-web-api-reactive.sh
 $ sh scripts/deploy-web-app-reactive.sh
 $ sh scripts/show-urls.sh
@@ -87,10 +87,10 @@ In order to test resiliency, try different combinations of the appliation with a
 ```
 $ cd ${ROOT_FOLDER}
 $ sh scripts/deploy-web-api-reactive.sh
-$ sh scripts/deploy-articles-reactive.sh
+$ sh scripts/deploy-articles-reactive-postgres.sh
 $ sh scripts/deploy-authors.sh
 $ sh scripts/delete-authors.sh
-$ sh scripts/delete-articles-reactive.sh
+$ sh scripts/delete-articles-reactive-postgres.sh
 ```
 
 **Optional: Run the sample locally**
@@ -108,7 +108,7 @@ Here is an example how to run the web-api service locally:
 
 ```
 $ cd ${ROOT_FOLDER}
-$ sh scripts/deploy-articles-reactive.sh
+$ sh scripts/deploy-articles-reactive-postgres.sh
 $ sh scripts/run-locally-web-api-reactive.sh
 ```
 

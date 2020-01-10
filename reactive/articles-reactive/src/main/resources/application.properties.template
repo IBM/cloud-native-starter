@@ -6,3 +6,5 @@ kafka.bootstrap.servers=KAFKA_BOOTSTRAP_SERVERS
 quarkus.datasource.url=vertx-reactive:postgresql://POSTGRES_URL/postgres
 quarkus.datasource.username=postgres
 quarkus.datasource.password=postgres
+
+custom.in-memory-store=IN_MEMORY_STORE
