@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import io.vertx.axle.core.Vertx;
-import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import javax.enterprise.context.ApplicationScoped;
 import io.vertx.axle.ext.web.client.WebClient;
 import io.vertx.core.json.JsonObject;
@@ -25,6 +25,8 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 	
 	public ArticlesServiceDataAccess() {
 	}	
+
+	private static int MAXIMAL_DURATION = 5000;
 
 	static String ARTICLES_DNS = "articles-reactive";
 	static String ARTICLES_PORT = "8080";
@@ -84,14 +86,17 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 
 		this.client.get("/v2/articles?amount=" + amount)
 			.send()
-			.thenAcceptAsync(resp -> {
+			.toCompletableFuture() 
+			.orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
+			.thenAccept(resp -> {
 				if (resp.statusCode() == 200) {
 					List<CoreArticle> articles = this.convertJsonToCoreArticleList(resp.bodyAsJsonArray());
 					future.complete(articles);
 				} else {
 					future.completeExceptionally(new NoConnectivity());
 				}
-			}).exceptionally(throwable -> {
+			})
+			.exceptionally(throwable -> {
 				future.completeExceptionally(new NoConnectivity());
 				return null;
 			});

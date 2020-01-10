@@ -3,7 +3,7 @@ package com.ibm.webapi.data;
 import com.ibm.webapi.business.Author;
 import com.ibm.webapi.business.NonexistentAuthor;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,6 +21,8 @@ public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 	
 	public AuthorsServiceDataAccess() {
 	}	
+
+	private static int MAXIMAL_DURATION = 5000;
 
 	static String AUTHORS_DNS = "authors";
 	static String AUTHORS_PORT = "3000";
@@ -77,7 +79,7 @@ public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 		}
 	}
 
-	public CompletionStage<Author> getAuthorReactive(String name) {
+	public CompletableFuture<Author> getAuthorReactive(String name) {
 		CompletableFuture<Author> future = new CompletableFuture<>();
 		
 		try {
@@ -86,7 +88,9 @@ public class AuthorsServiceDataAccess implements AuthorsDataAccess {
 		catch (Exception e) {}
 		this.client.get("/api/v1/getauthor?name=" + name)
 			.send()
-			.thenAcceptAsync(resp -> {
+			.toCompletableFuture() 
+			.orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
+			.thenAccept(resp -> {
 				if (resp.statusCode() == 200) {
 					Author author = this.convertJsonToAuthor(resp.bodyAsJsonObject());
 					future.complete(author);

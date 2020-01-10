@@ -150,10 +150,10 @@ public class Service {
 		return future;
 	}	
 
-	public CompletionStage<List<Article>> getArticlesReactive() {
+	public CompletableFuture<List<Article>> getArticlesReactive() {
 		CompletableFuture<List<Article>> future = new CompletableFuture<>();
 		
-		dataAccessArticles.getArticlesReactive(requestedAmount).thenApplyAsync(coreArticles -> {
+		dataAccessArticles.getArticlesReactive(requestedAmount).thenApply(coreArticles -> {
 			List<Article> articles = this.createArticleList(coreArticles);			
 			return articles;
 		}).thenCompose(articles -> {					

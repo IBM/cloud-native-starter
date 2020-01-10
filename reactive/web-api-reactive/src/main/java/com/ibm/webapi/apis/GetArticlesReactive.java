@@ -41,12 +41,12 @@ public class GetArticlesReactive {
 		System.out.println("com.ibm.web-api.apis.GetArticlesReactive.getArticlesReactive");
 		CompletableFuture<Response> future = new CompletableFuture<>();
 
-		service.getArticlesReactive().thenApplyAsync(articles -> {
+		service.getArticlesReactive().thenApply(articles -> {
             JsonArray jsonArray = articles.stream()
                 .map(article -> articleAsJson.createJsonArticle(article))
                 .collect(JsonCollectors.toJsonArray());            
             return jsonArray;
-        }).thenApplyAsync(jsonArray -> {            
+        }).thenApply(jsonArray -> {            
             return Response.ok(jsonArray).build();
         }).exceptionally(throwable -> {  
 			if (throwable.getCause().toString().equals(NoDataAccess.class.getName().toString())) {

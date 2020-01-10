@@ -21,10 +21,12 @@ At this point the project demonstrates this functionality:
 
 * Sending events from a microservice to a web application via Server Sent Events
 * Sending in-memory messages via MicroProfile
+* Sending in-memory messages via Vertx event bus
 * Sending and receiving Kafka messages via MicroProfile
 * Sending Kafka messages via Kafka API
 * Reactive REST endpoints via CompletionStage
 * Exception handling in chained reactive invocations
+* Timeouts via CompletableFuture
 * Resiliency of reactive microservices
 * Reactive REST invocations via Vertx Axle Web Client
 * Reactive REST invocations via MicroProfile REST Client
