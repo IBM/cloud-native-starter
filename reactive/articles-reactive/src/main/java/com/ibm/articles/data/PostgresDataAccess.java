@@ -3,6 +3,8 @@ package com.ibm.articles.data;
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.ArticleDoesNotExist;
 import io.vertx.axle.sqlclient.Row;
+import io.vertx.axle.sqlclient.RowSet;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -59,8 +61,18 @@ public class PostgresDataAccess implements DataAccess {
     public CompletionStage<Article> getArticleReactive(String id) {
         CompletableFuture<Article> future = new CompletableFuture<Article>();
 
-       // TBD
-
+        String statement = "SELECT id, title, url, author, creationdate FROM articles WHERE id = " + id;
+        client.preparedQuery(statement)
+            .thenApply(RowSet::iterator) 
+            .thenAccept(iterator -> { 
+                if (iterator.hasNext()) {
+                    Article article = from(iterator.next());
+                    future.complete(article);
+                }
+                else {
+                    future.completeExceptionally(new ArticleDoesNotExist());
+                }
+            });
         return future;
     }
 
