@@ -11,7 +11,9 @@ function _out() {
 function setup() {
 
   cd ${root_folder}/../authors-nodejs
+  cp deployment.yaml.template deployment.yaml
   kubectl delete -f deployment/deployment.yaml --ignore-not-found
+  rm deployment.yaml
 }
 
 setup
