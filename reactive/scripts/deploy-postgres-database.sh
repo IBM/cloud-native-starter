@@ -19,7 +19,7 @@ function setup() {
   kubectl patch svc database-articles -n my-postgresql-operator-dev4devs-com -p '{"spec": {"ports": [{"port": 5432,"targetPort": 5432,"name": "database-articles", "protocol": "TCP"}],"type": "NodePort"}}'
   
   _out Done deploying postgres cluster
-  _out Wait until the pod has been started: \"kubectl get pods -n my-postgresql-operator-dev4devs-com --watch | grep database-articles\"
+  _out Wait until the pod has been started: \"kubectl get pods -n my-postgresql-operator-dev4devs-com --watch \| grep database-articles\"
 }
 
 setup

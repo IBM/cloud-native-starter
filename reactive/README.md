@@ -92,7 +92,7 @@ $ sh scripts/deploy-web-api-reactive.sh
 $ sh scripts/deploy-articles-reactive-postgres.sh
 $ sh scripts/deploy-authors.sh
 $ sh scripts/delete-authors.sh
-$ sh scripts/delete-articles-reactive-postgres.sh
+$ sh scripts/delete-articles-reactive.sh
 ```
 
 **Optional: Run the sample locally**

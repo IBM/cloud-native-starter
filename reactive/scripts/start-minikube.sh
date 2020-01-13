@@ -1,1 +1,1 @@
-minikube start --vm-driver=hyperkit --cpus 4 --memory 8192
+minikube start --cpus 4 --memory 8192
