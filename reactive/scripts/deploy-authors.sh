@@ -16,7 +16,9 @@ function setup() {
   docker build -f Dockerfile -t  authors:1 .
 
   cd ${root_folder}/../authors-nodejs/deployment
+  cp deployment.yaml.template deployment.yaml
   kubectl apply -f deployment.yaml
+  rm deployment.yaml
     
   _out Done deploying authors
   _out Wait until the pod has been started: \"kubectl get pod --watch | grep authors\"
