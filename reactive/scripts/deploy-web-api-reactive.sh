@@ -29,7 +29,7 @@ function setup() {
   _out Done deploying web-api-reactive
   _out Stream endpoint: http://${minikubeip}:${nodeport}/v1/server-sent-events
   _out API Explorer: http://${minikubeip}:${nodeport}/explorer
-  _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v1/articles\" -H \"accept: application/json\"
+  _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v2/articles\" -H \"accept: application/json\"
   _out Wait until the pod has been started: "kubectl get pod --watch | grep web-api-reactive"
 }
 

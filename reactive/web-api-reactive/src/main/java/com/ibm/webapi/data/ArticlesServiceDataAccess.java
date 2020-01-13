@@ -4,6 +4,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import com.ibm.webapi.business.CoreArticle;
 import com.ibm.webapi.business.InvalidArticle;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -64,7 +66,6 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 	public List<CoreArticle> getArticles(int amount) throws NoConnectivity {		
 		try {
 			URL apiUrl = new URL("http://" + ARTICLES_DNS + ":" + ARTICLES_PORT + "/v2/articles?amount=" + amount);
-			System.out.println(apiUrl);
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
 					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
 			
@@ -78,23 +79,26 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 
 	public CompletableFuture<List<CoreArticle>> getArticlesReactive(int amount) {		
 		CompletableFuture<List<CoreArticle>> future = new CompletableFuture<>();
+	
+		URL apiUrl;
+		try {
+			apiUrl = new URL("http://" + ARTICLES_DNS + ":" + ARTICLES_PORT + "/v2/articles?amount=" + amount);
+			ArticlesServiceReactive articlesServiceReative = RestClientBuilder.newBuilder().baseUrl(apiUrl)
+					.register(ExceptionMapperArticles.class).build(ArticlesServiceReactive.class);
 
-		this.client.get("/v2/articles?amount=" + amount)
-			.send()
-			.toCompletableFuture() 
-			.orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
-			.thenAccept(resp -> {
-				if (resp.statusCode() == 200) {
-					List<CoreArticle> articles = this.convertJsonToCoreArticleList(resp.bodyAsJsonArray());
+			articlesServiceReative.getArticlesFromService()
+				.toCompletableFuture()
+				.orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)	
+				.thenAccept((articles) -> {
 					future.complete(articles);
-				} else {
+				})
+				.exceptionally((throwable) -> {
 					future.completeExceptionally(new NoConnectivity());
-				}
-			})
-			.exceptionally(throwable -> {
-				future.completeExceptionally(new NoConnectivity());
-				return null;
-			});
+					return null;
+				});
+		} catch (MalformedURLException e) {
+			future.completeExceptionally(new NoConnectivity());
+		}
 
 		return future;
 	}
