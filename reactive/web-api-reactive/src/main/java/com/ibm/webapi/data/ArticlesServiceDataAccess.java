@@ -99,6 +99,29 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 		return future;
 	}
 
+	public CompletableFuture<List<CoreArticle>> getArticlesReactiveVertxWebClient(int amount) {		
+		CompletableFuture<List<CoreArticle>> future = new CompletableFuture<>();
+
+		this.client.get("/v2/articles?amount=" + amount)
+			.send()
+			.toCompletableFuture() 
+			.orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
+			.thenAccept(resp -> {
+				if (resp.statusCode() == 200) {
+					List<CoreArticle> articles = this.convertJsonToCoreArticleList(resp.bodyAsJsonArray());
+					future.complete(articles);
+				} else {
+					future.completeExceptionally(new NoConnectivity());
+				}
+			})
+			.exceptionally(throwable -> {
+				future.completeExceptionally(new NoConnectivity());
+				return null;
+			});
+
+		return future;
+	}
+
 	private CoreArticle convertJsonToCoreArticle(io.vertx.core.json.JsonObject jsonObject) {
 		CoreArticle article = new CoreArticle();
 		article.id = jsonObject.getString("id", "");
