@@ -9,7 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import org.jboss.resteasy.annotations.SseElementType;
 
-@Path("/v1")
+@Path("/v2")
 public class NewArticlesStream { 
 
     @Inject

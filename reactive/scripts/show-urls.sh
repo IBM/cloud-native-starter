@@ -64,14 +64,14 @@ function setup() {
   if [ -z "$nodeport" ]; then
     _out web-api-reactive is not available. Run the command: \"sh scripts/deploy-web-api-reactive.sh\"
   else 
-    _out Stream endpoint: http://${minikubeip}:${nodeport}/v1/server-sent-events
+    _out Stream endpoint: http://${minikubeip}:${nodeport}/v2/server-sent-events
     _out API explorer: http://${minikubeip}:${nodeport}/explorer
-    _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v1/articles\" -H \"accept: application/json\"   
+    _out Sample API - Read articles: curl -X GET \"http://${minikubeip}:${nodeport}/v2/articles\" -H \"accept: application/json\"   
   fi
   _out Endpoints when running locally:
-  _out -- Stream endpoint: http://localhost:8080/v1/server-sent-events
+  _out -- Stream endpoint: http://localhost:8080/v2/server-sent-events
   _out -- API explorer: http://localhost:8080/explorer
-  _out -- Sample API - Read articles: curl -X GET \"http://localhost:8080/v1/articles\" -H \"accept: application/json\"
+  _out -- Sample API - Read articles: curl -X GET \"http://localhost:8080/v2/articles\" -H \"accept: application/json\"
   _out ------------------------------------------------------------------------------------
 
   _out Service: authors
