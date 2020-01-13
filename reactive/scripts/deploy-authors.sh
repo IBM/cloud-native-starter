@@ -16,7 +16,7 @@ function setup() {
   docker build -f Dockerfile -t  authors:1 .
 
   cd ${root_folder}/../authors-nodejs/deployment
-  cp deployment.yaml.template deployment.yaml
+  sed -e "s|<URL>|notused|g" -e "s|<DB>|local|g" deployment.yaml.template > deployment.yaml
   kubectl delete -f deployment.yaml --ignore-not-found
   kubectl apply -f deployment.yaml
   rm deployment.yaml
