@@ -9,15 +9,23 @@ function _out() {
 }
 
 function setup() {
-  _out Generation load
+  _out Generating load
+
+  minikubeip=$(minikube ip)
+  nodeport=$(kubectl get svc web-api-reactive --output 'jsonpath={.spec.ports[*].nodePort}')
+
+  start=`date +%s`
+  version=2
 
   for i in {1..5000}
   do
-    echo "Times /v2/articles invoked: $i"
-    curl -X GET "http://192.168.64.37:32645/v1/articles" -H "accept: application/json"
+    echo "Times /v${version}/articles invoked: $i"
+    curl --silent --output /dev/null -X GET "http://${minikubeip}:${nodeport}/v${version}/articles" -H "accept: application/json"
   done
   
-  
+  end=`date +%s`
+  duration=$((end-start))
+  _out $duration
   
 }
 
