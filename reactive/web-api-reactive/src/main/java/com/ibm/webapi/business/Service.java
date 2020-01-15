@@ -10,6 +10,8 @@ import com.ibm.webapi.data.ArticlesDataAccess;
 import com.ibm.webapi.data.AuthorsDataAccess;
 import com.ibm.webapi.data.NoConnectivity;
 import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+
 import javax.inject.Inject;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -66,6 +68,7 @@ public class Service {
 		return lastReadArticles;
 	}
 
+	@Timeout(20000) // set high for load tests
 	@Fallback(fallbackMethod = "fallbackNoArticlesService")
 	public List<Article> getArticles() throws NoDataAccess {
 		List<Article> articles = new ArrayList<Article>();	
@@ -102,8 +105,7 @@ public class Service {
 	}
 
 	private List<Article> addAuthors(List<Article> articles) {
-		for (int index = 0; index < articles.size(); index++) {
-			Article article = articles.get(index);
+		articles.parallelStream().forEach(article -> {
 			try {
 				Author author = dataAccessAuthors.getAuthor(article.authorName);
 				article.authorBlog = author.blog;
@@ -116,7 +118,8 @@ public class Service {
 				article.authorBlog = "";
 				article.authorTwitter = "";
 			}
-		}
+		});
+		
 		return articles;
 	}
 
