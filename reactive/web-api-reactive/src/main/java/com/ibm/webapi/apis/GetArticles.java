@@ -43,6 +43,8 @@ public class GetArticles {
 	@Operation(summary = "Get most recently added articles", description = "Get most recently added articles")
 	public Response getArticles() {
 		System.out.println("com.ibm.web-api.apis.GetArticles.getArticles");
+		Runtime rt = Runtime.getRuntime();
+		System.out.println(String.format("Memory - Used: %s, Total: %s" ,(rt.totalMemory() - rt.freeMemory()) / 1000000, rt.totalMemory() / 1000000));		System.out.println(String.format("Memory - Used: %s, Total: %s" ,rt.totalMemory() - rt.freeMemory(), rt.totalMemory()));
 
 		JsonArray jsonArray;
 		try {

@@ -40,6 +40,8 @@ public class GetArticlesReactive {
 	public CompletionStage<Response> getArticles() {
 		System.out.println("com.ibm.web-api.apis.GetArticlesReactive.getArticlesReactive");
 		CompletableFuture<Response> future = new CompletableFuture<>();
+		Runtime rt = Runtime.getRuntime();
+		System.out.println(String.format("Memory - Used: %s, Total: %s" ,(rt.totalMemory() - rt.freeMemory()) / 1000000, rt.totalMemory() / 1000000));
 
 		service.getArticlesReactive().thenApply(articles -> {
             JsonArray jsonArray = articles.stream()
