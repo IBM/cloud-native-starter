@@ -124,7 +124,7 @@ public class Service {
 		CompletableFuture<List<Article>> future = new CompletableFuture<>();
 		List<CompletableFuture<Author>> futuresOfAuthors = new ArrayList<CompletableFuture<Author>>();
 		
-		articles.stream().forEach(article -> {
+		articles.parallelStream().forEach(article -> {
 			futuresOfAuthors.add(dataAccessAuthors.getAuthorReactive(article.authorName)
 				.thenApply(author -> {
 					if (author == null) author = new Author();
