@@ -4,6 +4,7 @@ target
 .classpath
 .project
 nik.txt
+reactive/nik.txt
 liberty-opentracing-zipkintracer-1.2-sample.zip
 liberty-opentracing-zipkintracer-1.3-sample.zip
 istio/istio.pptx
