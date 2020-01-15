@@ -12,10 +12,10 @@ The project contains the endpoint '/articles' of the web-api service in two diff
 
 **Version 1: Imperative / Synchronous**
 
-* The REST endpoints of the articles and the web-api service have been implemented with JAX-RS synchronously
+* The REST endpoints of the articles and the web-api service have been implemented with JAX-RS (synchronous)
 * The web-api service invokes the articles service via MicroProfile Client synchronously
 * The articles service reads ten articles from Postgres via Panache
-* Aftert this, the web-api service invokes five times in parallel the authors service, again with the synchronous MicroProfile client
+* After this, the web-api service invokes five times in parallel the authors service, again with the synchronous MicroProfile client
 * The results are merged and sent back to the API client
 
 **Version 2: Reactive / Aynchronous**
@@ -23,7 +23,7 @@ The project contains the endpoint '/articles' of the web-api service in two diff
 * The REST endpoints of the articles and the web-api service have been implemented with Vert.x, CompletionStage and CompletableFuture asynchronously
 * The web-api service invokes the articles service via MicroProfile Client asynchronously
 * The articles service reads ten articles asynchronously from Postgres via Vert.x Axle
-* Aftert this, the web-api service invokes five times in parallel the authors service with the asynchronous Vertx Axle Web Client
+* After this, the web-api service invokes five times in parallel the authors service with the asynchronous Vertx Axle Web Client
 * The results are merged and sent back to the API client
 
 JMeter is used to generate load. In both cases 100 threads (users) invoke 300 times the 'articles' endpoint of the web-api service (30.000 requests in total).

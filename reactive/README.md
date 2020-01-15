@@ -15,6 +15,36 @@ This diagram desribes the high level architecture.
 
 <kbd><img src="documentation/architecture-small.png" /></kbd>
 
+### Demonstration 1: Web application is refreshed automatically when new articles are created
+
+Articles can be created via REST API. The web application receives a notification and adds the new article to the page.
+
+<kbd><img src="documentation/demo-1-video-small.gif" /></kbd>
+
+This diagram explains the flow.
+
+<kbd><img src="documentation/demo-1-small.png" /></kbd>
+
+### Demonstration 2: Reactive REST Endpoint '/articles' in web-api service
+
+The project contains the endpoint '/articles' of the web-api service in two different versions, one uses imperative code, the other one reactive code.
+
+The reactive stack of this sample provides responsive times that take less than half of the time compared to the imperative stack: Reactive: 793 ms - Imperative: 1956 ms.
+
+Read the [documentation](documentation/LoadTests.md) for details.
+
+This diagram explains the flow.
+
+<kbd><img src="documentation/demo-2-small.png" /></kbd>
+
+This is the result of the imperative version after 30000 invocations:
+
+<kbd><img src="documentation/load-100x300-v1-summary.png" /></kbd>
+
+This is the result of the reactive version after 30000 invocations:
+
+<kbd><img src="documentation/load-100x300-v2-summary.png" /></kbd>
+
 ### Functionality
 
 At this point the project demonstrates this functionality:
@@ -81,6 +111,15 @@ $ sh scripts/show-urls.sh
 Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
 
 **Demo 2: Reactive REST Endpoint '/articles' in web-api service**
+
+```
+$ cd ${ROOT_FOLDER}
+$ sh scripts/deploy-articles-reactive-postgres.sh
+$ sh scripts/deploy-web-api-reactive.sh
+$ sh scripts/deploy-web-app-reactive.sh
+$ sh scripts/deploy-authors.sh
+$ sh scripts/show-urls.sh
+```
 
 Open the API explorer of the web-api service and invoke the '/articles' endpoint. See the output of 'show-urls.sh' for the URL.
 
