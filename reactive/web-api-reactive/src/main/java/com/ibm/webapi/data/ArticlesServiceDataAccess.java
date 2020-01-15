@@ -65,7 +65,7 @@ public class ArticlesServiceDataAccess implements ArticlesDataAccess {
 
 	public List<CoreArticle> getArticles(int amount) throws NoConnectivity {		
 		try {
-			URL apiUrl = new URL("http://" + ARTICLES_DNS + ":" + ARTICLES_PORT + "/v2/articles?amount=" + amount);
+			URL apiUrl = new URL("http://" + ARTICLES_DNS + ":" + ARTICLES_PORT + "/v1/articles?amount=" + amount);
 			ArticlesService customRestClient = RestClientBuilder.newBuilder().baseUrl(apiUrl)
 					.register(ExceptionMapperArticles.class).build(ArticlesService.class);
 			
