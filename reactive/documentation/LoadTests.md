@@ -39,14 +39,14 @@ $ sh scripts/start-minikube.sh
 $ sh scripts/deploy-kafka.sh
 $ sh scripts/deploy-postgres-operator.sh
 $ sh scripts/deploy-postgres-database.sh
-$ sh scripts/deploy-articles-reactive-postgres.sh
+$ sh scripts/deploy-articles-synch-postgres.sh
 $ sh scripts/deploy-authors.sh
 $ sh scripts/deploy-web-api-reactive.sh
 ```
 
-Test and warm up '/v2/articles'.
+Test and warm up '/v1/articles'.
 
-Open jmeter.jmx and enter 1. Minikube IP, 2. web-api port and 3. endpoint '/v2/articles'.
+Open [jmeter.jmx](jmeter.jmx) and enter 1. Minikube IP, 2. web-api port and 3. endpoint '/v1/articles'.
 
 **Version 2: Reactive / Aynchronous**
 
@@ -57,14 +57,14 @@ $ sh scripts/start-minikube.sh
 $ sh scripts/deploy-kafka.sh
 $ sh scripts/deploy-postgres-operator.sh
 $ sh scripts/deploy-postgres-database.sh
-$ sh scripts/deploy-articles-synch-postgres.sh
+$ sh scripts/deploy-articles-reactive-postgres.sh
 $ sh scripts/deploy-authors.sh
 $ sh scripts/deploy-web-api-reactive.sh
 ```
 
-Test and warm up '/v1/articles'.
+Test and warm up '/v2/articles'.
 
-Open jmeter.jmx and enter 1. Minikube IP, 2. web-api port and 3. endpoint '/v1/articles'.
+Open [jmeter.jmx](jmeter.jmx) and enter 1. Minikube IP, 2. web-api port and 3. endpoint '/v2/articles'.
 
 ### Results
 
