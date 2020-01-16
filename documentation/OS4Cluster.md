@@ -1,4 +1,4 @@
-# Get Access to an OpenShift Cluster
+# Get Access to an OpenShift 4 Cluster
 
 At the time of this writing, OpenShift 4.2 is the latest release of Red Hat's OpenShift Kubernetes distribution. This is a Red Hat licensed product, it is not available as free download anywhere.
 
@@ -35,6 +35,8 @@ Also note that you cannot change the configuration (CPUs, RAM) once you started 
 The binaries are updated about once per month and previous to `crc` version 1.2 you had to delete and reinstall your cluster every month due to expired certificates. Starting with version 1.2 `crc` can renew the certificates and keep running. You may still want to update it from time to time since newer versions of `crc` contain newer versions of OpenShift including bug fixes. Update means delete your cluster and start fresh with a newer version of `crc`!
 
 #### Important commands
+
+`crc setup` will check and setup the prereqs for CRC.
 
 `crc start` starts the OpenShift cluster and in the end prints out the credentials of two users: 
 

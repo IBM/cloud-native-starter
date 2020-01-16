@@ -1,0 +1,40 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-app-reactive
+  labels:
+    app: web-app-reactive
+spec:
+  selector:
+    app: web-app-reactive
+  ports:
+    - port: 8080
+      name: http
+#  type: NodePort
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: web-app-reactive
+spec:
+  selector:                
+    matchLabels:     
+      app: web-app-reactive
+  replicas: 1
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true" 
+      labels:
+        app: web-app-reactive
+        version: v1
+    spec:
+      containers:
+      - name: web-app-reactive
+        image: image-registry.openshift-image-registry.svc:5000/cloud-native-starter/web-app-reactive:latest
+        ports:
+        - containerPort: 8080
+#        imagePullPolicy: Never
+      restartPolicy: Always
+---

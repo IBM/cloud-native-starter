@@ -1,0 +1,46 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-api-reactive
+  labels:
+    app: web-api-reactive
+spec:
+  selector:
+    app: web-api-reactive
+  ports:
+    - port: 8080
+      name: http
+#  type: NodePort
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: web-api-reactive
+spec:
+  selector:
+    matchLabels:
+      app: web-api-reactive
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-api-reactive
+        version: v1
+    spec:
+      containers:
+      - name: web-api-reactive
+        image: image-registry.openshift-image-registry.svc:5000/cloud-native-starter/web-api-reactive:latest
+        ports:
+        - containerPort: 8080
+#        imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/health/live"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:8080/health/ready"]
+          initialDelaySeconds: 40
+      restartPolicy: Always
+---
+

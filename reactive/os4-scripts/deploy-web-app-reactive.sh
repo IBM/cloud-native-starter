@@ -1,0 +1,48 @@
+#!/bin/bash
+
+root_folder=$(cd $(dirname $0); cd ..; pwd)
+
+function _out() {
+  echo "$(date +'%F %H:%M:%S') $@"
+}
+
+function setup() {
+  _out Deploying web-app-reactive
+  
+  cd ${root_folder}/web-app-reactive
+  oc delete -f deployment/os4-kubernetes.yaml --ignore-not-found
+  oc delete route web-app-reactive
+  oc delete is web-app-reactive
+  
+  route=$(oc get route web-api-reactive --template='{{ .spec.host }}')
+  if [ -z "$route" ]; then
+    _out web-api-reactive is not available. Run the command: sh os4-scripts/deploy-web-api-reactive.sh
+  else 
+    cd ${root_folder}/web-app-reactive/src
+    sed "s/endpoint-api-ip:ingress-np/${route}/g" store.js.template > store.js
+
+    cd ${root_folder}/web-app-reactive
+
+    docker build -f Dockerfile.os4 -t web-app-reactive:latest .
+    docker tag web-app-reactive:latest $REGISTRYURL/$PROJECT/web-app-reactive:latest
+    docker push $REGISTRYURL/$PROJECT/web-app-reactive:latest
+
+    sed -e "s+web-app-reactive:latest+$REGISTRY/$PROJECT/web-app-reactive:latest+g" \
+      -e "s+  type: NodePort+\#  type: NodePort+g" \
+      -e "s+        imagePullPolicy: Never+\#        imagePullPolicy: Never+g" \
+      -e "s/ort: 80/ort: 8080/g" \
+      deployment/kubernetes.yaml > deployment/os4-kubernetes.yaml
+    oc apply -f deployment/os4-kubernetes.yaml
+    oc expose svc/web-app-reactive
+  
+    route1=$(oc get route web-app-reactive --template='{{ .spec.host }}')
+    _out Done deploying web-app-reactive
+    _out Wait until the pod has been started: \"oc get pod --watch \| grep web-app-reactive\"
+    _out Open the app: http://$route1/
+  fi
+
+}
+
+source ${root_folder}/os4-scripts/login.sh
+_out $REGISTRY/$PROJECT
+setup
