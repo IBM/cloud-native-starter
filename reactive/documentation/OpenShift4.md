@@ -28,6 +28,11 @@ We will install Kafka via a script using the Strimzi operator:
 ```
 $ sh os4-scripts/deploy-kafka.sh
 ```
+This script will
+1. Create a project kafka in OpenShift
+1. Install the "strimzi-cluster-operator"
+1. Deploy the "my-cluster-entity-operator"
+1. Deploy Kafka (3 pods my-cluster-zookeeper, 3 pods my-cluster-kafka)
 
 ### 4. Install PostgreSQL
 
@@ -36,6 +41,7 @@ We will install PostgreSQL using the Dev2Devs operator in the OpenShift Web Cons
 1. Login to/open the OpenShift Web Console (`crc console`).
 1. In the 'Administrator' view, in 'Home' -> 'Projects' create a new project 'postgres'.
 1. In the 'Administrator' view, in 'Operators' -> 'OperatorHub' filter for 'postgres'.
+    Note: If you don't see the 'Operator' menu, refresh your browser.
     ![](images/operatorhub-postgres.png)
 1. Click on 'PostgreSQL Operator by Dev4Ddevs.com', continue on the 'Show Community Operator' dialog, then click 'Install'.
 1. 'Installation Mode' is 'A specific namespace on the cluster', namespace is the 'postgres' project. All else should remain default. Click 'Subscribe'.
@@ -58,7 +64,7 @@ $ sh os4-scripts/deploy-web-api-reactive.sh
 $ sh os4-scripts/deploy-web-app-reactive.sh
 $ sh os4-scripts/show-urls.sh
 ```
-Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs. Every time you create a new article, the articles list of the web app will automatically show the newest 5 articles. You may need to use Chrome as browser to see this.
+Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs. Every time you create a new article, the articles list of the web app will automatically show the newest 5 articles. 
 
 **Demo 2: Reactive REST Endpoint '/articles' in web-api service**
 

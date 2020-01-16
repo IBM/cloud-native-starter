@@ -51,7 +51,7 @@ $ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-w
 4. Open the file 'local.env' (created in the very beginning of this document)
 5. From the "Display Token" page, copy
    * the API token to APITOKEN in local.env
-   * the server URL from the Log in command to OS4SERVER in local.env
+   * the server URL (including https:// and portnumber!) from the Log in command to OS4SERVER in local.env
 
    ![Display Token](../images/displaytoken.png)
    
@@ -132,7 +132,7 @@ I believe that step "1. Get necessary CA certificate" is equivalent to "oc extra
 
 ![os-image-registry](../images/os-image-registry.png)
 
-Paste the default route URL into REGISTRYURL in local.env but omit the "https://" part:
+Paste the default route URL into REGISTRYURL in local.env but omit the "https://" part, also no trailing "/":
 
 ```
 REGISTRYURL=default-route-openshift-image-registry.apps-crc.testing
