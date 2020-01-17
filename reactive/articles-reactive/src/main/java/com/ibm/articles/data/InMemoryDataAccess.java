@@ -2,135 +2,77 @@ package com.ibm.articles.data;
 
 import com.ibm.articles.business.Article;
 import com.ibm.articles.business.ArticleDoesNotExist;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
+import org.eclipse.microprofile.context.ManagedExecutor;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import io.vertx.axle.core.Vertx;
-import javax.inject.Inject;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
 public class InMemoryDataAccess implements DataAccess {
 
-    private Map<String, Article> articles;
+    private static final int DELAY = 50;
+    private static final int MAXIMAL_DURATION = 5000;
 
-    private static int DELAY = 50;
-    private static int MAXIMAL_DURATION = 5000;
+    private Map<String, Article> articles = new ConcurrentHashMap<>();
 
     @Inject
-    Vertx vertx;
+    ManagedExecutor managedExecutor;
 
-    public InMemoryDataAccess() {
-        articles = new ConcurrentHashMap<>();
-    }
-
-    public Article addArticle(Article article) throws NoConnectivity {
-        // simulate database access
-        try {
-            TimeUnit.MILLISECONDS.sleep(DELAY);
-        } catch (InterruptedException e) {
-        }
-
+    @Override
+    public Article addArticle(Article article) {
+        simulateDBAccess();
         articles.put(article.id, article);
         return article;
     }
 
-    public Article getArticle(String id) throws NoConnectivity, ArticleDoesNotExist {
-        // simulate database access
-        try {
-            TimeUnit.MILLISECONDS.sleep(DELAY);
-        } catch (InterruptedException e) {
-        }
+    @Override
+    public Article getArticle(String id) throws ArticleDoesNotExist {
+        simulateDBAccess();
 
         Article article = articles.get(id);
-        if (article == null) {
+        if (article == null)
             throw new ArticleDoesNotExist();
-        }
 
         return article;
     }
 
-    public List<Article> getArticles() throws NoConnectivity {
-        // simulate database access
+    @Override
+    public List<Article> getArticles() {
+        simulateDBAccess();
+        return new ArrayList<>(articles.values());
+    }
+
+    @Override
+    public CompletableFuture<List<Article>> getArticlesReactive() {
+        return CompletableFuture.supplyAsync(this::getArticles, managedExecutor)
+                .orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public CompletableFuture<Article> addArticleReactive(Article article) {
+        return CompletableFuture.supplyAsync(() -> addArticle(article), managedExecutor)
+                .orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public CompletionStage<Article> getArticleReactive(String id) {
+        return CompletableFuture.supplyAsync(() -> getArticle(id), managedExecutor)
+                .orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS);
+    }
+
+    private void simulateDBAccess() {
         try {
             TimeUnit.MILLISECONDS.sleep(DELAY);
         } catch (InterruptedException e) {
+            // continue anyway
         }
-
-        return new ArrayList<Article>(articles.values());
     }
 
-    public CompletableFuture<List<Article>> getArticlesReactive() {
-        CompletableFuture<List<Article>> future = new CompletableFuture<List<Article>>();
-
-        CompletableFuture.supplyAsync(() -> {
-            // simulate database access
-            try {
-                TimeUnit.MILLISECONDS.sleep(DELAY);
-            } catch (InterruptedException e) {
-            }
-            return null;
-        }).thenAccept(nothing -> {
-            List<Article> articlesList = new ArrayList<Article>(articles.values());
-            future.complete(articlesList);
-        }).orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
-        .exceptionally(throwable -> {
-            future.completeExceptionally(new NoConnectivity());
-            return null;
-        });
-
-        return future;
-    }
-
-    public CompletableFuture<Article> addArticleReactive(Article article) {
-        CompletableFuture<Article> future = new CompletableFuture<Article>();
-
-        CompletableFuture.supplyAsync(() -> {
-            // simulate database access
-            try {
-                TimeUnit.MILLISECONDS.sleep(DELAY);
-            } catch (InterruptedException e) {
-            }
-            return null;
-        }).thenAccept(nothing -> {
-            articles.put(article.id, article);
-            future.complete(article);
-        }).orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
-        .exceptionally(throwable -> {
-            future.completeExceptionally(new NoConnectivity());
-            return null;
-        });
-
-        return future;
-    }
-
-    public CompletableFuture<Article> getArticleReactive(String id) {
-        CompletableFuture<Article> future = new CompletableFuture<Article>();
-
-        CompletableFuture.supplyAsync(() -> {
-            // simulate database access
-            try {
-                TimeUnit.MILLISECONDS.sleep(DELAY);
-            } catch (InterruptedException e) {
-            }
-            return null;
-        }).thenAccept(nothing -> {
-            Article article = articles.get(id);
-            if (article == null) {
-                future.completeExceptionally(new ArticleDoesNotExist());
-            }
-            else {
-                future.complete(article);
-            }
-        }).orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS)
-        .exceptionally(throwable -> {
-            future.completeExceptionally(new NoConnectivity());
-            return null;
-        });
-
-        return future;
-    }
 }

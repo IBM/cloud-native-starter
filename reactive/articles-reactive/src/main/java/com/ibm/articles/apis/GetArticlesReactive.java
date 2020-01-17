@@ -12,11 +12,13 @@ import java.util.concurrent.CompletionStage;
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.JsonArray;
 import javax.json.stream.JsonCollectors;
+
+import com.ibm.articles.business.ArticleService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.articles.business.Article;
-import com.ibm.articles.business.InvalidInputParamters;
+import com.ibm.articles.business.InvalidInputParameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -29,8 +31,8 @@ public class GetArticlesReactive {
 	@Inject
 	ArticleAsJson articleAsJson;
 	
-	@Inject 
-	com.ibm.articles.business.CoreService coreService;
+	@Inject
+    ArticleService articleService;
 
 	@GET
 	@Path("/articles")
@@ -46,7 +48,7 @@ public class GetArticlesReactive {
         System.out.println("com.ibm.articles.apis.GetArticlesReactive.getArticlesReactive");
         CompletableFuture<Response> future = new CompletableFuture<>();
 
-        coreService.getArticlesReactive(amount).thenApply(articles -> {
+        articleService.getArticlesReactive(amount).thenApply(articles -> {
             JsonArray jsonArray = articles.stream()
                 .map(article -> articleAsJson.createJson(article))
                 .collect(JsonCollectors.toJsonArray());            
@@ -54,7 +56,7 @@ public class GetArticlesReactive {
         }).thenApply(jsonArray -> {            
             return Response.ok(jsonArray).build();
         }).exceptionally(throwable -> {  
-            if (throwable.getCause().toString().equals(InvalidInputParamters.class.getName().toString())) {
+            if (throwable.getCause().toString().equals(InvalidInputParameter.class.getName().toString())) {
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
             else {            

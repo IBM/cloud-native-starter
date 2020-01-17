@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.ibm.articles.business.ArticleService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.articles.business.Article;
@@ -23,8 +25,8 @@ public class CreateNewArticleReactive {
 	@Inject
 	ArticleAsJson articleAsJson;
 	
-	@Inject 
-	com.ibm.articles.business.CoreService coreService;
+	@Inject
+	ArticleService articleService;
 
 	@POST
 	@Path("/articles")
@@ -61,7 +63,7 @@ public class CreateNewArticleReactive {
 		String url = newArticle.url;
 		String author = newArticle.author;
 	
-		coreService.addArticleReactive(title, url, author).thenApply(article -> {
+		articleService.addArticleReactive(title, url, author).thenApply(article -> {
 			return Response.status(Response.Status.CREATED).entity(articleAsJson.createJson(article)).build();
 		}).exceptionally(throwable -> {  
             if (throwable.getCause().toString().equals(InvalidArticle.class.getName().toString())) {
