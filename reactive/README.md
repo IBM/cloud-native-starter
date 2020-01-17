@@ -131,7 +131,7 @@ This scenario uses the following reactive functionality:
 * Sending and receiving Kafka messages via MicroProfile
 * Sending Kafka messages via Kafka API
 
-### Setup of local Developement Environment
+### Setup of local Development Environment
 
 You can run single services locally, but there are some restrictions:
 
