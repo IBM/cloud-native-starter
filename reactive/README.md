@@ -8,8 +8,8 @@ The project comes with a sample application which displays articles with author 
 
 Jump to the part of the documentation you are interested in:
 
-* [Scenario 1: Reactive REST Endpoints](#scenario-1:-reactive-rest-endpoints)
-* [Scenario 2: Reactive Messaging](#scenario-2:-reactive-messaging)
+* [Scenario 1 - Reactive REST Endpoints](#scenario-1---reactive-rest-endpoints)
+* [Scenario 2 - Reactive Messaging](#scenario-2---reactive-messaging)
 * [Blogs](#blogs)
 * [Setup in Minikube](#setup-in-minikube)
 * [Setup in IBM Cloud Kubernetes Service](documentation/IKS.md)
@@ -75,7 +75,7 @@ $ sh scripts/show-urls.sh
  Once the web application has been deployed open the URL that is displayed in the output of the last command in a browser. Five articles with author information are displayed.
 
 
-### Scenario 1: Reactive REST Endpoints
+### Scenario 1 - Reactive REST Endpoints
 
 One of the advantages of reactive systems and reactive REST endpoints is efficiency. This scenario describes how to use reactive systems and reactive programming to achieve faster response times. Especially in public clouds where costs depend on CPU, RAM and compute durations this model saves money.
 
@@ -109,7 +109,7 @@ This scenario uses the following reactive functionality:
 * Reactive REST invocations via MicroProfile REST Client
 * Reactive CRUD operations for Postgres
 
-### Scenario 2: Reactive Messaging
+### Scenario 2 - Reactive Messaging
 
 Another benefit of reactive models is the ability to update web applications by sending messages, rather than pulling for updates. This is more efficient and improves the user experience.
 
