@@ -119,7 +119,7 @@ $ sh iks-scripts/deploy-kafka.sh
 $ sh iks-scripts/deploy-postgres.sh
 ```
 
-## 2.1 Deploy and run the reactive sample
+## 3. Deploy and run the reactive sample
 
 ### Demo 1: Web application is refreshed automatically when new articles are created
 
@@ -148,7 +148,7 @@ $ sh scripts/delete-authors.sh
 $ sh scripts/delete-articles-reactive.sh
 ```
 
-## Cleanup
+## 4. Cleanup
 
 To delete all the including Kafka and Postgres from Kubernetes, run:
 
