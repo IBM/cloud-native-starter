@@ -2,12 +2,12 @@
 
 This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. 
 
-The project has two main parts:
+The project has two parts:
 
-1) Synchronous microservices: This is the main part of the project. The documentation is below. The code is in all folders except the 'reactive' folder.
-2) Reactive microservices: To keep the main part of the project as easy as possible, all reactive functionality has been put in the [reactive](reactive) folder and can be used completely separately.
+1) Synchronous microservices: The documentation of this part is below. The code is in all folders except of the 'reactive' folder.
+2) Reactive microservices: To keep the first part of the project as simple as possible, all reactive functionality has been put in the [reactive](reactive) folder and can be used completely separately.
 
-The main part of the project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
+The first part of the project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
 
 The microservices can easily be deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/), [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service), [Minishift](https://docs.okd.io/latest/minishift/index.html) or [OpenShift on the IBM Cloud](https://cloud.ibm.com/docs/containers?topic=containers-openshift_tutorial).
 

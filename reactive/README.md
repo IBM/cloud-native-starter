@@ -64,6 +64,12 @@ At this point the project demonstrates this functionality:
 
 ### Setup
 
+The sample can be deployed on three different Kubernetes environments:
+
+1. Minikube: The instructions are below. 
+2. CodeReady Containers / local OpenShift: See [instructions](documentation/OpenShift4.md).
+3. IBM Cloud Kubernetes Service: See [instructions](documentation/IKS.md).
+
 **1. Install Minikube**
 
 See the [instructions](https://kubernetes.io/docs/tasks/tools/install-minikube/).
@@ -95,6 +101,20 @@ $ sh scripts/deploy-postgres-operator.sh
 $ sh scripts/deploy-postgres-database.sh
 $ sh scripts/deploy-postgres-admin.sh
 ```
+
+The script [deploy-kafka.sh](scripts/deploy-kafka.sh) performs the following actions:
+1. Create a namespace 'kafka'
+2. Install the Kafka operator [strimzi-cluster-operator](https://strimzi.io/docs/master/)
+3. Deploy the 'my-cluster-entity-operator'
+4. Deploy Kafka (3 pods my-cluster-zookeeper, 3 pods my-cluster-kafka)
+
+The script [deploy-postgres-operator.sh](scripts/deploy-postgres-operator.sh) performs the following actions:
+1. Install the [Operator Lifecycle Manager](https://github.com/operator-framework/operator-lifecycle-manager)
+2. Install the Postgres operator [dev4devs-com/postgresql-operator](https://github.com/dev4devs-com/postgresql-operator)
+
+The script [deploy-postgres-database.sh](scripts/deploy-postgres-database.sh) creates a Postgres database and opens up a NodePort.
+
+The script [deploy-postgres-admin.sh](scripts/deploy-postgres-admim.sh) is optional only and install the Postgres admin tool [pgAdmin](https://www.pgadmin.org/).
 
 ### Deploy and run the sample in Minikube
 
