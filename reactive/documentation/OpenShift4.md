@@ -90,7 +90,7 @@ $ sh os4-scripts/delete-authors.sh
 $ sh os4-scripts/delete-articles-reactive.sh
 ```
 
-** Cleanup
+## Cleanup
 
 To delete the project including Kafka and Postgres from OpenShift, run:
 

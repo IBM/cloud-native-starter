@@ -84,3 +84,9 @@ reactive/articles-reactive/src/main/resources/application.properties
 reactive/web-api-reactive/src/main/resources/application.properties
 reactive/web-app-reactive/src/store.js
 .sts4-cache
+
+# OpenShift
+reactive/articles-reactive/deployment/os4-kubernetes.yaml
+reactive/web-api-reactive/deployment/os4-kubernetes.yaml
+reactive/web-app-reactive/deployment/os4-kubernetes.yaml
+authors-nodejs/deployment/os4-deployment.yaml
