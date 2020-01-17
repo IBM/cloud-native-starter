@@ -64,7 +64,7 @@ At this point the project demonstrates this functionality:
 
 ### Setup
 
-The sample can be deployed on three different Kubernetes environments:
+The sample can be deployed in three different Kubernetes environments:
 
 1. Minikube: The instructions are below. 
 2. CodeReady Containers / local OpenShift: See [instructions](documentation/OpenShift4.md).
