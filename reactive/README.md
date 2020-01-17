@@ -1,74 +1,25 @@
 ## Reactive Java Microservices 
 
-This part of the cloud-native-starter project describes how to implement reactive microservices with the following technologies:
+This part of the cloud-native-starter project describes how to implement reactive microservices with Quarkus, MicroProfile, Vert.x, Kafka and Postgres.
 
-* [Quarkus](https://quarkus.io/)
-* [Eclipse MicroProfile](https://microprofile.io/)
-* [Eclipse Vert.x](https://vertx.io/)
-* [Eclipse OpenJ9](https://www.eclipse.org/openj9/)
-* [Kubernetes](https://kubernetes.io/)
-* [Minikube](https://minikube.sigs.k8s.io/)
-* [Apache Kafka](https://kafka.apache.org/)
-* [PostgreSQL](https://www.postgresql.org/)
-
-This diagram desribes the high level architecture.
+The project comes with a sample application which displays articles with author information in a simple web application. This diagram desribes the high level architecture.
 
 <kbd><img src="documentation/architecture-small.png" /></kbd>
 
-### Demonstration 1: Web application is refreshed automatically when new articles are created
+Jump to the part of the documentation you are interested in:
 
-Articles can be created via REST API. The web application receives a notification and adds the new article to the page.
+* [Scenario 1: Reactive REST Endpoints](#scenario-1:-reactive-rest-endpoints)
+* [Scenario 2: Reactive Messaging](#scenario-2:-reactive-messaging)
+* [Blogs](#blogs)
+* [Setup in Minikube](#setup-in-minikube)
+* [Setup in IBM Cloud Kubernetes Service](documentation/IKS.md)
+* [Setup in CodeReady Containers / local OpenShift](documentation/OpenShift4.md)
+* [Setup of local Developement Environment](#setup-of-local-development-environment)
+* [Technologies](#technologies)
 
-<kbd><img src="documentation/demo-1-video-small.gif" /></kbd>
+### Setup in Minikube
 
-This diagram explains the flow.
-
-<kbd><img src="documentation/demo-1-small.png" /></kbd>
-
-### Demonstration 2: Reactive REST Endpoint '/articles' in web-api service
-
-The project contains the endpoint '/articles' of the web-api service in two different versions, one uses imperative code, the other one reactive code.
-
-The reactive stack of this sample provides responsive times that take less than half of the time compared to the imperative stack: Reactive: 793 ms - Imperative: 1956 ms.
-
-Read the [documentation](documentation/LoadTests.md) for details.
-
-This diagram explains the flow.
-
-<kbd><img src="documentation/demo-2-small.png" /></kbd>
-
-This is the result of the imperative version after 30000 invocations:
-
-<kbd><img src="documentation/load-100x300-v1-summary.png" /></kbd>
-
-This is the result of the reactive version after 30000 invocations:
-
-<kbd><img src="documentation/load-100x300-v2-summary.png" /></kbd>
-
-### Functionality
-
-At this point the project demonstrates this functionality:
-
-* Sending events from a microservice to a web application via Server Sent Events
-* Sending in-memory messages via MicroProfile
-* Sending in-memory messages via Vertx event bus
-* Sending and receiving Kafka messages via MicroProfile
-* Sending Kafka messages via Kafka API
-* Reactive REST endpoints via CompletionStage
-* Exception handling in chained reactive invocations
-* Timeouts via CompletableFuture
-* Resiliency of reactive microservices
-* Reactive REST invocations via Vertx Axle Web Client
-* Reactive REST invocations via MicroProfile REST Client
-* Reactive CRUD operations for Postgres
-
-### Setup
-
-The sample can be deployed in three different Kubernetes environments:
-
-1. Minikube: The instructions are below. 
-2. CodeReady Containers / local OpenShift: See [instructions](documentation/OpenShift4.md).
-3. IBM Cloud Kubernetes Service: See [instructions](documentation/IKS.md).
+The setup is pretty straight forward. Once Minikube is installed it takes only 10 minutes to deploy everything.
 
 **1. Install Minikube**
 
@@ -89,7 +40,7 @@ $ cd ${ROOT_FOLDER}
 $ sh scripts/check-prerequisites.sh
 ```
 
-**4. Start Minikube and install Kafka and Postgres**
+**4. Start Minikube and deploy Kafka and Postgres**
 
 After every step follow the instructions in the output of the commands to check when the components have been started before moving on. It's also recommended to doublecheck whether all components in all namespaces have the 'green' status in the Minikube dashboard ($ minikube dashboard).
 
@@ -109,61 +60,78 @@ The script [deploy-kafka.sh](scripts/deploy-kafka.sh) performs the following act
 
 The script [deploy-postgres.sh](scripts/deploy-postgres.sh) deploys a simple Postgres database which doesn't require a persistent volume.
 
-The script [deploy-postgres-admin.sh](scripts/deploy-postgres-admim.sh) is optional only and install the Postgres admin tool [pgAdmin](https://www.pgadmin.org/).
+The script [deploy-postgres-admin.sh](scripts/deploy-postgres-admim.sh) is optional only and installs the Postgres admin tool [pgAdmin](https://www.pgadmin.org/).
 
-As alternative to the simple Postgres database ([deploy-postgres.sh](scripts/deploy-postgres.sh)), Postgres can be installed via operator which uses a volume:
-
-```
-$ cd ${ROOT_FOLDER}
-$ sh scripts/deploy-postgres-operator.sh
-$ sh scripts/deploy-postgres-operator-database.sh
-```
-
-The script [deploy-postgres-operator.sh](scripts/deploy-postgres-operator.sh) performs the following actions:
-1. Install the [Operator Lifecycle Manager](https://github.com/operator-framework/operator-lifecycle-manager)
-2. Install the Postgres operator [dev4devs-com/postgresql-operator](https://github.com/dev4devs-com/postgresql-operator)
-
-The script [deploy-postgres-operator-database.sh](scripts/deploy-postgres-operator-database.sh) creates a Postgres database and opens up a NodePort.
-
-### Deploy and run the sample in Minikube
-
-**Demo 1: Web application is refreshed automatically when new articles are created**
+**5. Deploy Microservices**
 
 ```
 $ cd ${ROOT_FOLDER}
 $ sh scripts/deploy-articles-reactive-postgres.sh
+$ sh scripts/deploy-authors.sh
 $ sh scripts/deploy-web-api-reactive.sh
 $ sh scripts/deploy-web-app-reactive.sh
 $ sh scripts/show-urls.sh
 ```
+ Once the web application has been deployed open the URL that is displayed in the output of the last command in a browser. Five articles with author information are displayed.
 
-Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
 
-**Demo 2: Reactive REST Endpoint '/articles' in web-api service**
+### Scenario 1: Reactive REST Endpoints
 
-```
-$ cd ${ROOT_FOLDER}
-$ sh scripts/deploy-articles-reactive-postgres.sh
-$ sh scripts/deploy-web-api-reactive.sh
-$ sh scripts/deploy-web-app-reactive.sh
-$ sh scripts/deploy-authors.sh
-$ sh scripts/show-urls.sh
-```
+One of the advantages of reactive systems and reactive REST endpoints is efficiency. This scenario describes how to use reactive systems and reactive programming to achieve faster response times. Especially in public clouds where costs depend on CPU, RAM and compute durations this model saves money.
 
-Open the API explorer of the web-api service and invoke the '/articles' endpoint. See the output of 'show-urls.sh' for the URL.
+The project contains the endpoint '/articles' of the web-api service in two different versions, one uses imperative code, the other one reactive code.
 
-In order to test resiliency, try different combinations of the appliation with and without the articles and authors services being available.
+The reactive stack of this sample provides response times that take less than half of the time compared to the imperative stack: Reactive: 793 ms - Imperative: 1956 ms.
 
-```
-$ cd ${ROOT_FOLDER}
-$ sh scripts/deploy-web-api-reactive.sh
-$ sh scripts/deploy-articles-reactive-postgres.sh
-$ sh scripts/deploy-authors.sh
-$ sh scripts/delete-authors.sh
-$ sh scripts/delete-articles-reactive.sh
-```
+Read the [documentation](documentation/LoadTests.md) for details.
 
-**Optional: Run the sample locally**
+This diagram explains the flow.
+
+<kbd><img src="documentation/demo-1-small.png" /></kbd>
+
+This is the result of the imperative version after 30000 invocations:
+
+<kbd><img src="documentation/load-100x300-v1-summary.png" /></kbd>
+
+This is the result of the reactive version after 30000 invocations:
+
+<kbd><img src="documentation/load-100x300-v2-summary.png" /></kbd>
+
+To try this functionality yourself, open the API explorer of the web-api service and invoke the '/articles' endpoint. See the output of 'show-urls.sh' for the URL. To run load tests, check out the [documentation](documentation/LoadTests.md).
+
+This scenario uses the following reactive functionality:
+
+* Reactive REST endpoints via CompletionStage
+* Exception handling in chained reactive invocations
+* Timeouts via CompletableFuture
+* Resiliency of reactive microservices
+* Reactive REST invocations via Vertx Axle Web Client
+* Reactive REST invocations via MicroProfile REST Client
+* Reactive CRUD operations for Postgres
+
+### Scenario 2: Reactive Messaging
+
+Another benefit of reactive models is the ability to update web applications by sending messages, rather than pulling for updates. This is more efficient and improves the user experience.
+
+Articles can be created via REST API. The web application receives a notification and adds the new article to the page.
+
+<kbd><img src="documentation/demo-2-video-small.gif" /></kbd>
+
+This diagram explains the flow.
+
+<kbd><img src="documentation/demo-2-small.png" /></kbd>
+
+To try this functionality yourself, create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
+
+This scenario uses the following reactive functionality:
+
+* Sending events from a microservice to a web application via Server Sent Events
+* Sending in-memory messages via MicroProfile
+* Sending in-memory messages via Vertx event bus
+* Sending and receiving Kafka messages via MicroProfile
+* Sending Kafka messages via Kafka API
+
+### Setup of local Developement Environment
 
 You can run single services locally, but there are some restrictions:
 
@@ -193,3 +161,20 @@ $ cd ${ROOT_FOLDER}
 $ sh scripts/show-urls.sh
 $ curl -X POST "http://localhost:8080/v1/articles" ...
 ```
+
+### Blogs
+
+Will be added here soon ....
+
+### Technologies
+
+This part of the cloud-native-starter project describes how to implement reactive microservices with the following technologies:
+
+* [Quarkus](https://quarkus.io/)
+* [Eclipse MicroProfile](https://microprofile.io/)
+* [Eclipse Vert.x](https://vertx.io/)
+* [Eclipse OpenJ9](https://www.eclipse.org/openj9/)
+* [Kubernetes](https://kubernetes.io/)
+* [Minikube](https://minikube.sigs.k8s.io/)
+* [Apache Kafka](https://kafka.apache.org/)
+* [PostgreSQL](https://www.postgresql.org/)
