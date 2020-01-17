@@ -97,8 +97,7 @@ After every step follow the instructions in the output of the commands to check 
 $ cd ${ROOT_FOLDER}
 $ sh scripts/start-minikube.sh
 $ sh scripts/deploy-kafka.sh
-$ sh scripts/deploy-postgres-operator.sh
-$ sh scripts/deploy-postgres-database.sh
+$ sh scripts/deploy-postgres.sh
 $ sh scripts/deploy-postgres-admin.sh
 ```
 
@@ -108,13 +107,23 @@ The script [deploy-kafka.sh](scripts/deploy-kafka.sh) performs the following act
 3. Deploy the 'my-cluster-entity-operator'
 4. Deploy Kafka (3 pods my-cluster-zookeeper, 3 pods my-cluster-kafka)
 
+The script [deploy-postgres.sh](scripts/deploy-postgres.sh) deploys a simple Postgres database which doesn't require a persistent volume.
+
+The script [deploy-postgres-admin.sh](scripts/deploy-postgres-admim.sh) is optional only and install the Postgres admin tool [pgAdmin](https://www.pgadmin.org/).
+
+As alternative to the simple Postgres database ([deploy-postgres.sh](scripts/deploy-postgres.sh)), Postgres can be installed via operator which uses a volume:
+
+```
+$ cd ${ROOT_FOLDER}
+$ sh scripts/deploy-postgres-operator.sh
+$ sh scripts/deploy-postgres-operator-database.sh
+```
+
 The script [deploy-postgres-operator.sh](scripts/deploy-postgres-operator.sh) performs the following actions:
 1. Install the [Operator Lifecycle Manager](https://github.com/operator-framework/operator-lifecycle-manager)
 2. Install the Postgres operator [dev4devs-com/postgresql-operator](https://github.com/dev4devs-com/postgresql-operator)
 
-The script [deploy-postgres-database.sh](scripts/deploy-postgres-database.sh) creates a Postgres database and opens up a NodePort.
-
-The script [deploy-postgres-admin.sh](scripts/deploy-postgres-admim.sh) is optional only and install the Postgres admin tool [pgAdmin](https://www.pgadmin.org/).
+The script [deploy-postgres-operator-database.sh](scripts/deploy-postgres-operator-database.sh) creates a Postgres database and opens up a NodePort.
 
 ### Deploy and run the sample in Minikube
 
