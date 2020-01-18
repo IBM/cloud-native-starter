@@ -9,12 +9,6 @@ function _out() {
   echo "$(date +'%F %H:%M:%S') $@"
 }
 
-function setup_logging () {
-  # SETUP logging (redirect stdout and stderr to a log file)
-  readonly KAFKA_LOG_FILE=${root_folder}/iks-scripts/delete-kafka.log 
-  touch $KAFKA_LOG_FILE
-}
-
 function local_env () {
   # Check if IKS deployment, set kubectl environment and IKS deployment options in local.env
   CFG_FILE=${cns_root_folder}/local.env
@@ -33,15 +27,28 @@ function local_env () {
   source $CLUSTER_CFG
 }
 
+function login () {
+  _out Logging into IBM Cloud
+  ibmcloud config --check-version=false >> $LOG_FILE 2>&1
+  ibmcloud api --unset >> $LOG_FILE 2>&1
+  ibmcloud api https://cloud.ibm.com >> $LOG_FILE 2>&1
+  ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION >> $LOG_FILE 2>&1
+  
+  # Ensure the cluster config
+  _out Set cluster-config 
+  CLUSTER_CONFIG=$(ibmcloud ks cluster config $CLUSTER_NAME --export) >> $LOG_FILE 2>&1
+  $CLUSTER_CONFIG >> $LOG_FILE 2>&1
+  _out End - Logging into IBM Cloud
+}
+
 function delete() {
   _out Deleting Kafka
   
-  kubectl delete ${root_folder}/iks-scripts/kafka-cluster.yaml -n kafka >> $KAFKA_LOG_FILE 2>&1
+  kubectl delete ${root_folder}/iks-scripts/kafka-cluster.yaml -n kafka
   _out Done
 }
 
 local_env
-setup_logging
-source ${root_folder}/iks-scripts/login.sh
+login
 delete
 

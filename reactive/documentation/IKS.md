@@ -4,7 +4,7 @@
 
 ## 1. Setup IBM Cloud Kubernetes Service and IBM Cloud Container Registry
 
-If you want to deploy the Cloud Native Starter on IBM Cloud Kubernetes Service (IKS), the IBM managed Kubernetes offering, then follow these steps. They will create a Kubernetes Lite Cluster with Istio enabled and a namespace in the IBM Container Registry (ICR) where the container images of the microservices will be created, stored, and made available for Kubernetes deployments. By default, deployment is in Dallas, USA (us-south). If you already have a lite cluster in Dallas, these scripts will not work because only one lite cluster is allowed. 
+If you want to deploy the Cloud Native Starter on IBM Cloud Kubernetes Service (IKS), the IBM managed Kubernetes offering, then follow these steps. They will create a Kubernetes Lite Cluster with Istio enabled and a namespace in the IBM Container Registry (ICR) where the container images of the microservices will be created, stored, and made available for Kubernetes deployments.
 
 A Kubernetes lite cluster itself is free of charge but it can not be created in a IBM Cloud Lite account. In order to create one either a credit card needs to be entered into the IBM Cloud account or you need a promo code which you can sometimes get at conferences where IBM is present. Or contact us. 
 
@@ -28,7 +28,7 @@ Most important: an IBM Cloud account, you can register for a free account [here]
 Run this script to check the prerequisites:
 
 ```
-$ iks-scripts/check-prerequisites.sh
+$ sh iks-scripts/check-prerequisites.sh
 ```
 
 __Important note to non-English users:__ We use the `ibmcloud` CLI to set and retrieve configuration information. By default `ibmcloud` uses the OS environment language as its locale which could lead to errors in some scripts if it is not English. So on non-English systems we advise to set the `ibmcloud` locale to English by using this command:
@@ -40,7 +40,7 @@ $ ibmcloud config --locale en_US
 To revert this setting, simply execute:
 
 ```
-$ sh ibmcloud config --locale CLEAR
+$ ibmcloud config --locale CLEAR
 ```
 
 ### 1.3 To prepare the deployment on IBM Cloud:
@@ -103,7 +103,7 @@ $ source iks-scripts/cluster-config.sh
 Create a namespace in the IBM Cloud Container Registry:
 
 ```
-$ iks-scripts/create-registry.sh
+$ sh iks-scripts/create-registry.sh
 ```
 
 The container images we will build next are stored in the Container Registry as `us.icr.io/cloud-native/<imagename>:<tag>` if you didn't change the defaults.
@@ -111,7 +111,7 @@ The container images we will build next are stored in the Container Registry as 
 
 ## 2. Install Kafka and Postgres
 
-After every step follow the instructions in the output of the commands to check when the components have been started before moving on. It's also recommended to doublecheck whether all components in all namespaces have the 'green' status in the Minikube dashboard ($ minikube dashboard).
+After every step follow the instructions in the output of the commands to check when the components have been started before moving on.
 
 ```
 $ cd ${ROOT_FOLDER}

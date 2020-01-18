@@ -96,3 +96,6 @@ reactive/articles-reactive/deployment/IKS-kubernetes.yaml
 reactive/web-api-reactive/deployment/IKS-kubernetes.yaml
 reactive/web-app-reactive/deployment/IKS-kubernetes.yaml
 authors-nodejs/deployment/IKS-deployment.yaml
+
+reactive/iks-scripts/show-urls.log
+reactive/iks-scripts/cleanup.log

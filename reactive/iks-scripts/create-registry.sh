@@ -7,12 +7,28 @@ function _out() {
   echo "$(date +'%F %H:%M:%S') $@"
 }
 
-function _err() {
-  echo "$@" >&4
-  echo "$(date +'%F %H:%M:%S') $@"
+function setup_logging () {
+  # SETUP logging (redirect stdout and stderr to a log file)
+  LOG_FILE=${root_folder}/iks-scripts/create_registry.log  
+  touch $LOG_FILE
+}
+
+function login () {
+  _out Logging into IBM Cloud
+  ibmcloud config --check-version=false >> $LOG_FILE 2>&1
+  ibmcloud api --unset >> $LOG_FILE 2>&1
+  ibmcloud api https://cloud.ibm.com >> $LOG_FILE 2>&1
+  ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION >> $LOG_FILE 2>&1
+  
+  # Ensure the cluster config
+  _out Set cluster-config 
+  CLUSTER_CONFIG=$(ibmcloud ks cluster config $CLUSTER_NAME --export) >> $LOG_FILE 2>&1
+  $CLUSTER_CONFIG >> $LOG_FILE 2>&1
+  _out End - Logging into IBM Cloud
 }
 
 function local_env () {
+  _out Get environment from local.env
   # Check if IKS deployment, set kubectl environment and IKS deployment options in local.env
   CFG_FILE=${cns_root_folder}/local.env
   # Check if config file exists
@@ -21,6 +37,9 @@ function local_env () {
       exit 1
   fi  
   source $CFG_FILE
+  _out End - Get environment from local.env
+
+  _out Verify "cluster-config.sh" exists
   CLUSTER_CFG=${root_folder}/iks-scripts/cluster-config.sh
   # Check if config file exists
   if [ ! -f $CLUSTER_CFG ]; then
@@ -28,13 +47,8 @@ function local_env () {
       exit 1
   fi  
   source $CLUSTER_CFG
+  _out End - Verify that the file "cluster-config.sh" exists
 } 
-
-function setup_logging () {
-  # SETUP logging (redirect stdout and stderr to a log file)
-  readonly CRR_LOG_FILE=${root_folder}/iks-scripts/create-registry.log  
-  touch $CRR_LOG_FILE
-}
 
 function test_existing_namespace () {
   
@@ -56,9 +70,9 @@ function create_registry() {
 
   _out Check registry and namespace in IBM Cloud Container Registry
 
-  ibmcloud cr login  >> $CRR_LOG_FILE 2>&1
+  ibmcloud cr login  # >> $LOG_FILE 2>&1
   
-  RESULT=$(ibmcloud cr info | awk '/Container Registry  / {print $3}') >> $CRR_LOG_FILE 2>&1
+  RESULT=$(ibmcloud cr info | awk '/Container Registry  / {print $3}') >> $LOG_FILE 2>&1
   
   if [ "$RESULT" = "$REGISTRY" ]; then
     _out $REGISTRY already exists in the local.env file.
@@ -73,7 +87,7 @@ function create_registry() {
     _out Namespace:$REGISTRY_NAMESPACE in IBM Cloud Container Registry already exists
   else
     _out Creating Namespace $REGISTRY_NAMESPACE
-    ibmcloud cr namespace-add $REGISTRY_NAMESPACE >> $CRR_LOG_FILE 2>&1
+    ibmcloud cr namespace-add $REGISTRY_NAMESPACE >> LOG_FILE 2>&1
     # check if something went wrong
     if [ $? == 0 ]; then 
      _out Namespace:$REGISTRY_NAMESPACE in IBM Cloud Container Registry created
@@ -84,8 +98,8 @@ function create_registry() {
 }
 
 local_env
-source ${root_folder}/iks-scripts/login.sh
 setup_logging
+login
 test_existing_namespace
 create_registry
 
