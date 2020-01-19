@@ -127,10 +127,10 @@ $ sh iks-scripts/deploy-postgres.sh
 
 ```
 $ cd ${ROOT_FOLDER}
-$ sh scripts/deploy-articles-reactive-postgres.sh
-$ sh scripts/deploy-web-api-reactive.sh
-$ sh scripts/deploy-web-app-reactive.sh
-$ sh scripts/show-urls.sh
+$ sh iks-scripts/deploy-articles-reactive-postgres.sh
+$ sh iks-scripts/deploy-web-api-reactive.sh
+$ sh iks-scripts/deploy-web-app-reactive.sh
+$ sh iks-scripts/show-urls.sh
 ```
 
 Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
@@ -143,11 +143,11 @@ In order to test resiliency, try different combinations of the appliation with a
 
 ```
 $ cd ${ROOT_FOLDER}
-$ sh scripts/deploy-web-api-reactive.sh
-$ sh scripts/deploy-articles-reactive-postgres.sh
-$ sh scripts/deploy-authors.sh
-$ sh scripts/delete-authors.sh
-$ sh scripts/delete-articles-reactive.sh
+$ sh iks-scripts/deploy-web-api-reactive.sh
+$ sh iks-scripts/deploy-articles-reactive-postgres.sh
+$ sh iks-scripts/deploy-authors.sh
+$ sh iks-scripts/delete-authors.sh
+$ sh iks-scripts/delete-articles-reactive.sh
 ```
 
 ## 4. Cleanup

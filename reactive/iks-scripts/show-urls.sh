@@ -77,14 +77,14 @@ function setup() {
   _out Status
   kubectl get pods -n my-postgresql-operator-dev4devs-com
   _out Wait until the pod has been started:
-  _out 1.) \"kubectl config set-context --current --namespace=my-postgresql-operator-dev4devs-com\" 
-  _out 2.) \"kubectl get pods \" optional with (--watch)
-  _out 3.) \"kubectl get svc database-articles\"
-  _out 4.) \"kubectl port-forward svc/database-articles ${targetPort}:${targetPort}\"
-  _out 5.) Ensure you have psql client installed (https://www.ibm.com/cloud/blog/new-builders/postgresql-tips-installing-the-postgresql-client)
-  _out 6.) Open new terminal
-  _out 7.) Insert: \"psql -h 127.0.0.1 -U postgres\"
-  _out 8.) Now you connected to postgres
+  _out 1. \"kubectl config set-context --current --namespace=my-postgresql-operator-dev4devs-com\" 
+  _out 2. \"kubectl get pods \" optional with \(--watch\)
+  _out 3. \"kubectl get svc database-articles\"
+  _out 4. \"kubectl port-forward svc/database-articles ${targetPort}:${targetPort}\"
+  _out 5. Ensure you have psql client installed (https://www.ibm.com/cloud/blog/new-builders/postgresql-tips-installing-the-postgresql-client)
+  _out 6. Open new terminal
+  _out 7. Insert: \"psql -h 127.0.0.1 -U postgres\"
+  _out 8. Now you connected to postgres
   _out Credentials - user: postgres, password: postgres
 
   _out ------------------------------------------------------------------------------------
