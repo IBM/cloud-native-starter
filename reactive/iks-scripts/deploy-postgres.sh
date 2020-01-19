@@ -69,14 +69,14 @@ function setup() {
   targetPort=$(kubectl get svc database-articles --output 'jsonpath={.spec.ports[*].targetPort}')
   kubectl config set-context --current --namespace=default # >> $LOG_FILE 2>&1
   
-   _out Status
+  _out Status
   kubectl get pods -n my-postgresql-operator-dev4devs-com
 
   _out End - Deploying postgres
   _out 
   _out Wait until the pod has been started:
   _out 1.) \"kubectl config set-context --current --namespace=my-postgresql-operator-dev4devs-com\" 
-  _out 2.) \"kubectl get pods -n my-postgresql-operator-dev4devs-com \" optional with (--watch)
+  _out 2.) \"kubectl get pods \" optional with (--watch)
   _out 3.) \"kubectl get svc database-articles\"
   _out 4.) \"kubectl port-forward svc/database-articles ${targetPort}:${targetPort}\"
   _out 5.) Ensure you have psql client installed (https://www.ibm.com/cloud/blog/new-builders/postgresql-tips-installing-the-postgresql-client)
