@@ -65,11 +65,11 @@ function setup() {
   else 
     _out Kafka bootstrap server - external URL: http://${clusterip}:${nodeport}
     _out Maybe you will get the ERR_CONNECTION_RESET error in your browser, but the sample will work.
-    _out 1.) \"kubectl config set-context --current --namespace=kafka\" 
-  _out 2.) \"kubectl get pods\" optional with (--watch)
-  _out 3.) \"kubectl get svc my-cluster-kafka-external-bootstrap\"
-  _out 4.) \"kubectl port-forward svc/my-cluster-kafka-external-bootstrap ${targetPort}:${targetPort}\"
-  _out 5.) Maybe you can not connect to the http://localhost:${targetPort} connection in your browser.
+    _out 1. \"kubectl config set-context --current --namespace=kafka\" 
+  _out 2. \"kubectl get pods\" optional with (--watch)
+  _out 3. \"kubectl get svc my-cluster-kafka-external-bootstrap\"
+  _out 4. \"kubectl port-forward svc/my-cluster-kafka-external-bootstrap ${targetPort}:${targetPort}\"
+  _out 5. Maybe you can not connect to the http://localhost:${targetPort} connection in your browser.
   fi
   
   _out ------------------------------------------------------------------------------------

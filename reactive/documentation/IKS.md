@@ -128,6 +128,7 @@ $ sh iks-scripts/deploy-postgres.sh
 ```
 $ cd ${ROOT_FOLDER}
 $ sh iks-scripts/deploy-articles-reactive-postgres.sh
+$ sh iks-scripts/deploy-authors.sh
 $ sh iks-scripts/deploy-web-api-reactive.sh
 $ sh iks-scripts/deploy-web-app-reactive.sh
 $ sh iks-scripts/show-urls.sh
