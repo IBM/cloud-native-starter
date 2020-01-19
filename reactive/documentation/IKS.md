@@ -1,5 +1,3 @@
-*** !!! UNDER CONSTRUCTION !!! ***
-
 # Reactive Java Microservices on IBM Cloud Kubernetes 
 
 ## 1. Setup IBM Cloud Kubernetes Service and IBM Cloud Container Registry

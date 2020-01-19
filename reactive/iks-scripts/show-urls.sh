@@ -66,7 +66,7 @@ function setup() {
     _out Kafka bootstrap server - external URL: http://${clusterip}:${nodeport}
     _out Maybe you will get the ERR_CONNECTION_RESET error in your browser, but the sample will work.
     _out 1. \"kubectl config set-context --current --namespace=kafka\" 
-  _out 2. \"kubectl get pods\" optional with (--watch)
+  _out 2. \"kubectl get pods\" optional with \(--watch\)
   _out 3. \"kubectl get svc my-cluster-kafka-external-bootstrap\"
   _out 4. \"kubectl port-forward svc/my-cluster-kafka-external-bootstrap ${targetPort}:${targetPort}\"
   _out 5. Maybe you can not connect to the http://localhost:${targetPort} connection in your browser.
@@ -81,7 +81,7 @@ function setup() {
   _out 2. \"kubectl get pods \" optional with \(--watch\)
   _out 3. \"kubectl get svc database-articles\"
   _out 4. \"kubectl port-forward svc/database-articles ${targetPort}:${targetPort}\"
-  _out 5. Ensure you have psql client installed (https://www.ibm.com/cloud/blog/new-builders/postgresql-tips-installing-the-postgresql-client)
+  _out 5. Ensure you have psql client installed \(https://www.ibm.com/cloud/blog/new-builders/postgresql-tips-installing-the-postgresql-client\)
   _out 6. Open new terminal
   _out 7. Insert: \"psql -h 127.0.0.1 -U postgres\"
   _out 8. Now you connected to postgres
