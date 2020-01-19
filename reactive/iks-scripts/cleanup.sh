@@ -51,6 +51,7 @@ function delete_postgress() {
 
   cd ${root_folder}
   kubectl delete -f iks-scripts/postgres.yaml
+  kubectl delete namespaces my-postgresql-operator-dev4devs-com
 
   _out Done 
 }
@@ -59,6 +60,7 @@ function delete_kafka() {
   _out Deleting Kafka
   
   kubectl delete ${root_folder}/iks-scripts/kafka-cluster.yaml 
+  kubectl delete namespaces kafka
 
   _out Done
 }

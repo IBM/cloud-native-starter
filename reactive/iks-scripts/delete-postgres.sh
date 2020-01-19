@@ -45,6 +45,7 @@ function delete() {
 
   cd ${root_folder}
   kubectl delete -f iks-scripts/postgres.yaml
+  kubectl delete namespaces my-postgresql-operator-dev4devs-com
 
   _out Done 
 }

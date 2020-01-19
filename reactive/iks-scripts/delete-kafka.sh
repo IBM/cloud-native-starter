@@ -44,7 +44,8 @@ function login () {
 function delete() {
   _out Deleting Kafka
   
-  kubectl delete ${root_folder}/iks-scripts/kafka-cluster.yaml -n kafka
+  kubectl delete ${root_folder}/iks-scripts/kafka-cluster.yaml
+  kubectl delete namespaces kafka
   _out Done
 }
 
