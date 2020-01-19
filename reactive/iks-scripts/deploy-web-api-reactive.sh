@@ -65,12 +65,15 @@ function setup() {
   
   cd ${root_folder}/web-api-reactive
   kubectl delete -f deployment/IKS-kubernetes.yaml --ignore-not-found # >> $LOG_FILE 2>&1
-
+  
+  _out Configure sourcecode
+ 
   cd ${root_folder}/web-api-reactive/src/main/resources
+  _out Set Kafka bootstrap server
   sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties
-
+  _out End - Configure sourcecode
+  
   cd ${root_folder}/web-api-reactive
-
   # Login to IBM Cloud Image Registry
   login_cr
 
