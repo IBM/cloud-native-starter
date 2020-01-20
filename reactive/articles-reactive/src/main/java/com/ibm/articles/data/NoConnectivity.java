@@ -1,6 +1,6 @@
 package com.ibm.articles.data;
 
-public class NoConnectivity extends Exception {
+public class NoConnectivity extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

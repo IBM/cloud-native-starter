@@ -6,6 +6,8 @@ import javax.json.stream.JsonCollectors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.ibm.articles.business.ArticleService;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -13,7 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import com.ibm.articles.business.Article;
-import com.ibm.articles.business.InvalidInputParamters;
+import com.ibm.articles.business.InvalidInputParameter;
 import com.ibm.articles.business.NoDataAccess;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -30,8 +32,8 @@ public class GetArticles {
 	@Inject
 	ArticleAsJson articleAsJson;
 	
-	@Inject 
-	com.ibm.articles.business.CoreService coreService;
+	@Inject
+    ArticleService articleService;
 
 	@GET
 	@Path("/articles")
@@ -47,13 +49,13 @@ public class GetArticles {
 		
 		JsonArray jsonArray;
 		try {
-			jsonArray = coreService.getArticles(amount).stream()
+			jsonArray = articleService.getArticles(amount).stream()
 					.map(article -> articleAsJson.createJson(article)).collect(JsonCollectors.toJsonArray());
 			return Response.ok(jsonArray).build();
 		} catch (NoDataAccess e) {
 			e.printStackTrace();
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		} catch (InvalidInputParamters e) {
+		} catch (InvalidInputParameter e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
 	}

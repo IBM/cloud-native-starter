@@ -1,6 +1,6 @@
 package com.ibm.articles.business;
 
-public class ArticleDoesNotExist extends Exception {
+public class ArticleDoesNotExist extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

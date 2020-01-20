@@ -10,3 +10,6 @@ cloud-native-starter.local=CNS_LOCAL
 cloud-native-starter.minikube.ip=CNS_MINIKUBE_IP
 cloud-native-starter.articles.port=CNS_ARTICLES_PORT
 cloud-native-starter.authors.port=CNS_AUTHORS_PORT
+
+# CORS is only required when using NodePorts, when using Istio Ingress the port is always the same one as the one used by the web-app
+quarkus.http.cors=true

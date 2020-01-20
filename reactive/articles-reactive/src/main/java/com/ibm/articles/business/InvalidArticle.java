@@ -1,6 +1,6 @@
 package com.ibm.articles.business;
 
-public class InvalidArticle extends Exception {
+public class InvalidArticle extends RuntimeException {
 
 	private static final long serialVersionUID = 2L;
 
