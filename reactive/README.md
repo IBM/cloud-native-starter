@@ -2,7 +2,7 @@
 
 This part of the cloud-native-starter project describes how to implement reactive microservices with Quarkus, MicroProfile, Vert.x, Kafka and Postgres.
 
-The project comes with a sample application which displays articles with author information in a simple web application. This diagram desribes the high level architecture.
+The project comes with a sample application which displays articles with author information in a simple web application. This diagram describes the high level architecture.
 
 <kbd><img src="documentation/architecture-small.png" /></kbd>
 
@@ -14,7 +14,7 @@ Jump to the part of the documentation you are interested in:
 * [Setup in Minikube](#setup-in-minikube)
 * [Setup in IBM Cloud Kubernetes Service](documentation/IKS.md)
 * [Setup in CodeReady Containers / local OpenShift](documentation/OpenShift4.md)
-* [Setup of local Developement Environment](#setup-of-local-development-environment)
+* [Setup of local Development Environment](#setup-of-local-development-environment)
 * [Technologies](#technologies)
 
 ### Setup in Minikube
