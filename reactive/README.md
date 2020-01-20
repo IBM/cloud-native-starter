@@ -8,8 +8,8 @@ The project comes with a sample application which displays articles with author 
 
 Jump to the part of the documentation you are interested in:
 
-* [Scenario 1 - Reactive REST Endpoints](#scenario-1---reactive-rest-endpoints)
-* [Scenario 2 - Reactive Messaging](#scenario-2---reactive-messaging)
+* [Scenario 1 - Reactive Messaging](#scenario-1---reactive-messaging)
+* [Scenario 2 - Reactive REST Endpoints for higher Efficiency](#scenario-2---reactive-rest-endpoints-for-higher-efficiency)
 * [Blogs](#blogs)
 * [Setup in Minikube](#setup-in-minikube)
 * [Setup in IBM Cloud Kubernetes Service](documentation/IKS.md)
@@ -74,8 +74,29 @@ $ sh scripts/show-urls.sh
 ```
  Once the web application has been deployed open the URL that is displayed in the output of the last command in a browser. Five articles with author information are displayed.
 
+### Scenario 1 - Reactive Messaging
 
-### Scenario 1 - Reactive REST Endpoints
+Another benefit of reactive models is the ability to update web applications by sending messages, rather than pulling for updates. This is more efficient and improves the user experience.
+
+Articles can be created via REST API. The web application receives a notification and adds the new article to the page.
+
+<kbd><img src="documentation/demo-1-video-small.gif" /></kbd>
+
+This diagram explains the flow.
+
+<kbd><img src="documentation/demo-1-small.png" /></kbd>
+
+To try this functionality yourself, create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
+
+This scenario uses the following reactive functionality:
+
+* Sending events from a microservice to a web application via Server Sent Events
+* Sending in-memory messages via MicroProfile
+* Sending in-memory messages via Vertx event bus
+* Sending and receiving Kafka messages via MicroProfile
+* Sending Kafka messages via Kafka API
+
+### Scenario 2 - Reactive REST Endpoints for higher Efficiency
 
 One of the advantages of reactive systems and reactive REST endpoints is efficiency. This scenario describes how to use reactive systems and reactive programming to achieve faster response times. Especially in public clouds where costs depend on CPU, RAM and compute durations this model saves money.
 
@@ -87,7 +108,7 @@ Read the [documentation](documentation/LoadTests.md) for details.
 
 This diagram explains the flow.
 
-<kbd><img src="documentation/demo-1-small.png" /></kbd>
+<kbd><img src="documentation/demo-2-small.png" /></kbd>
 
 This is the result of the imperative version after 30000 invocations:
 
@@ -108,28 +129,6 @@ This scenario uses the following reactive functionality:
 * Reactive REST invocations via Vertx Axle Web Client
 * Reactive REST invocations via MicroProfile REST Client
 * Reactive CRUD operations for Postgres
-
-### Scenario 2 - Reactive Messaging
-
-Another benefit of reactive models is the ability to update web applications by sending messages, rather than pulling for updates. This is more efficient and improves the user experience.
-
-Articles can be created via REST API. The web application receives a notification and adds the new article to the page.
-
-<kbd><img src="documentation/demo-2-video-small.gif" /></kbd>
-
-This diagram explains the flow.
-
-<kbd><img src="documentation/demo-2-small.png" /></kbd>
-
-To try this functionality yourself, create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs.
-
-This scenario uses the following reactive functionality:
-
-* Sending events from a microservice to a web application via Server Sent Events
-* Sending in-memory messages via MicroProfile
-* Sending in-memory messages via Vertx event bus
-* Sending and receiving Kafka messages via MicroProfile
-* Sending Kafka messages via Kafka API
 
 ### Setup of local Development Environment
 
