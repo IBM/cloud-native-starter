@@ -2,9 +2,11 @@
 
 ## 1. Setup IBM Cloud Kubernetes Service and IBM Cloud Container Registry
 
-If you want to deploy the Cloud Native Starter on IBM Cloud Kubernetes Service (IKS), the IBM managed Kubernetes offering, then follow these steps. They will create a Kubernetes Lite Cluster and a namespace in the IBM Container Registry (ICR) where the container images of the microservices will be created, stored, and made available for Kubernetes deployments.
+> If you have already setup the IBM Cloud Cluster with Istio you don’t need to follow the IBM Cloud Cluster setup instructions, because you can use your existing Cluster. You only have to ensure you have deleted the existing Cloud Native Starter services.
 
-Istio is not needed to install in this setup.
+If you want to deploy the reactive Cloud Native Starter example on IBM Cloud Kubernetes Service (IKS), the IBM managed Kubernetes offering, then follow these steps. They will create a Kubernetes Lite Cluster and a namespace in the IBM Container Registry (ICR) where the container images of the microservices will be created, stored, and made available for Kubernetes deployments.
+
+> Istio is not needed to install in this setup.
 
 A Kubernetes lite cluster itself is free of charge but it can not be created in a IBM Cloud Lite account. In order to create one either a credit card needs to be entered into the IBM Cloud account or you need a promo code which you can sometimes get at conferences where IBM is present. Or contact us. 
 
@@ -45,10 +47,12 @@ $ ibmcloud config --locale CLEAR
 
 ### 1.3 To prepare the deployment on IBM Cloud:
 
-This creates an API key for the scripts.
+This creates an API key for the scripts. The environment information will be stored in the `cloud-native-starter/reactive/local.env' file.
 
 ```
 $ ibmcloud login
+$ cd $ROOT_FOLDER
+$ cd ..
 $ ibmcloud iam api-key-create cloud-native-starter \
   -d "cloud-native-starter" \
   --file cloud-native-starter.json
@@ -151,7 +155,7 @@ $ sh iks-scripts/delete-articles-reactive.sh
 
 ## 4. Cleanup
 
-To delete all the including Kafka and Postgres from Kubernetes, run:
+To delete all including Kafka and Postgres from Kubernetes, run:
 
 ```
 $ cd ${ROOT_FOLDER}
