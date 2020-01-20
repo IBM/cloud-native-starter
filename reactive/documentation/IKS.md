@@ -47,7 +47,7 @@ $ ibmcloud config --locale CLEAR
 
 ### 1.3 To prepare the deployment on IBM Cloud:
 
-This creates an API key for the scripts. The environment information will stor
+This creates an API key for the scripts. The environment information will be stored in the `cloud-native-starter/reactive/local.env' file.
 
 ```
 $ ibmcloud login
