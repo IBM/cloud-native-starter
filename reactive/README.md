@@ -2,7 +2,9 @@
 
 This part of the cloud-native-starter project describes how to implement reactive microservices with Quarkus, MicroProfile, Vert.x, Kafka and Postgres.
 
-The project comes with a sample application which displays articles with author information in a simple web application. This diagram describes the high level architecture.
+The project comes with a sample application which displays articles with author information in a simple web application. The web application invokes the web-api service which implements a backend-for-frontend pattern and invokes the articles and authors service. The articles service stores data in a Postgres database. Messages are sent between the microservices via Kafka.
+
+This diagram describes the high level architecture.
 
 <kbd><img src="documentation/architecture-small.png" /></kbd>
 
