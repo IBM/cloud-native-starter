@@ -55,40 +55,16 @@ We will install PostgreSQL using the Dev2Devs operator in the OpenShift Web Cons
 
 ### 5. Deploy and run the sample 
 
-**Demo 1: Web application is refreshed automatically when new articles are created**
-
 ```
 $ cd ${ROOT_FOLDER}
 $ sh os4-scripts/deploy-articles-reactive-postgres.sh
+$ sh os4-scripts/deploy-authors.sh
 $ sh os4-scripts/deploy-web-api-reactive.sh
 $ sh os4-scripts/deploy-web-app-reactive.sh
 $ sh os4-scripts/show-urls.sh
 ```
-Create a new article either via the API explorer or curl. Open either the web application or only the stream endpoint in a browser. See the output of 'show-urls.sh' for the URLs. Every time you create a new article, the articles list of the web app will automatically show the newest 5 articles. 
+To see an example, open the web-app service in your browser. Then create a new article, either with the API explorer of the articles-reactive service or the respective curl command. (See the output of 'show-urls.sh' for the URL and the curl sample.) Every time you create a new article, the articles list of the web app will automatically show the newest 5 articles. 
 
-**Demo 2: Reactive REST Endpoint '/articles' in web-api service**
-
-```
-$ cd ${ROOT_FOLDER}
-$ sh os4-scripts/deploy-articles-reactive-postgres.sh
-$ sh os4-scripts/deploy-web-api-reactive.sh
-$ sh os4-scripts/deploy-web-app-reactive.sh
-$ sh os4-scripts/deploy-authors.sh
-$ sh os4-scripts/show-urls.sh
-```
-
-Open the API explorer of the web-api service and invoke the '/articles' endpoint. See the output of 'show-urls.sh' for the URL.
-
-In order to test resiliency, try different combinations of the appliation with and without the articles and authors services being available.
-
-```
-$ cd ${ROOT_FOLDER}
-$ sh os4-scripts/deploy-web-api-reactive.sh
-$ sh os4-scripts/deploy-articles-reactive-postgres.sh
-$ sh os4-scripts/deploy-authors.sh
-$ sh os4-scripts/delete-authors.sh
-$ sh os4-scripts/delete-articles-reactive.sh
-```
 
 ## Cleanup
 
