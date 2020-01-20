@@ -165,7 +165,8 @@ $ curl -X POST "http://localhost:8080/v1/articles" ...
 
 ### Blogs
 
-Will be added here soon ....
+* [Development of Reactive Applications with Quarkus](http://heidloff.net/article-development-reactive-applications-quarkus/)
+* More be added here soon ....
 
 ### Technologies
 
