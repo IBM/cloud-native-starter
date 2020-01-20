@@ -76,7 +76,7 @@ $ sh scripts/show-urls.sh
 
 ### Scenario 1 - Reactive Messaging
 
-Another benefit of reactive models is the ability to update web applications by sending messages, rather than pulling for updates. This is more efficient and improves the user experience.
+One benefit of reactive models is the ability to update web applications by sending messages, rather than pulling for updates. This is more efficient and improves the user experience.
 
 Articles can be created via REST API. The web application receives a notification and adds the new article to the page.
 
@@ -98,7 +98,7 @@ This scenario uses the following reactive functionality:
 
 ### Scenario 2 - Reactive REST Endpoints for higher Efficiency
 
-One of the advantages of reactive systems and reactive REST endpoints is efficiency. This scenario describes how to use reactive systems and reactive programming to achieve faster response times. Especially in public clouds where costs depend on CPU, RAM and compute durations this model saves money.
+Another benefit of reactive systems and reactive REST endpoints is efficiency. This scenario describes how to use reactive systems and reactive programming to achieve faster response times. Especially in public clouds where costs depend on CPU, RAM and compute durations this model saves money.
 
 The project contains the endpoint '/articles' of the web-api service in two different versions, one uses imperative code, the other one reactive code.
 
