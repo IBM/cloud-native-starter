@@ -73,6 +73,7 @@ function setup() {
   _out Wait until the pods have been started
   _out Run this command \(potentially multiple times\): \"kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka\"
   _out After this run \"sh iks-scripts/show-urls.sh\" to get the Kafka broker URL
+  _out Note: You can not interact with the Kafka broker URL via the browser UI.
 }
 
 local_env
