@@ -1,0 +1,34 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: web-api-v2
+  labels:
+    app: web-api  
+spec:
+  selector:                
+    matchLabels:     
+      app: web-api  
+  replicas: 1
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true" 
+      labels:
+        app: web-api
+        version: v2
+    spec:
+      containers:
+      - name: web-api
+        image: image-registry.openshift-image-registry.svc:5000/cloud-native-starter/web-api:2
+        ports:
+        - containerPort: 9080
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:9080/"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl -s http://localhost:9080/health | grep -q web-api"]
+          initialDelaySeconds: 40
+      restartPolicy: Always
+---

@@ -109,7 +109,7 @@ After running all (!) the scripts above, you will get a list of all URLs in the 
 
 ![Minishift show-urls](../images/minishift-urls.png)
 
-### 67. Istio Demo: Traffic Routing
+### 6. Istio Demo: Traffic Routing
 
 Run these scripts to deploy version 2 of the web-api and then apply Istio traffic routing to send 80% of the traffic to version 1, 20% to version 2:
 

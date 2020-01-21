@@ -18,4 +18,5 @@ function setup() {
   _out Done deploying Istio Ingress definitions
 }
 
+source ${root_folder}/os4-scripts/login.sh
 setup

@@ -11,12 +11,12 @@ function _out() {
 function setup() {
   _out Deploying web-api-java-jee v1
 
-  cd ${root_folder}/istio
-  protectyaml="${root_folder}/web-api-java-jee/istio/protect-web-api.yaml"
-  if [ -f "$protectyaml" ]
-  then
-    kubectl delete -f protect-web-api.yaml --ignore-not-found
-  fi
+#  cd ${root_folder}/istio
+#  protectyaml="${root_folder}/web-api-java-jee/istio/protect-web-api.yaml"
+#  if [ -f "$protectyaml" ]
+#  then
+#    oc delete -f protect-web-api.yaml --ignore-not-found
+#  fi
   
   _out --- Cleanup
   cd ${root_folder}/web-api-java-jee
@@ -39,18 +39,18 @@ function setup() {
   rm src/main/java/com/ibm/webapi/business/Service.java
   mv src/main/java/com/ibm/webapi/business/Service2.java src/main/java/com/ibm/webapi/business/Service.java
   
-  if [ -z "$APPID_ISSUER" ]
-  then
-    _out App ID has NOT been configured
-  else
-    _out App ID has been configured
-    _out ${APPID_ISSUER}
-    _out ${APPID_JWKS_URI}
-    cd ${root_folder}/web-api-java-jee
-    sed "s+https://us-south.appid.cloud.ibm.com/oauth/v4/xxx+$APPID_ISSUER+g" liberty/server.xml > liberty/server2.xml
-    rm liberty/server.xml
-    mv liberty/server2.xml liberty/server.xml
-  fi
+#  if [ -z "$APPID_ISSUER" ]
+#  then
+#    _out App ID has NOT been configured
+#  else
+#    _out App ID has been configured
+#    _out ${APPID_ISSUER}
+#    _out ${APPID_JWKS_URI}
+#    cd ${root_folder}/web-api-java-jee
+#    sed "s+https://us-south.appid.cloud.ibm.com/oauth/v4/xxx+$APPID_ISSUER+g" liberty/server.xml > liberty/server2.xml
+#    rm liberty/server.xml
+#    mv liberty/server2.xml liberty/server.xml
+#  fi
   
   _out --- Build Docker Image
   docker build -f Dockerfile.nojava -t web-api:1 .
@@ -64,22 +64,22 @@ function setup() {
   oc apply -f deployment/istio-service-v1.yaml
   oc expose svc/web-api
 
-  if [ -f "$protectyaml" ]
-  then
-      cd ${root_folder}/istio
-      kubectl apply -f protect-web-api.yaml
-  fi
+#  if [ -f "$protectyaml" ]
+#  then
+#      cd ${root_folder}/istio
+#      kubectl apply -f protect-web-api.yaml
+#  fi
 
 
-  if [ -z "$APPID_ISSUER" ]
-  then
-    _out App ID has NOT been configured
-  else
-    cd ${root_folder}/web-api-java-jee
-    sed "s+$APPID_ISSUER+https://us-south.appid.cloud.ibm.com/oauth/v4/xxx+g" liberty/server.xml > liberty/server2.xml
-    rm liberty/server.xml
-    mv liberty/server2.xml liberty/server.xml
-  fi
+#  if [ -z "$APPID_ISSUER" ]
+#  then
+#    _out App ID has NOT been configured
+#  else
+#    cd ${root_folder}/web-api-java-jee
+#    sed "s+$APPID_ISSUER+https://us-south.appid.cloud.ibm.com/oauth/v4/xxx+g" liberty/server.xml > liberty/server2.xml
+#    rm liberty/server.xml
+#    mv liberty/server2.xml liberty/server.xml
+#  fi
 
   
   _out Done deploying web-api-java-jee v1

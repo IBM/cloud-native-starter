@@ -46,10 +46,10 @@ $ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-w
 ## Access OpenShift via CLI
 
 1. Access the OpenShift Web Console
-2. In the upper right corner, click on the name of the logged in user (e.g. kube:admin), then click on "Copy Login Command"
-3. If required, log in again, then click "Display Token"
+2. In the upper right corner, click on the name of the logged in user (e.g. kube:admin), then click on 'Copy Login Command'
+3. If required, log in again, then click 'Display Token'
 4. Open the file 'local.env' (created in the very beginning of this document)
-5. From the "Display Token" page, copy
+5. From the 'Display Token' page, copy
    * the API token to APITOKEN in local.env
    * the server URL (including https:// and portnumber!) from the Log in command to OS4SERVER in local.env
 
@@ -61,9 +61,9 @@ $ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-w
 
 ## Access the OpenShift Internal Image Repository
 
-You have to store the container images for the applications you want to deploy on Kubernetes/OpenShift in a place where they can be accessed during the rollout of an application. This can be Docker Hub, the IBM Container Registry, Quay.io, or any other repository on the Internet you have access to. It can also be the internal repository running within OpenShift.
+The container images for applications deployed on Kubernetes/OpenShift must be stored in a place where they can be accessed during the rollout of an application. This can be Docker Hub, the IBM Container Registry, Quay.io, or any other repository on the Internet you have access to. It can also be the image repository deployed within OpenShift.
 
-For this project we will use the internal registry. We will build our images locally on your workstation, then tag them with a name for the internal repository, and then push them into the internal repository. Logon to the repository is not sufficient, though. The `docker` CLI will refuse to connect with a x509 error about an unknown certificate.
+For this project we will use the OpenShift internal repository. We will build our images locally on your workstation, then tag them with a name for the internal repository, and then push them into the internal repository. Logon to the repository is not sufficient, though. The `docker` CLI will refuse to connect with a x509 error about an unknown certificate.
 
 First, we have to obtain the CA certificate from OpenShift.
 
@@ -72,10 +72,10 @@ Execute these commands, they require that you created the local.env file in the 
 ```
 $ source local.env
 $ oc login --token=$APITOKEN --server=$OS4SERVER
-$ oc extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator
+$ oc extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator --confirm
 ```
 
-This will extract the CA certificate from OpenShift and store it in file tls.crt on your workstation.
+This will extract the CA certificate from OpenShift and store it in file tls.crt in the current directory on your workstation.
 
 The following are the steps to add the OpenShift certificate to Docker. They differ between operating systems. 
 
@@ -91,7 +91,7 @@ $ sudo cp tls.crt /etc/docker/certs.d/default-route-openshift-image-registry.app
 $ sudo systemctl restart docker
 ```
 
-I am running Fedora, the last command to restart the Docker daemon may be different on your distribution.
+I am running Fedora, the path and the command to restart the Docker daemon may be different on other distributions.
 
 #### Mac
 
@@ -103,7 +103,7 @@ To manually add a custom, self-signed certificate, start by adding the certifica
 $ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain tls.crt
 ```
 
-Or, if you prefer to add the certificate to your own local keychain only (rather than for all users), run this command instead:
+Or, if you prefer to add the certificate to your own local keychain only (rather than the one for all users), run this command instead:
 
 ```
 $ security add-trusted-cert -d -r trustRoot -k ~/Library/Keychains/login.keychain tls.crt
@@ -115,24 +115,24 @@ You need to restart Docker Desktop after making any changes in order for the cha
 
 If you are using the Docker image as suggested in the "Required Tools" section above, just follow the instructions for Linux.
 
-If you are running everything locally on Windows please note: I have no access to a Windows workstation running Docker Desktop, but I found these instructions:
+If you are running everything locally on Windows please note: I have no access to a Windows workstation running Docker Desktop which means I cannot test and support Windows, but I found these instructions:
 
 [https://success.docker.com/article/how-to-install-dtr-ca-on-windows](https://success.docker.com/article/how-to-install-dtr-ca-on-windows)
 
-I believe that step "1. Get necessary CA certificate" is equivalent to "oc extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator" in the instructions above.
+I believe that step "1. Get necessary CA certificate" is equivalent to 'oc extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator' in the instructions above. 
 
-## Get access with `docker` CLI
+## Access OpenShift image repository with `docker` CLI
 
-1. In the OpenShift Web Console, go to "Administrator", "Home", "Projects". 
+1. In the OpenShift Web Console, go to 'Administrator', 'Home', 'Projects'. 
 2. Search for and open project 'openshift-image-registry'.
-3. Go to the "Workloads" tab.
-4. Click on "image-registry" in the list
-5. Open the "Resources" tab
+3. Go to the 'Workloads' tab.
+4. Click on 'image-registry' in the list
+5. Open the 'Resources' tab
 6. Copy the location of the default route
 
 ![os-image-registry](../images/os-image-registry.png)
 
-Paste the default route URL into REGISTRYURL in local.env but omit the "https://" part, also no trailing "/":
+Paste the default route URL into REGISTRYURL in local.env **but omit the 'https://' part, also no trailing '/'**:
 
 ```
 REGISTRYURL=default-route-openshift-image-registry.apps-crc.testing
@@ -147,7 +147,7 @@ $ source local.env
 $ docker login -u developer -p $(oc whoami -t) $REGISTRYURL
 ```
 
-This should result in a few warnings and in the end show "Login Succeeded".
+This should result in a few warnings and in the end show 'Login Succeeded'.
 
 ---
 
