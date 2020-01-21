@@ -166,7 +166,8 @@ $ curl -X POST "http://localhost:8080/v1/articles" ...
 ### Blogs
 
 * [Development of Reactive Applications with Quarkus](http://heidloff.net/article-development-reactive-applications-quarkus/)
-* More be added here soon ....
+* [Accessing Apache Kafka from Quarkus](http://heidloff.net/article/accessing-apache-kafka-from-quarkus/)
+* More will be added here soon ....
 
 ### Technologies
 
