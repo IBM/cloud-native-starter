@@ -1,16 +1,15 @@
 FROM node:12-alpine as BUILD
+ 
 COPY src /usr/src/app/src
 COPY public /usr/src/app/public
 COPY package.json /usr/src/app/
 COPY babel.config.js /usr/src/app/
+
 WORKDIR /usr/src/app/
 RUN yarn install
 RUN yarn build
 
-# https://blog.openshift.com/deploy-vuejs-applications-on-openshift/
-FROM nginx:1.17
-COPY nginx-os4.conf /etc/nginx/nginx.conf
-WORKDIR /code
-COPY --from=BUILD /usr/src/app/dist .
-EXPOSE 8080:8080
-CMD ["nginx", "-g", "daemon off;"]
+
+FROM nginx:latest
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=BUILD /usr/src/app/dist /usr/share/nginx/html

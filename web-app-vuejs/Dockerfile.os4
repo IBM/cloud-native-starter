@@ -7,6 +7,7 @@ WORKDIR /usr/src/app/
 RUN yarn install
 RUN yarn build
 
+
 # https://blog.openshift.com/deploy-vuejs-applications-on-openshift/
 FROM nginx:1.17
 COPY nginx-os4.conf /etc/nginx/nginx.conf
