@@ -12,12 +12,12 @@ The project contains the endpoint '/articles' of the articles service in two dif
 
 **Version 1: Imperative / Synchronous**
 
-* The REST endpoints of the articles service havs been implemented with JAX-RS (synchronous)
+* The REST endpoints of the articles service has been implemented with JAX-RS (synchronous)
 * The articles service reads ten articles from Postgres via Panache (see Quarkus guide [Simplified Hibernate ORM with Panache](https://quarkus.io/guides/hibernate-orm-panache)).
 
 **Version 2: Reactive / Aynchronous**
 
-* The REST endpoints of the articles service havs been implemented with Vert.x, CompletionStage and CompletableFuture asynchronously
+* The REST endpoints of the articles service has been implemented with Vert.x, CompletionStage and CompletableFuture asynchronously
 * The articles service reads ten articles asynchronously from Postgres via Vert.x Axle (see Quarkus guide [Reactive SQL Clients](https://quarkus.io/guides/reactive-sql-clients))
 
 JMeter is used to generate load. In both cases 100 threads (users) invoke 300 times the 'articles' endpoint of the articles service (30.000 requests in total).
