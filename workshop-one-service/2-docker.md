@@ -27,7 +27,7 @@ For the image we use a stack of open source components to run the Java microserv
 * OpenJ9 0.12.1
 * OpenJDK 8u202-b08 from AdoptOpenJDK
 * Open Liberty 18.0.0.4
-* MicroProfile 2.1
+* MicroProfile 3.0
 
 Read the article [How to build and run a Hello World Java Microservice](http://heidloff.net/article/how-to-build-and-run-a-hello-world-java-microservice/) to learn more.
 
@@ -35,7 +35,9 @@ In the [Dockerfile](../authors-java-jee/Dockerfile) we define how to build the c
 
 When we build a new container image we usually start with an existing container image that already contains a minimum of the configuration we need, for example the OS, the Java version or even more. For this we search [DockerHub](https://hub.docker.com/search?q=maven&type=image&image_filter=official) or on the internet to find a starting point which fits to our needs. 
 
-Inside of our Dockerfile we use two stages to build the container image. The reason for the two stages is that we want to be independend of an existing local environment when we build our production services. With this concept we don't have to ensure that e.g. Java and Maven or correct versions of them are installed on the local machine of the developers.
+Using a [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/).
+
+Inside of our Dockerfile we use two stages to build the container image . The reason for the two stages is that we want to be independend of an existing local environment when we build our production services. With this concept we don't have to ensure that e.g. Java and Maven or correct versions of them are installed on the local machine of the developers.
 
 With this two stage approach there is one container responsible to build the microservice, let us call this container build environment container, and another container will contain the microservice itself, we call this the production container. Only this production container is later used.
 
