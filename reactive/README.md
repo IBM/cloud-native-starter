@@ -132,6 +132,15 @@ This scenario uses the following reactive functionality:
 * Reactive REST invocations via MicroProfile REST Client
 * Reactive CRUD operations for Postgres
 
+
+**Persistence Performance Tests** 
+
+There is also another test which compares the performance of accessing the Postgres database.
+
+The reactive stack of this sample provides responsive times that take less than half of the time compared to the imperative stack: Reactive: 142 ms (0:42 min total) - Imperative: 265 ms (1:20 min total).
+
+Read the [documentation](documentation/PersistencePerformanceTests.md) for details.
+
 ### Setup of local Development Environment
 
 You can run single services locally, but there are some restrictions:
