@@ -137,7 +137,7 @@ This scenario uses the following reactive functionality:
 
 There is also another test which compares the performance of accessing the Postgres database.
 
-The reactive stack of this sample provides responsive times that take less than half of the time compared to the imperative stack: Reactive: 142 ms (0:42 min total) - Imperative: 265 ms (1:20 min total).
+The reactive stack of this sample provides response times that take less than half of the time compared to the imperative stack: Reactive: 142 ms (0:42 min total) - Imperative: 265 ms (1:20 min total).
 
 Read the [documentation](documentation/PersistencePerformanceTests.md) for details.
 

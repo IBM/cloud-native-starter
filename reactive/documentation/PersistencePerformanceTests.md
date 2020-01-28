@@ -4,7 +4,7 @@ This page describes the results of load tests to compare the efficiency of react
 
 **TL;DR**
 
-The reactive stack of this sample provides responsive times that take less than half of the time compared to the imperative stack: Reactive: 142 ms (0:42 min total) - Imperative: 265 ms (1:20 min total).
+The reactive stack of this sample provides response times that take less than half of the time compared to the imperative stack: Reactive: 142 ms (0:42 min total) - Imperative: 265 ms (1:20 min total).
 
 ### Scenario
 
