@@ -278,8 +278,7 @@ Open the file ```cloud-native-starter/authors-java-jee/liberty/server.xml``` in 
 <server description="OpenLiberty Server">
 	
     <featureManager>
-        <feature>webProfile-8.0</feature>
-        <feature>microProfile-2.1</feature>
+        <feature>microProfile-3</feature>
     </featureManager>
 
     <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="3000" httpsPort="9443"/>
