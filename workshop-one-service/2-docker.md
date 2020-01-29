@@ -62,7 +62,7 @@ The starting point for the Production container is an [OpenLiberty container](ht
 
 We copy the Authors service code together with the server.xml for the OpenLiberty server to this container.
 
-_REMEMBER:_ The service.xml contains the ports we use for our Authors service.
+_Note:_ The service.xml **defines** `port 3000` as the port where we can reach the Authors microservice. That port must be exposed with `EXPOSE 3000` in the Dockerfile.
 
 ```dockerfile
 FROM open-liberty:19.0.0.9-kernel-java11
