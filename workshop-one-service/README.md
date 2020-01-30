@@ -2,6 +2,12 @@
 
 This workshop demonstrates how to build a microservice with Java and how to deploy it to Kubernetes on the IBM Cloud.
 
+There are small variations of definition for microservices out there, here is the definition of [Gartner](https://www.gartner.com/en/information-technology/glossary/microservice):
+
+> A microservice is a service-oriented application component that is tightly scoped, strongly encapsulated, loosely coupled, independently deployable and independently scalable.
+
+[Here is additional information to microservice, provided by IBM.](https://www.ibm.com/cloud/learn/microservices)
+
 The microservice is kept as simple as possible, so that it can be used as a starting point for other microservices. The microservice has been developed with Java EE and [Eclipse MicroProfile](https://microprofile.io/).
 
 _Note:_ Useful YouTube playlist [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
