@@ -179,6 +179,7 @@ $ curl -X POST "http://localhost:8080/v1/articles" ...
 * [Accessing PostgreSQL in Kubernetes from Quarkus](http://heidloff.net/article/accessing-postgresql-from-quarkus/)
 * [Reactive Messaging Examples for Quarkus](http://heidloff.net/article/reactive-messaging-examples-quarkus/)
 * [Developing reactive REST APIs with Quarkus](http://heidloff.net/article/developing-reactive-rest-apis-with-quarkus/)
+* [Invoking REST APIs asynchronously with Quarkus](http://heidloff.net/article/invoking-rest-apis-asynchronously-with-quarkus/)
 * More will be added here soon ....
 
 ### Technologies
