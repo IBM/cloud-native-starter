@@ -1,6 +1,10 @@
 # Lab 4 - Deploying to Kubernetes
 
-In this lab we will work in the Kubernetes Web Console and with the Kubernetes CLI. The following image is a simplified overview of the topics of that lab.
+In this lab we will work in the Kubernetes Web Console and with the Kubernetes CLI. 
+
+> ["Kubernetes (K8s) is an open-source system for automating deployment, scaling, and management of containerized applications."](https://kubernetes.io)
+
+The following image is a simplified overview of the topics of that lab.
 
 ![overview](images/lab-4-overview.png)
 
@@ -190,7 +194,7 @@ This is the full [deployment.yaml](../deployment/deployment.yaml) file.
 
 Step |  |
 --- | --- 
-1 | Ensure you have downloaded the git first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git`
+1 | Ensure you have downloaded the git project first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git`
 2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee`
 3 | [Move on with the lab](./4-kubernetes.md#step-1-apply-the-deployment).
 
@@ -199,7 +203,7 @@ Step |  |
 
 Step |  |
 --- | --- 
-1 | Ensure you have downloaded the git first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git` 
+1 | Ensure you have downloaded the git project first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git` 
 2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee` **REMINDER:** The code changes from lab 3 you on you local computer, don't exist inside the your running Docker image.
 3 | [Move on with the lab](4-kubernetes.md#step-1-apply-the-deployment).
 
@@ -214,6 +218,8 @@ Step |  |
   ```
 
 2. Open the ```../authors-java-jee/deployment/deployment.yaml``` file with a editor and replace the value for the container image location with the path we got from the IBM Container Registry and just replace the ```authors:1``` text, and add following statement ```imagePullPolicy: Always``` and **save** the file.
+
+_Note:_ With the specification ```imagePullPolicy: Always``` we force that the image is pulled from the IBM Cloud Container Registry and not cashed image in Kubernetes is possible used, when we change our container image IBM Cloud Container Registry.
 
 _REMEMBER:_ You should have saved the IBM Container Registry information somewhere.
 
