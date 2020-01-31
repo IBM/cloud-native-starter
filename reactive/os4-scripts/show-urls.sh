@@ -20,6 +20,7 @@ function setup() {
   else 
     _out Kafka bootstrap server - external URL: ${crcip}:${nodeport}
     _out Kafka bootstrap server - internal URL: my-cluster-kafka-external-bootstrap.kafka:9094
+    You can\'t interact with the Kafka broker URL via the browser UI.
   fi
   _out ------------------------------------------------------------------------------------
 
