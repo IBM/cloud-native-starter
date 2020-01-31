@@ -69,7 +69,7 @@ function setup() {
   _out 2. \"kubectl get pods\" optional with \(--watch\)
   _out 3. \"kubectl get svc my-cluster-kafka-external-bootstrap\"
   _out 4. \"kubectl port-forward svc/my-cluster-kafka-external-bootstrap ${targetPort}:${targetPort}\"
-  _out Note: You can not interact with the Kafka broker URL via the browser UI http://localhost:${targetPort}
+  _out Note: You can\'t interact with the Kafka broker URL via the browser UI http://localhost:${targetPort}
   fi
   
   _out ------------------------------------------------------------------------------------
