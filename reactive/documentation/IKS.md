@@ -117,9 +117,15 @@ The container images we will build next are stored in the Container Registry as 
 
 After every step follow the instructions in the output of the commands to check when the components have been started before moving on.
 
+
 ```
 $ cd ${ROOT_FOLDER}
 $ sh iks-scripts/deploy-kafka.sh
+```
+
+_Note:_ Postgres will be deploy as a Pod into the free Kubernetes instance. That means the data is lost when the Pod is restarted.
+
+```
 $ sh iks-scripts/deploy-postgres.sh
 ```
 
