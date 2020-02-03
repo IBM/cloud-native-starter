@@ -12,7 +12,7 @@ Jump to the part of the documentation you are interested in:
 
 * [Scenario 1 - Reactive Messaging](#scenario-1---reactive-messaging)
 * [Scenario 2 - Reactive REST Endpoints for higher Efficiency](#scenario-2---reactive-rest-endpoints-for-higher-efficiency)
-* [Blogs](#blogs)
+* [Detailed blog posts related to this example](#blogs)
 * [Setup in Minikube](#setup-in-minikube)
 * [Setup in IBM Cloud Kubernetes Service](documentation/IKS.md)
 * [Setup in CodeReady Containers / local OpenShift](documentation/OpenShift4.md)
