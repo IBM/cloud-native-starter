@@ -50,13 +50,13 @@ public class InMemoryDataAccess implements DataAccess {
     }
 
     @Override
-    public CompletableFuture<List<Article>> getArticlesReactive() {
+    public CompletionStage<List<Article>> getArticlesReactive() {
         return CompletableFuture.supplyAsync(this::getArticles, managedExecutor)
                 .orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS);
     }
 
     @Override
-    public CompletableFuture<Article> addArticleReactive(Article article) {
+    public CompletionStage<Article> addArticleReactive(Article article) {
         return CompletableFuture.supplyAsync(() -> addArticle(article), managedExecutor)
                 .orTimeout(MAXIMAL_DURATION, TimeUnit.MILLISECONDS);
     }
