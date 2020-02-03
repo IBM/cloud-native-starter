@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import org.jboss.resteasy.annotations.SseElementType;
 
 @Path("/v2")
-public class NewArticlesStream { 
+public class NewArticlesStreamResource {
 
     @Inject
     @Channel("stream-new-article") Publisher<String> newArticles;

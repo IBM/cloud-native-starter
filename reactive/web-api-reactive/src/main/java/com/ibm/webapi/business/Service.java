@@ -1,201 +1,185 @@
 package com.ibm.webapi.business;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.enterprise.context.ApplicationScoped;
 import com.ibm.webapi.data.ArticlesDataAccess;
 import com.ibm.webapi.data.AuthorsDataAccess;
 import com.ibm.webapi.data.NoConnectivity;
+import org.eclipse.microprofile.context.ManagedExecutor;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.concurrent.CompletableFuture;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletionStage;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class Service {
 
-	private List<Article> lastReadArticles;
+    private List<Article> lastReadArticles;
 
-	// v1 requests five articles
-	// v2 requests ten articles
-	private int requestedAmount = 5; 
+    // v1 requests five articles
+    // v2 requests ten articles
+    private int requestedAmount = 5;
 
-	public Service() {
-	}
-	
-	@Inject
-	ArticlesDataAccess dataAccessArticles;
-	
-	@Inject
-    AuthorsDataAccess dataAccessAuthors;
+    @Inject
+    ArticlesDataAccess articlesDataAccess;
 
-	public CoreArticle addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
-		if (title == null)
-			throw new InvalidArticle();
+    @Inject
+    AuthorsDataAccess authorsDataAccess;
 
-		long id = new java.util.Date().getTime();
-		String idAsString = String.valueOf(id);
+    @Inject
+    ManagedExecutor managedExecutor;
 
-		if (url == null)
-			url = "Unknown";
-		if (author == null)
-			author = "Unknown";
+    public CoreArticle addArticle(String title, String url, String author) throws NoDataAccess, InvalidArticle {
+        if (title == null)
+            throw new InvalidArticle();
 
-		CoreArticle article = new CoreArticle();
-		article.title = title;
-		article.id = idAsString;
-		article.url = url;
-		article.author = author;
+        String id = String.valueOf(System.currentTimeMillis());
+        if (url == null)
+            url = "Unknown";
+        if (author == null)
+            author = "Unknown";
 
-		try {
-			dataAccessArticles.addArticle(article);
-			return article;
-		} catch (NoConnectivity e) {
-			e.printStackTrace();
-			throw new NoDataAccess(e);
-		}
-	}
+        CoreArticle article = new CoreArticle();
+        article.title = title;
+        article.id = id;
+        article.url = url;
+        article.author = author;
 
-	public List<Article> fallbackNoArticlesService() {
-		System.err.println("com.ibm.webapi.business.fallbackNoArticlesService: Cannot connect to articles service");
-		if (lastReadArticles == null) lastReadArticles = new ArrayList<Article>();
-		return lastReadArticles;
-	}
+        try {
+            return articlesDataAccess.addArticle(article);
+        } catch (NoConnectivity e) {
+            e.printStackTrace();
+            throw new NoDataAccess(e);
+        }
+    }
 
-	@Timeout(20000) // set high for load tests
-	@Fallback(fallbackMethod = "fallbackNoArticlesService")
-	public List<Article> getArticles() throws NoDataAccess {
-		List<Article> articles = new ArrayList<Article>();	
-		List<CoreArticle> coreArticles = new ArrayList<CoreArticle>();		
-				
-		try {
-			coreArticles = dataAccessArticles.getArticles(requestedAmount);							
-		} catch (NoConnectivity e) {
-			System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to articles service");
-			throw new NoDataAccess(e);
-		}		
-		
-		articles = this.createArticleList(coreArticles);
-		articles = this.addAuthors(articles);
-		lastReadArticles = articles;
-				
-		return articles;
-	}
+    @Timeout(20000) // set high for load tests
+    @Fallback(fallbackMethod = "fallbackNoArticlesService")
+    public List<Article> getArticles() throws NoDataAccess {
+        try {
+            List<CoreArticle> coreArticles = articlesDataAccess.getArticles(requestedAmount);
+            List<Article> articles = createArticleList(coreArticles);
 
-	private List<Article> createArticleList(List<CoreArticle> coreArticles) {
-		List<Article> articles = new ArrayList<Article>();
-		for (int index = 0; index < coreArticles.size(); index++) {
-			CoreArticle coreArticle = coreArticles.get(index);
-			Article article = new Article();
-			article.id = coreArticle.id;
-			article.title = coreArticle.title;
-			article.url = coreArticle.url;
-			article.authorName = coreArticle.author;
-			article.authorBlog = "";
-			article.authorTwitter = "";
-			articles.add(article);
-		}
-		return articles;
-	}
+            addAuthors(articles);
+            lastReadArticles = articles;
 
-	private List<Article> addAuthors(List<Article> articles) {
-		articles.parallelStream().forEach(article -> {
-			try {
-				Author author = dataAccessAuthors.getAuthor(article.authorName);
-				article.authorBlog = author.blog;
-				article.authorTwitter = author.twitter;
-			} catch (NoConnectivity e) {	
-				System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to authors service");
-				article.authorBlog = "";
-				article.authorTwitter = "";
-			} catch (NonexistentAuthor e) {	
-				article.authorBlog = "";
-				article.authorTwitter = "";
-			}
-		});
-		
-		return articles;
-	}
+            return articles;
+        } catch (NoConnectivity e) {
+            System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to articles service");
+            throw new NoDataAccess(e);
+        }
+    }
 
-	private CompletionStage<List<Article>> addAuthorsReactive(List<Article> articles) {
-		CompletableFuture<List<Article>> future = new CompletableFuture<>();
-		List<CompletableFuture<Author>> futuresOfAuthors = new ArrayList<CompletableFuture<Author>>();
-		
-		articles.parallelStream().forEach(article -> {
-			futuresOfAuthors.add(dataAccessAuthors.getAuthorReactive(article.authorName)
-				.thenApply(author -> {
-					if (author == null) author = new Author();
-					return author;
-				})
-				.exceptionally(throwable -> {
-					if (throwable.getCause().toString().equals(NoConnectivity.class.getName().toString())) {
-						System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to authors service");
-					}
-					return new Author();
-				})
-			);
-		});
+    private List<Article> createArticleList(List<CoreArticle> coreArticles) {
+        return coreArticles.stream()
+                .map(coreArticle -> {
+                    Article article = new Article();
+                    article.id = coreArticle.id;
+                    article.title = coreArticle.title;
+                    article.url = coreArticle.url;
+                    article.authorName = coreArticle.author;
+                    article.authorBlog = "";
+                    article.authorTwitter = "";
+                    return article;
+                }).collect(Collectors.toList());
+    }
 
-		join(futuresOfAuthors).thenAccept(authors -> {
-			Map<String, Author> authorsMap = getAuthorsMap(authors);
-			articles.forEach(article -> {
-				Author author = authorsMap.get(article.authorName);
-				if (author == null) {
-					article.authorBlog = "";
-					article.authorTwitter = "";
-				}
-				else {
-					article.authorBlog = author.blog;
-					article.authorTwitter = author.twitter;
-				}
-			});
-			future.complete(articles);
-		});
-		
-		return future;
-	}	
+    private void addAuthors(List<Article> articles) {
+        articles.forEach(article -> {
+            try {
+                Author author = authorsDataAccess.getAuthor(article.authorName);
+                article.authorBlog = author.blog;
+                article.authorTwitter = author.twitter;
+            } catch (NoConnectivity e) {
+                System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to authors service");
+                article.authorBlog = "";
+                article.authorTwitter = "";
+            } catch (NonexistentAuthor e) {
+                article.authorBlog = "";
+                article.authorTwitter = "";
+            }
+        });
+    }
 
-	private static Map<String, Author> getAuthorsMap(List<Author> authors) {
-		Map<String, Author> output = new HashMap<String, Author>();
-		authors.forEach(author -> {
-			output.put(author.name, author);
-		});
-		return output;
-	}
+    public List<Article> fallbackNoArticlesService() {
+        System.err.println("com.ibm.webapi.business.fallbackNoArticlesService: Cannot connect to articles service");
+        if (lastReadArticles == null)
+            lastReadArticles = new ArrayList<>();
+        return lastReadArticles;
+    }
 
-	private static CompletableFuture<List<Author>> join(List<CompletableFuture<Author>> listCompletableFutureAuthor) {
-		CompletableFuture<Void> joined = CompletableFuture.allOf(listCompletableFutureAuthor.toArray(CompletableFuture[]::new));
-		return joined.thenApply(nothing -> listCompletableFutureAuthor.stream().map(CompletableFuture::join).collect(Collectors.toList()));
-	}
+    public CompletionStage<List<Article>> getArticlesReactive() {
+        return articlesDataAccess.getArticlesReactive(requestedAmount)
+                .thenApply(this::createArticleList)
+                .thenCompose(this::addAuthorsReactive)
+                .exceptionally(e -> {
+                    e.printStackTrace();
+                    if (lastReadArticles == null)
+                        throw new NoDataAccess();
+                    return lastReadArticles;
+                })
+                .whenComplete((articles, e) -> {
+                    if (articles != null)
+                        lastReadArticles = articles;
+                });
+    }
 
-	public CompletableFuture<List<Article>> getArticlesReactive() {
-		CompletableFuture<List<Article>> future = new CompletableFuture<>();
-		
-		dataAccessArticles.getArticlesReactive(requestedAmount).thenApply(coreArticles -> {
-			List<Article> articles = this.createArticleList(coreArticles);			
-			return articles;
-		}).thenCompose(articles -> {					
-			return this.addAuthorsReactive(articles);
-		}).exceptionally(throwable -> {  
-			if (lastReadArticles == null) {
-				future.completeExceptionally(new NoDataAccess());
-				return null; 
-			} else {
-				return lastReadArticles;
-			}
-        }).whenComplete((articles, throwable) -> {
-			if (articles != null) {
-				lastReadArticles = articles;
-				future.complete(articles);          
-			}
-		});
+    private CompletionStage<List<Article>> addAuthorsReactive(List<Article> articles) {
+        List<CompletionStage<Author>> futuresOfAuthor = articles.stream()
+                .map(this::fetchAuthorsReactive)
+                .collect(Collectors.toList());
 
-        return future;
-	}
+        return transform(futuresOfAuthor)
+                .thenApply(authors -> merge(articles, authors));
+    }
+
+    private CompletionStage<Author> fetchAuthorsReactive(Article article) {
+        return authorsDataAccess.getAuthorReactive(article.authorName)
+                .exceptionally(throwable -> {
+                    System.err.println("com.ibm.webapi.business.getArticles: Could not get author: " + throwable);
+                    return new Author();
+                });
+    }
+
+    private CompletionStage<List<Author>> transform(List<CompletionStage<Author>> authors) {
+        BiConsumer<CompletionStage<List<Author>>, CompletionStage<Author>> accumulator = (csl, csa) -> {
+            csl.thenCombine(csa, (list, author) -> {
+                list.add(author);
+                return list;
+            }).toCompletableFuture().join();
+        };
+
+        BiConsumer<CompletionStage<List<Author>>, CompletionStage<List<Author>>> combiner = (l1, l2) -> l1.thenCombine(l2, (as1, as2) -> {
+            as1.addAll(as2);
+            return as1;
+        });
+
+        return authors.stream().collect(() -> managedExecutor.supplyAsync(ArrayList::new),
+                accumulator,
+                combiner);
+    }
+
+    private List<Article> merge(List<Article> articles, List<Author> authors) {
+        Map<String, Author> authorsMap = authors.stream()
+                .collect(Collectors.toMap(a -> a.name, a -> a, (oldV, newV) -> newV));
+
+        articles.forEach(article -> merge(article, authorsMap.get(article.authorName)));
+        return articles;
+    }
+
+    private void merge(Article article, Author author) {
+        if (author == null) {
+            article.authorBlog = "";
+            article.authorTwitter = "";
+        } else {
+            article.authorBlog = author.blog;
+            article.authorTwitter = author.twitter;
+        }
+    }
+
 }

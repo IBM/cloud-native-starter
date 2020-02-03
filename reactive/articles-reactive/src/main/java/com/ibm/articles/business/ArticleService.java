@@ -71,8 +71,7 @@ public class ArticleService {
     }
 
     private Article createArticle(String title, String url, String author) {
-        long id = new java.util.Date().getTime();
-        String idAsString = String.valueOf(id);
+        String id = String.valueOf(System.currentTimeMillis());
 
         if (url == null)
             url = "Unknown";
@@ -81,8 +80,8 @@ public class ArticleService {
 
         Article article = new Article();
         article.title = title;
-        article.creationDate = idAsString;
-        article.id = idAsString;
+        article.creationDate = id;
+        article.id = id;
         article.url = url;
         article.author = author;
 
