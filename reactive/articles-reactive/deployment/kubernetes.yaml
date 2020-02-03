@@ -56,5 +56,5 @@ metadata:
   labels:
     app: articles  
 data:
-  samplescreation: CREATE
+  samplescreation: "true"
 ---

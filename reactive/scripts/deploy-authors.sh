@@ -17,7 +17,7 @@ function setup() {
 
   cd ${root_folder}/../authors-nodejs/deployment
   sed -e "s|<URL>|notused|g" -e "s|<DB>|local|g" deployment.yaml.template > deployment.yaml
-  kubectl delete -f deployment.yaml --ignore-not-found
+  kubectl delete deployment authors --ignore-not-found
   kubectl apply -f deployment.yaml
   rm deployment.yaml
     

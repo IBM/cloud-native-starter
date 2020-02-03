@@ -13,7 +13,7 @@ function setup() {
   minikubeip=$(minikube ip)
   
   cd ${root_folder}/web-api-reactive
-  kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
+  kubectl delete deployment web-api-reactive --ignore-not-found
 
   cd ${root_folder}/web-api-reactive/src/main/resources
   sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties.tmp

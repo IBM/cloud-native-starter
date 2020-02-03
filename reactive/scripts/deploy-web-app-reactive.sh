@@ -10,7 +10,7 @@ function setup() {
   _out Deploying web-app-reactive
   
   cd ${root_folder}/web-app-reactive
-  kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
+  kubectl delete deployment web-app-reactive --ignore-not-found
   
   minikubeip=$(minikube ip)
   nodeport=$(kubectl get svc web-api-reactive --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')

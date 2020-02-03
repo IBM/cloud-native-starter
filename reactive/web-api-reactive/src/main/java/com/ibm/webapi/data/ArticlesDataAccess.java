@@ -27,7 +27,7 @@ public class ArticlesDataAccess {
     private ArticlesServiceReactive articlesServiceReactive;
 
     @ConfigProperty(name = "cloud-native-starter.local")
-    String localMode;
+    boolean localMode;
 
     @ConfigProperty(name = "cloud-native-starter.minikube.ip")
     String minikubeIp;
@@ -37,7 +37,7 @@ public class ArticlesDataAccess {
 
     @PostConstruct
     void initialize() {
-        if (localMode.equalsIgnoreCase("true")) {
+        if (localMode) {
             articlesHost = minikubeIp;
             articlesPort = articlesLocalPort;
         }
