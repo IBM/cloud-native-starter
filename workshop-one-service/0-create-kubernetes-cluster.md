@@ -69,7 +69,7 @@ The creation of the custer takes up to 20 min.
 
 ![create Kubernetes service](images/ibmcloud-create-kubernetes-3.png)
 
-# 3 Configure the IBM Cloud Container Registry <a name="part-SETUP-03"></a>
+# 4 Configure the IBM Cloud Container Registry <a name="part-SETUP-03"></a>
 
 1. Select in **Kubernetes** the entry **Registry** and ensure your are in the **Dallas location**.
 
