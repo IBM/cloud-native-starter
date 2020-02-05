@@ -24,7 +24,7 @@ This workshop has four labs. It should take between 60 and 90 minutues to comple
 
 > Lab 2 and 3 describe how to develop a microservice with Java EE and Eclipse MicroProfile. I you aren't a developer you can skip these two labs.
 
-The last lab shows one way to deploy a microservice to Kubernetes to IBM Cloud.
+The last lab shows one way to deploy a microservice to Kubernetes on IBM Cloud.
 
 _Note:_ If you want to deploy the authors microservice to IBM Cloud without touching any code or commandline, you can use these instructions [Use a IBM Cloud toolchain to deploy a Java Microservices to Kubernetes on IBM Cloud](https://thomassuedbroecker.github.io/cloud-native-starter-one-service-workshop-toolchain/) which do automate lab 4.
 
