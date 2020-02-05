@@ -1,18 +1,17 @@
 package com.ibm.cns.articles.control;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class DataAccessFacade {
 
-    private static final String USE_IN_MEMORY_STORE = "USE_IN_MEMORY_STORE";
-
     @Inject
-    @ConfigProperty(name = "inmemory", defaultValue = USE_IN_MEMORY_STORE)
-    private String inmemory;
+    @ConfigProperty(name = "inmemory", defaultValue = "true")
+    private boolean inMemory;
 
     @Inject
     InMemoryDataAccess inMemoryDataAccess;
@@ -23,11 +22,8 @@ public class DataAccessFacade {
     @Produces
     @MPConfigured
     public DataAccess getDataAccess() {
-
-        if (inmemory.equalsIgnoreCase(USE_IN_MEMORY_STORE)) {
+        if (inMemory)
             return inMemoryDataAccess;
-        } else {
-            return jPADataAccess;
-        }
+        return jPADataAccess;
     }
 }

@@ -12,12 +12,13 @@ function setup() {
   _out Deploying articles-reactive
   
   cd ${root_folder}/articles-reactive
-  kubectl delete -f deployment/kubernetes.yaml --ignore-not-found
+  kubectl delete deployment articles-reactive --ignore-not-found
+  kubectl delete configmap articles-config --ignore-not-found
 
   cd ${root_folder}/articles-reactive/src/main/resources
   sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties.temp
 
-  sed "s/IN_MEMORY_STORE/yes/g" application.properties.temp > application.properties.temp2
+  sed "s/IN_MEMORY_STORE/true/g" application.properties.temp > application.properties.temp2
 
   sed "s/POSTGRES_URL/database-articles.my-postgresql-operator-dev4devs-com:5432/g" application.properties.temp2 > application.properties
   rm application.properties.temp

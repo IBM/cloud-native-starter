@@ -26,7 +26,7 @@ function setup() {
   cd ${root_folder}/articles-java-jee/deployment
   cp "kubernetes.yaml" "kubernetes.yaml.org"
   rm "kubernetes.yaml"
-  sed "s/USE_IN_MEMORY_STORE/USE_SQL_STORE/g" kubernetes.yaml.org > kubernetes.yaml
+  sed "s/inmemory: true/inmemory: false/g" kubernetes.yaml.org > kubernetes.yaml
   
   cd ${root_folder}
   source local.env

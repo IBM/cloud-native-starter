@@ -275,8 +275,8 @@ apiVersion: v1
 metadata:
   name: articles-config
 data:
-  samplescreation: CREATE
-  inmemory: USE_IN_MEMORY_STORE
+  samplescreation: "true"
+  inmemory: "true"
 ```
 * Environment
 
@@ -296,13 +296,12 @@ In the Java code the **configuration** can be accessed via **@Inject** and **@Co
  @ConfigProperty.
 
 public class CoreService {
-  private static final String CREATE_SAMPLES = "CREATE";
   @Inject
-  @ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
-  private String samplescreation;
+  @ConfigProperty(name = "samplescreation", defaultValue = "false")
+  private boolean samplescreation;
   @PostConstruct
   private void addArticles() {
-    if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
+    if (samplescreation)
       addSampleArticles();
     }
 ```
@@ -364,7 +363,7 @@ apiVersion: v1
 metadata:
   name: articles-config
 data:
-  samplescreation: CREATE
+  samplescreation: "true"
 ---
 ```
 

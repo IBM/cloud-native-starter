@@ -35,20 +35,19 @@ apiVersion: v1
 metadata:
   name: articles-config
 data:
-  samplescreation: CREATE
+  samplescreation: "true"
 ```
 
 In the [Java code](../articles-java-jee/src/main/java/com/ibm/articles/business/CoreService.java) the configuration can be accessed via @Inject and @ConfigProperty.
 
 ```
 public class CoreService {
-  private static final String CREATE_SAMPLES = "CREATE";
   @Inject
-  @ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
-  private String samplescreation;
+  @ConfigProperty(name = "samplescreation", defaultValue = "false")
+  private boolean samplescreation;
   @PostConstruct
   private void addArticles() {
-    if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
+    if (samplescreation)
       addSampleArticles();
     }
 ```

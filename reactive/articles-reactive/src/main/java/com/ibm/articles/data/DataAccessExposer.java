@@ -10,11 +10,9 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class DataAccessExposer {
 
-    private static final String USE_IN_MEMORY_STORE = "yes";
-
     @Inject
-    @ConfigProperty(name = "custom.in-memory-store", defaultValue = USE_IN_MEMORY_STORE)
-    private String inmemory;
+    @ConfigProperty(name = "custom.in-memory-store", defaultValue = "true")
+    boolean inmemory;
 
     @Inject
     InMemoryDataAccess inMemoryDataAccess;
@@ -25,7 +23,7 @@ public class DataAccessExposer {
     @Produces
     @AlternativePriority(1)
     public DataAccess produceDataAccess() {
-        if (inmemory.equalsIgnoreCase(USE_IN_MEMORY_STORE)) {
+        if (inmemory) {
             return inMemoryDataAccess;
         } else {
             return postgresDataAccess;

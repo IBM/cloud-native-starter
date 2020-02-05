@@ -17,13 +17,11 @@ import java.util.concurrent.CompletionStage;
 @ApplicationScoped
 public class ArticleService {
 
-    private static final String CREATE_SAMPLES = "CREATE";
-
     private final Comparator<Article> articleComparator = Comparator.comparing((Article a) -> a.creationDate).reversed();
 
     @Inject
-    @ConfigProperty(name = "samplescreation", defaultValue = CREATE_SAMPLES)
-    private String samplescreation;
+    @ConfigProperty(name = "samplescreation", defaultValue = "true")
+    boolean samplesCreation;
 
     @Inject
     DataAccess dataAccess;
@@ -32,8 +30,8 @@ public class ArticleService {
     EventBus bus;
 
     @PostConstruct
-    private void addArticles() {
-        if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES))
+    void addArticles() {
+        if (samplesCreation)
             addSampleArticles();
     }
 
@@ -56,23 +54,19 @@ public class ArticleService {
     }
 
     public CompletionStage<Article> addArticleReactive(String title, String url, String author) {
-        CompletableFuture<Article> future = new CompletableFuture<>();
+        if (title == null)
+            return CompletableFuture.failedFuture(new InvalidArticle());
 
-        if (title == null) {
-            future.completeExceptionally(new InvalidArticle());
-        } else {
-            Article article = createArticle(title, url, author);
-            dataAccess.addArticleReactive(article).thenAccept(newArticle -> {
-                sendMessageToKafka(newArticle);
-                future.complete(newArticle);
-            });
-        }
-        return future;
+        Article article = createArticle(title, url, author);
+        return dataAccess.addArticleReactive(article)
+                .thenApply(newArticle -> {
+                    sendMessageToKafka(newArticle);
+                    return newArticle;
+                });
     }
 
     private Article createArticle(String title, String url, String author) {
-        long id = new java.util.Date().getTime();
-        String idAsString = String.valueOf(id);
+        String id = String.valueOf(System.currentTimeMillis());
 
         if (url == null)
             url = "Unknown";
@@ -81,8 +75,8 @@ public class ArticleService {
 
         Article article = new Article();
         article.title = title;
-        article.creationDate = idAsString;
-        article.id = idAsString;
+        article.creationDate = id;
+        article.id = id;
         article.url = url;
         article.author = author;
 

@@ -23,7 +23,7 @@ function setup() {
     cd ${root_folder}/articles-reactive/src/main/resources
     sed "s/KAFKA_BOOTSTRAP_SERVERS/${minikubeip}:${nodeport}/g" application.properties.template > application.properties.temp
 
-    sed "s/IN_MEMORY_STORE/yes/g" application.properties.temp > application.properties.temp2
+    sed "s/IN_MEMORY_STORE/true/g" application.properties.temp > application.properties.temp2
 
     nodeport=$(kubectl get svc database-articles -n my-postgresql-operator-dev4devs-com --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
     sed "s/POSTGRES_URL/${minikubeip}:${nodeport}/g" application.properties.temp2 > application.properties

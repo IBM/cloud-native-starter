@@ -3,28 +3,26 @@ package com.ibm.cns.articles.boundary;
 import com.ibm.cns.articles.control.DataAccess;
 import com.ibm.cns.articles.control.MPConfigured;
 import com.ibm.cns.articles.entity.Article;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class ArticlesService {
 
-    private static final String CREATE_SAMPLES = "CREATE";
-    private static final String USE_IN_MEMORY_STORE = "USE_IN_MEMORY_STORE";
+    @Inject
+    @ConfigProperty(name = "inmemory", defaultValue = "true")
+    boolean inMemory;
 
     @Inject
-    @ConfigProperty(name = "inmemory", defaultValue = USE_IN_MEMORY_STORE)
-    String inmemory;
-
-    @Inject
-    @ConfigProperty(name = "samplescreation", defaultValue = "dontcreate")
-    String samplescreation;
+    @ConfigProperty(name = "samplescreation", defaultValue = "false")
+    boolean samplesCreation;
 
     @Inject
     @MPConfigured
@@ -32,11 +30,8 @@ public class ArticlesService {
 
     @PostConstruct
     private void addArticles() {
-        if (inmemory.equalsIgnoreCase(USE_IN_MEMORY_STORE)) {
-            if (samplescreation.equalsIgnoreCase(CREATE_SAMPLES)) {
-                addSampleArticles();
-            }
-        }
+        if (inMemory && samplesCreation)
+            addSampleArticles();
     }
 
     public Article addArticle(Article article) {

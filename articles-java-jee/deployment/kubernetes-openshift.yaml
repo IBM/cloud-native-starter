@@ -60,6 +60,6 @@ metadata:
   labels:
     app: articles  
 data:
-  samplescreation: CREATE
-  inmemory: USE_IN_MEMORY_STORE
+  samplescreation: "true"
+  inmemory: "true"
 ---

@@ -26,7 +26,7 @@ function setup() {
       
         cd ${root_folder}/articles-reactive/src/main/resources
         sed "s/KAFKA_BOOTSTRAP_SERVERS/${minikubeip}:${nodeport}/g" application.properties.template > application.properties.temp
-        sed "s/IN_MEMORY_STORE/no/g" application.properties.temp > application.properties.temp2
+        sed "s/IN_MEMORY_STORE/false/g" application.properties.temp > application.properties.temp2
         sed "s/POSTGRES_URL/${minikubeip}:${nodeportpostgres}/g" application.properties.temp2 > application.properties
         rm application.properties.temp
         rm application.properties.temp2

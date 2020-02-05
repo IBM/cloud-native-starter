@@ -42,11 +42,11 @@ spec:
         livenessProbe:
           exec:
             command: ["sh", "-c", "curl -s http://localhost:8080/health/live"]
-          initialDelaySeconds: 20
+          initialDelaySeconds: 10
         readinessProbe:
           exec:
             command: ["sh", "-c", "curl -s http://localhost:8080/health/ready"]
-          initialDelaySeconds: 40
+          initialDelaySeconds: 20
       restartPolicy: Always
 ---
 kind: ConfigMap
@@ -56,5 +56,5 @@ metadata:
   labels:
     app: articles  
 data:
-  samplescreation: CREATE
+  samplescreation: "true"
 ---
