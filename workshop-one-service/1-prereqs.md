@@ -73,17 +73,25 @@ $ ./iks-scripts/check-prerequisites.sh
 
 #### Step 4: Move on with [Verify Access your free Kubernetes Cluster on the IBM Cloud](./1-prereqs.md#verify-access-to-kubernetes-on-the-ibm-cloud)
 
+---
 
 ### Tools - Option 2 (prefered for Windows): Prebuilt Image with Code in Container
 
-There is an image on DockerHub with all required tools. This option works for Mac, Linux and Windows. To get started as quickly as possible, use this image (see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) for more).
+There is an image on DockerHub with all required tools. This option works for Mac, Linux and Windows. 
+
+The following steps showing the setup using the Docker image. 
 
 #### Step 1: Run this command in a terminal
+
+You will start the Docker container in a interactive terminal session.
 
 ```sh
 $ docker run -ti tsuedbroecker/cns-workshop-tools:v1
 ```
-_Note:_ If you using Windows you also need to download or clone the project to your local workstation for the upcoming Docker and Java lab, because you can't use Docker in the 'cns-workshop-tools' Docker image.
+
+_Note:_ If you using Windows you also need to download or clone the project to your local workstation. Short you will have a clone on your local computer and inside the Docker image, which runs in the interactive mode.
+
+The local project is needed two Java development labs, because you can't use Docker in the 'cns-workshop-tools' Docker image. (for more see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) ).
 
 #### Step 2: After the container has been started, run these commands inside your running Docker image to get the lastest version of the workshop:
 
@@ -104,11 +112,14 @@ $ ./iks-scripts/check-prerequisites.sh
 
 #### Step 4: Move on with [Verify Access to Kubernetes on the IBM Cloud](./1-prereqs.md#verify-access-to-kubernetes-on-the-ibm-cloud)
 
+---
 
 ### Tools - Option 3 (prefered for developers with Mac or Linux): Install Tools on your Notebook
 
 This approach works only for Mac and Linux (see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) for more).
-Here you install all tool on you machine. This is the most time-consuming option, if you have to install all the tools.
+Here you install all tools on your machine. This is the most time-consuming option, if you have to install all the tools.
+
+That option can take time, if you haven't installed the tools before.
 
 #### Step 1: Install the following tools:
 
@@ -142,6 +153,9 @@ $ ./iks-scripts/check-prerequisites.sh
 ---
 
 ## Verify Access to Kubernetes on the IBM Cloud
+
+The following steps must be done in your interactive Docker image, when you use Option 1 or 2. 
+If you have installed all tools on your local machine Option 3), you have to do the steps on the local machine.
 
 #### Step 1: After you've created a new free Kubernetes cluster
 

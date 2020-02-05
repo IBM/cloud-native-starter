@@ -20,26 +20,30 @@ The following gif is an animation of the simplified steps above in a sequence.
 
 ![overview gif](images/lab-4-overview.gif)
 
-# 1. Build and save the container image
+---
 
-### [Tools - Option 1 (prefered for Mac or Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
+Remember which option you have choosen, when you did the setup of the prereqs. 
+
+* [Tools - Option 1 (prefered for Mac or Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
 Step |  |
 --- | --- 
-1 | Ensure you have downloaded the git first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git`
+1 | You started the Docker image in the interactive mode, with a mapping to the downloaded Cloud Native Starter project on your local computer. That terminal session should be open.
 2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee`
 3 | [Move on with the lab](./4-kubernetes.md#step-1-build-and-save-the-container-image-in-the-ibm-cloud-container-registry).
 
 
-### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
+* [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
 
 Step |  |
 --- | --- 
-1 | Ensure you have downloaded the git first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git` 
+1 | You started the Docker image in the interactive mode and you downloaded the Cloud Native Starter project in the running Docker container.  That terminal session should be open.
 2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee` **REMINDER:** The code changes from lab 3 you on you local computer, don't exist inside the your running Docker image.
 3 | [Move on with the lab](4-kubernetes.md#step-1-build-and-save-the-container-image-in-the-ibm-cloud-container-registry).
 
 ---
+
+# 1. Build and save the container image
 
 ## Step 1: Build and save the container image in the IBM Cloud Container Registry
 
@@ -108,7 +112,7 @@ Now we want to build and save a container image in the IBM Cloud Container Regis
 
 ---
 
-# 2. Apply the deployment.yaml
+# 2. Apply the Deployment
 
 This deployment will deploy a container to a Pod in Kubernetes.
 For more details we use the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) for Pods.
@@ -190,25 +194,6 @@ This is the full [deployment.yaml](../deployment/deployment.yaml) file.
         restartPolicy: Always
   ```
 
-### [Tools - Option 1 (prefered for Mac or Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
-
-Step |  |
---- | --- 
-1 | Ensure you have downloaded the git project first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git`
-2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee`
-3 | [Move on with the lab](./4-kubernetes.md#step-1-apply-the-deployment).
-
-
-### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
-
-Step |  |
---- | --- 
-1 | Ensure you have downloaded the git project first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git` 
-2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee` **REMINDER:** The code changes from lab 3 you on you local computer, don't exist inside the your running Docker image.
-3 | [Move on with the lab](4-kubernetes.md#step-1-apply-the-deployment).
-
----
-
 #### Step 1: Apply the deployment
 
 1. Ensure you are in the ```$ROOT_FOLDER/authors-java-jee/deployment```
@@ -238,7 +223,7 @@ _REMEMBER:_ You should have saved the IBM Container Registry information somewhe
         - containerPort: 3000
   ```
 
-3. Now we apply the deployment we will create the new **Authors** Pod.
+3. Now we apply the deployment and we create a new **Authors** Pod.
 
     ```sh
     $ kubectl apply -f deployment.yaml
@@ -272,7 +257,7 @@ _REMEMBER:_ You should have saved the IBM Container Registry information somewhe
   ![In the overview you see the created deployment and the pod](images/lab-4-deployment-2.png)
 
 
-# 3. Apply the service.yaml
+# 3. Apply the service
 
 After the definition of the Pod we need to define how to access the Pod. For this we use a service in Kubernetes. For more details see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/service/) for service.
 
@@ -300,23 +285,6 @@ spec:
   type: NodePort
 ---
 ```
-
-### [Tools - Option 1 (prefered for Mac and Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
-
-Step |  |
---- | --- 
-1 | Ensure you have downloaded the git first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git`
-2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee`
-3 | [Move on with the lab](./4-kubernetes.md#step-1-ensure-you-are-in-the-root_folderauthors-java-jeedeployment).
-
-
-### [Tools - Option 2 (prefered for Windows)](./1-prereqs.md#tools---option-2-prebuilt-image-with-code-in-container)
-
-Step |  |
---- | --- 
-1 | Ensure you have downloaded the git first into the running Docker image. `$ git clone https://github.com/IBM/cloud-native-starter.git` 
-2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee` **REMINDER:** The code changes from lab 3 you on you local computer, don't exist inside the your running Docker image.
-3 | [Move on with the lab](4-kubernetes.md#step-1-ensure-you-are-in-the-root_folderauthors-java-jeedeployment).
 
 ---
 

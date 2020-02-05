@@ -1,7 +1,9 @@
 # Lab 2 - Running the Java Microservice locally
 
+> _Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
+The hands-on tasks starting in chapter [Hands-on tasks - Run the container locally](#lab-hands-on) in that lab.
 
-In this workshop we create a microservice that has been implemented with Java EE and [Eclipse MicroProfile](https://microprofile.io/).
+In this workshop we run a microservice that has been implemented with Java EE and [Eclipse MicroProfile](https://microprofile.io/).
 
 The microservice has been kept as simple as possible, so that it can be used as a starting point for other microservices. It contains the following functionality:
 
@@ -78,9 +80,9 @@ RUN configure.sh
 EXPOSE 3000
 ```
 
-### Run the container locally
+### Hands-on tasks - Run the container locally <a name="lab-hands-on"></a>
 
-That lab does only need Docker and a terminal session on your local machine.
+That lab needs a local Docker installation and a terminal session on your local machine.
 
 #### Step 1: To test and see how the code works you can run the code locally as a Docker container
 

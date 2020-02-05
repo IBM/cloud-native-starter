@@ -1,5 +1,8 @@
 # Lab 3 - Understanding the Java Implementation
 
+> _Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
+The hands-on tasks starting in chapter [Hands-on tasks - Change the code of the authors microservice and run the service in a container locally](#lab-hands-on) in that lab.
+
 ## 1. Usage of Maven for Java
 
 We begin with the [Maven](https://maven.apache.org/) part for our Java project.
@@ -221,7 +224,7 @@ _Note:_ Later we will change the return values for the response in the local sou
 
 ### 3.3 Supporting live and readiness probes in Kubernetes with HealthCheck
 
-We have added the class HealthEndpoint into the Authors package as you can see in the following diagram.
+We have added the class HealthEndpoint to the Authors package as you see in the following diagram.
 
 ![class diagramm HealthEndpoint](images/authors-java-classdiagram-02.png)
 
@@ -259,8 +262,9 @@ This HealthEndpoint is configured in the Kubernetes deployment yaml. In the foll
       initialDelaySeconds: 40
 ```
 
-## Change the code of the authors microservice and run the service in a container locally
+## Hands-on tasks - Change the code of the authors microservice and run the service in a container locally <a name="lab-hands-on"></a>
 
+#### Step 1:
 That lab does only need Docker and a terminal session on your local machine.
 
 ```sh 
@@ -269,7 +273,7 @@ $ docker build -t authors .
 $ docker run -i --rm -p 3000:3000 authors
 ```
 
-#### Step 1: Change the contextRoot in [server.xml](../authors-java-jee/liberty/server.xml) to something similar like "myapi".
+#### Step 2: Change the contextRoot in [server.xml](../authors-java-jee/liberty/server.xml) to something similar like "myapi".
 
 Open the file ```cloud-native-starter/authors-java-jee/liberty/server.xml``` in a editor and change the value.
 
@@ -288,7 +292,7 @@ Open the file ```cloud-native-starter/authors-java-jee/liberty/server.xml``` in 
 </server>
 ```
 
-### Step 2: Change the @ApplicationPath in the class [AuthorsApplication.java](../authors-java-jee/src/main/java/com/ibm/authors/AuthorsApplication.java) something similar like "myv1".
+### Step 3: Change the @ApplicationPath in the class [AuthorsApplication.java](../authors-java-jee/src/main/java/com/ibm/authors/AuthorsApplication.java) something similar like "myv1".
 
 Open the file ```cloud-native-starter/authors-java-jee/src/main/java/com/ibm/authors/AuthorsApplication.java``` in a editor and change the value.
 
@@ -303,7 +307,7 @@ public class AuthorsApplication extends Application {
 }
 ```
 
-#### Step 3: In the class [GetAuthor.java](../authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java) change the returned author name to something similar like "MY NAME".
+#### Step 4: In the class [GetAuthor.java](../authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java) change the returned author name to something similar like "MY NAME".
 
 Open the file ```cloud-native-starter/authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java``` in a editor and change the value.
 
@@ -324,7 +328,7 @@ public Response getAuthor(@Parameter(
 	}
 ```
 
-#### Step 4: In the class [HealthEndpoint.java](../authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java) change the returned information to something similar like "ok for the workshop".
+#### Step 5: In the class [HealthEndpoint.java](../authors-java-jee/src/main/java/com/ibm/authors/HealthEndpoint.java) change the returned information to something similar like "ok for the workshop".
 
 ```java
 @Health
@@ -338,7 +342,7 @@ public class HealthEndpoint implements HealthCheck {
 }
 ```
 
-#### Step 5: To test and see how the code works you can run the code locally as a Docker container:
+#### Step 6: To test and see how the code works you can run the code locally as a Docker container:
 
 ```
 $ cd $ROOT_FOLDER/authors-java-jee
@@ -346,7 +350,7 @@ $ docker build -t authors .
 $ docker run -i --rm -p 3000:3000 authors
 ```
 
-#### Step 6: Open the swagger UI of the mircoservice in a browser and verfiy the changes
+#### Step 7: Open the swagger UI of the mircoservice in a browser and verfiy the changes
 
 ```http://localhost:3000/openapi/ui/```
 
