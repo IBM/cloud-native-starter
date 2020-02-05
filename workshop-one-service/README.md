@@ -22,8 +22,14 @@ This workshop has four labs. It should take between 60 and 90 minutues to comple
 3. Understanding the Java implementation: [lab](3-java.md)
 4. Deploying to Kubernetes: [lab](4-kubernetes.md)
 
-The first lab describes how to install all required prerequisites. In the easiest case this is only Docker Desktop and an image with all other tools.
+> Lab 2 and 3 describe how to develop a microservice with Java EE and Eclipse MicroProfile. I you aren't a developer you can skip these two labs.
 
-Lab 2 and 3 describe how to develop a microservice with Java EE and Eclipse MicroProfile.
+The last lab shows one way to deploy a microservice to Kubernetes to IBM Cloud.
 
-The last labs ways to deploy applications to Kubernetes on IBM Cloud.
+_Note:_ If you want to deploy the authors microservice to IBM Cloud without touching any code or commandline, you can use these instructions [Use a IBM Cloud toolchain to deploy a Java Microservices to Kubernetes on IBM Cloud](https://thomassuedbroecker.github.io/cloud-native-starter-one-service-workshop-toolchain/) which do automate lab 4.
+
+
+
+
+
+
