@@ -158,8 +158,10 @@ $ ./iks-scripts/check-prerequisites.sh
 
 ## Verify Access to Kubernetes on the IBM Cloud
 
-The following steps must be done in your interactive Docker image, when you use Option 1 or 2. 
-If you have installed all tools on your local machine Option 3), you have to do the steps on the local machine.
+This is a preparation for lab 4, when we will connect to the IBM Cloud.
+
+The following steps must be done in your interactive Docker container, when you use Option 1 or 2. 
+If you have installed all tools on your local machine Option 3, you have to do the steps on the local machine.
 
 #### Step 1: After you've created a new free Kubernetes cluster
 
