@@ -31,19 +31,22 @@ That Docker image contains all needed CLIs such as:
 - [Docker](https://docs.docker.com/v17.12/install/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-So, in order to complete the workshop, you only need to install [Docker Desktop](https://docs.docker.com/install/). Docker Desktop is available for Mac and Windows and the Docker Engine can be run natively on Linux.
-
-**The following tools options are only relevant from lab 4. All other labs do only need Docker and a terminal session on your local machine.**
+So, in order to complete the workshop, you **need** to install [Docker Desktop](https://docs.docker.com/install/) on your local machine. Docker Desktop is available for Mac and Windows and the Docker Engine can be run natively on [Linux](https://docs.docker.com/install/linux).
 
 There are different options to install or use these tools.
 
 Based on our experience the option 2 is the best choice for Windows users. For more background, why we provide these different options, see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/).
 
+
+> Note: **The following tools options are only relevant in lab 4. For the developer focused labs 2 and 3 you will work with your local Docker Desktop installation and a terminal session on your local machine.**
+
 ---
 
-### Tools - Option 1 (prefered for Mac or Linux): Prebuilt Image with local Code
+### Tools - Option 1 (prefered for Mac or Linux): Prebuilt Docker image with local Code
 
 There is an image on DockerHub with all required tools. In order to use local IDEs and editors to modify code and configuraton files a Docker volume is used. This option  works only for Mac and Linux.
+
+In this workshop you can map the downloaded GitHub project on your  local PC to the running Docker container [using storage volumes](https://docs.docker.com/storage/volumes/container).
 
 #### Step 1: Run these commands in a terminal
 
@@ -55,7 +58,7 @@ $ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-w
 ```
 _Note:_ With the `--rm` option in the docker run command the container is deleted once you exit. This is intended.
 
-#### Step 2: Inside your running Docker image you can access your the local github project 
+#### Step 2: Inside your running Docker image you can access your the local GitHub project 
 
 ```
 $ cd /cloud-native-starter/
