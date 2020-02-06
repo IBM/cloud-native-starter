@@ -22,7 +22,7 @@ This workshop has four labs. It should take between 60 and 90 minutues to comple
 3. Understanding the Java implementation: [lab](3-java.md)
 4. Deploying to Kubernetes: [lab](4-kubernetes.md)
 
-> Lab 2 and 3 describe how to develop a microservice with Java EE and Eclipse MicroProfile. I you aren't a developer you can skip these two labs.
+> Lab 2 and 3 describe how to develop a microservice with Java EE and Eclipse MicroProfile. If you aren't a developer you can skip these two labs.
 
 The last lab shows one way to deploy a microservice to Kubernetes on IBM Cloud.
 
