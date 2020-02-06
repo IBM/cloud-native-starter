@@ -92,9 +92,9 @@ You will start the Docker container in a interactive terminal session.
 $ docker run -ti tsuedbroecker/cns-workshop-tools:v1
 ```
 
-_Note:_ If you using Windows you also need to download or clone the project to your local workstation. Short you will have a clone on your local computer and inside the Docker image, which runs in the interactive mode.
+> _Note:_ If you using Windows you need to clone the project twice. You need to clone the Cloud Native Starter project to your local workstation and you will clone the project in the local running Docker container, which will run in an interactive mode.
 
-The local project is needed two Java development labs, because you can't use Docker in the 'cns-workshop-tools' Docker image. (for more see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) ).
+The local project is needed for Java development labs 2 and 3, because you can't use Docker in the 'cns-workshop-tools' Docker image. (for more see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) ).
 
 #### Step 2: After the container has been started, run these commands inside your running Docker image to get the lastest version of the workshop:
 
@@ -120,9 +120,10 @@ $ ./iks-scripts/check-prerequisites.sh
 ### Tools - Option 3 (prefered for developers with Mac or Linux): Install Tools on your Notebook
 
 This approach works only for Mac and Linux (see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) for more).
-Here you install all tools on your machine. This is the most time-consuming option, if you have to install all the tools.
+Here you install all tools on your machine. 
 
-That option can take time, if you haven't installed the tools before.
+> _Note:_ This is the most time-consuming option, if you have to install all the tools.
+
 
 #### Step 1: Install the following tools:
 
