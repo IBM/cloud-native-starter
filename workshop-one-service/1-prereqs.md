@@ -31,19 +31,22 @@ That Docker image contains all needed CLIs such as:
 - [Docker](https://docs.docker.com/v17.12/install/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-So, in order to complete the workshop, you only need to install [Docker Desktop](https://docs.docker.com/install/). Docker Desktop is available for Mac and Windows and the Docker Engine can be run natively on Linux.
-
-**The following tools options are only relevant from lab 4. All other labs do only need Docker and a terminal session on your local machine.**
+So, in order to complete the workshop, you **need** to install [Docker Desktop](https://docs.docker.com/install/) on your local machine. Docker Desktop is available for Mac and Windows and the Docker Engine can be run natively on [Linux](https://docs.docker.com/install/linux).
 
 There are different options to install or use these tools.
 
 Based on our experience the option 2 is the best choice for Windows users. For more background, why we provide these different options, see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/).
 
+
+> Note: **The following tools options are only relevant in lab 4. For the developer focused labs 2 and 3 you will work with your local Docker Desktop installation and a terminal session on your local machine.**
+
 ---
 
-### Tools - Option 1 (prefered for Mac or Linux): Prebuilt Image with local Code
+### Tools - Option 1 (prefered for Mac or Linux): Prebuilt Docker image with local Code
 
 There is an image on DockerHub with all required tools. In order to use local IDEs and editors to modify code and configuraton files a Docker volume is used. This option  works only for Mac and Linux.
+
+In this workshop you can map the downloaded GitHub project on your  local PC to the running Docker container [using storage volumes](https://docs.docker.com/storage/volumes/container).
 
 #### Step 1: Run these commands in a terminal
 
@@ -55,7 +58,7 @@ $ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-w
 ```
 _Note:_ With the `--rm` option in the docker run command the container is deleted once you exit. This is intended.
 
-#### Step 2: Inside your running Docker image you can access your the local github project 
+#### Step 2: Inside your running Docker image you can access your the local GitHub project 
 
 ```
 $ cd /cloud-native-starter/
@@ -89,9 +92,9 @@ You will start the Docker container in a interactive terminal session.
 $ docker run -ti tsuedbroecker/cns-workshop-tools:v1
 ```
 
-_Note:_ If you using Windows you also need to download or clone the project to your local workstation. Short you will have a clone on your local computer and inside the Docker image, which runs in the interactive mode.
+> _Note:_ If you using Windows you need to clone the project twice. You need to clone the Cloud Native Starter project to your local workstation and you will clone the project in the local running Docker container, which will run in an interactive mode.
 
-The local project is needed two Java development labs, because you can't use Docker in the 'cns-workshop-tools' Docker image. (for more see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) ).
+The local project is needed for Java development labs 2 and 3, because you can't use Docker in the 'cns-workshop-tools' Docker image. (for more see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) ).
 
 #### Step 2: After the container has been started, run these commands inside your running Docker image to get the lastest version of the workshop:
 
@@ -117,9 +120,10 @@ $ ./iks-scripts/check-prerequisites.sh
 ### Tools - Option 3 (prefered for developers with Mac or Linux): Install Tools on your Notebook
 
 This approach works only for Mac and Linux (see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/) for more).
-Here you install all tools on your machine. This is the most time-consuming option, if you have to install all the tools.
+Here you install all tools on your machine. 
 
-That option can take time, if you haven't installed the tools before.
+> _Note:_ This is the most time-consuming option, if you have to install all the tools.
+
 
 #### Step 1: Install the following tools:
 
@@ -154,8 +158,10 @@ $ ./iks-scripts/check-prerequisites.sh
 
 ## Verify Access to Kubernetes on the IBM Cloud
 
-The following steps must be done in your interactive Docker image, when you use Option 1 or 2. 
-If you have installed all tools on your local machine Option 3), you have to do the steps on the local machine.
+This is a preparation for lab 4, when we will connect to the IBM Cloud.
+
+The following steps must be done in your interactive Docker container, when you use Option 1 or 2. 
+If you have installed all tools on your local machine Option 3, you have to do the steps on the local machine.
 
 #### Step 1: After you've created a new free Kubernetes cluster
 

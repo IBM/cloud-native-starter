@@ -29,7 +29,7 @@ Remember which option you have choosen, when you did the setup of the prereqs.
 Step |  |
 --- | --- 
 1 | You started the Docker image in the interactive mode, with a mapping to the downloaded Cloud Native Starter project on your local computer. That terminal session should be open.
-2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee`
+2 |  Ensure you access the Docker container in a interactive terminal session and then navigate to the folder `cloud-native-starter/authors-java-jee`.
 3 | [Move on with the lab](./4-kubernetes.md#step-1-build-and-save-the-container-image-in-the-ibm-cloud-container-registry).
 
 
@@ -38,7 +38,7 @@ Step |  |
 Step |  |
 --- | --- 
 1 | You started the Docker image in the interactive mode and you downloaded the Cloud Native Starter project in the running Docker container.  That terminal session should be open.
-2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee` **REMINDER:** The code changes from lab 3 you on you local computer, don't exist inside the your running Docker image.
+2 |  Ensure you have open Docker image in a interactive terminal session and navigate to the folder `cloud-native-starter/authors-java-jee` **REMINDER:** The code changes from lab 3 you did on your local computer, don't exist in the running Docker container.
 3 | [Move on with the lab](4-kubernetes.md#step-1-build-and-save-the-container-image-in-the-ibm-cloud-container-registry).
 
 ---
@@ -50,7 +50,10 @@ Step |  |
 Now we want to build and save a container image in the IBM Cloud Container Registry. 
 
 1. Ensure you logon on to IBM Cloud.
-   REMEMBER: You should know from the prerequisites, you can follow the steps in the **Access** tab, by starting from **After your cluster provision ..** and inserting the commands into your terminal session.
+   
+   >REMEMBER: You should know this from the prerequisites. 
+   
+   You can follow the steps in the **Access** tab, by starting from **After your cluster provision ..** and inserting the commands into your terminal session.
 
     ![Follow the steps in the Access tab, by starting from "After your cluster provision" and inserting the commands into your terminal session.](images/verify-cluster-access-4.png)
 
@@ -75,7 +78,7 @@ Now we want to build and save a container image in the IBM Cloud Container Regis
     $ cloud-native-suedbro   
     ```
 
-3. Now upload the code and build the container image inside IBM Cloud Container Registry. We use the upper information we got from listing the namespaces.
+3. Now upload the code and build the container image inside IBM Cloud Container Registry. We use the information from step 3, where we got the list of namespaces.
 
     ```sh
     $ ibmcloud cr build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/authors:1 .
@@ -134,7 +137,7 @@ Definition of `kind` defines this as a `Deployment` configuration.
     name: authors
   ```
 
-Inside the `spec` section we specify an app name and version label.
+In the `spec` section we specify an app name and version label.
 
   ```yml
   spec:
