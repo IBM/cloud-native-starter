@@ -10,6 +10,7 @@ If you want to deploy the reactive Cloud Native Starter example on IBM Cloud Kub
 
 A Kubernetes lite cluster itself is free of charge but it can not be created in a IBM Cloud Lite account. In order to create one either a credit card needs to be entered into the IBM Cloud account or you need a promo code which you can sometimes get at conferences where IBM is present. Or contact us. 
 
+oc login -u admin -p passw0rd https://api.demo.ibmdte.net:6443
 
 ### 1.1 Get the code:
 
@@ -117,13 +118,12 @@ The container images we will build next are stored in the Container Registry as 
 
 After every step follow the instructions in the output of the commands to check when the components have been started before moving on.
 
-
 ```
 $ cd ${ROOT_FOLDER}
 $ sh iks-scripts/deploy-kafka.sh
 ```
 
-_Note:_ Postgres will be deploy as a Pod into the free Kubernetes instance. That means the data is lost when the Pod is restarted.
+_Note:_ Postgres will be deployed as a Pod in the free Kubernetes instance. That means the data is lost when the Pod is restarted.
 
 ```
 $ sh iks-scripts/deploy-postgres.sh
