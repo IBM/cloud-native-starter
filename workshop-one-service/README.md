@@ -30,7 +30,9 @@ _Note:_ If you want to deploy the authors microservice to IBM Cloud without touc
 ---
 ## Cloud Native Starter Badge - Level 1
 
-> To request the upcoming **Cloud Native Starter Badge - Level 1** you need to attend the face to face hands-workshop: "Build a Java Microservice and deploy the Microservice to Kubernetes on IBM Cloud", at a conference or event and you have to pass a test. 
+![Cloud Native Starter Badge - Level 1](images/cnsl1.png)
+
+> To request **Cloud Native Starter Badge - Level 1** you need to attend the face to face hands-workshop: "Build a Java Microservice and deploy the Microservice to Kubernetes on IBM Cloud", at a conference or event and you have to pass a test. 
 
 _Registration link: At the moment no registration possible._
 
