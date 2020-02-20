@@ -46,7 +46,7 @@ Based on our experience the option 2 is the best choice for Windows users. For m
 
 There is an image on DockerHub with all required tools. In order to use local IDEs and editors to modify code and configuraton files a Docker volume is used. This option  works only for Mac and Linux.
 
-In this workshop you can map the downloaded GitHub project on your  local PC to the running Docker container [using storage volumes](https://docs.docker.com/storage/volumes/container).
+In this workshop you can map the downloaded GitHub project on your  local PC to the running Docker container [using storage volumes](https://docs.docker.com/storage/volumes/).
 
 #### Step 1: Run these commands in a terminal
 
