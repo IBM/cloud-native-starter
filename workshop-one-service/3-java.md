@@ -98,7 +98,7 @@ Some definitions:
 
 > Eclipse MicroProfile is a modular set of technologies designed so that you can write cloud-native Java™ microservices. MicroProfile utilizes some of existing tools (JAX-RS, CDI, JSON-P for example), and combine them with new ones to create a baseline platform optimized for a microservice architecture. 
 
-In the following image you see a list of MicroProfile functionalities, we will use the red marked ones.
+In the following image you see a list of MicroProfile specifications, we will use the red marked ones.
 
 ![microprofiles](images/microprofiles.png)
 
