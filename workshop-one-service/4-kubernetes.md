@@ -332,7 +332,9 @@ spec:
 
 #### Step 5: Verify the running microservice on Kubernetes 
 
-1. Get cluster (node) IP address
+1. Get cluster (worker node) [IP address](https://cloud.ibm.com/docs/containers?topic=containers-nodeport) 
+
+> Expose a public port on your worker node and use the public IP address of the worker node to access your service in the cluster publicly from the internet.
 
     ```sh
     $ clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2;exit;}')
