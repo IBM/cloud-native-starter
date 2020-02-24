@@ -335,13 +335,13 @@ spec:
 
 1. Get cluster (worker node) [IP address](https://cloud.ibm.com/docs/containers?topic=containers-nodeport) 
 
-> Expose a public port on your worker node and use the public IP address of the worker node to access your service in the cluster publicly from the internet.
-
     ```sh
     $ clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2;exit;}')
     $ echo $clusterip
     $ 184.172.247.228
     ```
+
+   > Expose a public port on your worker node and use the public IP address of the worker node to access your service in the cluster publicly from the internet.
 
 2. Get nodeport to access the service (do you remember the mapping?)
 
