@@ -26,6 +26,7 @@ Remember which option you have choosen, when you did the setup of the prereqs.
 
 * [Tools - Option 1 (prefered for Mac or Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
+
 Step |  |
 --- | --- 
 1 | You started the Docker image in the interactive mode, with a mapping to the downloaded Cloud Native Starter project on your local computer. That terminal session should be open.

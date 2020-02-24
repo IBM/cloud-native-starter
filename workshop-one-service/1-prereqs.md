@@ -33,12 +33,15 @@ That Docker image contains all needed CLIs such as:
 
 So, in order to complete the workshop, you **need** to install [Docker Desktop](https://docs.docker.com/install/) on your local machine. Docker Desktop is available for Mac and Windows and the Docker Engine can be run natively on [Linux](https://docs.docker.com/install/linux).
 
-There are different options to install or use these tools.
+>You will work in two terminal sessions:
+> * The first terminal session is for the developer focused labs 2 and 3, here you use only your **local** Docker desktop installation.
+>
+> * The second terminal session is for lab 4 deploy the microservice to Kubernetes, here you will work in our preconfigured Docker image with option 1 or 2.
 
-Based on our experience the option 2 is the best choice for Windows users. For more background, why we provide these different options, see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/).
+Based on our experience the option 2 for lab 4 is the best choice for Windows users. For more background, why we provide these different options, see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/).
 
 
-> Note: **The following tools options are only relevant in lab 4. For the developer focused labs 2 and 3 you will work with your local Docker Desktop installation and a terminal session on your local machine.**
+> Reminder: **The following tools options are only relevant in lab 4 the deployment to Kubernetes on IBM Cloud.** 
 
 ---
 
