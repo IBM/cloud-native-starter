@@ -38,7 +38,7 @@ So, in order to complete the workshop, you **need** to install [Docker Desktop](
 >
 > * The second terminal session is for lab 4 deploy the microservice to Kubernetes, here you will work in our preconfigured Docker image with option 1 or 2.
 
-![cns-terminals](images/cns-terminals.png)
+![cns-terminals](images/cns-terminals.gif)
 
 Based on our experience the option 2 for lab 4 is the best choice for Windows users. For more background, why we provide these different options, see this [article](https://suedbroecker.net/2019/08/27/definition-of-a-dockerfile-to-use-bash-scripts-on-a-windows-10-machine-for-our-cloud-native-starter-workshop/).
 
