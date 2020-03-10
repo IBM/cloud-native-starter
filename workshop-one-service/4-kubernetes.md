@@ -302,7 +302,7 @@ spec:
 #### Step 2: Apply the service specification
 
   ```sh
-  $ cd 
+  $ cd ..
   $ kubectl apply -f deployment/service.yaml
   ```
 
