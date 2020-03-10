@@ -13,9 +13,7 @@ _Note:_ Here is a link to a useful YouTube playlist for that hands-on workshop: 
 ---
 ## Labs
 
-This workshop has four labs. It should take between 60 and 90 minutues to complete the workshop.
-
-> That hands-on workshop is made to run as a self service, or at digital event, or at a face to face event.
+This workshop has four labs. It should take between 60 and 90 minutues to complete the workshop. That hands-on workshop is made to run as a self service, or at digital event, or at a face to face event.
 
 1. Installing prerequisites: [lab](1-prereqs.md)
 2. Running the Java microservice locally: [lab](2-docker.md) 
