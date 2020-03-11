@@ -26,6 +26,7 @@ Remember which option you have choosen, when you did the setup of the prereqs.
 
 * [Tools - Option 1 (prefered for Mac or Linux)](./1-prereqs.md#tools---option-1-prebuilt-image-with-local-code)
 
+
 Step |  |
 --- | --- 
 1 | You started the Docker image in the interactive mode, with a mapping to the downloaded Cloud Native Starter project on your local computer. That terminal session should be open.
@@ -301,7 +302,7 @@ spec:
 #### Step 2: Apply the service specification
 
   ```sh
-  $ cd 
+  $ cd ..
   $ kubectl apply -f deployment/service.yaml
   ```
 
@@ -332,13 +333,15 @@ spec:
 
 #### Step 5: Verify the running microservice on Kubernetes 
 
-1. Get cluster (node) IP address
+1. Get cluster (worker node) [IP address](https://cloud.ibm.com/docs/containers?topic=containers-nodeport) 
 
     ```sh
     $ clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2;exit;}')
     $ echo $clusterip
     $ 184.172.247.228
     ```
+
+   > Expose a public port on your worker node and use the public IP address of the worker node to access your service in the cluster publicly from the internet.
 
 2. Get nodeport to access the service (do you remember the mapping?)
 

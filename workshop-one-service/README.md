@@ -8,12 +8,12 @@ There are small variations of microservice definitions out there, here is one de
 
 [And here is additional information related to microservices, provided by IBM.](https://www.ibm.com/cloud/learn/microservices)
 
-_Note:_ Useful YouTube playlist [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
+_Note:_ Here is a link to a useful YouTube playlist for that hands-on workshop: [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
 
 ---
 ## Labs
 
-This workshop has four labs. It should take between 60 and 90 minutues to complete the workshop.
+This workshop has four labs. It should take between 60 and 90 minutues to complete the workshop. That hands-on workshop is made to run as a self service, or at digital event, or at a face to face event.
 
 1. Installing prerequisites: [lab](1-prereqs.md)
 2. Running the Java microservice locally: [lab](2-docker.md) 
@@ -30,11 +30,17 @@ _Note:_ If you want to deploy the authors microservice to IBM Cloud without touc
 ---
 ## Cloud Native Starter Badge - Level 1
 
-> To request the upcoming **Cloud Native Starter Badge - Level 1** you need to attend the face to face hands-workshop: "Build a Java Microservice and deploy the Microservice to Kubernetes on IBM Cloud", at a conference or event and you have to pass a test. 
+![Cloud Native Starter Badge - Level 1](images/cnsl1.png)
 
-_Registration link: At the moment no registration possible._
+> To be prepared to pass the test of the [**Cloud Native Starter Badge - Level 1**](http://ibm.biz/cloud-native-starter-level-1-badge), you should run the hands-workshop **virtual** or **face to face**, but you can also run the workshop as a self service.
 
+* Registration link for the Hands-on workshop in a "digital hands-on workshop" at a "digital meetup" or "digital conference": 
 
+    _Currently no registration available_
+
+* Registration link for the Hands-on workshop as a face to face workshop at a converence or meetup: 
+
+    _Currently no registration available_
 
 
 
