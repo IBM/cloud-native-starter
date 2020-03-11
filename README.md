@@ -9,7 +9,7 @@ The project has two parts:
 
 The first part of the project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
 
-The microservices can easily be deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/), [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service), [Minishift](https://docs.okd.io/latest/minishift/index.html) or [OpenShift on the IBM Cloud](https://cloud.ibm.com/docs/containers?topic=containers-openshift_tutorial).
+The microservices can easily be deployed on Kubernetes environments running [Istio](https://istio.io/) like [Minikube](https://kubernetes.io/docs/setup/minikube/), [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service), Red Hat OpenShift in [CodeReady Containers](https://developers.redhat.com/products/codeready-containers/overview) or [OpenShift on the IBM Cloud](https://cloud.ibm.com/docs/containers?topic=containers-openshift_tutorial).
 
 The project showcases the following functionality:
 
@@ -40,8 +40,8 @@ The sample application can be run in four different environments:
 
 1) **Minikube** (locally): See instructions below
 2) **IBM Cloud Kubernetes Service** - see [instructions](documentation/IKSDeployment.md)
-3) **Minishift** (locally) - see [instructions](documentation/MinishiftDeployment.md)
-4) **OpenShift on the IBM Cloud** - see [instructions](documentation/OpenShiftIKSDeployment.md)
+3) **CodeReady Containers** (Red Hat OpenShift locally) - see [instructions](documentation/OS4Cluster.md)
+4) **Red Hat OpenShift on the IBM Cloud** - see [instructions](documentation/OS4Cluster.md)
 
 The following instructions describe how to install everything locally on **Minikube**.
 
