@@ -1,6 +1,6 @@
-# Running the Cloud Native Starter on OpenShift 4.2
+# Running the Cloud Native Starter on OpenShift 4.3
 
-Before you start with the actual Cloud Native Starter project on OpenShift you must go through all of these 3 documents:
+Before you start with the actual Cloud Native Starter project on OpenShift **you must go through all of these 3 documents**:
 
 1. [Get access to an OpenShift cluster](OS4Cluster.md)
 2. [Installing Istio aka Service Mesh on your OpenShift cluster](OS4ServiceMesh.md)
@@ -9,7 +9,7 @@ Before you start with the actual Cloud Native Starter project on OpenShift you m
 
 To following commands deploy the base project.
 
-**Note:** If you get an error "The token provided is invalid or expired" then the value for APITOKEN in file local.env is no longer valid. This typically happens when you restart CRC. Follow the instructions to obtain the API token in [Requirements for Cloud Native Starter on OpenShift](https://github.com/IBM/cloud-native-starter/blob/master/documentation/OS4Requirements.md#access-openshift-via-cli) in section "Access OpenShift via CLI". 
+**Note:** If you get an error "The token provided is invalid or expired" then the value for APITOKEN in file local.env is no longer valid. This typically happens when you use CRC and restart it. Follow the instructions to obtain the API token in [Requirements for Cloud Native Starter on OpenShift](https://github.com/IBM/cloud-native-starter/blob/master/documentation/OS4Requirements.md#access-openshift-via-cli) in section "Access OpenShift via CLI". 
 
 
 ```

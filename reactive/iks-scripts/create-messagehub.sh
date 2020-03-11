@@ -2,7 +2,7 @@
 
 root_folder=$(cd $(dirname $0); pwd)
 
-readonly LOG_FILE="${root_folder}/create-kafka.log"
+readonly LOG_FILE="${root_folder}/create-messagehub.log"
 readonly ENV_FILE="${root_folder}/../local.env"
 
 touch $LOG_FILE
@@ -49,20 +49,15 @@ function setup() {
   ibmcloud resource service-instance-create messagehub-cloudnativestarter messagehub lite us-south
 
   _out Creating EventStream \(Kafka, MessageHub\) credentials
-  ibmcloud resource service-key-create messagehub-cloudnativestarter-creds Manager --instance-name messagehub-cloudnativestarter
+  ibmcloud resource service-key-create messagehub-cloudnativestarter-creds Manager  \
+        --instance-name messagehub-cloudnativestarter > messagehub.txt
   
-  # Get credentials of service key
-  cred=$(ibmcloud resource service-key messagehub-cloudnativestarter-creds)
-
-  # Extract list of brokers, is enclosed in '[' and ']', and replace ' ' with ','
-  one=${cred#*[}
-  two=${one%]*}
-  brokers=$(sed 's/ /,/g' <<<$two)
-
-  # Extract Kafka password, preceeded by 'password: ', succeeded by ' user:'
-  one=${cred#*password: }
-  password=${one% user:*} 
+  password=$(awk '/password:/ { print $2 }' messagehub.txt)
+  broker1=$(awk -F'[' '/kafka_brokers_sasl:/ { print $2 }' messagehub.txt | sed -e 's/ /,/g')
+  brokers=${broker1%]*}   
   
+  rm messagehub.txt
+
   printf "\n## IBM Cloud Event Streams / MessageHub / Kafka broker" >> $ENV_FILE
   printf "\nBROKERS=$brokers" >> $ENV_FILE
   printf "\nKAFKA_PASSWORD=$password" >> $ENV_FILE

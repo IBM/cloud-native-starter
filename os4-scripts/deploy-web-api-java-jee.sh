@@ -84,7 +84,7 @@ function setup() {
   
   _out Done deploying web-api-java-jee v1
   _out Wait until the pod has been started: "oc get pod --watch | grep web-api"
-  _out Open the OpenAPI explorer: http://$(oc get route web-api --template='{{ .spec.host }}')/openapi/ui/
+  # _out Open the OpenAPI explorer: http://$(oc get route web-api --template='{{ .spec.host }}')/openapi/ui/
 }
 
 

@@ -43,7 +43,7 @@ function setup() {
 
   _out Done deploying articles-java-jee
   _out Wait until the pod has been started: "oc get pod --watch | grep articles"
-  _out Open the OpenAPI explorer: http://$(oc get route articles --template='{{ .spec.host }}')/openapi/ui/
+  # _out Open the OpenAPI explorer: http://$(oc get route articles --template='{{ .spec.host }}')/openapi/ui/
 }
 
 source ${root_folder}/os4-scripts/login.sh

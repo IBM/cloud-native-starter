@@ -70,7 +70,7 @@ function setup() {
 
   _out Done deploying web-api-java-jee v2
   _out Wait until the pod has been started: "oc get pod --watch | grep web-api" should show two pods for v1 and v2
-  _out Open the OpenAPI explorer: http://$(oc get route web-api --template='{{ .spec.host }}')/openapi/ui/
+#  _out Open the OpenAPI explorer: http://$(oc get route web-api --template='{{ .spec.host }}')/openapi/ui/
 }
 
 source ${root_folder}/os4-scripts/login.sh

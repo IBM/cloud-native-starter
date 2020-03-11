@@ -59,13 +59,21 @@ $ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-w
 
    ![OS4 local.env](../images/os4-localenv.png)
 
-## Access the OpenShift Internal Image Repository
+## Access the OpenShift Internal Image Registry
 
 The container images for applications deployed on Kubernetes/OpenShift must be stored in a place where they can be accessed during the rollout of an application. This can be Docker Hub, the IBM Container Registry, Quay.io, or any other repository on the Internet you have access to. It can also be the image repository deployed within OpenShift.
 
-For this project we will use the OpenShift internal repository. We will build our images locally on your workstation, then tag them with a name for the internal repository, and then push them into the internal repository. Logon to the repository is not sufficient, though. The `docker` CLI will refuse to connect with a x509 error about an unknown certificate.
+For this project we will use the OpenShift internal repository. We will build our images locally on your workstation, then tag them with a name for the internal repository, and then push them into the internal repository. 
 
-First, we have to obtain the CA certificate from OpenShift.
+**Accessing the Image Registry is different for CRC or OpenShift on IBM Cloud! Continue with section A or B depending on your environment.**
+
+### A. Access OpenShift Image Registry of CRC with `docker` CLI
+
+**Note:** This section applies to CRC only!
+
+Simply logging on to the Registry is not possible with CRC. The `docker` CLI will refuse to connect with a x509 error about an unknown certificate because in CRC the certificate is self-signed.
+
+#### Obtain the CA certificate from OpenShift.
 
 Execute these commands, they require that you created the local.env file in the previous step:
 
@@ -121,33 +129,70 @@ If you are running everything locally on Windows please note: I have no access t
 
 I believe that step "1. Get necessary CA certificate" is equivalent to 'oc extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator' in the instructions above. 
 
-## Access OpenShift image repository with `docker` CLI
+#### Obtain the Image Registry URL
 
-1. In the OpenShift Web Console, go to 'Administrator', 'Home', 'Projects'. 
-2. Search for and open project 'openshift-image-registry'.
-3. Go to the 'Workloads' tab.
-4. Click on 'image-registry' in the list
-5. Open the 'Resources' tab
-6. Copy the location of the default route
+1. Enter the following command:
 
-![os-image-registry](../images/os-image-registry.png)
+    ```
+    $ oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}
+    ``
 
-Paste the default route URL into REGISTRYURL in local.env **but omit the 'https://' part, also no trailing '/'**:
+2. Copy and paste the default route URL into REGISTRYURL in local.env:
 
-```
-REGISTRYURL=default-route-openshift-image-registry.apps-crc.testing
-```
+    ```
+    REGISTRYURL=default-route-openshift-image-registry.apps-crc.testing
+    ```
 
-Don't forget to save local.env!
+    Don't forget to save local.env!
 
-Now test the access:
+### B. Access OpenShift Image Registry with docker CLI on the IBM Cloud
+
+**Note:** This section applies to OpenShift on IBM Cloud only!
+
+OpenShift on the IBM Cloud uses Let's Encrypt cerificates which are automatically trusted by your browser and the `docker` CLI. This makes accessing the Registry a lot simpler.
+
+The following information can be found in the [OpenShift 4.3 documentation](https://docs.openshift.com/container-platform/4.3/registry/securing-exposing-registry.html#registry-exposing-secure-registry-manually_securing-exposing-registry).
+
+1. In the command line expose the registry using 'DefaultRoute':
+
+    ```
+    $ oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
+    ```
+
+2. Get the URL of the route:
+
+    ```
+    $ oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}'
+    ```
+
+    The URL looks like this:
+
+    ```
+    default-route-openshift-image-registry.harald-uebele-os43-1234567890-0000.us-south.containers.appdomain.cloud
+    ```
+
+3. Copy and paste the default route URL into REGISTRYURL in local.env and save the file.    
+
+### Test access to the OpenShift Image Registry:
 
 ```
 $ source local.env
-$ docker login -u developer -p $(oc whoami -t) $REGISTRYURL
 ```
 
-This should result in a few warnings and in the end show 'Login Succeeded'.
+For **CRC** test with:
+
+```
+$ docker login -u kubeadmin -p $(oc whoami -t) $REGISTRYURL
+```
+
+For **OpenShift 4.3 on IBM Cloud** test with:
+
+```
+$ docker login -u $(oc whoami) -p $(oc whoami -t) $REGISTRYURL
+```
+
+
+This should result in a few warnings and in the end show '**Login Succeeded**'.
 
 ---
 

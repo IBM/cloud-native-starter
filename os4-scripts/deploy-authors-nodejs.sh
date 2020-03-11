@@ -36,7 +36,7 @@ function setup() {
 
   _out Done deploying authors-nodejs
   _out Wait until the pod has been started: "oc get pod --watch | grep authors"
-  _out Sample API call: curl http://$(oc get route authors --template='{{ .spec.host }}')/api/v1/getauthor?name=Niklas%20Heidloff
+  # _out Sample API call: curl http://$(oc get route authors --template='{{ .spec.host }}')/api/v1/getauthor?name=Niklas%20Heidloff
 }
 
 _out Deploying authors-nodejs

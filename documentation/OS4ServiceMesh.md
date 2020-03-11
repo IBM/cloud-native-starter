@@ -14,11 +14,11 @@ You only need to install the OpenShift Service Mesh operator, it will pull in th
 
 Follow these steps:
 
-1. In the OpenShift dashboard, switch to the Adminstrator view, then open Operators and OperatorHub. This will show the OperatorHub catalog (could take a moment):
+1. In the OpenShift dashboard, switch to the Adminstrator view, then open Operators and OperatorHub. This will show the OperatorHub catalog (could take a moment). Select Project: 'openshift-operators':
 
    ![operatorhub](../images/operatorhub-catalog.png)
 
-2. Enter 'openshift service mesh' in the search field, and select the 'Red Hat OpenShift Service Mesh **provided by Red Hat, Inc**'.
+2. Enter 'openshift service mesh' in the search field, and select the 'Red Hat OpenShift Service Mesh **provided by Red Hat, Inc**', not the "Community" version!
 
 3. Click 'Install' on the next dialog.
 
@@ -61,9 +61,10 @@ In upstream Kubernetes you install (upstream) Istio or its control plane only on
 
    ![istio-system kiali](../images/openshift-is-kiali.png)
 
-   Click on the route, accept the self-signed certificate.
-
-   When using CRC, log in with user 'kubeadmin' and the password displayed when you started `crc` or use `crc console --credentials` to redisplay them for you.
+   Click on the route.
+   
+   - When using CRC accept the self-signed certificate. Log in with user 'kubeadmin' and the password displayed when you started CRC or use `crc console --credentials` to redisplay them for you.
+   - On IBM Cloud you will logged in with your IAM credentials automatically.
 
    You should see the Kiali console now.
 

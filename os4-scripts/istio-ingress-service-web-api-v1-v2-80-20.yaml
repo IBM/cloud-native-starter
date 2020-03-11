@@ -52,30 +52,6 @@ spec:
         host: web-api
   - match:
     - uri:
-        prefix: /loginwithtoken
-    route:
-    - destination:
-        port:
-          number: 80
-        host: web-app
-  - match:
-    - uri:
-        prefix: /login
-    route:
-    - destination:
-        port:
-          number: 3000
-        host: authentication
-  - match:
-    - uri:
-        prefix: /callback
-    route:
-    - destination:
-        port:
-          number: 3000
-        host: authentication
-  - match:
-    - uri:
         prefix: /
     route:
     - destination:
