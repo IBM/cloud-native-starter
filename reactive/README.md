@@ -16,7 +16,7 @@ Jump to the part of the documentation you are interested in:
 * [Setup in Minikube](#setup-in-minikube)
 * [Server-side Setup in IBM Cloud Kubernetes Service](https://github.com/nheidloff/cloud-native-starter-reactive-toolchain)
 * [Client-side Setup in IBM Cloud Kubernetes Service](documentation/IKS.md)
-* [Setup in CodeReady Containers / local OpenShift](documentation/OpenShift4.md)
+* [Setup in CodeReady Containers (local OpenShift) or Red Hat OpenShift on IBM Cloud](documentation/OpenShift4.md)
 * [Setup of local Development Environment](#setup-of-local-development-environment)
 * [Technologies](#technologies)
 
