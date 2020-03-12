@@ -11,12 +11,13 @@ function setup() {
   
   cd ${root_folder}/web-app-reactive
   oc delete -f deployment/os4-kubernetes.yaml --ignore-not-found
-  oc delete route web-app-reactive
-  oc delete is web-app-reactive
+  oc delete route web-app-reactive --ignore-not-found
+  oc delete is web-app-reactive --ignore-not-found
   
   route=$(oc get route web-api-reactive --template='{{ .spec.host }}')
   if [ -z "$route" ]; then
     _out web-api-reactive is not available. Run the command: sh os4-scripts/deploy-web-api-reactive.sh
+    exit
   else 
     cd ${root_folder}/web-app-reactive/src
     sed "s/endpoint-api-ip:ingress-np/${route}/g" store.js.template > store.js

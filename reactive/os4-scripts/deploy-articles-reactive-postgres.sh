@@ -14,8 +14,8 @@ function setup() {
   _out Cleanup
   cd ${root_folder}/articles-reactive
   oc delete -f deployment/os4-kubernetes.yaml --ignore-not-found
-  oc delete route articles-reactive
-  oc delete is articles-reactive
+  oc delete route articles-reactive --ignore-not-found
+  oc delete is articles-reactive --ignore-not-found
   
   cd ${root_folder}/articles-reactive/src/main/resources
   sed -e "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" \
@@ -29,7 +29,6 @@ function setup() {
   docker push $REGISTRYURL/$PROJECT/articles-reactive:latest
 
   sed -e "s+articles-reactive:latest+$REGISTRY/$PROJECT/articles-reactive:latest+g" \
-      -e "s+  type: NodePort+#  type: NodePort+g" \
       -e "s+        imagePullPolicy: Never+#        imagePullPolicy: Never+g" \
       deployment/kubernetes.yaml > deployment/os4-kubernetes.yaml
 

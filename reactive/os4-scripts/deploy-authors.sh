@@ -18,7 +18,7 @@ function setup() {
 
   _out --- Clean-up 
   oc delete all -l app=authors --ignore-not-found
-  oc delete is authors
+  oc delete is authors --ignore-not-found
   
   _out --- Build Docker Image
   cd ${root_folder}/../authors-nodejs

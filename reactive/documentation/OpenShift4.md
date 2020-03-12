@@ -1,15 +1,17 @@
 ## Reactive Java Microservices on OpenShift 4
 
-This documentation has been developed/tested on CRC (CodeReady Containers).
+This documentation has been tested on CRC (CodeReady Containers) Version 1.7 which includes OpenShift 4.3.1, and on Red Hat OpenShift 4.3 on IBM Cloud (currently in Beta).
+
+---
 
 ### 1. Create an OpenShift 4 cluster
 
-Start with these 2 documents to create and get access to an OpenShift 4 environment, but make sure to come back here!
+Start with these 2 documents to create and get access to an OpenShift 4 environment, but make sure to come back here. Do not follow the links at the end of these instructions ("Continue with ...")!
 
 1. [Get access to an OpenShift cluster](../../documentation/OS4Cluster.md)
     **Note:** Don't continue with the Istio installation, Istio is currently not required! Continue here:
 2. [Requirements for Cloud Native Starter on OpenShift](../../documentation/OS4Requirements.md)
-    **Note:** Don't follow the "Continue ..." link at the end of this document, instead return here and continue with the next section!
+    **Note:** Don't follow the "Continue with ..." link at the end of this document, instead return here and continue with the next section!
 
 ### 2. Install Prerequisites
 
@@ -63,7 +65,9 @@ $ sh os4-scripts/deploy-web-api-reactive.sh
 $ sh os4-scripts/deploy-web-app-reactive.sh
 $ sh os4-scripts/show-urls.sh
 ```
-To see an example, open the web-app service in your browser. Then create a new article, either with the API explorer of the articles-reactive service or the respective curl command. (See the output of 'show-urls.sh' for the URL and the curl sample.) Every time you create a new article, the articles list of the web app will automatically show the newest 5 articles. 
+- To see an example, open the web-app service in your browser. 
+- Then create a new article, either with the API explorer of the articles-reactive service or the respective curl command. (See the output of 'show-urls.sh' for the URL and the curl sample.) 
+Every time you create a new article, the articles list of the web app will automatically show the newest 5 articles. 
 
 
 ## Cleanup

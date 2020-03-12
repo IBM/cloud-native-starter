@@ -134,8 +134,8 @@ I believe that step "1. Get necessary CA certificate" is equivalent to 'oc extra
 1. Enter the following command:
 
     ```
-    $ oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}
-    ``
+    $ oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}'
+    ```
 
 2. Copy and paste the default route URL into REGISTRYURL in local.env:
 

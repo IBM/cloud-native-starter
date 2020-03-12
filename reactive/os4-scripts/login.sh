@@ -29,7 +29,10 @@ else
 fi
 
 _out --- Login to OpenShift Container Registry
-oc whoami -t | docker login -u developer --password-stdin $REGISTRYURL  > /dev/null 
+# In CRC whoami gives 'kube:admin' but docker login requires kubeadmin 
+user=$(oc whoami)
+if [ $user == kube:admin ]; then user=kubeadmin; fi
+docker login -u $user -p $(oc whoami -t) $REGISTRYURL > /dev/null 
 if [ $? != 0 ]; then 
     _out Log in to OpenShift Container Registry failed!
     exit 1 

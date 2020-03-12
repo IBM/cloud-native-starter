@@ -13,11 +13,15 @@ function setup() {
   
   cd ${root_folder}/web-api-reactive
   oc delete -f deployment/os4-kubernetes.yaml --ignore-not-found
-  oc delete route web-api-reactive
-  oc delete is web-api-reactive
+  oc delete route web-api-reactive --ignore-not-found
+  oc delete is web-api-reactive --ignore-not-found
 
   cd ${root_folder}/web-api-reactive/src/main/resources
-  sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties
+  sed -e "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" \
+      -e "s/CNS_ARTICLES_PORT/8080/g" \
+      -e "s/CNS_AUTHORS_PORT/3000/g" \
+      -e "s/CNS_LOCAL/false/g" \
+      application.properties.template > application.properties
 
   cd ${root_folder}/web-api-reactive
   docker build -f ${root_folder}/web-api-reactive/Dockerfile -t web-api-reactive:latest .
