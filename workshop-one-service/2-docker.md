@@ -1,7 +1,7 @@
 # Lab 2 - Running the Java Microservice locally
 
 > _Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
-The hands-on tasks are starting from chapter [Hands-on tasks - Run the container locally](#lab-hands-on) in that lab.
+The hands-on tasks are starting from chapter [Hands-on tasks - Run the container **locally**](#lab-hands-on) in that lab.
 
 In this workshop we run a microservice that has been implemented with Java EE and [Eclipse MicroProfile](https://microprofile.io/).
 

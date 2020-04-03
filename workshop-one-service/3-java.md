@@ -1,7 +1,7 @@
 # Lab 3 - Understanding the Java Implementation
 
 > _Note:_ This lab is structured in **understanding** and **hands-on tasks**. 
-The hands-on tasks are starting from chapter [Hands-on tasks - Change the code of the authors microservice and run the service in a container locally](#lab-hands-on) in that lab.
+The hands-on tasks are starting from chapter [Hands-on tasks - Change the code of the authors microservice and run the service in a container **locally**](#lab-hands-on) in that lab.
 
 ## 1. Usage of Maven for Java
 
