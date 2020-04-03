@@ -30,6 +30,8 @@ In order to execute the workshop easily, we provide **feature codes** to create 
 To apply the feature code to your [Cloud Account](https://cloud.ibm.com/account), navigate to your "`Account settings`" and then to ("`Manage`" -> "`Account`").
 Enter your unique Feature (Promo) Code to upgrade your lite account.
 
+
+
 _Note:_ Free clusters expire after one month.
 
 ---
@@ -44,7 +46,7 @@ _Note:_ Free clusters expire after one month.
 
 #### Step 3: Click on "Kubernetes Cluster"
 
-#### Step 4: Press "Create"
+#### Step 4: Select Free cluster
 
 ![create Kubernetes service](images/ibmcloud-create-kubernetes-1.png)
 
@@ -54,10 +56,6 @@ Ensure you set following values in the creation dialog:
 
 * Cluster name:     cloud-native
 * Resource group:   Default
-* Geography:        North America
-* Metro:            Dallas
-
-_Note:_ In the new IBM Cloud UI it seems the entries for Geography and Metro are no longer available.
 
 ![create Kubernetes service](images/ibmcloud-create-kubernetes-2.png)
 
@@ -65,7 +63,7 @@ _Note:_ In the new IBM Cloud UI it seems the entries for Geography and Metro are
 
 #### Step 7: Now you will be forwarded to your cluster on IBM Cloud and you can verify the status of the creation of your cluster
 
-The creation of the custer takes up to 20 min.
+The creation of the cluster takes up to 20 min.
 
 ![create Kubernetes service](images/ibmcloud-create-kubernetes-3.png)
 
@@ -75,18 +73,13 @@ The creation of the custer takes up to 20 min.
 
 1. Select in **Kubernetes** the entry **Registry** and ensure your are in the **Dallas location**.
 
-![Select in Kubernetes the entry Registry](images/ibmcloud-configure-container-registry-1.png)
+![Select in Kubernetes the entry Registry](images/ibmcloud-configure-container-registry-1.gif)
 
 2. The create a namespace with a unique name cloud-native-[YOURNAME]
 
-![The create a namespace with a unique name cloud-native](images/ibmcloud-configure-container-registry-2.png)
+![The create a namespace with a unique name cloud-native](images/ibmcloud-configure-container-registry-2.gif)
 
-_Note:_ Namespaces are required to be **unique** across the entire **region** that the **specific registry** is located in, not just ***unique to your account**. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add).
-
-3. Verify the namespace was created
-
-![Verify the namespace was created](images/ibmcloud-configure-container-registry-3.png)
-
+_Note:_ Namespaces are required to be **unique** across the entire **region** that the **specific registry** is located in, not just **unique to your account**. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add).
 
 ---
 
