@@ -233,6 +233,29 @@ _REMEMBER:_ You should have saved the IBM Container Registry information somewhe
     $ kubectl apply -f deployment.yaml
     ```
 
+    _Note:_ 
+    1. If you get the following error, then please change the entry `apps/v1beta1` to `apps/v1` in the `deployment.yaml`file.
+       ```sh
+       error: unable to recognize "deployment.yaml": no matches for kind "Deployment" in version "apps/v1beta1"
+       ```
+    2. If you get the following error:
+
+       ```sh
+       error: error validating "deployment.yaml": error validating data: ValidationError(Deployment.spec): missing required field "selector" in io.k8s.api.apps.v1.DeploymentSpec; if you choose to ignore these errors, turn validation off with --validate=false
+       ```
+       You need to insert in the `deploment.yaml`file the statement `selector:matchLabels:name:authors` as you see in the following yaml extract. 
+       
+       ```yaml
+           ...
+           spec:
+             replicas: 1
+           ...
+           selector:
+              matchLabels:
+                app: authors
+                version: v1
+        ```
+
 #### Step 2: Verify the deployment with kubectl
 
 1. Insert this command and verify the output.
@@ -303,7 +326,7 @@ spec:
 
   ```sh
   $ cd ..
-  $ kubectl apply -f deployment/service.yaml
+  $ kubectl apply -f service.yaml
   ```
 
 #### Step 3: Verify the service in Kubernetes with kubectl
@@ -385,10 +408,15 @@ spec:
     $ {"checks":[{"data":{"authors":"ok"},"name":"authors","state":"UP"}],"outcome":"UP"} 
     ```
 
-    Optional: We can also verify that call in the browser.
+    Optional: 
+    1. We can also verify that call in the browser.
 
-    ![authors-java-health](images/authors-java-health.png)
+       ![authors-java-health](images/authors-java-health.png)
 
+    2. We can simply delete the deployed Authors microservice with:
+        ```sh
+        $ kubectl delete pods,services -l app=authors
+        ```
 ---
 
 :star: **Congratulations** :thumbsup: you have finished this **hands-on workshop** :checkered_flag:.
