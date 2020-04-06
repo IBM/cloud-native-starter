@@ -5,7 +5,8 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: authors 
+      app: authors
+      version: v1
   replicas: 1
   template:
     metadata:
