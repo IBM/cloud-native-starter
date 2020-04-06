@@ -144,7 +144,7 @@ Here you install all tools on your machine.
 #### Step 2: Get the code:
 
 ```
-$ git clone git clone https://github.com/IBM/cloud-native-starter
+$ git clone https://github.com/IBM/cloud-native-starter
 $ cd cloud-native-starter
 $ ROOT_FOLDER=$(pwd)
 ```

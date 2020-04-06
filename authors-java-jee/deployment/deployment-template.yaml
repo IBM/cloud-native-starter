@@ -2,6 +2,8 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: authors
+  labels:
+    app: authors
 spec:
   selector:
     matchLabels:
