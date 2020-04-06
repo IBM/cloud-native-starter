@@ -249,11 +249,11 @@ _REMEMBER:_ You should have saved the IBM Container Registry information somewhe
            ...
            spec:
              replicas: 1
+             selector:
+               matchLabels:
+                 app: authors
+                 version: v1
            ...
-           selector:
-              matchLabels:
-                app: authors
-                version: v1
         ```
 
 #### Step 2: Verify the deployment with kubectl
