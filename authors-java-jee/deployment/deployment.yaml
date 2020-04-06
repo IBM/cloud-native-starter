@@ -3,7 +3,11 @@ apiVersion: apps/v1beta1
 metadata:
   name: authors
 spec:
-  replicas: 1
+  selector:
+    matchLabels:
+      app: authors
+      version: v1
+  replicas: 1 
   template:
     metadata:
       labels:
