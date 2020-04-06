@@ -234,16 +234,16 @@ _REMEMBER:_ You should have saved the IBM Container Registry information somewhe
     ```
 
     _Note:_ 
-    1. If you get the following error, then please change the entry `apps/v1beta1` to `apps/v1` in the `deployment.yaml`file.
+    1. If you get the following **error**. Please change the entry `apps/v1beta1` to `apps/v1` in the `deployment.yaml`file.
        ```sh
        error: unable to recognize "deployment.yaml": no matches for kind "Deployment" in version "apps/v1beta1"
        ```
-    2. If you get the following error:
+    2. If you get the following **error**:
 
        ```sh
        error: error validating "deployment.yaml": error validating data: ValidationError(Deployment.spec): missing required field "selector" in io.k8s.api.apps.v1.DeploymentSpec; if you choose to ignore these errors, turn validation off with --validate=false
        ```
-       You need to insert in the `deploment.yaml`file the statement `selector:matchLabels:name:authors` as you see in the following yaml extract. 
+       You need to insert in the `deploment.yaml`file the statement `selector:matchLabels:name:authors` as you see in the following `deployment.yaml extract. 
        
        ```yaml
            ...
