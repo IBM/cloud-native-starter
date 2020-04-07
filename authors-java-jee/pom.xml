@@ -15,12 +15,14 @@
 			<scope>provided</scope>
 			<type>pom</type>
 		</dependency>
+		<!-- only for local development with the libertyMavenPlugin 
 		<dependency>
 		    <groupId>io.openliberty</groupId>
 			<artifactId>openliberty-runtime</artifactId>
 			<version>19.0.0.11</version>
 			<type>zip</type>
 		</dependency>
+		-->
 	</dependencies>
 
 	<build>
