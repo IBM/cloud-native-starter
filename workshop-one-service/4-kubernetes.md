@@ -167,7 +167,7 @@ We have previously talked about the usage of the HealthEndpoint class for our Au
           livenessProbe:
   ```
 
-This is the full [deployment.yaml](../deployment/deployment.yaml) file.
+This is the full [deployment.yaml](../authors-java-jee/deployment/deployment.yaml) file.
 
   ```yaml
   kind: Deployment
@@ -294,7 +294,7 @@ In the service we map the NodePort of the cluster to the port 3000 of the Author
 
 ![service](images/lab-4-service.png)
 
-In the [service.yaml](../deployment/service-os.yaml) we see a selector of the pod using the label 'app: authors'. 
+In the [service.yaml](../authors-java-jee/deployment/service-os.yaml) we see a selector of the pod using the label 'app: authors'. 
 
 ```yaml
 kind: Service

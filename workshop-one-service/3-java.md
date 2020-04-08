@@ -101,9 +101,9 @@ In the following image you see a list of MicroProfile specifications, we will us
 
 For the Authors service to expose the REST API we need to implement three classes:
 
-* [AuthorsApplication](../src/main/java/com/ibm/authors/AuthorsApplication.java) class repesents our web application.
-* [Author](../src/main/java/com/ibm/authors/Author.java) class repesents the data structure we use for the Author.
-* [GetAuthor](../src/main/java/com/ibm/authors/GetAuthor.java) class repesents the REST API.
+* [AuthorsApplication](../authors-java-jee/src/main/java/com/ibm/authors/AuthorsApplication.java) class repesents our web application.
+* [Author](../authors-java-jee/src/main/java/com/ibm/authors/Author.java) class repesents the data structure we use for the Author.
+* [GetAuthor](../authors-java-jee/src/main/java/com/ibm/authors/GetAuthor.java) class repesents the REST API.
 
 ![class diagramm authors](images/authors-java-classdiagram-01.png)
 
