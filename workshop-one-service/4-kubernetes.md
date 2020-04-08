@@ -58,9 +58,10 @@ Now we want to build and save a container image in the IBM Cloud Container Regis
 
     ![Follow the steps in the Access tab, by starting from "After your cluster provision" and inserting the commands into your terminal session.](images/verify-cluster-access-4.png)
 
-2. Logon to the IBM Cloud Container Registry 
+2. Logon to the IBM Cloud Container Registry (Ensure you are in the $ROOT_FOLDER/authors-java-jee)
 
     ```sh
+    $ cd $ROOT_FOLDER/authors-java-jee
     $ ibmcloud cr login
     ```
 
@@ -318,14 +319,12 @@ spec:
 #### Step 1: Ensure you are in the `$ROOT_FOLDER/authors-java-jee/deployment`
 
   ```sh
-  $ ROOT_FOLDER=$(pwd)
   $ cd $ROOT_FOLDER/authors-java-jee/deployment
   ```
 
 #### Step 2: Apply the service specification
 
   ```sh
-  $ cd ..
   $ kubectl apply -f service.yaml
   ```
 
