@@ -36,12 +36,11 @@ _Note:_ If you want to deploy the authors microservice to IBM Cloud without touc
 
 * Registration link for the Hands-on workshop in a "digital hands-on workshop" at a "digital meetup" or "digital conference": 
 
-    * [**Online** Get your Java Microservice up and running! (Wednesday, April 8, 2020
-Central European Time (CET) 5:00 PM to 6:00 PM)](https://www.meetup.com/IBM-Developers/events/269742741/)
+    * _Currently no registration available_
 
 * Registration link for the Hands-on workshop as a face to face workshop at a converence or meetup: 
 
-    _Currently no registration available_
+    * _Currently no registration available_
 
 
 
