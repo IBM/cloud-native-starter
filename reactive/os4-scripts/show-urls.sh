@@ -46,11 +46,11 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out Service: authors
-  route=$(oc get route author --template='{{ .spec.host }}')
+  route=$(oc get route authors --template='{{ .spec.host }}')
   if [ -z "$route" ]; then
     _out authors is not available. Run the command: \"sh scripts/deploy-authors.sh\"
   else 
-    _out Sample API call: curl http://${route}}/api/v1/getauthor?name=Niklas%20Heidloff
+    _out Sample API call: curl http://${route}/api/v1/getauthor?name=Niklas%20Heidloff
   fi
   _out ------------------------------------------------------------------------------------
 
