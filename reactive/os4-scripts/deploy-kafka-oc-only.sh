@@ -31,6 +31,5 @@ function setup() {
   _out After this run \"sh os4-scripts/show-urls.sh\" to get the Kafka broker URL
 }
 
-source ${root_folder}/os4-scripts/login.sh
 setup
 
