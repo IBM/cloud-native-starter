@@ -6,11 +6,14 @@
 
 If you want to deploy the reactive Cloud Native Starter example on IBM Cloud Kubernetes Service (IKS), the IBM managed Kubernetes offering, then follow these steps. They will create a Kubernetes Lite Cluster and a namespace in the IBM Container Registry (ICR) where the container images of the microservices will be created, stored, and made available for Kubernetes deployments.
 
-> Istio is not needed to install in this setup.
+Istio is not needed to install in this setup and a free cluster will get a memory pressure condition if Istio is installed. If you installed Istio previously, delete it with this command:
 
-A Kubernetes lite cluster itself is free of charge but it can not be created in a IBM Cloud Lite account. In order to create one either a credit card needs to be entered into the IBM Cloud account or you need a promo code which you can sometimes get at conferences where IBM is present. Or contact us. 
+```
+$ istioctl manifest generate --set profile=demo | kubectl delete -f -
+```
 
-oc login -u admin -p passw0rd https://api.demo.ibmdte.net:6443
+
+**Note:** A Kubernetes lite cluster itself is free of charge but it can not be created in a IBM Cloud Lite account. In order to create one either a credit card needs to be entered into the IBM Cloud account or you need a promo code which you can sometimes get at conferences where IBM is present. Or contact us. 
 
 ### 1.1 Get the code:
 
@@ -95,13 +98,9 @@ The next command checks if the cluster is ready and if it is ready, it retrieves
 $ sh iks-scripts/cluster-get-config.sh
 ```
 
-**NOTE:** You **MUST** run this command to check for completion of the cluster provisioning and it must report that the cluster is ready for Istio installation! This command also retrieves the cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.  
+**NOTE:** You **MUST** run this command to check for completion of the cluster provisioning and it must report that the cluster is ready for Istio installation! This command retrieves the IKS cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.  
 
-From now on if you want to use `kubectl` commands with your cluster use this command to get access to the cluster:
-
-```
-$ source iks-scripts/cluster-config.sh
-```
+From now on if you want to use `kubectl` commands with your IKS cluster and you have used other Kubernetes environments before, e.g. Minikube, use this command (`cluster-get-config.sh`) to get access to the IKS cluster again. 
 
 ### 1.5. Create Container Registry
 
@@ -111,7 +110,9 @@ Create a namespace in the IBM Cloud Container Registry:
 $ sh iks-scripts/create-registry.sh
 ```
 
-The container images we will build next are stored in the Container Registry as `us.icr.io/cloud-native/<imagename>:<tag>` if you didn't change the defaults.
+If you already ran the IKS non-reactive example, you will already have a Container Registry. In a lite account you have only limited storage for images. It may therefore be necessary to remove the existing repository before creating a new one for the reactive example!
+
+The container images we will build next are stored in the Container Registry as `us.icr.io/cloud-native-<randomchars>/<imagename>:<tag>` if you didn't change the defaults.
 
 
 ## 2. Install Kafka and Postgres

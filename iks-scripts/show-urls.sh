@@ -16,16 +16,9 @@ function setup() {
   _out Logging into IBM Cloud, please wait
   ibmcloud config --check-version=false
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
-  ibmcloud ks region set $IBM_CLOUD_REGION
   clusterip=$(ibmcloud ks workers --cluster $CLUSTER_NAME | awk '/Ready/ {print $2;exit;}')
   ingressport=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
    
-  _out ------------------------------------------------------------------------------------
-  _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
-  _out Set the kube environment correctly for the IBM Kubernetes Service
-  _out Executing this command is required every time you start a new shell
-  _out Run the command: source iks-scripts/cluster-config.sh
-  _out IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
   _out ------------------------------------------------------------------------------------
   
   _out kiali

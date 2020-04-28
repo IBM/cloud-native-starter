@@ -16,6 +16,8 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: articles
+  labels:
+    app: articles
 spec:
   selector:
     matchLabels:
@@ -31,7 +33,7 @@ spec:
     spec:
       containers:
       - name: articles
-        image: us.icr.io/cloud-native-tsuedbro/articles:1
+        image: us.icr.io/cloud-native-b11w32mgrt/articles:1
         ports:
         - containerPort: 8080
         env:

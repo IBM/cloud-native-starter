@@ -19,6 +19,9 @@ Most important: an IBM Cloud account, you can register for a free account [here]
 * [docker](https://docs.docker.com/install/) requires not only the code but also permission to run docker commands
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * [ibmcloud CLI](https://cloud.ibm.com/docs/home/tools)  including plugins `kubernetes-service` and `container-registry`
+    * Make sure that both the ibmcloud CLI and the kubernetes-service plugin are at least at version 1.0.0:
+    * `ibmcloud version`
+    * `ibmcloud plugin list`
 
 Run this script to check the prerequisites:
 
@@ -38,11 +41,9 @@ To revert this setting, simply execute:
 $ ibmcloud config --locale CLEAR
 ```
 
-
 ### To prepare the deployment on IBM Cloud:
 
 This creates an API key for the scripts.
-
 
 ```
 $ ibmcloud login
@@ -71,7 +72,6 @@ AUTHORS_DB=local
 CLOUDANT_URL=
 ```
 
-
 ### Create IBM Kubernetes Service Environment
 
 This step creates a lite Kubernetes cluster on IBM Cloud. 
@@ -82,55 +82,44 @@ $ iks-scripts/create-iks-cluster.sh
 
 Creating a cluster takes some time, typically at least 20 minutes.
 
-The next command checks if the cluster is ready and if it is ready, it retrieves the cluster configuration (which is needed in most of the other scripts), creates file `iks-scripts/cluster-config.sh`, and stores the cluster configuration in it. If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
+The next command checks if the cluster is ready and if it is ready, it retrieves the cluster configuration (which is needed in most of the other scripts), and stores the cluster configuration in the kubectl configuration. If the cluster isn't ready, the script will tell you. Then just wait a few more minutes and try again.
 
 ```
 $ iks-scripts/cluster-get-config.sh
 ```
 
-**NOTE:** You **MUST** run this command to check for completion of the cluster provisioning and it must report that the cluster is ready for Istio installation! This command also retrieves the cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.  
+**NOTE:** You **MUST** run this command to check for completion of the cluster provisioning and it must report that the cluster is ready for Istio installation! This command retrieves the IKS cluster configuration which is needed in other scripts. But this configuration can only be retrieved from a cluster that is in ready state.  
 
-From now on if you want to use `kubectl` commands with your cluster use this command to get access to the cluster:
-
-```
-$ source iks-scripts/cluster-config.sh
-```
-
+From now on if you want to use `kubectl` commands with your IKS cluster and you have used other Kubernetes environments before, e.g. Minikube, use this command (`cluster-get-config.sh`) to get access to the IKS cluster again. 
 
 ### Add Istio
 
 IBM Kubernetes Service has an option to install a managed Istio into a Kubernetes cluster. Unfortunately, the Kubernetes Lite Cluster we created in the previous step does not meet the hardware requirements for managed Istio. Hence we do a manual install of the Istio demo or evaluation version.
 
-These are the instructions to install Istio. We use Istio 1.4.0 for this project. Please be aware that these installation instructions will not work with Istio versions prior to 1.4.0! 
+These are the instructions to install Istio. We used and tested Istio 1.5.1 for this project. Please be aware that these installation instructions will not work with Istio versions prior to 1.4.0!
 
 
-1. Get access to your Kubernetes cluster on IBM Cloud:
-
-    ```
-    $ source iks-scripts/cluster-config.sh
-    ```
-
-2. Download Istio, this will create a directory istio-1.4.0:
+1. Download Istio, this will create a directory istio-1.5.1:
 
     ```
-    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.4.0 sh -
+    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.5.1 sh -
     ```
 
-3. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
+1. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
 
 
     ```
-    export PATH="$PATH:/path/to/istio-1.4.0/bin"
+    export PATH="$PATH:/path/to/istio-1.5.1/bin"
     ```
 
-4. Verify the `istioctl` installation:
+1. Verify the `istioctl` installation:
 
 
     ```
     $ istioctl version 
     ```
 
-5. Install Istio on the Kubernetes cluster:
+1. Install Istio on the Kubernetes cluster:
 
     We will use the `demo` profile to install Istio. 
 
@@ -141,13 +130,13 @@ These are the instructions to install Istio. We use Istio 1.4.0 for this project
     ```
 
 
-6. Check that all pods are running before continuing.
+1. Check that all pods are running before continuing.
   
     ```
     $ kubectl get pod -n istio-system
     ```
 
-7. Verify Istio installation
+1. Verify Istio installation
 
     This generates a manifest file for the demo profile we used to install Istion and then verifies the installation against this profile.
 
@@ -159,12 +148,12 @@ These are the instructions to install Istio. We use Istio 1.4.0 for this project
     Result of the second command (last 3 lines) looks like this:
 
      ```
-     Checked 23 crds
-	 Checked 9 Istio Deployments
+     Checked 25 crds
+	 Checked 3 Istio Deployments
 	 Istio is installed successfully
 	 ```
  
-8. Enable automatic sidecar injection for `default`namespace:
+1. Enable automatic sidecar injection for `default`namespace:
 
     ```
     $ kubectl label namespace default istio-injection=enabled
@@ -201,7 +190,8 @@ $ iks-scripts/deploy-web-app-vuejs.sh
 $ scripts/deploy-istio-ingress-v1.sh
 $ iks-scripts/show-urls.sh
 ```
-After running all (!) the scripts above, you will get a list of all URLs in the terminal. All these commands use kubectl which requires that the kube environment is set with `source iks-scripts/cluster-config.sh`. This is required every time you start a new shell.
+
+After running all (!) the scripts above, you will get a list of all URLs in the terminal. 
 
 <kbd><img src="../images/IKS-urls.png" /></kbd>
 

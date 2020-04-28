@@ -16,14 +16,6 @@ function local_env () {
       _out Config file local.env is missing! Check our instructions!
       exit 1
   fi  
-  source $CFG_FILE
-  CLUSTER_CFG=${root_folder}/iks-scripts/cluster-config.sh
-  # Check if config file exists
-  if [ ! -f $CLUSTER_CFG ]; then
-      _out Cluster config file iks-scripts/cluster-config.sh is missing! Run iks-scripts/cluster-get-config.sh first!
-      exit 1
-  fi  
-  source $CLUSTER_CFG
 }
 
 function setup_logging () {
@@ -38,15 +30,9 @@ function login () {
   ibmcloud api --unset >> $LOG_FILE 2>&1
   ibmcloud api https://cloud.ibm.com >> $LOG_FILE 2>&1
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION >> $LOG_FILE 2>&1
-  
-  # Ensure the cluster config
-  _out Set cluster-config 
-  CLUSTER_CONFIG=$(ibmcloud ks cluster config $CLUSTER_NAME --export) >> $LOG_FILE 2>&1
-  $CLUSTER_CONFIG >> $LOG_FILE 2>&1
-  _out End - Logging into IBM Cloud
 }
 
-function delete_postgress() {
+function delete_postgres() {
   _out Deleting postgres
 
   cd ${root_folder}
@@ -88,7 +74,7 @@ local_env
 setup_logging
 login
 delete_kafka
-delete_postgress
+delete_postgres
 delete_all_services
 
 

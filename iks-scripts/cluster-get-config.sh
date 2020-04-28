@@ -26,17 +26,14 @@ function test_cluster() {
   ibmcloud config --check-version=false
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
   _out Check if Kubernetes Cluster is available ...
-  STATE=$(ibmcloud ks cluster-get $CLUSTER_NAME -s | awk '/^State:/ {print $2}')
+  STATE=$(ibmcloud ks cluster get --cluster $CLUSTER_NAME -s | awk '/^State:/ {print $2}')
   if [ $STATE != "normal" ]; then 
     _out -- Your Kubernetes cluster is in $STATE state and not ready
     _out ---- Please wait a few more minutes and then try this command again 
     exit 1
    else
-    _out Saving kubectl config in iks-scripts/cluster-config.sh
-    echo '#!/bin/bash' > iks-scripts/cluster-config.sh 2> /dev/null
-    echo $(ibmcloud ks cluster-config $CLUSTER_NAME --export) >> iks-scripts/cluster-config.sh
-    chmod +x iks-scripts/cluster-config.sh
-    source iks-scripts/cluster-config.sh
+    _out Retrieving kubectl config for IKS cluster
+    ibmcloud ks cluster config --cluster $CLUSTER_NAME
     _out -- Cluster $CLUSTER_NAME is ready for Istio installation
   fi
 }

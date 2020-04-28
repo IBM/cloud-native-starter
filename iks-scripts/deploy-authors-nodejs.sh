@@ -8,7 +8,6 @@ function _out() {
   echo "$(date +'%F %H:%M:%S') $@"
 }
 
-# Check if IKS deployment, set kubectl environment and IKS deployment options in local.env
 CFG_FILE=${root_folder}/local.env
 # Check if config file exists
 if [ ! -f $CFG_FILE ]; then
@@ -16,17 +15,9 @@ if [ ! -f $CFG_FILE ]; then
      exit 1
 fi  
 source $CFG_FILE
-CLUSTER_CFG=${root_folder}/iks-scripts/cluster-config.sh
-# Check if config file exists
-if [ ! -f $CLUSTER_CFG ]; then
-     _out Cluster config file iks-scripts/cluster-config.sh is missing! Run iks-scripts/cluster-get-config.sh first!
-     exit 1
-fi  
-source $CLUSTER_CFG
 
 
 # Login to IBM Cloud Image Registry
-ibmcloud ks region set $IBM_CLOUD_REGION
 ibmcloud cr region-set $IBM_CLOUD_REGION
 ibmcloud cr login
 
@@ -82,8 +73,7 @@ function setup() {
   fi
 
   _out Done deploying authors-nodejs
-  _out Wait until the pod has been started. Check with these commands: 
-  _out "source iks-scripts/cluster-config.sh"  -- this is only needed once  
+  _out Wait until the pod has been started. Check with this command: 
   _out "kubectl get pod --watch | grep authors"
 }
 

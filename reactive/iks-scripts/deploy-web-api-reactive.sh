@@ -20,18 +20,12 @@ function login () {
   ibmcloud api --unset >> $LOG_FILE 2>&1
   ibmcloud api https://cloud.ibm.com >> $LOG_FILE 2>&1
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION >> $LOG_FILE 2>&1
-  
-  # Ensure the cluster config
-  _out Set cluster-config 
-  CLUSTER_CONFIG=$(ibmcloud ks cluster config $CLUSTER_NAME --export) >> $LOG_FILE 2>&1
-  $CLUSTER_CONFIG >> $LOG_FILE 2>&1
   _out End - Logging into IBM Cloud
 }
 
 function login_cr () {
     _out Logging into IBM Cloud Image Registry
     # Login to IBM Cloud Image Registry
-    ibmcloud ks region set $IBM_CLOUD_REGION >> $LOG_FILE 2>&1
     ibmcloud cr region-set $IBM_CLOUD_REGION >> $LOG_FILE 2>&1
     ibmcloud cr login >> $LOG_FILE 2>&1
     _out End Logging into IBM Cloud Image Registry
@@ -48,16 +42,6 @@ function local_env () {
   fi  
   source $CFG_FILE
   _out End - Get environment from local.env
-
-  _out Verify "cluster-config.sh" exists
-  CLUSTER_CFG=${root_folder}/iks-scripts/cluster-config.sh
-  # Check if config file exists
-  if [ ! -f $CLUSTER_CFG ]; then
-      _out Cluster config file iks-scripts/cluster-config.sh is missing! Run iks-scripts/cluster-get-config.sh first!
-      exit 1
-  fi  
-  source $CLUSTER_CFG
-  _out End - Verify that the file "cluster-config.sh" exists
 }
 
 function setup() {
@@ -70,7 +54,11 @@ function setup() {
  
   cd ${root_folder}/web-api-reactive/src/main/resources
   _out Set Kafka bootstrap server
-  sed "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" application.properties.template > application.properties
+  sed -e "s/KAFKA_BOOTSTRAP_SERVERS/my-cluster-kafka-external-bootstrap.kafka:9094/g" \
+      -e "s/CNS_ARTICLES_PORT/8080/g" \
+      -e "s/CNS_AUTHORS_PORT/3000/g" \
+      -e "s/CNS_LOCAL/false/g" \
+        application.properties.template > application.properties
   _out End - Configure sourcecode
   
   cd ${root_folder}/web-api-reactive
@@ -109,3 +97,4 @@ local_env
 setup_logging
 login
 setup
+

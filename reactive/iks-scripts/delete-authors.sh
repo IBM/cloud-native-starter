@@ -17,27 +17,14 @@ function local_env () {
       exit 1
   fi  
   source $CFG_FILE
-  CLUSTER_CFG=${root_folder}/iks-scripts/cluster-config.sh
-  # Check if config file exists
-  if [ ! -f $CLUSTER_CFG ]; then
-      _out Cluster config file iks-scripts/cluster-config.sh is missing! Run iks-scripts/cluster-get-config.sh first!
-      exit 1
-  fi  
-  source $CLUSTER_CFG
-}
+  }
 
 function login () {
   _out Logging into IBM Cloud
-  ibmcloud config --check-version=false >> $LOG_FILE 2>&1
-  ibmcloud api --unset >> $LOG_FILE 2>&1
-  ibmcloud api https://cloud.ibm.com >> $LOG_FILE 2>&1
-  ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION >> $LOG_FILE 2>&1
-  
-  # Ensure the cluster config
-  _out Set cluster-config 
-  CLUSTER_CONFIG=$(ibmcloud ks cluster config $CLUSTER_NAME --export) >> $LOG_FILE 2>&1
-  $CLUSTER_CONFIG >> $LOG_FILE 2>&1
-  _out End - Logging into IBM Cloud
+  ibmcloud config --check-version=false
+  ibmcloud api --unset
+  ibmcloud api https://cloud.ibm.com
+  ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION
 }
 
 function delete() {

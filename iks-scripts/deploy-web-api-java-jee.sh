@@ -2,12 +2,15 @@
 
 root_folder=$(cd $(dirname $0); cd ..; pwd)
 
-# Check if IKS deployment, set kubectl environment and IKS deployment options in local.env
-if [[ -e "iks-scripts/cluster-config.sh" ]]; then source iks-scripts/cluster-config.sh; fi
-if [[ -e "local.env" ]]; then source local.env; fi
+CFG_FILE=${root_folder}/local.env
+# Check if config file exists
+if [ ! -f $CFG_FILE ]; then
+     _out Config file local.env is missing! Check our instructions!
+     exit 1
+fi  
+source $CFG_FILE
 
 # Login to IBM Cloud Image Registry
-ibmcloud ks region set $IBM_CLOUD_REGION
 ibmcloud cr region-set $IBM_CLOUD_REGION
 ibmcloud cr login
 
@@ -58,7 +61,6 @@ function setup() {
   
   _out Done deploying web-api-java-jee v1
   _out Wait until the pod has been started. Check with these commands: 
-  _out "source iks-scripts/cluster-config.sh"  -- this is only needed once  
   _out "kubectl get pod --watch | grep web-api"
   _out Open the OpenAPI explorer: http://${clusterip}:${nodeport}/openapi/ui/
 }
