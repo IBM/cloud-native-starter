@@ -23,7 +23,7 @@ function setup() {
 
     oc apply -f ${root_folder}/scripts/kafka-cluster.yaml -n kafka 
 
-#    oc expose svc/my-cluster-kafka-external-bootstrap --port=9094
+    oc expose svc/my-cluster-kafka-external-bootstrap --port=9094
    
   _out Done installing Kafka
   _out Wait until the pods have been started

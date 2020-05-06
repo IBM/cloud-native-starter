@@ -24,7 +24,7 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out Service: articles-reactive
-  route=$(oc get route articles-reactive --template='{{ .spec.host }}')
+  route=$(oc get route articles-reactive -n cloud-native-starter --template='{{ .spec.host }}')
   if [ -z "$route" ]; then
     _out articles-reactive is not available. Run the command: \"sh scripts/deploy-articles-reactive.sh\"
   else 
@@ -35,7 +35,7 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out Service: web-api-reactive
-  route=$(oc get route web-api-reactive --template='{{ .spec.host }}')
+  route=$(oc get route web-api-reactive -n cloud-native-starter --template='{{ .spec.host }}')
   if [ -z "$route" ]; then
     _out web-api-reactive is not available. Run the command: \"sh scripts/deploy-web-api-reactive.sh\"
   else 
@@ -46,7 +46,7 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out Service: authors
-  route=$(oc get route authors --template='{{ .spec.host }}')
+  route=$(oc get route authors -n cloud-native-starter --template='{{ .spec.host }}')
   if [ -z "$route" ]; then
     _out authors is not available. Run the command: \"sh scripts/deploy-authors.sh\"
   else 
@@ -55,7 +55,7 @@ function setup() {
   _out ------------------------------------------------------------------------------------
 
   _out Web app: web-app-reactive
-  route=$(oc get route web-app-reactive --template='{{ .spec.host }}')
+  route=$(oc get route web-app-reactive -n cloud-native-starter --template='{{ .spec.host }}')
   if [ -z "$route" ]; then
     _out web-app-reactive is not available. Run the command: \"sh scripts/deploy-web-app-reactive.sh\"
   else 
