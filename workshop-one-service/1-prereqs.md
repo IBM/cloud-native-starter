@@ -59,7 +59,7 @@ In this workshop you can map the downloaded GitHub project on your  local PC to 
 $ git clone https://github.com/IBM/cloud-native-starter
 $ cd cloud-native-starter
 $ ROOT_FOLDER=$(pwd)
-$ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-workshop-tools:v2
+$ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-workshop-tools:v3
 ```
 _Note:_ With the `--rm` option in the docker run command the container is deleted once you exit. This is intended.
 
@@ -94,7 +94,7 @@ The following steps showing the setup using the Docker image.
 You will start the Docker container in a interactive terminal session.
 
 ```sh
-$ docker run -ti tsuedbroecker/cns-workshop-tools:v2
+$ docker run -ti tsuedbroecker/cns-workshop-tools:v3
 ```
 
 > _Note:_ If you using Windows you need to clone the project twice. You need to clone the Cloud Native Starter project to your local workstation and you will clone the project in the local running Docker container, which will run in an interactive mode.

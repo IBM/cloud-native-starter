@@ -26,7 +26,6 @@ We have defined a ```Dockerfile``` that with the needed configuration to setup a
 
     ![image](images/windows-setup-02.png)
 
-
 _Optional:_ 
 * You can build your own d
 Docker image on your local PC with the command ```docker build -t my-workshop-image:v1 .```

@@ -4,7 +4,7 @@
 # $ docker build -t cns-tools-image:v1 . 
 # $ docker run -it cns-tools-image:v1 
 
-FROM ubuntu
+FROM ubuntu:latest
 
 RUN apt-get update
 RUN apt-get --assume-yes install curl
@@ -35,8 +35,8 @@ RUN apt-get --assume-yes install zip
 
 #Docker
 WORKDIR /
-RUN curl -fsSL https://get.docker.com -o get-docker.sh
-RUN sh get-docker.sh
+RUN apt install -y gnupg
+RUN apt install -y docker.io 
 RUN docker --version
 
 #Kubernetes
