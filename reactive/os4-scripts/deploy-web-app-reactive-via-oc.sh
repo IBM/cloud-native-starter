@@ -29,6 +29,9 @@ function setup() {
     oc new-build --name web-app-reactive --binary --strategy docker
     oc start-build web-app-reactive --from-dir=.
 
+    mv Dockerfile Dockerfile.os4
+    mv Dockerfile.k8s Dockerfile
+
     sed -e "s+web-app-reactive:latest+image-registry.openshift-image-registry.svc:5000/cloud-native-starter/web-app-reactive:latest+g" \
       -e "s+  type: NodePort+\#  type: NodePort+g" \
       -e "s+        imagePullPolicy: Never+\#        imagePullPolicy: Never+g" \
