@@ -180,7 +180,7 @@ If you have installed all tools on your local machine Option 3, you have to do t
 
 ![Chose Clusters and click on your Kubernetes cluster](images/verify-cluster-access-2.png)
 
-4. Follow the steps in the **Access** tab, by starting from **After your cluster provision ..** and inserting the commands into your terminal session.
+4. Follow the steps in the **Access** tab, by starting from **After your cluster provision, gain Access** and insert the commands into your terminal session.
 
 ![Follow the steps in the Access tab, by starting from "After your cluster provision" and inserting the commands into your terminal session.](images/verify-cluster-access-4.png)
 
