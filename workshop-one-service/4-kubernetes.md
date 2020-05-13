@@ -71,7 +71,7 @@ Now we want to build and save a container image in the IBM Cloud Container Regis
     $ ibmcloud cr namespaces
     ```
 
-    _Sample result outout:_
+    _Sample result output:_
 
     ```sh
     $ Listing namespaces for account 'Thomas Suedbroecker's Account' in registry 'us.icr.io'...
@@ -134,7 +134,7 @@ Definition of `kind` defines this as a `Deployment` configuration.
 
   ```yml
   kind: Deployment
-  apiVersion: apps/v1beta1
+  apiVersion: apps/v1
   metadata:
     name: authors
   ```
@@ -172,10 +172,14 @@ This is the full [deployment.yaml](../authors-java-jee/deployment/deployment.yam
 
   ```yaml
   kind: Deployment
-  apiVersion: apps/v1beta1
+  apiVersion: apps/v1
   metadata:
     name: authors
   spec:
+    selector:
+    matchLabels:
+      app: authors
+      version: v1
     replicas: 1
     template:
       metadata:
