@@ -24,7 +24,7 @@ This workshop has four labs. It should take between 60 and 90 minutues to comple
 
 The last lab shows one way to deploy a microservice to Kubernetes on IBM Cloud.
 
-_Note:_ If you want to deploy the authors microservice to IBM Cloud without touching any code or commandline, you can use these instructions [Use a IBM Cloud toolchain to deploy a Java Microservices to Kubernetes on IBM Cloud](https://thomassuedbroecker.github.io/cloud-native-starter-one-service-workshop-toolchain/) which do automate lab 4.
+_Note:_ If you want to deploy the authors microservice to IBM Cloud without touching any code or commandline, you can use these instructions [Use a IBM Cloud toolchain to deploy a Java Microservices to Kubernetes on IBM Cloud](https://thomas-suedbroecker.gitbook.io/toolchain-one-microservice/) which do automate lab 4.
 
 ---
 ---
@@ -32,11 +32,11 @@ _Note:_ If you want to deploy the authors microservice to IBM Cloud without touc
 
 ![Cloud Native Starter Badge - Level 1](images/cnsl1.png)
 
-> To be prepared to pass the test of the [**Cloud Native Starter Badge - Level 1**](http://ibm.biz/cloud-native-starter-level-1-badge), you should run the hands-workshop **virtual** or **face to face**, but you can also run the workshop as a self service.
+> To be prepared to pass the test of the [**Cloud Native Starter Badge - Level 1**](http://ibm.biz/cloud-native-starter-level-1-badge), you should run the hands-workshop **virtual** or **face to face**, but you can also run the workshop as a **self service**.
 
 * Registration link for the Hands-on workshop in a "digital hands-on workshop" at a "digital meetup" or "digital conference": 
 
-    * _[(Online Meetup IBM Developer) Get your Java Microservice up and running!](https://ibm.biz/BdqSxW)_
+    * __Currently no registration available_
 
 * Registration link for the Hands-on workshop as a face to face workshop at a converence or meetup: 
 
