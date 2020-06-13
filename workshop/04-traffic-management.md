@@ -182,7 +182,7 @@ _Optional:_ You can verify the new **Web app** version in Kubernetes.
     
     _Note:_ If you use the **workshop Docker image for Windows**, you have of open **kiali** in a browser on the windows host.
     
-    ```http://{CLUSTER-IP}:31380/kiali/console/applications?namespaces=default```
+    ```http://{CLUSTER-IP}:31092/kiali/console/applications?namespaces=default```
 
 
 
@@ -197,7 +197,7 @@ _Optional:_ You can verify the new **Web app** version in Kubernetes.
     ![Kiali config](images/traffic-routing-deployment14.png)
 
 
-7. Open the **Web APP** in a new browser tab: http://YOUR_IP:31380/
+7. Open the **Web APP** in a new browser tab: http://YOUR_IP:31092/
 _Note:_ This is on of the links we get from the ```iks-scripts/show-urls.sh``` script.
 
    ![cns-container-web-app-04](images/cns-container-web-app-05.png)

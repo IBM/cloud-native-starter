@@ -558,12 +558,12 @@ With [sed](https://en.wikipedia.org/wiki/Sed_(Unix)) and [awk]( https://en.wikip
     2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31078/api/v1/getauthor?name=Niklas%20Heidloff
     2019-05-16 15:09:51 ------------------------------------------------------------------------------------
     2019-05-16 15:09:51 web-api
-    2019-05-16 15:09:51 API explorer: http://159.122.172.162:31380/openapi/ui/
+    2019-05-16 15:09:51 API explorer: http://159.122.172.162:31092/openapi/ui/
     2019-05-16 15:09:51 Metrics: http://159.122.172.162:32370/metrics/application
-    2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31380/web-api/v1/getmultiple
+    2019-05-16 15:09:51 Sample API: curl http://159.122.172.162:31092/web-api/v1/getmultiple
     2019-05-16 15:09:51 ------------------------------------------------------------------------------------
     2019-05-16 15:09:51 web-app
-    2019-05-16 15:09:52 Web app: http://159.122.172.162:31380/
+    2019-05-16 15:09:52 Web app: http://159.122.172.162:31092/
     2019-05-16 15:09:52 ------------------------------------------------------------------------------------
     ```
 
@@ -589,13 +589,13 @@ For the next steps use the results of the ```show-urls.sh``` script.
     $ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
     ```
 
-3. Open the API explorer **Web API** v1 in a browser http://YOUR_IP:31380/openapi/ui/
+3. Open the API explorer **Web API** v1 in a browser http://YOUR_IP:31092/openapi/ui/
 
 
     ![cns-container-articels-service-03](images/cns-container-web-api-v1-04.png)
 
 
-4. Open the the Application in a browser: http://YOUR_IP:31380/
+4. Open the the Application in a browser: http://YOUR_IP:31092/
 
     ![cns-container-web-app-04](images/cns-container-web-app-05.png)
 
