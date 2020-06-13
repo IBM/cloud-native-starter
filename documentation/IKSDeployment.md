@@ -105,6 +105,10 @@ These are the instructions to install Istio. We used and tested Istio 1.5.1 for 
     curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.5.1 sh -
     ```
 
+    _Note:_ Please be aware that this does **not** work on Windows.
+    Windows users can download [istio-1.5.1-win.zip](https://github.com/istio/istio/releases/tag/1.5.1) here.
+    Unpack the ZIP file into the workshop directory and add the path to ```istio-1.5.1/bin``` your Windows **PATH**.
+
 1. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
 
 

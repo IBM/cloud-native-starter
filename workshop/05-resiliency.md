@@ -127,7 +127,7 @@ In the following bash scripts we use **ibmcloud** and **kubectl** commands to in
    $ ./iks-scripts/show-urls.sh
    ```
 
-2. Open the **Web APP** in a new browser tab: http://YOUR_IP:31380/
+2. Open the **Web APP** in a new browser tab: http://YOUR_IP:31092/
 
 _Note:_ You get this link as output of the ```iks-scripts/show-urls.sh``` script.
 

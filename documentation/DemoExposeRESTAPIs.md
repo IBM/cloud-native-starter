@@ -4,7 +4,7 @@ MicroProfile supports defining REST APIs via JAX-RS.
 
 The following sample shows the ‘web-api/v1/getmultiple‘ endpoint:
 
-```
+```java
 package com.ibm.webapi.apis;
  
 import javax.ws.rs.*;

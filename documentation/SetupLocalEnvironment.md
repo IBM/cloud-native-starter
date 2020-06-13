@@ -37,23 +37,23 @@ $ minikube stop
 
 ### Istio
 
-We used Istio 1.4.0 for this project. 
+We used Istio 1.5.1 for this project. 
 
-Note that the installation for Istio 1.4.0 has changed and also some commands, most notably those to open the Kiali, Jaeger, Prometheus, and Grafana dashboards were different in older Istio versions.
+Note that the installation for Istio 1.5.1 has changed and also some commands, most notably those to open the Kiali, Jaeger, Prometheus, and Grafana dashboards were different in older Istio versions.
 
 We will use `istioctl` to install Istio:
 
-1. Download Istio, this will create a directory istio-1.4.0:
+1. Download Istio, this will create a directory istio-1.5.1:
 
     ```
-    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.4.0 sh -
+    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.5.1 sh -
     ```
 
 2. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
 
 
     ```
-    export PATH="$PATH:/path/to/istio-1.4.0/bin"
+    export PATH="$PATH:/path/to/istio-1.5.1/bin"
     ```
 
 3. Verify the `istioctl` installation:

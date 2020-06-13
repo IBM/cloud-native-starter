@@ -191,6 +191,10 @@ We see the file has preset values for regions, cluster name, and image registry 
 
 _Note:_ `yourname` must be maximum 5 charters. Changing the name is necessary, because namespaces are required to be **unique** across the entire **region** that the **specific registry** is located in, not just ***unique to your account**. This is mentioned in the following [public documentation](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started#gs_registry_namespace_add).
 
+
+
+3. If you already created a cluster change the `CLUSTER_NAME=cloud-native` to `CLUSTER_NAME=yourclustername` and set the region where the cluster is located in `IBM_CLOUD_REGION`
+
 **Example** local.env:
 
 ```sh
@@ -205,6 +209,7 @@ AUTHORS_DB=local
 CLOUDANT_URL=
 
 ```
+
 ---
 
 ### 4.5 Setup the IBM Cloud Kubernetes CLI <a name="part-SETUP-03"></a>
@@ -242,7 +247,7 @@ For the following steps we use bash scripts from the github project.
 
 ---
 
-#### 4.6.1 Automated creation of a Cluster with Istio for the workshop
+#### 4.6.1 Automated creation of a Cluster for the workshop
 
 * **create cluster**
 
@@ -256,12 +261,6 @@ _Note:_ Creating a cluster can take up to **20 minutes**.
 You can verify the cluster in the IBM Cloud, as we see in the image below:
 
 ![ibm-cloud-cluster](images/ibm-cloud-cluster.png)
-
-* **Adding Istio**
-
-The IBM Kubernetes Service has an option to install a managed Istio mesh into a Kubernetes cluster. Unfortunately, the Lite Kubernetes Cluster we created in the previous step does not meet the hardware requirements for a managed Istio. Hence, we manually install an Istio demo or evaluation version.
-
-These are the instructions to install Istio. For this workshop we are using **Istio 1.1.5**.
 
 _Note:_ Ensure you are logged on to IBM Cloud in your terminal session.
         ```sh
@@ -292,67 +291,6 @@ _Note:_ Ensure you are logged on to IBM Cloud in your terminal session.
     ```sh
     $ export KUBECONFIG=/<home>/.bluemix/plugins/container-service/clusters/mycluster/kube-config-<region>-<cluster-name>.yml
     ```
-
-
-5. Download Istio 1.1.5 directly from github into the **workshop** directory:
-
-    ```sh
-    cd workshop
-    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
-    ```
-
-    _Note:_ Please be aware that this does **not** work on Windows.
-    Windows users can download [istio-1.1.5-win.zip](https://github.com/istio/istio/releases/tag/1.1.5) here.
-    Unpack the ZIP file into the workshop directory and add the path to ```istio-1.1.5/bin``` your Windows **PATH**.
-
-6. Add `istioctl` to the PATH environment variable, e.g copy and paste in your shell and/or `~/.profile`:
-
-    ```sh
-    export PATH=$PWD/istio-1.1.5/bin:$PATH
-    ```
-
-7. Navigate to the extracted directory: 
-
-    ```sh
-    cd istio-1.1.5
-    ```
-
-8. Install Istio:
-
-    ```sh
-    $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
-    ```
-    
-    a. Wait a few seconds before issuing the next command:
-
-    ```sh
-    $ kubectl apply -f install/kubernetes/istio-demo.yaml
-    ```
-
-    b. Check that all pods are **running** or **completed** before continuing.
-
-    ```sh
-    $ kubectl get pod -n istio-system
-    ```
-
-    c. Enable automatic sidecar injection:
-
-    ```sh
-    $ kubectl label namespace default istio-injection=enabled
-    ```
-
-    d. Once completed, the Kiali dashboard can be accessed with this command:
-
-    ```sh
-    $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') 20001:20001
-    ```
-    e. Then open http://localhost:20001/kiali in your browser, log in with the following credentials Username: admin, Password: admin
-
-    ![Kiali installation](images/istio-installation-02.png)
-
-    In the following image we can see Istio installed on the Kubernetes cluster. We also notice the **Istio Ingress gateway** and the **Istio-System** namespace, which we will use later.
-    
-    ![Istio installation](images/istio-installation-01.png)
 
 Customize the IBM Cloud Registry Configure
 
@@ -406,6 +344,93 @@ _Optional:_ You can find the created namespace here (https://cloud.ibm.com/kuber
 You can create an IBM Cloud Kubernetes cluster (lite ) using the [IBM Cloud console](https://cloud.ibm.com/containers-kubernetes/catalog/cluster/create) or using the CLI. A lite / free cluster is sufficient for this workshop.
 
 _Note:_ When using the CLI or the Cloud console in a browser, always make sure to **view the correct region**, as your resources will only be visible the region they were created in.
+
+---
+
+#### 4.6.3 Add Istio
+
+IBM Kubernetes Service has an option to install a managed Istio into a Kubernetes cluster. Unfortunately, the Kubernetes Lite Cluster we created in the previous step does not meet the hardware requirements for managed Istio. Hence we do a manual install of the Istio demo or evaluation version.
+
+These are the instructions to install Istio. We used and tested Istio 1.5.1 for this project. Please be aware that these installation instructions will not work with Istio versions prior to 1.4.0!
+
+
+1. Download Istio, this will create a directory istio-1.5.1:
+
+    ```
+    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.5.1 sh -
+    ```
+
+    _Note:_ Please be aware that this does **not** work on Windows.
+    Windows users can download [istio-1.5.1-win.zip](https://github.com/istio/istio/releases/tag/1.5.1) here.
+    Unpack the ZIP file into the workshop directory and add the path to ```istio-1.5.1/bin``` your Windows **PATH**.
+
+1. Add `istioctl` to the PATH environment variable, e.g copy paste in your shell and/or `~/.profile`. Follow the instructions in the installer message.
+
+
+    ```
+    export PATH="$PATH:/path/to/istio-1.5.1/bin"
+    ```
+
+1. Verify the `istioctl` installation:
+
+
+    ```
+    $ istioctl version 
+    ```
+
+1. Install Istio on the Kubernetes cluster:
+
+    We will use the `demo` profile to install Istio. 
+
+    **Note:** This is a "...configuration designed to showcase Istio functionality with modest resource requirements. ... **This profile enables high levels of tracing and access logging so it is not suitable for performance tests!**"
+
+    ```
+    $ istioctl manifest apply --set profile=demo
+    ```
+
+
+1. Check that all pods are running before continuing.
+  
+    ```
+    $ kubectl get pod -n istio-system
+    ```
+
+1. Verify Istio installation
+
+    This generates a manifest file for the demo profile we used to install Istion and then verifies the installation against this profile.
+
+    ```
+    $ istioctl manifest generate --set profile=demo > generated-manifest.yaml
+    $ istioctl verify-install -f generated-manifest.yaml
+    ```
+
+    Result of the second command (last 3 lines) looks like this:
+
+     ```
+     Checked 25 crds
+	 Checked 3 Istio Deployments
+	 Istio is installed successfully
+	 ```
+ 
+1. Enable automatic sidecar injection for `default`namespace:
+
+    ```
+    $ kubectl label namespace default istio-injection=enabled
+    ```
+
+1. Once complete, the Kiali dashboard can be accessed with this command:
+
+    ```
+    $ istioctl dashboard kiali
+    ```
+
+    Log in with Username: admin, Password: admin
+
+    ![Kiali installation](images/istio-installation-02.png)
+
+    In the following image we can see Istio installed on the Kubernetes cluster. We also notice the **Istio Ingress gateway** and the **Istio-System** namespace, which we will use later.
+
+    ![Istio installation](images/istio-installation-01.png)
 
 ---
 
