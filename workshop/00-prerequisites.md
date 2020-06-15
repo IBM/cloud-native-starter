@@ -101,9 +101,9 @@ In order to create a free Kubernetes cluster, you need a **promo** or **feature 
 ### 4.2 Insert feature code <a name="part-SETUP-01"></a>
 [<home>](#home)
 
-In order to execute the workshop easily, we provide **promotional codes** to create free Kubernetes clusters, so no credit card details are required.
-To apply the promotional code to your [Cloud Account](https://cloud.ibm.com/account), navigate to your "`Account settings`" and then to ("`Manage`" -> "`Account`").
-Enter your unique Feature (Promo) Code to upgrade your lite account.
+In order to execute the workshop easily, we provide **feature codes** to create free Kubernetes clusters, so no credit card details are required.
+To apply the feature code to your [Cloud Account](https://cloud.ibm.com/account), navigate to your "`Account settings`" and then to ("`Manage`" -> "`Account`").
+Enter your unique feature (promo) Code to upgrade your lite account.
 
 _Note:_ Free clusters expire after one month.
 
@@ -261,7 +261,7 @@ You can verify the cluster in the IBM Cloud, as we see in the image below:
 
 The IBM Kubernetes Service has an option to install a managed Istio mesh into a Kubernetes cluster. Unfortunately, the Lite Kubernetes Cluster we created in the previous step does not meet the hardware requirements for a managed Istio. Hence, we manually install an Istio demo or evaluation version.
 
-These are the instructions to install Istio. For this workshop we are using **Istio 1.1.5**.
+These are the instructions to install Istio. For this workshop we are using **Istio 1.5.1**.
 
 _Note:_ Ensure you are logged on to IBM Cloud in your terminal session.
         ```sh
@@ -298,23 +298,23 @@ _Note:_ Ensure you are logged on to IBM Cloud in your terminal session.
 
     ```sh
     cd workshop
-    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
+    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.5.1 sh -
     ```
 
     _Note:_ Please be aware that this does **not** work on Windows.
-    Windows users can download [istio-1.1.5-win.zip](https://github.com/istio/istio/releases/tag/1.1.5) here.
-    Unpack the ZIP file into the workshop directory and add the path to ```istio-1.1.5/bin``` your Windows **PATH**.
+    Windows users can download [istio-1.5.1-win.zip](https://github.com/istio/istio/releases/tag/1.5.1) here.
+    Unpack the ZIP file into the workshop directory and add the path to ```istio-1.5.1/bin``` your Windows **PATH**.
 
 6. Add `istioctl` to the PATH environment variable, e.g copy and paste in your shell and/or `~/.profile`:
 
     ```sh
-    export PATH=$PWD/istio-1.1.5/bin:$PATH
+    export PATH=$PWD/istio-1.5.1/bin:$PATH
     ```
 
 7. Navigate to the extracted directory: 
 
     ```sh
-    cd istio-1.1.5
+    cd istio-1.5.1
     ```
 
 8. Install Istio:
