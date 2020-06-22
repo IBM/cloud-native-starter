@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Infrastructure
-KAFKA="deploy-kafka-oc-only.sh"
+KAFKA="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-kafka-oc-only.sh"
 
 # Example application
-AUTHORS="deploy-authors-via-oc.sh"
-ARTICLES="deploy-articles-reactive-postgres-via-oc.sh"
-WEB_API="deploy-web-api-reactive-via-oc.sh"
-WEB_APP="deploy-web-app-reactive-via-oc.sh"
+AUTHORS="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-authors-via-oc.sh"
+ARTICLES="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-articles-reactive-postgres-via-oc.sh"
+WEB_API="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-web-api-reactive-via-oc.sh"
+WEB_APP="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-web-app-reactive-via-oc.sh"
 
 # Execution of existing bash scripts
 echo="*** Infrostructure ***"
