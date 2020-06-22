@@ -1,25 +1,37 @@
 #!/bin/bash
 
 # Infrastructure
-KAFKA="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-kafka-oc-only.sh"
+KAFKA="./deploy-kafka-oc-only.sh"
 
 # Example application
-AUTHORS="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-authors-via-oc.sh"
-ARTICLES="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-articles-reactive-postgres-via-oc.sh"
-WEB_API="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-web-api-reactive-via-oc.sh"
-WEB_APP="sh ~/cloud-native-starter/reactive/os4-scripts/deploy-web-app-reactive-via-oc.sh"
+AUTHORS="./deploy-authors-via-oc.sh"
+ARTICLES="./deploy-articles-reactive-postgres-via-oc.sh"
+WEB_API="./deploy-web-api-reactive-via-oc.sh"
+WEB_APP="./deploy-web-app-reactive-via-oc.sh"
+
+# Provide the links to the microservices
+SHOW_URLS="./show-urls.sh"
 
 # Execution of existing bash scripts
-echo="*** Infrostructure ***"
-OUTPUT=$("$KAFKA")
-echo="*** Example application ***"
-echo $OUTPUT
-OUTPUT=$("$AUTHORS")
-echo $OUTPUT
-OUTPUT=$("$ARTICLES")
-echo $OUTPUT
-OUTPUT=$("$WEB_API")
-echo $OUTPUT
-OUTPUT=$("$WEB_APP")
-echo $OUTPUT
-echo="*** Follow the steps to deploy the PostgresSQL container as written in the workshop material.  ***"
+cd ~/cloud-native-starter/reactive/os4-scripts/
+echo "----------------------------------"
+echo "---       Infrastructure       ---"
+eval $KAFKA
+echo ""
+echo "----------------------------------"
+echo "---     Example application    ---"
+eval $AUTHORS
+echo "---         Articles           ---"
+eval $ARTICLES
+echo "---          Web-API           ---"
+eval $WEB_API
+echo "---          Web-APP           ---"
+eval $WEB_APP
+echo ""
+echo "----------------------------------"
+echo "--- Links to the microservices ---"
+eval $SHOW_URLS
+cd ~/cloud-native-starter/reactive
+echo ""
+echo "----------------------------------"
+echo="Now deploy the PostgresSQL operator by following the step in the workshop."
