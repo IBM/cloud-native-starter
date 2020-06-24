@@ -24,10 +24,10 @@ function setup() {
       application.properties.template > application.properties
 
   cd ${root_folder}/web-api-reactive
-  oc new-build --name web-api-reactive --binary --strategy docker
-  oc start-build web-api-reactive --from-dir=.
+  oc new-build --name build-web-api-reactive --binary --strategy docker
+  oc start-build build-web-api-reactive --from-dir=.
 
-  sed -e "s+web-api-reactive:latest+image-registry.openshift-image-registry.svc:5000/cloud-native-starter/web-api-reactive:latest+g" \
+  sed -e "s+web-api-reactive:latest+image-registry.openshift-image-registry.svc:5000/cloud-native-starter/build-web-api-reactive:latest+g" \
       -e "s+  type: NodePort+\#  type: NodePort+g" \
       -e "s+        imagePullPolicy: Never+#        imagePullPolicy: Never+g" \
       deployment/kubernetes.yaml > deployment/os4-kubernetes.yaml

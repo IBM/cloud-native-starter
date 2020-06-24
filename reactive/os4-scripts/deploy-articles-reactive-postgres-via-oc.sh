@@ -25,10 +25,10 @@ function setup() {
 
   cd ${root_folder}/articles-reactive
 
-  oc new-build --name articles-reactive --binary --strategy docker
-  oc start-build articles-reactive --from-dir=.
+  oc new-build --name build-articles-reactive --binary --strategy docker
+  oc start-build build-articles-reactive --from-dir=.
   
-  sed -e "s+articles-reactive:latest+image-registry.openshift-image-registry.svc:5000/cloud-native-starter/articles-reactive:latest+g" \
+  sed -e "s+articles-reactive:latest+image-registry.openshift-image-registry.svc:5000/cloud-native-starter/build-articles-reactive:latest+g" \
       -e "s+        imagePullPolicy: Never+#        imagePullPolicy: Never+g" \
       deployment/kubernetes.yaml > deployment/os4-kubernetes.yaml
 

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: database-articles
+  name: database-articles
+  namespace: postgres
+spec:
+  selector:
+    matchLabels:
+      app: database-articles
+  template:
+    metadata:
+      labels:
+        app: database-articles
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_DB
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: PGDATA
+          value: /temp/data
+        image: POSTGRES_IMAGE
+        imagePullPolicy: Always
+        name: postgres
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 60m
+            memory: 512Mi
+          requests:
+            cpu: 30m
+            memory: 128Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: database-articles
+  name: database-articles
+  namespace: postgres
+spec:
+  ports:
+  - name: http
+    port: 5432
+    protocol: TCP
+  selector:
+    app: database-articles
+  type: NodePort
+
+

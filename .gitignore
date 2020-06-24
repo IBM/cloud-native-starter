@@ -91,6 +91,8 @@ reactive/web-api-reactive/deployment/os4-kubernetes.yaml
 reactive/web-app-reactive/deployment/os4-kubernetes.yaml
 authors-nodejs/deployment/os4-deployment.yaml
 tls.crt
+reactive/os4-scripts/postgres-oc.yaml
+
 
 # IKS reactive
 reactive/articles-reactive/deployment/IKS-kubernetes.yaml

@@ -11,8 +11,8 @@ function _out() {
 function templates() {
   _out --- Preparing YAML files for Kubernetes Deployment
   cd ${root_folder}/../authors-nodejs/deployment  
-  sed -e "s+<URL>+ +g" -e "s+<DB>+local+g" -e "s+authors:1+image-registry.openshift-image-registry.svc:5000/cloud-native-starter/authors:latest+g" deployment.yaml.template > os4-deployment.yaml
-  }
+  sed -e "s+<URL>+ +g" -e "s+<DB>+local+g" -e "s+authors:1+image-registry.openshift-image-registry.svc:5000/cloud-native-starter/build-authors:latest+g" deployment.yaml.template > os4-deployment.yaml
+}
 
 function setup() {
 
@@ -23,8 +23,8 @@ function setup() {
   cd ${root_folder}/../authors-nodejs
   
   _out --- Deploy to OpenShift
-  oc new-build --name authors --binary --strategy docker
-  oc start-build authors --from-dir=.
+  oc new-build --name build-authors --binary --strategy docker
+  oc start-build build-authors --from-dir=.
 
   cd ${root_folder}/../authors-nodejs/deployment
   oc apply -f os4-deployment.yaml
