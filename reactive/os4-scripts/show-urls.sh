@@ -31,6 +31,7 @@ function setup() {
     _out API explorer: http://${route}/explorer
     _out Sample API - Read articles: curl -X GET \"http://${route}/v2/articles?amount=10\" -H \"accept: application/json\"
     _out Sample API - Create article: curl -X POST \"http://${route}/v2/articles\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
+    articles_route="${route}"
   fi
   _out ------------------------------------------------------------------------------------
 
@@ -60,8 +61,20 @@ function setup() {
     _out web-app-reactive is not available. Run the command: \"sh scripts/deploy-web-app-reactive.sh\"
   else 
     _out Home page: http://${route}
+    web_app_route=${route}
   fi
   _out ------------------------------------------------------------------------------------
+  _out ------------------------------------------------------------------------------------
+  _out
+  _out Open the Web Application
+  _out ========================
+  _out Copy the Web-APP Home page URL and past it into a browser.
+  _out URL: http://${web_app_route}
+  _out
+  _out Create a new article
+  _out ====================
+  _out Copy the curl command and past it into the current terminal session.
+  _out Command: curl -X POST \"http://${articles_route}/v2/articles\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"author\\\":\\\"Niklas Heidloff\\\",\\\"title\\\":\\\"Title\\\",\\\"url\\\":\\\"http://heidloff.net\\\"}\"
 }
 
 setup
