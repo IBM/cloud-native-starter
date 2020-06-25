@@ -19,6 +19,9 @@ Jump to the part of the documentation you are interested in:
 * [Setup in CodeReady Containers (local OpenShift) or Red Hat OpenShift on IBM Cloud](documentation/OpenShift4.md)
 * [Setup of local Development Environment](#setup-of-local-development-environment)
 * [Technologies](#technologies)
+* Recording of Java User Group Session [Reactive Applications with Quarkus](https://www.youtube.com/watch?v=aqT6ornm1F4) in German
+* [Workshop: Reactive Endpoints with Quarkus on OpenShift](https://ibm-developer.gitbook.io/reactive-endpoints-with-quarkus-on-openshift/)
+* [Workshop: Reactive Messaging with Quarkus on OpenShift](https://github.com/ibm/workshop-quarkus-openshift-reactive-messaging)
 
 ### Setup in Minikube
 
