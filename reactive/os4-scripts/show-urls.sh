@@ -66,7 +66,7 @@ function setup() {
   _out ------------------------------------------------------------------------------------
   _out ------------------------------------------------------------------------------------
   _out
-  _out Open the Web Application
+  _out Open the web application
   _out ========================
   _out Copy the Web-APP Home page URL and past it into a browser.
   _out URL: http://${web_app_route}
