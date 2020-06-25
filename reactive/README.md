@@ -19,6 +19,7 @@ Jump to the part of the documentation you are interested in:
 * [Setup in CodeReady Containers (local OpenShift) or Red Hat OpenShift on IBM Cloud](documentation/OpenShift4.md)
 * [Setup of local Development Environment](#setup-of-local-development-environment)
 * [Technologies](#technologies)
+* Java User Group Session [Reactive Applications with Quarkus](https://www.youtube.com/watch?v=aqT6ornm1F4) in German
 
 ### Setup in Minikube
 
