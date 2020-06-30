@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  selector:
+    app: web-app
+  ports:
+    - port: 80
+      name: http
+  type: NodePort
+---
+
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: web-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true" 
+      labels:
+        app: web-app
+        version: v1
+    spec:
+      containers:
+      - name: web-app
+        image: Running this command requires a running 'istio' VM, but no VM is running./cloud-native-starter/web-app:latest
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
+---

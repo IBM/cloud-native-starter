@@ -1,0 +1,32 @@
+{
+  "name": "web-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --dest ../src/main/resources/META-INF/resources"
+  },
+  "dependencies": {
+    "axios": "0.18.1",
+    "bootstrap-vue": "2.0.0-rc.13",
+    "keycloak-js": "10.0.2",
+    "vue": "2.6.6",
+    "vue-router": "3.0.2",
+    "vuex": "3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "3.4.0",
+    "@vue/cli-service": "3.4.0",
+    "vue-template-compiler": "2.6.6"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -76,6 +77,7 @@ public class ArticleResource {
     @GET
     @Path("/tokens")
     public String getTokens() {
+        System.out.println("niklas1");
         StringBuilder response = new StringBuilder().append("<html>")
                 .append("<body>")
                 .append("<ul>");
@@ -91,7 +93,10 @@ public class ArticleResource {
         if (userName != null) {
             response.append("<li>username: ").append(userName.toString()).append("</li>");
         }
-
+        else {
+            response.append("<li>username: ").append("niklas").append("</li>");
+        }
+/*
         Object scopes = this.accessToken.getClaim("scope");
 
         if (scopes != null) {
@@ -106,7 +111,7 @@ public class ArticleResource {
         }
 
         response.append("<li>refresh_token: ").append(refreshToken.getToken() != null).append("</li>");
-
+*/
         return response.append("</ul>").append("</body>").append("</html>").toString();
     }
 }
