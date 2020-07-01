@@ -4,28 +4,22 @@
     <div>
       <div class="articlesTable" style="line-height: 30px;">
         <div class="articlesRow">
-          <div class="articlesCell">
-            &#x1F4C3 Title
-          </div>
-          <div class="articlesCell" style="width:200px">
-            &#x1F9D1 Author
-          </div>
-          <div class="articlesCell" style="width:150px">
-            &#x1F4AC Twitter
-          </div>
-          <div class="articlesCell" style="width:80px">
-            &#x1F171 Blog
-          </div>
+          <div class="articlesCell">&#x1F4C3 Title</div>
+          <div class="articlesCell" style="width:200px">&#x1F9D1 Author</div>
+          <div class="articlesCell" style="width:150px">&#x1F4AC Twitter</div>
+          <div class="articlesCell" style="width:80px">&#x1F171 Blog</div>
         </div>
         <div v-for="article in articles" :key="article.id" class="articlesRow">
           <div class="articlesCell">
             <b-link target="_blank" :href="article.url">{{ article.title }}</b-link>
           </div>
+          <div class="articlesCell">{{ article.authorName }}</div>
           <div class="articlesCell">
-            {{ article.authorName }}
-          </div>
-          <div class="articlesCell">
-            <b-link v-if="article.authorTwitter != ''" target="_blank" :href="'https://twitter.com/' + article.authorTwitter">{{ article.authorTwitter }}</b-link>
+            <b-link
+              v-if="article.authorTwitter != ''"
+              target="_blank"
+              :href="'https://twitter.com/' + article.authorTwitter"
+            >{{ article.authorTwitter }}</b-link>
           </div>
           <div class="articlesCell">
             <b-link v-if="article.authorBlog != ''" target="_blank" :href="article.authorBlog">Blog</b-link>
@@ -33,7 +27,10 @@
         </div>
       </div>
     </div>
-    <div style="margin-top:30px" v-if="(articles.length == 0) && (loading == false) && (error == '')">
+    <div
+      style="margin-top:30px"
+      v-if="(articles.length == 0) && (loading == false) && (error == '')"
+    >
       <div>There are no articles</div>
     </div>
     <div style="margin-top:30px" v-if="error != ''">
@@ -41,7 +38,7 @@
       <div>{{ error }}</div>
       <div>{{ webApiUrl }}</div>
     </div>
-    <b-spinner v-if="loading == true" label="Loading ..."/>
+    <b-spinner v-if="loading == true" label="Loading ..." />
   </div>
 </template>
 
@@ -51,33 +48,53 @@ export default {
   name: "Home",
   data() {
     return {
-      webApiUrl: this.$store.state.endpoints.api + "getmultiple",
+      webApiUrl: this.$store.state.endpoints.api + "articles",
       articles: [],
       loading: false,
       error: ""
     };
   },
-  mounted() {
-    this.loading = true;
-    const axiosService = axios.create({
-      timeout: 5000,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    let that = this;
-    axiosService
-      .get(this.webApiUrl)
-      .then(function(response) {
-        that.articles = response.data;
-        that.loading = false;
-        that.error = "";
-      })
-      .catch(function(error) {
-        console.log(error);
-        that.loading = false;
-        that.error = error;
+  methods: {
+    readArticles() {
+      this.loading = true;
+      console.log("idToken 2: " + this.$store.state.user.idToken);
+      const axiosService = axios.create({
+        timeout: 5000,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.$store.state.user.idToken
+        }
       });
+      let that = this;
+      axiosService
+        .get(this.webApiUrl)
+        .then(function(response) {
+          that.articles = response.data;
+          that.loading = false;
+          that.error = "";
+        })
+        .catch(function(error) {
+          console.log(error);
+          that.loading = false;
+          that.error = error;
+        });
+    }
+  },
+  mounted() {
+    this.$store.watch(
+      state => {
+        return this.$store.state.user.isAuthenticated;
+      },
+      val => {
+        if (val) {
+          this.readArticles();
+        }
+      }
+    );
+
+    if (this.$store.state.user.isAuthenticated) {
+      this.readArticles();
+    }
   }
 };
 </script>
@@ -86,13 +103,13 @@ export default {
 <style scoped>
 .articlesTable {
   display: table;
-  width:100%;
+  width: 100%;
 }
 .articlesRow {
   display: table-row;
 }
 .articlesCell {
-  max-width:100px;
+  max-width: 100px;
   display: table-cell;
   vertical-align: top;
 }

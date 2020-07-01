@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 let initOptions = {
-  url: 'https://keycloak-default.niklas-heidloff-dal12-b-162e406f043e20da9b0ef0731954a894-0000.eu-gb.containers.appdomain.cloud/auth', realm: 'quarkus', clientId: 'vue-test-app', onLoad: 'login-required'
+  url: 'https://keycloak-default.niklas-heidloff-dal12-b-162e406f043e20da9b0ef0731954a894-0000.eu-gb.containers.appdomain.cloud/auth', realm: 'quarkus', clientId: 'frontend', onLoad: 'login-required'
 }
 
 Vue.config.productionTip = false
@@ -47,12 +47,12 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
 
   if (accessToken && idToken && accessToken != '' && idToken != '') {
     store.commit("login", payload);
+    console.log("idToken 1: " + store.state.user.idToken)
+    console.log("accessToken 1: " + store.state.user.accessToken)
   }
   else {
     store.commit("logout");
   }
-
-
 
   const axiosService = axios.create({
     timeout: 5000,
@@ -72,7 +72,6 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
     })
     .catch(function (error) {
       console.log(error);
-      thisStore.commit("logout");
     });
 
   setInterval(() => {

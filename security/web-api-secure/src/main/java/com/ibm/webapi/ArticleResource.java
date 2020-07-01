@@ -15,6 +15,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 import io.quarkus.oidc.IdToken;
 import io.quarkus.oidc.RefreshToken;
 import io.quarkus.security.Authenticated;
+import org.jboss.resteasy.annotations.cache.NoCache;
 
 @Path("/")
 public class ArticleResource {
@@ -40,8 +41,9 @@ public class ArticleResource {
     @GET
     @Path("/articles")
     @Produces(MediaType.APPLICATION_JSON)
-    @Authenticated
-    //@RolesAllowed("user")
+    //@Authenticated
+    @RolesAllowed("user")
+    @NoCache
     public Set<Article> getArticles() {
         return articles;
     }
