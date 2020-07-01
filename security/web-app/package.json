@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest ../src/main/resources/META-INF/resources"
+    "build": "vue-cli-service build --dest dist"
   },
   "dependencies": {
     "axios": "0.18.1",
