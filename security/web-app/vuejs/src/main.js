@@ -39,40 +39,18 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   let name = "Unknown"
   let idToken = keycloak.idToken
   let accessToken = keycloak.token
-
   let payload = {
     idToken: idToken,
     accessToken: accessToken
   }
 
   if (accessToken && idToken && accessToken != '' && idToken != '') {
-    store.commit("login", payload);
-    console.log("idToken 1: " + store.state.user.idToken)
-    console.log("accessToken 1: " + store.state.user.accessToken)
+    store.commit("login", payload);    
+    console.log("accessToken: " + store.state.user.accessToken)
   }
   else {
     store.commit("logout");
   }
-
-  const axiosService = axios.create({
-    timeout: 5000,
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + idToken
-    }
-  });
-  let thisStore = store;
-  axiosService
-    .get("user")
-    .then(function (response) {
-      let payload = {
-        name: response.data.userName,
-      }
-      thisStore.commit("setName", payload);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
 
   setInterval(() => {
     keycloak.updateToken(70).then((refreshed) => {

@@ -57,7 +57,6 @@ export default {
   methods: {
     readArticles() {
       this.loading = true;
-      console.log("idToken 2: " + this.$store.state.user.idToken);
       const axiosService = axios.create({
         timeout: 5000,
         headers: {
@@ -78,6 +77,27 @@ export default {
           that.loading = false;
           that.error = error;
         });
+    },
+    readUser() {
+      const axiosService = axios.create({
+        timeout: 5000,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.$store.state.user.idToken
+        }
+      });
+      let that = this;
+      axiosService
+        .get(this.$store.state.endpoints.api + "user")
+        .then(function(response) {
+          let payload = {
+            name: response.data.userName
+          };
+          that.$store.commit("setName", payload);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   },
   mounted() {
@@ -87,14 +107,11 @@ export default {
       },
       val => {
         if (val) {
+          this.readUser();
           this.readArticles();
         }
       }
     );
-
-    if (this.$store.state.user.isAuthenticated) {
-      this.readArticles();
-    }
   }
 };
 </script>
