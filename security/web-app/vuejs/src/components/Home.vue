@@ -62,7 +62,7 @@ export default {
         timeout: 5000,
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + this.$store.state.user.idToken
+          Authorization: "Bearer " + this.$store.state.user.accessToken
         }
       });
       let that = this;
