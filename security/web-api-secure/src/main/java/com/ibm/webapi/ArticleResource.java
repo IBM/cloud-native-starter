@@ -2,7 +2,10 @@ package com.ibm.webapi;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -36,7 +39,10 @@ public class ArticleResource {
     @Inject
     RefreshToken refreshToken;
 
-    private Set<Article> articles = Collections.newSetFromMap(Collections.synchronizedMap(new LinkedHashMap<>()));
+    @Inject
+    ArticlesDataAccess articlesDataAccess;
+
+    //private Set<Article> articles = Collections.newSetFromMap(Collections.synchronizedMap(new LinkedHashMap<>()));
 
     @GET
     @Path("/articles")
@@ -44,10 +50,40 @@ public class ArticleResource {
     //@Authenticated
     @RolesAllowed("user")
     @NoCache
-    public Set<Article> getArticles() {
-        return articles;
+    //@Timeout(20000) // set high for load tests
+    //@Fallback(fallbackMethod = "fallbackNoArticlesService")
+    public List<Article> getArticles() {
+        //return articles;
+
+        try {
+            List<CoreArticle> coreArticles = articlesDataAccess.getArticles(5);
+            List<Article> articles = createArticleList(coreArticles);
+
+            
+
+
+            return articles;
+        } catch (NoConnectivity e) {
+            System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to articles service");
+            throw new NoDataAccess(e);
+        }
     }
 
+    private List<Article> createArticleList(List<CoreArticle> coreArticles) {
+        return coreArticles.stream()
+                .map(coreArticle -> {
+                    Article article = new Article();
+                    article.id = coreArticle.id;
+                    article.title = coreArticle.title;
+                    article.url = coreArticle.url;
+                    article.authorName = coreArticle.author;
+                    article.authorBlog = "";
+                    article.authorTwitter = "";
+                    return article;
+                }).collect(Collectors.toList());
+    }
+
+    /*
     @PostConstruct
     void addArticles() {
         addSampleArticles();
@@ -75,7 +111,8 @@ public class ArticleResource {
         article.authorName = author;
         articles.add(article);
     }
-
+    */
+/*
     @GET
     @Path("/tokens")
     public String getTokens() {
@@ -98,7 +135,7 @@ public class ArticleResource {
         else {
             response.append("<li>username: ").append("niklas").append("</li>");
         }
-/*
+
         Object scopes = this.accessToken.getClaim("scope");
 
         if (scopes != null) {
@@ -113,7 +150,8 @@ public class ArticleResource {
         }
 
         response.append("<li>refresh_token: ").append(refreshToken.getToken() != null).append("</li>");
-*/
+
         return response.append("</ul>").append("</body>").append("</html>").toString();
     }
+    */
 }
