@@ -43,6 +43,7 @@ public class ArticlesDataAccess {
         }
 */
         URI apiV1 = UriBuilder.fromUri("http://{host}:{port}/articles").build(articlesHost, articlesPort);
+        
         articlesService = RestClientBuilder.newBuilder()
                 .baseUri(apiV1)
                 .register(ExceptionMapperArticles.class)
@@ -51,9 +52,9 @@ public class ArticlesDataAccess {
         
     }
 
-    public List<CoreArticle> getArticles(int amount) throws NoConnectivity {
+    public List<CoreArticle> getArticles(String authorization, int amount) throws NoConnectivity {
         try {
-            return articlesService.getArticlesFromService(amount);
+            return articlesService.getArticlesFromService(authorization, amount);
         } catch (Exception e) {
             throw new NoConnectivity(e);
         }

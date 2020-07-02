@@ -4,7 +4,6 @@ import store from './store'
 import router from './router';
 import BootstrapVue from 'bootstrap-vue';
 import Keycloak from 'keycloak-js';
-import axios from "axios";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -15,17 +14,13 @@ let initOptions = {
 
 Vue.config.productionTip = false
 Vue.config.devtools = true
-
 Vue.use(BootstrapVue);
 
 let keycloak = Keycloak(initOptions);
-
-
 keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
-
   if (!auth) {
     window.location.reload();
-  } 
+  }
 
   new Vue({
     store,
@@ -33,19 +28,12 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
     render: h => h(App)
   }).$mount('#app')
 
-  localStorage.setItem("vue-token", keycloak.token);
-  localStorage.setItem("vue-refresh-token", keycloak.refreshToken);
-
-  let name = "Unknown"
-  let idToken = keycloak.idToken
-  let accessToken = keycloak.token
   let payload = {
-    idToken: idToken,
-    accessToken: accessToken
+    idToken: keycloak.idToken,
+    accessToken: keycloak.token
   }
-
-  if (accessToken && idToken && accessToken != '' && idToken != '') {
-    store.commit("login", payload);    
+  if (keycloak.token && keycloak.idToken && keycloak.token != '' && keycloak.idToken != '') {
+    store.commit("login", payload);
     console.log("accessToken: " + store.state.user.accessToken)
   }
   else {
@@ -54,32 +42,23 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
 
   setInterval(() => {
     keycloak.updateToken(70).then((refreshed) => {
-      if (refreshed) {  
-        let idToken2 = keycloak.idToken
-        let accessToken2 = keycloak.token
-
-        let payload2 = {
-          idToken: idToken2,
-          accessToken: accessToken2
+      if (refreshed) {
+        let payloadRefreshedTokens = {
+          idToken: keycloak.idToken,
+          accessToken: keycloak.token
         }
-      
-        if (accessToken2 && idToken2 && accessToken2 != '' && idToken2 != '') {
-          store.commit("login", payload2);
+
+        if (keycloak.token && keycloak.idToken && keycloak.token != '' && keycloak.idToken != '') {
+          store.commit("login", payloadRefreshedTokens);
         }
         else {
           store.commit("logout");
         }
-      
-      } else {
-        //console.log('Token not refreshed, valid for ' + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
       }
     }).catch(() => {
       console.log('Failed to refresh token');
     });
-
   }, 60000)
-
 }).catch(() => {
   console.log("Failed to authenticate");
 });
-

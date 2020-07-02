@@ -13,11 +13,7 @@ public interface ArticlesService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    List<CoreArticle> getArticlesFromService(@QueryParam("amount") int amount);
+    List<CoreArticle> getArticlesFromService(@HeaderParam("Authorization") String authorization, @QueryParam("amount") int amount);
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    CoreArticle addArticle(CoreArticle article) throws InvalidArticle;
 
 }

@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -52,11 +53,11 @@ public class ArticleResource {
     @NoCache
     //@Timeout(20000) // set high for load tests
     //@Fallback(fallbackMethod = "fallbackNoArticlesService")
-    public List<Article> getArticles() {
+    public List<Article> getArticles(@HeaderParam("Authorization") String authorization) {
         //return articles;
-
+System.out.println(authorization);
         try {
-            List<CoreArticle> coreArticles = articlesDataAccess.getArticles(5);
+            List<CoreArticle> coreArticles = articlesDataAccess.getArticles(authorization, 5);
             List<Article> articles = createArticleList(coreArticles);
 
             

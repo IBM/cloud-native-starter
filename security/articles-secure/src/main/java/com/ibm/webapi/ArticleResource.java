@@ -16,6 +16,7 @@ import io.quarkus.oidc.IdToken;
 import io.quarkus.oidc.RefreshToken;
 import io.quarkus.security.Authenticated;
 import org.jboss.resteasy.annotations.cache.NoCache;
+import javax.ws.rs.HeaderParam;
 
 @Path("/")
 public class ArticleResource {
@@ -38,7 +39,10 @@ public class ArticleResource {
     //@Authenticated
     @RolesAllowed("user")
     @NoCache
-    public Set<Article> getArticles() {
+    public Set<Article> getArticles(@HeaderParam("Authorization") String authorization) {
+        
+        if (authorization == null) System.out.println("authorization is null");
+        System.out.println("auth: " + authorization);
         return articles;
     }
 
