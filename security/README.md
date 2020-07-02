@@ -5,7 +5,7 @@ First terminal (runs on 8080):
 
 ```
 $ cd web-app
-$ yarn se
+$ yarn serve
 ```
 
 Second terminal (runs on 8081):
