@@ -1,18 +1,25 @@
 in progress .....
 ===================
 
-import realm-export.json in keycloak
+First terminal (runs on 8080):
 
-change keycloak url in application properties of web-api-secure
+```
+$ cd web-app
+$ yarn se
+```
+
+Second terminal (runs on 8081):
 
 ```
 $ cd web-api-secure
 $ mvn clean package quarkus:dev
 ```
 
-change keycloak url in web-app
+Third terminal (runs on 8082):
 
 ```
-$ cd web-app
-$ yarn serve
+$ cd articles-secure
+$ mvn clean package quarkus:dev
 ```
+
+Test user: alice, alice

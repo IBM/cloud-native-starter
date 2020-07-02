@@ -31,6 +31,8 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getUserName() {
         String userName = this.accessToken.getName();
+
+        System.out.println("idToken.getClaim(preferred_username)" + this.idToken.getClaim("preferred_username"));
         
 
         //Object userName = this.idToken.getClaim("preferred_username");

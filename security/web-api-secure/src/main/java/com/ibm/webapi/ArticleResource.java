@@ -113,7 +113,7 @@ System.out.println(authorization);
         articles.add(article);
     }
     */
-/*
+
     @GET
     @Path("/tokens")
     public String getTokens() {
@@ -154,5 +154,5 @@ System.out.println(authorization);
 
         return response.append("</ul>").append("</body>").append("</html>").toString();
     }
-    */
+    
 }
