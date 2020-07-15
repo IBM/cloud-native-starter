@@ -26,13 +26,15 @@ public class UserResource {
 
     @GET
     @Path("/user")
-    //@RolesAllowed("user")
-    @Authenticated
+    @RolesAllowed("user")
+    //@Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     public String getUserName() {
-        String userName = this.accessToken.getName();
+        System.out.println("niklas");
+        //String userName = this.accessToken.getName();
+        String userName = "tes6t";
 
-        System.out.println("idToken.getClaim(preferred_username)" + this.idToken.getClaim("preferred_username"));
+        //System.out.println("idToken.getClaim(preferred_username)" + this.idToken.getClaim("preferred_username"));
         
 
         //Object userName = this.idToken.getClaim("preferred_username");

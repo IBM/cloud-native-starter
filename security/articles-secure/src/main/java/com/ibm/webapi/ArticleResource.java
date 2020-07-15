@@ -37,7 +37,7 @@ public class ArticleResource {
     @Path("/articles")
     @Produces(MediaType.APPLICATION_JSON)
     //@Authenticated
-    @RolesAllowed("user")
+    //@RolesAllowed("user")
     @NoCache
     public Set<Article> getArticles(@HeaderParam("Authorization") String authorization) {
         

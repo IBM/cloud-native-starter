@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 let initOptions = {
-  url: 'https://keycloak-default.niklas-heidloff-dal12-b-162e406f043e20da9b0ef0731954a894-0000.eu-gb.containers.appdomain.cloud/auth', realm: 'quarkus', clientId: 'frontend', onLoad: 'login-required'
+  url: 'https://keycloak-default.niklas-heidloff-dal12-b-162e406f043e20da9b0ef0731954a894-0000.us-south.containers.appdomain.cloud/auth/', realm: 'quarkus', clientId: 'frontend', onLoad: 'login-required'
 }
 
 Vue.config.productionTip = false

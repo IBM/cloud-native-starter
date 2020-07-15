@@ -53,11 +53,13 @@ public class ArticleResource {
     @NoCache
     //@Timeout(20000) // set high for load tests
     //@Fallback(fallbackMethod = "fallbackNoArticlesService")
-    public List<Article> getArticles(@HeaderParam("Authorization") String authorization) {
-        //return articles;
-System.out.println(authorization);
+    
+    public List<Article> getArticles() {
+    //public List<Article> getArticles(@HeaderParam("Authorization") String authorization) {    //return articles;
+//System.out.println(authorization);
         try {
-            List<CoreArticle> coreArticles = articlesDataAccess.getArticles(authorization, 5);
+            //List<CoreArticle> coreArticles = articlesDataAccess.getArticles(authorization, 5);
+            List<CoreArticle> coreArticles = articlesDataAccess.getArticles(5);
             List<Article> articles = createArticleList(coreArticles);
 
             
