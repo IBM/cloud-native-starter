@@ -18,11 +18,17 @@ public class UserResource {
     @IdToken
     JsonWebToken idToken;
 
+    /**
+     * Injection point for the Access Token issued by the OpenID Connect Provider
+     */
     @Inject
     JsonWebToken accessToken;
 
-    //@Inject
-    //RefreshToken refreshToken;
+    /**
+     * Injection point for the Refresh Token issued by the OpenID Connect Provider
+     */
+    @Inject
+    RefreshToken refreshToken;
 
     @GET
     @Path("/user")
@@ -31,8 +37,9 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getUserName() {
         System.out.println("niklas");
-        //String userName = this.accessToken.getName();
-        String userName = "tes6t";
+        String userName = this.accessToken.getName();
+        //String userName = "tes6t";
+        //System.out.println(this.idToken.toString());
 
         //System.out.println("idToken.getClaim(preferred_username)" + this.idToken.getClaim("preferred_username"));
         

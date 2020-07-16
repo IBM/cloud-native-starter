@@ -52,11 +52,11 @@ public class ArticlesDataAccess {
         
     }
 
-    //public List<CoreArticle> getArticles(String authorization, int amount) throws NoConnectivity {
-        public List<CoreArticle> getArticles(int amount) throws NoConnectivity {
+    public List<CoreArticle> getArticles(String authorization, int amount) throws NoConnectivity {
+    //public List<CoreArticle> getArticles(int amount) throws NoConnectivity {
         try {
-            //return articlesService.getArticlesFromService(authorization, amount);
-            return articlesService.getArticlesFromService(amount);
+            return articlesService.getArticlesFromService(authorization, amount);
+            //return articlesService.getArticlesFromService(amount);
         } catch (Exception e) {
             throw new NoConnectivity(e);
         }
