@@ -34,7 +34,7 @@ $ oc get csv -n openshift-operators
 #### Step 4: Create a Keycloak Cluster
 
 ```
-$ oc create -f https://raw.githubusercontent.com/keycloak/keycloak-quickstarts/latest/operator-examples/mykeycloak.yaml
+$ oc create -f keycloak.yaml
 $ oc get keycloak/mykeycloak -o jsonpath='{.status.ready}'
 ```
 
