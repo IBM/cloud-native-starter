@@ -34,7 +34,8 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   }
   if (keycloak.token && keycloak.idToken && keycloak.token != '' && keycloak.idToken != '') {
     store.commit("login", payload);
-    console.log("accessToken: " + store.state.user.accessToken)
+    console.log("User has logged in: " + keycloak.subject)
+    //console.log("accessToken: " + store.state.user.accessToken)
   }
   else {
     store.commit("logout");

@@ -14,8 +14,7 @@
         </b-navbar-nav>
         <b-nav-item-dropdown right v-if="isAuthenticated == true">
           <template slot="button-content">{{ getUserName() }}</template>
-          <b-dropdown-item v-on:click="onCreateArticleClicked">Create Article</b-dropdown-item>
-          <b-dropdown-item v-on:click="onManageApplicationClicked">Manage Application</b-dropdown-item>      
+          <b-dropdown-item v-on:click="onLogoutClicked">Logout</b-dropdown-item>          
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
@@ -62,56 +61,7 @@ export default {
   methods: {
     onLoginClicked() {
       window.location = this.$store.state.endpoints.login;
-    },
-    onCreateArticleClicked() {
-      this.$router.push("createarticle");
-    },
-    onManageApplicationClicked() {
-      this.loading = true;
-
-      const axiosService = axios.create({
-        timeout: 5000,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + this.$store.state.user.idToken
-        }
-      });
-      let that = this;
-      this.webApiUrl = '/user';
-      axiosService
-        .get(this.webApiUrl)
-        .then(function(response) {
-          console.log(response)
-          that.loading = false;
-          that.manageResponse = "Invocation of /manage has been successful";
-        })
-        .catch(function(error) {
-          console.log(error);
-          that.loading = false;
-          that.manageResponse = error;
-        });
-      /*
-      const axiosService = axios.create({
-        timeout: 5000,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + this.$store.state.user.idToken
-        }
-      });
-      let that = this;
-      axiosService
-        .post(this.webApiUrl)
-        .then(function(response) {
-          that.loading = false;
-          that.manageResponse = "Invocation of /manage has been successful";
-        })
-        .catch(function(error) {
-          console.log(error);
-          that.loading = false;
-          that.manageResponse = error;
-        });
-      */
-    },
+    },    
     onLogoutClicked() {
       this.$store.commit("logout");
     },
