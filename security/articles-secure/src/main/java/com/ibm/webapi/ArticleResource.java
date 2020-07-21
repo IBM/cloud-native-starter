@@ -5,31 +5,15 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.eclipse.microprofile.jwt.JsonWebToken;
-import io.quarkus.oidc.IdToken;
-import io.quarkus.oidc.RefreshToken;
-import io.quarkus.security.Authenticated;
 import org.jboss.resteasy.annotations.cache.NoCache;
-import javax.ws.rs.HeaderParam;
 
 @Path("/")
 public class ArticleResource {
-
-    @Inject
-    @IdToken
-    JsonWebToken idToken;
-
-    @Inject
-    JsonWebToken accessToken;
-
-    @Inject
-    RefreshToken refreshToken;
-
+    
     private Set<Article> articles = Collections.newSetFromMap(Collections.synchronizedMap(new LinkedHashMap<>()));
 
     @GET
@@ -38,11 +22,7 @@ public class ArticleResource {
     //@Authenticated
     @RolesAllowed("user")
     @NoCache
-    public Set<Article> getArticles(@HeaderParam("Authorization") String authorization) {
-        
-        if (authorization == null) System.out.println("Authorization header is missing");
-        //System.out.println("Authorization header: " + authorization);
-        
+    public Set<Article> getArticles() {
         return articles;
     }
 

@@ -16,7 +16,7 @@ public class ArticlesDataAccess {
     private String articlesHost = ARTICLES_DNS;
     private int articlesPort = ARTICLES_PORT;
 
-	private ArticlesService articlesService;
+    private ArticlesService articlesService;
 
     @PostConstruct
     void initialize() {
@@ -29,21 +29,11 @@ public class ArticlesDataAccess {
         
     }
 
-    public List<CoreArticle> getArticles(String authorization, int amount) throws NoConnectivity {
-        try {
-            return articlesService.getArticlesFromService(authorization, amount);
-        } catch (Exception e) {
-            throw new NoConnectivity(e);
-        }
-    }
-
-    /*
     public List<CoreArticle> getArticles(int amount) throws NoConnectivity {
         try {
             return articlesService.getArticlesFromService(amount);
         } catch (Exception e) {
             throw new NoConnectivity(e);
         }
-    } 
-    */
+    }
 }
