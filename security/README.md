@@ -88,7 +88,7 @@ Define Keycloak URL in [main.js](web-app/src/main.js).
 Run first terminal (on port 8080):
 
 ```
-$ cd web-app
+$ cd security/web-app
 $ yarn install
 $ yarn serve
 ```
@@ -98,7 +98,7 @@ $ yarn serve
 Run second terminal (on port 8081):
 
 ```
-$ cd web-api-secure
+$ cd security/web-api-secure
 $ mvn clean package quarkus:dev
 ```
 
@@ -107,7 +107,7 @@ $ mvn clean package quarkus:dev
 Run third terminal (on port 8082):
 
 ```
-$ cd articles-secure
+$ cd security/articles-secure
 $ mvn clean package quarkus:dev
 ```
 
