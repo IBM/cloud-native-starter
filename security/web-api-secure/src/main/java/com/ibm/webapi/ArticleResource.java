@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -36,15 +35,9 @@ public class ArticleResource {
     //@Authenticated
     @RolesAllowed("user")
     @NoCache
-    
-    public List<Article> getArticles(@HeaderParam("Authorization") String authorization) {
-
+    public List<Article> getArticles() {
         try {
-            List<CoreArticle> coreArticles = articlesDataAccess.getArticles(authorization, 5);
-            //List<CoreArticle> coreArticles = articlesDataAccess.getArticles(5);
-            // The authorization header needs to be passed in manually unfortuntely
-            // https://stackoverflow.com/questions/62691824/how-can-the-authorization-header-be-propagated-in-quarkus-apps-with-the-micropro
-            
+            List<CoreArticle> coreArticles = articlesDataAccess.getArticles(5);
             return createArticleList(coreArticles);
         } catch (NoConnectivity e) {
             System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to articles service");
