@@ -1,6 +1,10 @@
 ## Authentication and Authorization
 
-This part of the project demonstrates how to do authentication and authorization in Quarkus applications and web applications. Keycloak is used as OpenID Connect provider.
+This part of the project demonstrates how to do authentication and authorization in Quarkus applications and web applications. [Keycloak](https://www.keycloak.org/) is used as OpenID Connect provider.
+
+### Scenario
+
+
 
 ### Setup
 
@@ -24,14 +28,9 @@ Follow these steps to install the operator via the OpenShift Web Console: [docum
 https://www.keycloak.org/getting-started/getting-started-operator-openshift
 ).
 
-Alternatively you can install it programmatically. This doesn't work for me though (see [documentation](https://docs.openshift.com/container-platform/4.3/operators/olm-adding-operators-to-cluster.html)).
-
-```
-$ oc apply -f keycloak-operator.yaml
-$ oc get csv -n openshift-operators
-```
-
 #### Step 4: Create a Keycloak Cluster
+
+You can create the Keycloak cluster either in the OpenShift Web Console or programmatically:
 
 ```
 $ oc create -f keycloak.yaml
@@ -47,7 +46,7 @@ echo "" &&
 echo "Keycloak:                 $KEYCLOAK_URL" &&
 echo "Keycloak Admin Console:   $KEYCLOAK_URL/admin" &&
 echo "Keycloak Account Console: $KEYCLOAK_URL/realms/myrealm/account" 
-````
+```
 
 #### Step 6: Import Realm in Keycloak
 
@@ -58,7 +57,7 @@ Open the Keycloak console and log in as admin. Then import [quarkus-realm.json](
 ```
 $ git clone https://github.com/IBM/cloud-native-starter.git
 $ cd security
-````
+```
 
 #### Step 8: Configure articles-secure
 
