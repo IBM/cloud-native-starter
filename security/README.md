@@ -40,6 +40,12 @@ Follow these steps to install the operator via the OpenShift Web Console: [docum
 https://www.keycloak.org/getting-started/getting-started-operator-openshift
 ).
 
+Alternatively you can install it programmatically:
+
+```
+$ oc create -f keycloak-operator.yaml
+```
+
 #### Step 4: Create a Keycloak Cluster
 
 You can create the Keycloak cluster either in the OpenShift Web Console or programmatically:
@@ -63,6 +69,8 @@ echo "Keycloak Account Console: $KEYCLOAK_URL/realms/myrealm/account"
 #### Step 6: Import Realm in Keycloak
 
 Open the Keycloak console and log in as admin. Then import [quarkus-realm.json](quarkus-realm.json).
+
+Check the [screenshots](screenshots) folder for screenshots how to import the realm.
 
 #### Step 7: Clone the Repo
 
