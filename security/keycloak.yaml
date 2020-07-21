@@ -4,7 +4,7 @@ metadata:
   name: example-keycloak
   labels:
     app: sso
-  namespace: openshift-operators
+  namespace: default
 spec:
   instances: 1
   extensions:

@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -41,8 +40,9 @@ public class ArticleResource {
     @NoCache
     public Set<Article> getArticles(@HeaderParam("Authorization") String authorization) {
         
-        if (authorization == null) System.out.println("authorization is null");
-        System.out.println("auth: " + authorization);
+        if (authorization == null) System.out.println("Authorization header is missing");
+        //System.out.println("Authorization header: " + authorization);
+        
         return articles;
     }
 

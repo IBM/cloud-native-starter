@@ -4,6 +4,18 @@ This part of the project demonstrates how to do authentication and authorization
 
 ### Scenario
 
+In order to demonstrate the security features, a sample application is used which displays links to articles in a web application only when a user is logged in and has the role 'user'.
+
+The web application invokes the web-api service and then invokes the articles service. The web-api service also provides an endpoint to read the current user name.
+
+This diagram shows the architecture:
+
+<kbd><img src="screenshots/diagram.png" /></kbd>
+
+This is a screenshot of the web application:
+
+<kbd><img src="screenshots/web-app.png" /></kbd>
+
 
 
 ### Setup
@@ -34,7 +46,7 @@ You can create the Keycloak cluster either in the OpenShift Web Console or progr
 
 ```
 $ oc create -f keycloak.yaml
-$ oc get keycloak/mykeycloak -o jsonpath='{.status.ready}'
+$ oc get keycloak/example-keycloak -o jsonpath='{.status.ready}'
 ```
 
 #### Step 5: Get the admin password and Keycloak URL
