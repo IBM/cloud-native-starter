@@ -16,6 +16,25 @@ Vue.config.productionTip = false
 Vue.config.devtools = true
 Vue.use(BootstrapVue);
 
+let currentUrl = window.location.href;
+//currentUrl = "https://harald-uebele-k8s-fra05-162e406f043e20da9b0ef0731954a894-0001.eu-de.containers.appdomain.cloud/";
+let urls;
+if (currentUrl.indexOf('localhost') > -1) {
+  urls = {
+    api: 'http://localhost:8081/'
+  }
+  store.commit("setAPI", urls);
+}
+else {
+  let urlWithoutHttps = currentUrl.substring(8, currentUrl.length);
+  let keycloakUrl = 'https://keycloak.' + urlWithoutHttps;  
+  urls = {
+    api: currentUrl,
+    login: keycloakUrl
+  }
+  store.commit("setAPIAndLogin", urls);
+}
+
 let keycloak = Keycloak(initOptions);
 keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   if (!auth) {

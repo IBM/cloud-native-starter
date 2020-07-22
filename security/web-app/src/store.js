@@ -5,10 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    authenticationEnabled: "authentication-enabled-yes", // use "authentication-enabled-yes" to turn it on
     endpoints: {
-      api: "http://localhost:8081/", // example: ""
-      login: "http://endpoint-login-ip:endpoint-login-port/login" // example: "http://localhost:3000/login"
+      api: "http://localhost:8081/", // is set automatically. when running locally: 'http://localhost:8081/'
+      login: "https://keycloak-default.niklas-heidloff-b3c-4x16-162e406f043e20da9b0ef0731954a894-0000.us-south.containers.appdomain.cloud/auth/realms/quarkus" // needs to be defined. example: 'https://keycloak-default.niklas-heidloff-b3c-4x16-162e406f043e20da9b0ef0731954a894-0000.us-south.containers.appdomain.cloud/auth/realms/quarkus'
     },
     user: {
       isAuthenticated: false,
@@ -18,6 +17,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setAPI(state, payload) {
+      state.endpoints.api = payload.api;      
+    },
+    setAPIAndLogin(state, payload) {
+      state.endpoints.api = payload.api;
+      state.endpoints.login = payload.login;
+    },
     logout(state) {
       state.user.isAuthenticated = false;
       state.user.name = "";

@@ -4,11 +4,10 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    authenticationEnabled: "authentication-enabled-no", // use "authentication-enabled-yes" to turn it on
+  state: {    
     endpoints: {
-      api: "http://endpoint-api-ip:ingress-np/web-api/v1/", // example: "http://192.168.99.100:31380/web-api/v1/"
-      login: "http://endpoint-login-ip:endpoint-login-port/login" // example: "http://localhost:3000/login"
+      api: "", // is set automatically. when running locally: 'http://localhost:8081/'
+      login: "" // needs to be defined when running locally. example: 'https://harald-uebele-k8s-fra05-162e406f043e20da9b0ef0731954a894-0001.eu-de.containers.appdomain.cloud'
     },
     user: {
       isAuthenticated: false,
@@ -18,6 +17,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setAPI(state, payload) {
+      state.endpoints.api = payload.api;      
+    },
+    setAPIAndLogin(state, payload) {
+      state.endpoints.api = payload.api;
+      state.endpoints.login = payload.login;
+    },
     logout(state) {
       state.user.isAuthenticated = false;
       state.user.name = "";

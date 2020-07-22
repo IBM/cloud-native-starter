@@ -8,7 +8,7 @@
     >
       <b-navbar-brand>Cloud Native Starter</b-navbar-brand>
 
-      <b-navbar-nav class="ml-auto" v-if="isAuthenticationEnabled == true">
+      <b-navbar-nav class="ml-auto">
         <b-navbar-nav v-if="isAuthenticated == false">
           <b-nav-item v-on:click="onLoginClicked">Not authenticated</b-nav-item>
         </b-navbar-nav>
@@ -40,15 +40,6 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.state.user.isAuthenticated;
-    },
-    isAuthenticationEnabled() {
-      if (
-        this.$store.state.authenticationEnabled == "authentication-enabled-yes"
-      ) {
-        return true;
-      } else {
-        return false;
-      }
     }
   },
   data() {
