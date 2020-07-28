@@ -99,7 +99,7 @@ Insert your the `auth-server-url` URL of your Keycloak instance in [application.
 Therefore you use the Keycloak URL of the output in your terminal.
 
 ```sh 
-Keycloak [auth-server-url]:                 https://keycloak-keycloak.tsuedbro-reactive-works-XXXX.eu-gb.containers.appdomain.cloud/auth/realms/quarkus
+Keycloak [auth-server-url]:                 https://YOUR_URL/auth/realms/quarkus
 ```
 
 #### Step 8: Configure web-api-secure
@@ -111,10 +111,8 @@ Insert your the `auth-server-url` URL you know from above in [application.proper
 Now insert following Keycloak URL output from your terminal session in [main.js](web-app/src/main.js).
 
 ```sh
-Keycloak:                 https://keycloak-keycloak.tsuedbro-reactive-works-162e406f043e20da9b0ef0731954a894-0000.eu-gb.containers.appdomain.cloud/auth
+Keycloak:                 https://YOUR_URL/auth
 ```
-
-
 
 #### Step 10: Run web-app
 
