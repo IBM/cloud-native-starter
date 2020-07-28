@@ -30,6 +30,13 @@ There are three blogs that describe how this project has been implemented:
 
 At this point the code is run locally which means you need a JVM and Maven. For the web application you also need yarn.
 
+#### Step 0: Clone the Repo
+
+```
+$ git clone https://github.com/IBM/cloud-native-starter.git
+$ cd security
+```
+
 #### Step 1: Create an OpenShift cluster, e.g. on the IBM Cloud
 
 https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift
@@ -51,6 +58,7 @@ https://www.keycloak.org/getting-started/getting-started-operator-openshift
 Alternatively you can install it programmatically:
 
 ```
+$ oc new-project keycloak
 $ oc create -f keycloak-operator.yaml
 ```
 
@@ -67,6 +75,7 @@ $ oc get keycloak/example-keycloak -o jsonpath='{.status.ready}'
 
 ```
 $ oc get secret credential-example-keycloak -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
+$
 $ KEYCLOAK_URL=https://$(oc get route keycloak --template='{{ .spec.host }}')/auth &&
 echo "" &&
 echo "Keycloak:                 $KEYCLOAK_URL" &&
@@ -78,28 +87,21 @@ echo "Keycloak Account Console: $KEYCLOAK_URL/realms/myrealm/account"
 
 Open the Keycloak console and log in as admin. Then import [quarkus-realm.json](quarkus-realm.json).
 
-Check the [screenshots](screenshots) folder for screenshots how to import the realm.
+Check the [setup Keycloak](KEYCLOAK-SETUP.md) for how to import the realm.
 
-#### Step 7: Clone the Repo
-
-```
-$ git clone https://github.com/IBM/cloud-native-starter.git
-$ cd security
-```
-
-#### Step 8: Configure articles-secure
+#### Step 7: Configure articles-secure
 
 Define Keycloak URL in [application.properties](articles-secure/src/main/resources/application.properties).
 
-#### Step 9: Configure web-api-secure
+#### Step 8: Configure web-api-secure
 
 Define Keycloak URL in [application.properties](web-api-secure/src/main/resources/application.properties).
 
-#### Step 10: Configure web-app
+#### Step 9: Configure web-app
 
 Define Keycloak URL in [main.js](web-app/src/main.js).
 
-#### Step 11: Run web-app
+#### Step 10: Run web-app
 
 Run first terminal (on port 8080):
 
@@ -109,7 +111,7 @@ $ yarn install
 $ yarn serve
 ```
 
-#### Step 12: Run web-api
+#### Step 11: Run web-api
 
 Run second terminal (on port 8081):
 
@@ -118,7 +120,7 @@ $ cd security/web-api-secure
 $ mvn clean package quarkus:dev
 ```
 
-#### Step 13: Run articles-secure
+#### Step 12: Run articles-secure
 
 Run third terminal (on port 8082):
 
@@ -127,7 +129,7 @@ $ cd security/articles-secure
 $ mvn clean package quarkus:dev
 ```
 
-#### Step 14: Open Web App
+#### Step 13: Open Web App
 
 http://localhost:8080
 
