@@ -71,16 +71,19 @@ $ oc create -f keycloak.yaml
 $ oc get keycloak/example-keycloak -o jsonpath='{.status.ready}'
 ```
 
-#### Step 5: Get the admin password and Keycloak URL
+#### Step 5: Get the admin password and Keycloak URLs
 
-```
+```sh
 $ oc get secret credential-example-keycloak -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
-$
+```
+
+```sh
 $ KEYCLOAK_URL=https://$(oc get route keycloak --template='{{ .spec.host }}')/auth &&
 echo "" &&
-echo "Keycloak:                 $KEYCLOAK_URL" &&
-echo "Keycloak Admin Console:   $KEYCLOAK_URL/admin" &&
-echo "Keycloak Account Console: $KEYCLOAK_URL/realms/myrealm/account" 
+echo "Keycloak:                   $KEYCLOAK_URL" &&
+echo "Keycloak Admin Console:     $KEYCLOAK_URL/admin" &&
+echo "Keycloak Account Console:   $KEYCLOAK_URL/realms/myrealm/account" &&
+echo "Keycloak [auth-server-url]: $KEYCLOAK_URL/realms/quarkus"
 ```
 
 #### Step 6: Import Realm in Keycloak
@@ -91,15 +94,27 @@ Check the [setup Keycloak](KEYCLOAK-SETUP.md) for how to import the realm.
 
 #### Step 7: Configure articles-secure
 
-Define Keycloak URL in [application.properties](articles-secure/src/main/resources/application.properties).
+Insert your the `auth-server-url` URL of your Keycloak instance in [application.properties](articles-secure/src/main/resources/application.properties).
+
+Therefore you use the Keycloak URL of the output in your terminal.
+
+```sh 
+Keycloak [auth-server-url]:                 https://keycloak-keycloak.tsuedbro-reactive-works-XXXX.eu-gb.containers.appdomain.cloud/auth/realms/quarkus
+```
 
 #### Step 8: Configure web-api-secure
 
-Define Keycloak URL in [application.properties](web-api-secure/src/main/resources/application.properties).
+Insert your the `auth-server-url` URL you know from above in [application.properties](web-api-secure/src/main/resources/application.properties). 
 
 #### Step 9: Configure web-app
 
-Define Keycloak URL in [main.js](web-app/src/main.js).
+Now insert following Keycloak URL output from your terminal session in [main.js](web-app/src/main.js).
+
+```sh
+Keycloak:                 https://keycloak-keycloak.tsuedbro-reactive-works-162e406f043e20da9b0ef0731954a894-0000.eu-gb.containers.appdomain.cloud/auth
+```
+
+
 
 #### Step 10: Run web-app
 
