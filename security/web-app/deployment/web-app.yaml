@@ -12,12 +12,16 @@ spec:
       name: http
   type: NodePort
 ---
-
 kind: Deployment
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 metadata:
   name: web-app
+  labels:
+    app: web-app
 spec:
+  selector:                
+    matchLabels:     
+      app: web-app
   replicas: 1
   template:
     metadata:
@@ -29,7 +33,8 @@ spec:
     spec:
       containers:
       - name: web-app
-        image: docker-registry.default.svc:5000/cloud-native-starter/web-app:1
+        image: docker.io/haraldu/web-app:secure-v1
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
       restartPolicy: Always

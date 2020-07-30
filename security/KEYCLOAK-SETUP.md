@@ -18,19 +18,14 @@
 
 ![](screenshots/keycloak-config-4.png)
 
-## Users and role mappings in existing realm 
+## Users and role mappings in existing realm
 
-### STEP 1: Press `view all users` 
+### STEP 1: Press `view all users`
 
 You should see following users: `admin`, `alice`, `jdoe`
 
 ![](screenshots/keycloak-users.png)
 
-### STEP 2: Verify the role mapping 
+### STEP 2: Verify the role mapping
 
 ![](screenshots/keycloak-user.png)
-
-
-
-
-

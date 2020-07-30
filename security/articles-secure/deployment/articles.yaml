@@ -1,0 +1,47 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: articles
+  namespace: default
+  labels:
+    app: articles
+spec:
+  selector:
+    app: articles
+  ports:
+    - port: 8082
+      name: http
+  type: NodePort
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: articles
+  namespace: default
+  labels:
+    app: articles
+spec:
+  selector:
+    matchLabels:
+      app: articles
+  replicas: 1
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true"    
+      labels:
+        app: articles
+        version: v1
+    spec:
+      containers:
+      - name: articles
+        image: docker.io/haraldu/articles:secure-v1
+        imagePullPolicy: Always  
+        ports:
+        - containerPort: 8082
+        env:
+        - name: QUARKUS_OIDC_AUTH_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: security-url-config
+              key: QUARKUS_OIDC_AUTH_SERVER_URL

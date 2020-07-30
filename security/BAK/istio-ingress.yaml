@@ -1,0 +1,50 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: default-gateway-ingress
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "harald-uebele-osl01-162e406f043e20da9b0ef0731954a894-0001.osl01.containers.appdomain.cloud"
+--- 
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: virtualservice-ingress
+spec:
+  hosts:
+  - "harald-uebele-osl01-162e406f043e20da9b0ef0731954a894-0001.osl01.containers.appdomain.cloud"
+  gateways:
+  - default-gateway-ingress
+  http:
+  - match:
+    - uri:
+        prefix: /auth
+    route:
+    - destination:
+        port:
+          number: 8080
+        host: keycloak
+  - match:
+    - uri:
+        prefix: /articles
+    route:
+    - destination:
+        port:
+          number: 8081
+        host: web-api
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: web-app
+---        

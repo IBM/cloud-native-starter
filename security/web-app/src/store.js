@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     endpoints: {
-      api: "http://localhost:8081/", // is set automatically. when running locally: 'http://localhost:8081/'
-      login: "https://keycloak-default.niklas-heidloff-b3c-4x16-162e406f043e20da9b0ef0731954a894-0000.us-south.containers.appdomain.cloud/auth/realms/quarkus" // needs to be defined. example: 'https://keycloak-default.niklas-heidloff-b3c-4x16-162e406f043e20da9b0ef0731954a894-0000.us-south.containers.appdomain.cloud/auth/realms/quarkus'
+      api: " ", // is set automatically. when running locally: 'http://localhost:8081/'
+      login: "<yourkeycloakurl>/auth" // needs to be defined when running locally. example: 'https://<name>-<hash>-0000.us-south.containers.appdomain.cloud/auth'
     },
     user: {
       isAuthenticated: false,

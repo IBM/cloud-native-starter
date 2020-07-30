@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: security-url-config
+data:
+  QUARKUS_OIDC_AUTH_SERVER_URL: "https://harald-uebele-osl01-162e406f043e20da9b0ef0731954a894-0001.osl01.containers.appdomain.cloud/auth/realms/quarkus"
+

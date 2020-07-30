@@ -1,0 +1,45 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-api
+  labels:
+    app: web-api
+spec:
+  selector:
+    app: web-api
+  ports:
+    - port: 8081
+      name: http
+  type: NodePort
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: web-api
+  labels:
+    app: web-api
+spec:
+  selector:
+    matchLabels:
+      app: web-api
+  replicas: 1
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true"    
+      labels:
+        app: web-api
+        version: v1
+    spec:
+      containers:
+      - name: web-api
+        image: docker.io/haraldu/web-api:secure-v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+        - name: QUARKUS_OIDC_AUTH_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: security-url-config
+              key: QUARKUS_OIDC_AUTH_SERVER_URL
