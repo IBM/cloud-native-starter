@@ -16,7 +16,6 @@ This is a screenshot of the web application:
 
 <kbd><img src="screenshots/web-app.png" /></kbd>
 
-
 ### Documentation
 
 There are three blogs that describe how this project has been implemented:
@@ -24,7 +23,6 @@ There are three blogs that describe how this project has been implemented:
 * [Setting up Keycloak in OpenShift](http://heidloff.net/article/setting-up-keycloak-openshift/)
 * [Security in Quarkus Applications via Keycloak](http://heidloff.net/article/security-quarkus-applications-keycloak/)
 * [Securing Vue.js Applications with Keycloak](http://heidloff.net/article/securing-vue-js-applications-keycloak/)
-
 
 ### Setup
 
@@ -98,7 +96,7 @@ Insert your the `auth-server-url` URL of your Keycloak instance in [application.
 
 Therefore you use the Keycloak URL of the output in your terminal.
 
-```sh 
+```sh
 Keycloak [auth-server-url]:                 https://YOUR_URL/auth/realms/quarkus
 ```
 
@@ -108,10 +106,18 @@ Insert your the `auth-server-url` URL you know from above in [application.proper
 
 #### Step 9: Configure web-app
 
-Now insert following Keycloak URL output from your terminal session in [main.js](web-app/src/main.js).
+Now insert following Keycloak URL output from your terminal session in [main.js](web-app/src/main.js). 
 
 ```sh
 Keycloak:                 https://YOUR_URL/auth
+```
+
+main.js:
+
+```
+let initOptions = {
+  url: 'https://<KeycloakURL>/auth' , realm: 'quarkus', clientId: 'frontend', onLoad: 'login-required'
+}
 ```
 
 #### Step 10: Run web-app
