@@ -251,6 +251,8 @@ Then, in your browser, open this URL:
 echo "https://"$INGRESSURL"/auth"
 ```
 
+**This is the Keycloak URL you will need in the following exercises!** 
+
 Click on 'Administration Console'. Login In with username 'admin' and password 'admin'.
 
 **Configuration:**
@@ -258,7 +260,7 @@ Click on 'Administration Console'. Login In with username 'admin' and password '
 Move your mouse pointer over 'Master' in the upper left corner and click the blue 'Add realm' button.
 
 DRAFT
-Wir müssen usn überlegen, wo die JSON file herkommt, im Zweifel aus der Cloud Shell runterladen oder per wget aus unserem Github Repo ... 
+Wir müssen uns überlegen, wo die JSON file herkommt, im Zweifel aus der Cloud Shell runterladen oder per wget aus unserem Github Repo ... 
 /DRAFT
 
 In the 'Add realm' dialog click 'Select file', open the 'quarkus-realm.json' file, then click 'Create'.
