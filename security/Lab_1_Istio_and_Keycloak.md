@@ -1,5 +1,8 @@
 # Install Istio and Keycloak
 
+xxx **UNDER CONSTRUCTION** xxx
+GitBook documentation: [link](https://ibm-developer.gitbook.io/cloud-native-starter-security/)
+
 We need Keycloak for authentication and authorization. And we need Istio to secure access to our services. In this exercise we will:
 
 1. Install Istio on the IBM Cloud Kubernetes Service (IKS).  

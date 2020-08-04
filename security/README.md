@@ -88,7 +88,7 @@ echo "Keycloak [auth-server-url]: $KEYCLOAK_URL/realms/quarkus"
 
 Open the Keycloak console and log in as admin. Then import [quarkus-realm.json](quarkus-realm.json).
 
-Check the [setup Keycloak](KEYCLOAK-SETUP.md) for how to import the realm.
+Check the [setup Keycloak](./BackupFiles/KEYCLOAK-SETUP.md) for how to import the realm.
 
 #### Step 7: Configure articles-secure
 
