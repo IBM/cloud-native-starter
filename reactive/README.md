@@ -12,6 +12,7 @@ Jump to the part of the documentation you are interested in:
 
 * [Scenario 1 - Reactive Messaging](#scenario-1---reactive-messaging)
 * [Scenario 2 - Reactive REST Endpoints for higher Efficiency](#scenario-2---reactive-rest-endpoints-for-higher-efficiency)
+* [Workshop Reactive Endpoints with Quarkus on OpenShift](https://ibm-developer.gitbook.io/reactive-endpoints-with-quarkus-on-openshift/)
 * [Blogs](#blogs)
 * [Setup in Minikube](#setup-in-minikube)
 * [Server-side Setup in IBM Cloud Kubernetes Service](https://github.com/nheidloff/cloud-native-starter-reactive-toolchain)

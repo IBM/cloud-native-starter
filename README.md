@@ -1,11 +1,16 @@
 ## Cloud Native Starter for Java EE based Microservices on Kubernetes and Istio
 
-This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. 
+This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures.
 
 The project has two parts:
 
-1) Synchronous microservices: The documentation of this part is below. The code is in all folders except of the 'reactive' folder.
-2) Reactive microservices: To keep the first part of the project as simple as possible, all reactive functionality has been put in the [reactive](reactive) folder and can be used completely separately.
+> 1) Synchronous microservices: The documentation of this part is below. The code is in all folders except of the 'reactive' folder. 
+
+Note: To get an fast overview of the Synchronous microservices part, use the this [Landingpage](https://cloud-native-starter.mybluemix.net/)
+
+> 2) Reactive microservices: To keep the first part of the project as simple as possible, all reactive functionality has been put in the [reactive](reactive) folder and can be used completely separately.
+
+### Synchronous microservices
 
 The first part of the project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
 
