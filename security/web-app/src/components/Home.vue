@@ -86,6 +86,7 @@ export default {
           Authorization: "Bearer " + this.$store.state.user.accessToken
         }
       });
+      /* No longer needed is done in main.js
       let that = this;
       axiosService
         .get(this.$store.state.endpoints.api + "user")
@@ -98,6 +99,7 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+      */
     }
   },
   mounted() {

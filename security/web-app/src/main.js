@@ -52,8 +52,14 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   }
   if (keycloak.token && keycloak.idToken && keycloak.token != '' && keycloak.idToken != '') {
     store.commit("login", payload);
-    console.log("User has logged in: " + keycloak.subject)
-    //console.log("accessToken: " + store.state.user.accessToken)
+    // console.log("User has logged in: " + keycloak.subject);
+    // console.log("TokenParsed: "+ JSON.stringify(keycloak.tokenParsed));
+    // console.log("User name: " + keycloak.tokenParsed.preferred_username);
+    // console.log("accessToken: " + store.state.user.accessToken);
+    payload = {
+      name: keycloak.tokenParsed.preferred_username
+    };
+    store.commit("setName", payload);
   }
   else {
     store.commit("logout");
