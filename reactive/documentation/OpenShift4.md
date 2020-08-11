@@ -2,6 +2,8 @@
 
 This documentation has been tested on CRC (CodeReady Containers) Version 1.7 which includes OpenShift 4.3.1, and on Red Hat OpenShift 4.3 on IBM Cloud (currently in Beta).
 
+> You also find a hands-on workshop documentation, for pre-provisioned RedHat OpenShift clusters, [here](https://app.gitbook.com/@ibm-developer/s/reactive-endpoints-with-quarkus-on-openshift/)
+
 ---
 
 ### 1. Create an OpenShift 4 cluster

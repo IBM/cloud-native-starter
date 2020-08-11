@@ -4,7 +4,7 @@
 # --------------------------------------------------
 
 CLUSTER_ID=YOUR_CLUSTER_ID
-MYCLUSTER_NAME=YOUR_CLUSTER_NAME
+CLUSTER_NAME=YOUR_CLUSTER_NAME
 
 # Logon
 ibmcloud login -a cloud.ibm.com -r us-south -g default -sso
@@ -18,7 +18,7 @@ ROOT_FOLDER=$(pwd)
 
 # Export needed environment variables
 cd $ROOT_FOLDER/IKS
-export MYCLUSTER=$MYCLUSTER_NAME
+export MYCLUSTER=$CLUSTER_NAME
 
 # Create DNS subdomain
 # INGRESS_IP_ADDRESS=$(kubectl get svc -n istio-system | grep istio-ingressgateway | awk '/^istio-ingressgateway/ {print $4}')
@@ -29,3 +29,10 @@ export INGRESSURL=$ingress_url
 ingress_secret=$(ibmcloud ks nlb-dns ls --cluster $MYCLUSTER | grep 0001 | awk '{print $5}')
 export INGRESSSECRET=$ingress_secret
 export QUARKUS_OIDC_AUTH_SERVER_URL="https://$INGRESSURL/auth/realms/quarkus"
+
+echo $CLUSTER_ID
+echo $CLUSTER_NAME
+echo $MYCLUSTER
+echo $INGRESSURL
+echo $INGRESSSECRET
+echo $QUARKUS_OIDC_AUTH_SERVER_URL
