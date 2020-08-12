@@ -112,11 +112,15 @@ Now insert following Keycloak URL output from your terminal session in [main.js]
 Keycloak:                 https://YOUR_URL/auth
 ```
 
-main.js:
+Now insert `Keycloak URL`/auth in `main.js`.
 
-```
-let initOptions = {
-  url: 'https://<KeycloakURL>/auth' , realm: 'quarkus', clientId: 'frontend', onLoad: 'login-required'
+```JavaScript
+if (currentHostname.indexOf('localhost') > -1) {
+  urls = {
+    api: 'http://localhost:8081/',
+    login: 'https://YOUR_URL/auth' // insert your http or https://<KeycloakURL>/auth
+  }
+  store.commit("setAPIAndLogin", urls);
 }
 ```
 
