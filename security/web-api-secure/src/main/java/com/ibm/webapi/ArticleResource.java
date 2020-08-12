@@ -38,6 +38,7 @@ public class ArticleResource {
     public List<Article> getArticles() {
         try {
             List<CoreArticle> coreArticles = articlesDataAccess.getArticles(5);
+            System.out.println("-->log: ArticleResource.getArticles");
             return createArticleList(coreArticles);
         } catch (NoConnectivity e) {
             System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to articles service");

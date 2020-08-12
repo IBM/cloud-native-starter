@@ -32,7 +32,7 @@ public class ArticleResource {
     }
 
     private void addSampleArticles() {
-        System.out.println("com.ibm.articles.business.Service.addSampleArticles");
+        System.out.println("-->log: com.ibm.articles.business.Service.addSampleArticles");
 
         addArticle("Blue Cloud Mirror — (Don’t) Open The Doors!", "https://haralduebele.blog/2019/02/17/blue-cloud-mirror-dont-open-the-doors/", "Harald Uebele");
         addArticle("Recent Java Updates from IBM", "http://heidloff.net/article/recent-java-updates-from-ibm", "Niklas Heidloff");

@@ -16,9 +16,10 @@ let currentHostname = window.location.hostname;
 let urls;
 if (currentHostname.indexOf('localhost') > -1) {
   urls = {
-    api: 'http://localhost:8081/'
+    api: 'http://localhost:8081/',
+    login: 'https://YOUR-URL/auth' // insert your http or https://<KeycloakURL>/auth
   }
-  store.commit("setAPI", urls);
+  store.commit("setAPIAndLogin", urls);
 }
 else {
   let webapiUrl = 'https://' + currentHostname + '/';
