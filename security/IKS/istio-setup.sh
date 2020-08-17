@@ -2,16 +2,18 @@
 
 STATUS="Running"
 
-function installIstio {
+function installIstio() {
   echo "------------------------------------------------------------------------"
   echo "Install Istio"
-  echo "------------------------------------------------------------------------"e 
+  echo "------------------------------------------------------------------------"
+  istioctl operator init
   kubectl create ns istio-system
   kubectl apply -f istio.yaml
+  sleep 20
   kubectl get pod -n istio-system
 }
 
-function checkIstioInstallation {
+function checkIstioInstallation() {
   array=("grafana" "istiod" "prometheus" "istio-egressgateway" "istio-ingressgateway" "istio-tracing")
   for i in "${array[@]}"
   do 
@@ -36,7 +38,7 @@ function checkIstioInstallation {
   done
 }
 
-function setuptelemetry {
+function setuptelemetry() {
  echo "------------------------------------------------------------------------"
  echo "Replace telemetry config to expose nodeports"
  echo "------------------------------------------------------------------------"
