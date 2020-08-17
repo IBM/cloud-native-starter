@@ -8,7 +8,8 @@ function installIstio() {
   echo "------------------------------------------------------------------------"
   istioctl operator init
   kubectl create ns istio-system
-  kubectl apply -f istio.yaml
+  kubectl apply -f IKS/istio.yaml
+  echo "Waiting for Istio pods to start"
   sleep 20
   kubectl get pod -n istio-system
 }

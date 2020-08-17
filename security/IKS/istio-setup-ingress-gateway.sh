@@ -1,12 +1,11 @@
 #!/bin/bash
 
-function createSubDomain {
-  cd $ROOT_FOLDER/IKS
+function createSubDomain() {
   ingress_ip=$(kubectl get svc -n istio-system | grep istio-ingressgateway | awk '{print $4}')
   ibmcloud ks nlb-dns create classic --cluster $MYCLUSTER --ip $ingress_ip
 }
 
-function getIngressURL {
+function getIngressURL() {
  ingress_url=$(ibmcloud ks nlb-dns ls --cluster $MYCLUSTER | grep 0001 | awk '{print $1}')
  export INGRESSURL=$ingress_url
  echo "------------------------------------------------------------------------"
