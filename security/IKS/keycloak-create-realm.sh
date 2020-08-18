@@ -5,7 +5,7 @@ USER=admin
 PASSWORD=admin
 GRANT_TYPE=password
 CLIENT_ID=admin-cli
-#INGRESSURL="YOUR URL"
+INGRESSURL="YOUR URL"
 
 echo "------------------------------------------------------------------------"
 echo "Your INGRESSURL for Keycloak: https://$INGRESSURL"
@@ -25,7 +25,7 @@ echo "Create the realm in Keycloak"
 echo "------------------------------------------------------------------------"
 echo ""
 
-result=$(curl -d @../BackupFiles/quarkus-realm.json -H "Content-Type: application/json" -H "Authorization: bearer $access_token" "https://$INGRESSURL/auth/admin/realms")
+result=$(curl -d @./quarkus-realm.json -H "Content-Type: application/json" -H "Authorization: bearer $access_token" "https://$INGRESSURL/auth/admin/realms")
 
 if [ "$result" = "" ]; then
   echo "------------------------------------------------------------------------"
