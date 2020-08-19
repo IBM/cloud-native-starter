@@ -29,11 +29,11 @@ spec:
         sidecar.istio.io/inject: "true" 
       labels:
         app: web-app
-        version: v1
+        version: v2
     spec:
       containers:
       - name: web-app
-        image: docker.io/haraldu/web-app:secure-v1
+        image: docker.io/haraldu/web-app:secure-v2
         imagePullPolicy: Always
         ports:
         - containerPort: 80
