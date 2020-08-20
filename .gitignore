@@ -104,3 +104,6 @@ reactive/iks-scripts/show-urls.log
 reactive/iks-scripts/cleanup.log
 
 reactive/articles-reactive/run-java.sh
+
+# Security
+mysecret.yaml

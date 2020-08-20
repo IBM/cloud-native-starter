@@ -48,6 +48,10 @@ function setuptelemetry() {
  kubectl delete svc prometheus -n istio-system
  kubectl delete svc jaeger-query -n istio-system
  kubectl apply -f IKS/istio-tele-services.yaml
+ echo " "
+}
+
+function configNamespace() {
  echo "------------------------------------------------------------------------"
  echo "Label namespace 'default' for auto injection"
  kubectl label namespace default istio-injection=enabled
@@ -57,4 +61,5 @@ function setuptelemetry() {
 
 installIstio
 checkIstioInstallation
-setuptelemetry
+#setuptelemetry  // we don't use Kiali in this exercise
+configNamespace
