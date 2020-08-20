@@ -2,6 +2,16 @@
 
 This part of the project demonstrates how to do authentication and authorization in Quarkus applications and web applications. [Keycloak](https://www.keycloak.org/) is used as OpenID Connect provider.
 
+### Documentation
+
+There are blog entries and a workshop that describe how this project has been implemented:
+
+* [Setting up Keycloak in OpenShift](http://heidloff.net/article/setting-up-keycloak-openshift/)
+* [Security in Quarkus Applications via Keycloak](http://heidloff.net/article/security-quarkus-applications-keycloak/)
+* [Securing Vue.js Applications with Keycloak](http://heidloff.net/article/securing-vue-js-applications-keycloak/)
+* [Workshop](https://ibm-developer.gitbook.io/cloud-native-starter-security/)
+
+
 ### Scenario
 
 In order to demonstrate the security features, a sample application is used which displays links to articles in a web application only when a user is logged in and has the role 'user'.
@@ -15,14 +25,6 @@ This diagram shows the architecture:
 This is a screenshot of the web application:
 
 <kbd><img src="screenshots/web-app.png" /></kbd>
-
-### Documentation
-
-There are three blogs that describe how this project has been implemented:
-
-* [Setting up Keycloak in OpenShift](http://heidloff.net/article/setting-up-keycloak-openshift/)
-* [Security in Quarkus Applications via Keycloak](http://heidloff.net/article/security-quarkus-applications-keycloak/)
-* [Securing Vue.js Applications with Keycloak](http://heidloff.net/article/securing-vue-js-applications-keycloak/)
 
 ### Setup
 
