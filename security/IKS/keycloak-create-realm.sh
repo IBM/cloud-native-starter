@@ -5,7 +5,7 @@ USER=admin
 PASSWORD=admin
 GRANT_TYPE=password
 CLIENT_ID=admin-cli
-INGRESSURL="YOUR URL"
+#INGRESSURL="YOUR URL"
 
 echo "------------------------------------------------------------------------"
 echo "Your INGRESSURL for Keycloak: https://$INGRESSURL"
