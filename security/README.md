@@ -11,6 +11,7 @@ There are blog entries and a workshop that describe how this project has been im
 * [Securing Vue.js Applications with Keycloak](http://heidloff.net/article/securing-vue-js-applications-keycloak/)
 * [Workshop](https://ibm-developer.gitbook.io/cloud-native-starter-security/)
 
+The workshop linked above is a description on how to use the code.
 
 ### Scenario
 
@@ -28,7 +29,7 @@ This is a screenshot of the web application:
 
 ### Setup
 
-At this point the code is run locally which means you need a JVM and Maven. For the web application you also need yarn.
+At this point the code is run locally which means you need a JVM and Maven. For the web application you also need yarn. In this setup, Keycloak is installed on a Red Hat OpenShift cluster on IBM Cloud.
 
 #### Step 0: Clone the Repo
 
