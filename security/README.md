@@ -9,7 +9,7 @@ There are blog entries and a workshop that describe how this project has been im
 * [Setting up Keycloak in OpenShift](http://heidloff.net/article/setting-up-keycloak-openshift/)
 * [Security in Quarkus Applications via Keycloak](http://heidloff.net/article/security-quarkus-applications-keycloak/)
 * [Securing Vue.js Applications with Keycloak](http://heidloff.net/article/securing-vue-js-applications-keycloak/)
-* [Workshop](https://ibm-developer.gitbook.io/cloud-native-starter-security/)
+* [Hands on Workshop (GitBook)](https://ibm-developer.gitbook.io/get-started-with-security-for-your-java-microservi//)
 
 The workshop linked above is a description on how to use the code.
 
@@ -21,11 +21,11 @@ The web application invokes the web-api service and then invokes the articles se
 
 This diagram shows the architecture:
 
-<kbd><img src="screenshots/diagram.png" /></kbd>
+<kbd><img src="images/architecture-local.png" /></kbd>
 
-This is a screenshot of the web application:
+This is a gif of the web application:
 
-<kbd><img src="screenshots/web-app.png" /></kbd>
+<kbd><img src="images/application-sample.gif" /></kbd>
 
 ### Setup
 
