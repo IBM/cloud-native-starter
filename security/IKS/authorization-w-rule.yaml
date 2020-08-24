@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: articlesaccess
+spec:
+  selector:
+    matchLabels:
+      app: articles
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/default/sa/web-api"]
+    to:
+    - operation:
+        methods: ["GET", "POST"]    
+---      
