@@ -11,6 +11,10 @@ There are small variations of microservice definitions out there, here is one de
 _Note:_ Here is a link to a useful YouTube playlist for that hands-on workshop: [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
 
 ---
+
+> The workshop is also in GitBook available:[Get your Java Microservice up and running!](https://ibm-developer.gitbook.io/get-your-java-microservice-up-and-running/) _Note:_ Unified  option to run the workshop for Mac, Linux and Windows users.
+
+---
 ## Labs
 
 This workshop has four labs. It should take between 60 and 90 minutues to complete the workshop. That hands-on workshop is made to run as a self service, or at digital event, or at a face to face event.
