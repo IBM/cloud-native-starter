@@ -85,6 +85,8 @@ $ sh scripts/show-urls.sh
 
 One benefit of reactive models is the ability to update web applications by sending messages, rather than pulling for updates. This is more efficient and improves the user experience.
 
+> Here is a workshop documentation on [GitBook](https://ibm-developer.gitbook.io/reactive-messaging-with-quarkus-on-openshift/).
+
 Articles can be created via REST API. The web application receives a notification and adds the new article to the page.
 
 <kbd><img src="documentation/demo-1-video-small.gif" /></kbd>
@@ -106,6 +108,8 @@ This scenario uses the following reactive functionality:
 ### Scenario 2 - Reactive REST Endpoints for higher Efficiency
 
 Another benefit of reactive systems and reactive REST endpoints is efficiency. This scenario describes how to use reactive systems and reactive programming to achieve faster response times. Especially in public clouds where costs depend on CPU, RAM and compute durations this model saves money.
+
+> Here is a workshop documentation on [GitBook](https://app.gitbook.com/@ibm-developer/s/reactive-endpoints-with-quarkus-on-openshift/).
 
 The project contains the endpoint '/articles' of the web-api service in two different versions, one uses imperative code, the other one reactive code.
 
