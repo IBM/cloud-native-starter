@@ -2,6 +2,8 @@
 
 [![Let's get started with cloud native Java applications on Kubernetes](https://img.youtube.com/vi/DQFeqFKQ3dE/0.jpg)](https://www.youtube.com/watch?v=DQFeqFKQ3dE "Click play on youtube")
 
+> **This workshop is under construction!**
+
 In this hands-workshop we do address the question: 
 
 > How to start with **cloud native Java applications** in Kubernetes?

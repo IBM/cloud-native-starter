@@ -4,13 +4,14 @@ This project contains sample code that demonstrates how to get started with clou
 
 The project has three parts:
 
-> 1) Synchronous microservices: The documentation of this part is below. The code is in all folders except of the 'reactive' folder. To get a fast overview of the synchronous microservices part, use the this [landing page](https://cloud-native-starter.mybluemix.net/).
+> 1) **Basic concepts:** The documentation of this part is below. Cloud Native Starter demonstrates how to develop complete enterprise applications with Java and MicroProfile and how to operate them with Kubernetes, OpenShift and Istio.
+To get a fast overview of the basic concepts part, use the this [landing page](https://cloud-native-starter.mybluemix.net/).
 
-> 2) Reactive programming for microservices: To keep the first part of the project as simple as possible, all reactive functionality has been put in the [reactive](reactive) folder and can be used completely separately.
+> 2) **Reactive:** The reactive part explains how to use reactive programming and event based messaging in Quarkus applications and how to run them on Kubernetes and OpenShift. For more open the [reactive](reactive) folder and that part can be used completely separately.
 
-> 3) Security for microservices: This part you can find in the [security](security) folder.
+> 3) **Security:** The security part explains how to do authentication and authorization in Quarkus applications with Keycloak and how to do network encryption with Istio.  For more open the[security](security) folder and that part can be used completely separately.
 
-### Synchronous microservices
+### Basic concepts
 
 The first part of the project focusses on how to build microservices with Java EE and the open source technologies [Eclipse MicroProfile](https://microprofile.io/), [Eclipse OpenJ9](https://www.eclipse.org/openj9/), [AdoptOpenJDK](https://adoptopenjdk.net/) and [Open Liberty](https://openliberty.io/).
 
