@@ -63,7 +63,7 @@ $ docker run -v $ROOT_FOLDER/:/cloud-native-starter -it --rm tsuedbroecker/cns-w
 ```
 _Note:_ With the `--rm` option in the docker run command the container is deleted once you exit. This is intended.
 
-#### Step 2: Inside your running Docker image you can access your the local GitHub project 
+#### Step 2: Inside your running Docker image you can access your local GitHub project 
 
 ```
 $ cd /cloud-native-starter/
