@@ -109,21 +109,13 @@ Insert your the `auth-server-url` URL you know from above in [application.proper
 
 #### Step 9: Configure web-app
 
-Now insert following Keycloak URL output from your terminal session in [main.js](web-app/src/main.js). 
-
-```sh
-Keycloak: https://YOUR_URL/auth
-```
-
-Now insert `Keycloak URL`/auth in `main.js`.
+Now insert the Keycloak URL `Keycloak URL`/auth from the output of your terminal session in [main.js](web-app/src/main.js).
 
 ```JavaScript
-if (currentHostname.indexOf('localhost') > -1) {
   urls = {
     api: 'http://localhost:8081/',
     login: 'https://YOUR_URL/auth' // insert your http or https://<KeycloakURL>/auth
   }
-  store.commit("setAPIAndLogin", urls);
 }
 ```
 
