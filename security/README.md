@@ -33,7 +33,7 @@ At this point the code is run locally which means you need a JVM and Maven. For 
 
 #### Step 0: Clone the Repo
 
-```
+```sh
 $ git clone https://github.com/IBM/cloud-native-starter.git
 $ cd security
 ```
@@ -46,7 +46,7 @@ https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift
 
 Get the login command from the OpenShift Web Console, e.g.
 
-```
+```sh
 $ oc login --token=OnMwHZ4FLgZnWdcxxxxxxxxxxxxxxx --server=https://c107-e.us-south.containers.cloud.ibm.com:30058
 ```
 
@@ -58,7 +58,7 @@ https://www.keycloak.org/getting-started/getting-started-operator-openshift
 
 Alternatively you can install it programmatically:
 
-```
+```sh
 $ oc new-project keycloak
 $ oc create -f keycloak-operator.yaml
 ```
@@ -67,16 +67,20 @@ $ oc create -f keycloak-operator.yaml
 
 You can create the Keycloak cluster either in the OpenShift Web Console or programmatically:
 
-```
+```sh
 $ oc create -f keycloak.yaml
 $ oc get keycloak/example-keycloak -o jsonpath='{.status.ready}'
 ```
 
 #### Step 5: Get the admin password and Keycloak URLs
 
+* Get admin password:
+
 ```sh
 $ oc get secret credential-example-keycloak -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
 ```
+
+* Get Keycloak URLs:
 
 ```sh
 $ KEYCLOAK_URL=https://$(oc get route keycloak --template='{{ .spec.host }}')/auth &&
@@ -89,15 +93,11 @@ echo "Keycloak [auth-server-url]: $KEYCLOAK_URL/realms/quarkus"
 
 #### Step 6: Import Realm in Keycloak
 
-Open the Keycloak console and log in as admin. Then import [quarkus-realm.json](quarkus-realm.json).
-
-Check the [setup Keycloak documentation](./BackupFiles/KEYCLOAK-SETUP.md) for how to import the realm.
+Open the Keycloak console and log in as admin. Then import [quarkus-realm.json](quarkus-realm.json). Check the [setup Keycloak documentation](./BackupFiles/KEYCLOAK-SETUP.md) for how to import the realm.
 
 #### Step 7: Configure articles-secure
 
-Insert your the `auth-server-url` URL of your Keycloak instance in [application.properties](articles-secure/src/main/resources/application.properties).
-
-Therefore you use the Keycloak URL of the output in your terminal.
+Insert your the `auth-server-url` URL of your Keycloak instance in [application.properties](articles-secure/src/main/resources/application.properties). Therefore you use the Keycloak URL of the output in your terminal.
 
 ```sh
 Keycloak [auth-server-url]: https://YOUR_URL/auth/realms/quarkus
