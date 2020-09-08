@@ -40,17 +40,17 @@ _Note:_ Free clusters expire after one month.
 
 #### Step 1: Logon to IBM Cloud
 
-#### Step 2: Select in the menu "Catalog" and search for "Kubernetes Cluster"
+#### Step 2: Select in the menu "Catalog" and search for "Kubernetes"
 
 ![Kubernetes service](images/ibmcloud-catalog.png)
 
-#### Step 3: Click on "Kubernetes Cluster"
+#### Step 3: Click on "Kubernetes Service"
 
-#### Step 4: Select Free cluster
+#### Step 4: Select the "Free" plan
 
 ![create Kubernetes service](images/ibmcloud-create-kubernetes-1.png)
 
-#### Step 5: Click on the Kubernetes Services and select "Free"
+#### Step 5: Give it a name
 
 Ensure you set following values in the creation dialog:
 
