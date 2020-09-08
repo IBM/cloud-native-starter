@@ -83,7 +83,7 @@ Now we want to build and save a container image in the IBM Cloud Container Regis
 3. Now upload the code and build the container image inside IBM Cloud Container Registry. We use the information from step 3, where we got the list of namespaces.
 
     ```sh
-    $ ibmcloud cr build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/authors:1 .
+    $ ibmcloud cr build -f Dockerfile --tag [YOUR_REGISTRY]/[YOUR_REGISTRY_NAMESPACE]/authors:1 .
     ```
 
     _Sample result values:_
