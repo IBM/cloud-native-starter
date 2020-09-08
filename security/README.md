@@ -100,7 +100,7 @@ Insert your the `auth-server-url` URL of your Keycloak instance in [application.
 Therefore you use the Keycloak URL of the output in your terminal.
 
 ```sh
-Keycloak [auth-server-url]:                 https://YOUR_URL/auth/realms/quarkus
+Keycloak [auth-server-url]: https://YOUR_URL/auth/realms/quarkus
 ```
 
 #### Step 8: Configure web-api-secure
@@ -112,7 +112,7 @@ Insert your the `auth-server-url` URL you know from above in [application.proper
 Now insert following Keycloak URL output from your terminal session in [main.js](web-app/src/main.js). 
 
 ```sh
-Keycloak:                 https://YOUR_URL/auth
+Keycloak: https://YOUR_URL/auth
 ```
 
 Now insert `Keycloak URL`/auth in `main.js`.
@@ -131,7 +131,7 @@ if (currentHostname.indexOf('localhost') > -1) {
 
 Run first terminal (on port 8080):
 
-```
+```sh
 $ cd security/web-app
 $ yarn install
 $ yarn serve
@@ -141,7 +141,7 @@ $ yarn serve
 
 Run second terminal (on port 8081):
 
-```
+```sh
 $ cd security/web-api-secure
 $ mvn clean package quarkus:dev
 ```
@@ -150,7 +150,7 @@ $ mvn clean package quarkus:dev
 
 Run third terminal (on port 8082):
 
-```
+```sh
 $ cd security/articles-secure
 $ mvn clean package quarkus:dev
 ```
