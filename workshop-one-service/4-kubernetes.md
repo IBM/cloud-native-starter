@@ -370,10 +370,11 @@ spec:
     ![authors-java-openapi-explorer](images/authors-java-openapi-explorer-kubernetes.png)
 
 
-4. Execute curl to test the **Authors** service.
+4. Execute curl to test the **Authors** service. 
+   _Remember:_ We have changed the values from `api/v1` to `myapi/myv1`! 
 
     ```sh
-    $ curl http://${clusterip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+    $ curl http://${clusterip}:${nodeport}/myapi/myv1/getauthor?name=Niklas%20Heidloff
     ```
 
     Sample result:
@@ -401,4 +402,5 @@ spec:
 
 :star: **Congratulations** :thumbsup: you have finished this **hands-on workshop** :checkered_flag:.
 
+Awesome your are now ready to take the test and get a the ![Cloud Native Starter Level 1 - Badge](images/cnsl1.png).
 
