@@ -402,5 +402,5 @@ spec:
 
 :star: **Congratulations** :thumbsup: you have finished this **hands-on workshop** :checkered_flag:.
 
-Awesome your are now ready to take the test and get a the ![Cloud Native Starter Level 1 - Badge](images/cnsl1.png).
+Awesome your are now ready to take the test and get a the [Cloud Native Starter Level 1 - Badge](https://www.youracclaim.com/org/ibm/badge/cloud-native-starter-level-1).
 
