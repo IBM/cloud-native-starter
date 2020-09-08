@@ -249,8 +249,8 @@ _REMEMBER:_ You should have saved the IBM Container Registry information somewhe
     Sample output:
 
     ```sh
-    $ NAME                      READY   STATUS    RESTARTS   AGE
-    $ authors-7b6dd98db-wl9wc   1/1     Running   0          6m9s
+    NAME                      READY   STATUS    RESTARTS   AGE
+    authors-7b6dd98db-wl9wc   1/1     Running   0          6m9s
     ```
 
 #### Step 3: Verify the deployment with the **Kubernetes dashboard** 
@@ -318,9 +318,9 @@ spec:
   Sample output:
 
   ```sh
-    $ NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-    $ authors      NodePort    172.21.107.135   <none>        3000:31347/TCP   22s
-    $ kubernetes   ClusterIP   172.21.0.1       <none>        443/TCP          28h
+    NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+    authors      NodePort    172.21.107.135   <none>        3000:31347/TCP   22s
+    kubernetes   ClusterIP   172.21.0.1       <none>        443/TCP          28h
   ```
 
 #### Step 4: Verify the service in the **Kubernetes dashboard** 
@@ -336,25 +336,25 @@ spec:
 
 #### Step 5: Verify the running microservice on Kubernetes 
 
-1. Get cluster (worker node) [IP address](https://cloud.ibm.com/docs/containers?topic=containers-nodeport) 
+1. Get cluster (worker node) [IP address](https://cloud.ibm.com/docs/containers?topic=containers-nodeport).
+
+> We expose a public port on your worker node and use the public IP address of the worker node to access your service in the cluster publicly from the internet.
 
     ```sh
     $ clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2;exit;}')
     $ echo $clusterip
-    $ 184.172.247.228
+    184.172.247.228
     ```
-
-   > Expose a public port on your worker node and use the public IP address of the worker node to access your service in the cluster publicly from the internet.
 
 2. Get nodeport to access the service (do you remember the mapping?)
 
     ```sh
     $ nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
     $ echo $nodeport
-    $ 31347
+    31347
     ```
 
-3. Open API explorer.
+3. Open API explorer. 
 
     ```sh
     $ echo http://${clusterip}:${nodeport}/openapi/ui/
@@ -362,7 +362,7 @@ spec:
 
     Sample output:
     ```sh
-    $ http://184.172.247.228:31347/openapi/ui/
+    http://184.172.247.228:31347/openapi/ui/
     ```
 
     Copy and past the URL in a local browser on your PC:
@@ -378,14 +378,14 @@ spec:
 
     Sample result:
     ```
-    $ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
+    {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
     ```
 
 5. Execute following curl command to test the **HealthCheck** implementation for the **Authors** service.
 
     ```sh
     $ curl http://${clusterip}:${nodeport}/health
-    $ {"checks":[{"data":{"authors":"ok"},"name":"authors","state":"UP"}],"outcome":"UP"} 
+    {"checks":[{"data":{"authors":"ok"},"name":"authors","state":"UP"}],"outcome":"UP"} 
     ```
 
     Optional: 
