@@ -1,6 +1,6 @@
 # Build a Java Microservice and deploy the Microservice to Kubernetes on IBM Cloud
 
-> This workshop is also available in GitBook: **[Get your Java Microservice up and running!](https://ibm-developer.gitbook.io/get-your-java-microservice-up-and-running/) **
+> This workshop is also available in GitBook: **[Get your Java Microservice up and running!](https://ibm-developer.gitbook.io/get-your-java-microservice-up-and-running/)**
 > _Note:_ That version of the workshop uses a unified  option to run the workshop for Mac, Linux and Windows users.
 
 This workshop demonstrates how to build a microservice with Java and how to deploy it to Kubernetes on the IBM Cloud. The microservice in this workshop is kept as simple as possible, so that it can be used as a starting point for other microservices. The microservice has been developed with Java EE and [Eclipse MicroProfile](https://microprofile.io/).
