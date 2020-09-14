@@ -6,7 +6,7 @@ This workshop demonstrates how to build a microservice with Java and how to depl
 
 * > Useful playlist on YouTube related this workshop: [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
 
-## What's is a Microservice?
+## What's a Microservice?
 
 There are small variations of microservice definitions out there, here is one definition of [Gartner](https://www.gartner.com/en/information-technology/glossary/microservice):
 
