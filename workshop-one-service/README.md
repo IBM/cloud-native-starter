@@ -1,17 +1,18 @@
 # Build a Java Microservice and deploy the Microservice to Kubernetes on IBM Cloud
 
-> This workshop is also available in GitBook: **[Get your Java Microservice up and running!](https://ibm-developer.gitbook.io/get-your-java-microservice-up-and-running/)**
-> _Note:_ That version of the workshop uses a unified  option to run the workshop for Mac, Linux and Windows users.
-
 This workshop demonstrates how to build a microservice with Java and how to deploy it to Kubernetes on the IBM Cloud. The microservice in this workshop is kept as simple as possible, so that it can be used as a starting point for other microservices. The microservice has been developed with Java EE and [Eclipse MicroProfile](https://microprofile.io/).
+
+*  > This workshop is also available in GitBook: **[Get your Java Microservice up and running!](https://ibm-developer.gitbook.io/get-your-java-microservice-up-and-running/)** and that version of the workshop uses a unified  option to run the workshop for Mac, Linux and Windows users.
+
+* > Useful playlist on YouTube related this workshop: [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
+
+## What's is a Microservice?
 
 There are small variations of microservice definitions out there, here is one definition of [Gartner](https://www.gartner.com/en/information-technology/glossary/microservice):
 
-> A microservice is a service-oriented application component that is tightly scoped, strongly encapsulated, loosely coupled, independently deployable and independently scalable.
+* > A microservice is a service-oriented application component that is tightly scoped, strongly encapsulated, loosely coupled, independently deployable and independently scalable.
 
-[And here is additional information related to microservices, provided by IBM.](https://www.ibm.com/cloud/learn/microservices)
-
-_Note:_ Here is a link to a useful YouTube playlist for that hands-on workshop: [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
+* > [More additional information related to microservices, provided by IBM.](https://www.ibm.com/cloud/learn/microservices)
 
 
 ---
