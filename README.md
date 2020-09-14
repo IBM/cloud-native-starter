@@ -1,6 +1,6 @@
 ## Cloud Native Starter for Java EE based Microservices on Kubernetes and Istio
 
-This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. To get a fast overview of that project use our [Cloud Native Starter landing page](https://cloud-native-starter.mybluemix.net/).
+This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. To get a fast overview of this project use our [Cloud Native Starter landing page](https://cloud-native-starter.mybluemix.net/).
 
 The project has three parts:
 
