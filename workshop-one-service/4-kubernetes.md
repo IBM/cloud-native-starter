@@ -83,7 +83,7 @@ Now we want to build and save a container image in the IBM Cloud Container Regis
 3. Now upload the code and build the container image inside IBM Cloud Container Registry. We use the information from step 3, where we got the list of namespaces.
 
     ```sh
-    $ ibmcloud cr build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/authors:1 .
+    $ ibmcloud cr build -f Dockerfile --tag [YOUR_REGISTRY]/[YOUR_REGISTRY_NAMESPACE]/authors:1 .
     ```
 
     _Sample result values:_
@@ -249,8 +249,8 @@ _REMEMBER:_ You should have saved the IBM Container Registry information somewhe
     Sample output:
 
     ```sh
-    $ NAME                      READY   STATUS    RESTARTS   AGE
-    $ authors-7b6dd98db-wl9wc   1/1     Running   0          6m9s
+    NAME                      READY   STATUS    RESTARTS   AGE
+    authors-7b6dd98db-wl9wc   1/1     Running   0          6m9s
     ```
 
 #### Step 3: Verify the deployment with the **Kubernetes dashboard** 
@@ -318,9 +318,9 @@ spec:
   Sample output:
 
   ```sh
-    $ NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-    $ authors      NodePort    172.21.107.135   <none>        3000:31347/TCP   22s
-    $ kubernetes   ClusterIP   172.21.0.1       <none>        443/TCP          28h
+    NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+    authors      NodePort    172.21.107.135   <none>        3000:31347/TCP   22s
+    kubernetes   ClusterIP   172.21.0.1       <none>        443/TCP          28h
   ```
 
 #### Step 4: Verify the service in the **Kubernetes dashboard** 
@@ -336,25 +336,25 @@ spec:
 
 #### Step 5: Verify the running microservice on Kubernetes 
 
-1. Get cluster (worker node) [IP address](https://cloud.ibm.com/docs/containers?topic=containers-nodeport) 
+1. Get cluster (worker node) [IP address](https://cloud.ibm.com/docs/containers?topic=containers-nodeport).
+
+> We expose a public port on your worker node and use the public IP address of the worker node to access your service in the cluster publicly from the internet.
 
     ```sh
     $ clusterip=$(ibmcloud ks workers --cluster cloud-native | awk '/Ready/ {print $2;exit;}')
     $ echo $clusterip
-    $ 184.172.247.228
+    184.172.247.228
     ```
-
-   > Expose a public port on your worker node and use the public IP address of the worker node to access your service in the cluster publicly from the internet.
 
 2. Get nodeport to access the service (do you remember the mapping?)
 
     ```sh
     $ nodeport=$(kubectl get svc authors --ignore-not-found --output 'jsonpath={.spec.ports[*].nodePort}')
     $ echo $nodeport
-    $ 31347
+    31347
     ```
 
-3. Open API explorer.
+3. Open API explorer. 
 
     ```sh
     $ echo http://${clusterip}:${nodeport}/openapi/ui/
@@ -362,7 +362,7 @@ spec:
 
     Sample output:
     ```sh
-    $ http://184.172.247.228:31347/openapi/ui/
+    http://184.172.247.228:31347/openapi/ui/
     ```
 
     Copy and past the URL in a local browser on your PC:
@@ -370,22 +370,23 @@ spec:
     ![authors-java-openapi-explorer](images/authors-java-openapi-explorer-kubernetes.png)
 
 
-4. Execute curl to test the **Authors** service.
+4. Execute curl to test the **Authors** service. 
+   _Remember:_ We have changed the values from `api/v1` to `myapi/myv1`! 
 
     ```sh
-    $ curl http://${clusterip}:${nodeport}/api/v1/getauthor?name=Niklas%20Heidloff
+    $ curl http://${clusterip}:${nodeport}/myapi/myv1/getauthor?name=Niklas%20Heidloff
     ```
 
     Sample result:
     ```
-    $ {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
+    {"name":"Niklas Heidloff","twitter":"@nheidloff","blog":"http://heidloff.net"}
     ```
 
 5. Execute following curl command to test the **HealthCheck** implementation for the **Authors** service.
 
     ```sh
     $ curl http://${clusterip}:${nodeport}/health
-    $ {"checks":[{"data":{"authors":"ok"},"name":"authors","state":"UP"}],"outcome":"UP"} 
+    {"checks":[{"data":{"authors":"ok"},"name":"authors","state":"UP"}],"outcome":"UP"} 
     ```
 
     Optional: 
@@ -401,4 +402,5 @@ spec:
 
 :star: **Congratulations** :thumbsup: you have finished this **hands-on workshop** :checkered_flag:.
 
+Awesome your are now ready to take the test and get a the [Cloud Native Starter Level 1 - Badge](https://www.youracclaim.com/org/ibm/badge/cloud-native-starter-level-1).
 

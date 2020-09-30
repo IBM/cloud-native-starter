@@ -1,15 +1,15 @@
 ## Cloud Native Starter for Java EE based Microservices on Kubernetes and Istio
 
-This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures.
+This project contains sample code that demonstrates how to get started with cloud-native applications and microservice based architectures. To get a fast overview of this project use our [Cloud Native Starter landing page](https://cloud-native-starter.mybluemix.net/).
 
 The project has three parts:
 
 > 1) **Basic concepts:** The documentation of this part is below. Cloud Native Starter demonstrates how to develop complete enterprise applications with Java and MicroProfile and how to operate them with Kubernetes, OpenShift and Istio.
-To get a fast overview of the basic concepts part, use the this [landing page](https://cloud-native-starter.mybluemix.net/).
+To get a fast overview of the basic-concepts part, use the [basic-concepts landing page](https://cloud-native-starter-synchron.mybluemix.net/).
 
-> 2) **Reactive:** The reactive part explains how to use reactive programming and event based messaging in Quarkus applications and how to run them on Kubernetes and OpenShift. For more open the [reactive](reactive) folder and that part can be used completely separately.
+> 2) **Reactive:** The reactive part explains how to use reactive programming and event based messaging in Quarkus applications and how to run them on Kubernetes and OpenShift. For more open the [reactive](reactive) folder and that part can be used completely separately or to get a fast overview of the reactive part, use the [reactive landing page](https://cloud-native-starter-reactive.mybluemix.net/).
 
-> 3) **Security:** The security part explains how to do authentication and authorization in Quarkus applications with Keycloak and how to do network encryption with Istio.  For more open the[security](security) folder and that part can be used completely separately.
+> 3) **Security:** The security part explains how to do authentication and authorization in Quarkus applications with Keycloak and how to do network encryption with Istio. For more open the [security](security) folder and that part can be used completely separately. For a fast overview of the security part, use the [security landing page](https://cloud-native-starter-security.mybluemix.net/).
 
 ### Basic concepts
 
