@@ -53,6 +53,7 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   }
   if (keycloak.token && keycloak.idToken && keycloak.token != '' && keycloak.idToken != '') {
     store.commit("login", payload);
+    console.log("--> log: get username" + keycloak.subject);
     // console.log("User has logged in: " + keycloak.subject);
     // console.log("TokenParsed: "+ JSON.stringify(keycloak.tokenParsed));
     // console.log("User name: " + keycloak.tokenParsed.preferred_username);
