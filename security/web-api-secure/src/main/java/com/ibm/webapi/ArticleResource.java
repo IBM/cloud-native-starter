@@ -41,7 +41,7 @@ public class ArticleResource {
             System.out.println("-->log: ArticleResource.getArticles");
             return createArticleList(coreArticles);
         } catch (NoConnectivity e) {
-            System.err.println("com.ibm.webapi.business.getArticles: Cannot connect to articles service");
+            System.err.println("-->log: com.ibm.webapi.business.getArticles: Cannot connect to articles service");
             throw new NoDataAccess(e);
         }
     }

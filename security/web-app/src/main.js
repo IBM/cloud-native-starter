@@ -69,6 +69,7 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   setInterval(() => {
     keycloak.updateToken(70).then((refreshed) => {
       if (refreshed) {
+        console.log("--> log: updateToken");
         let payloadRefreshedTokens = {
           idToken: keycloak.idToken,
           accessToken: keycloak.token
@@ -82,9 +83,9 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
         }
       }
     }).catch(() => {
-      console.log('Failed to refresh token');
+      console.log('-->log: Failed to refresh token');
     });
   }, 60000)
 }).catch(() => {
-  console.log("Failed to authenticate");
+  console.log("-->log: Failed to authenticate");
 });

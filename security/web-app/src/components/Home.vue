@@ -65,6 +65,7 @@ export default {
         }
       });
       let that = this;
+      console.log("--> log: readArticles");
       axiosService
         .get(this.webApiUrl)
         .then(function(response) {

@@ -21,7 +21,7 @@ public class ArticlesDataAccess {
     @PostConstruct
     void initialize() {
         URI apiV1 = UriBuilder.fromUri("http://{host}:{port}/articles").build(articlesHost, articlesPort);
-        
+        System.out.println("-->log: com.ibm.webapi.ArticlesDataAccess.initialize");
         articlesService = RestClientBuilder.newBuilder()
                 .baseUri(apiV1)
                 .register(ExceptionMapperArticles.class)
