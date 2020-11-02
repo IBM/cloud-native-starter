@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: articles
-        image: us.icr.io/cloud-native-b11w32mgrt/articles:1
+        image: us.icr.io/cloud-native-xsfutcd3w9/articles:1
         ports:
         - containerPort: 8080
         env:

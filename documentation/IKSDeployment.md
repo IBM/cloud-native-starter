@@ -175,7 +175,9 @@ When Istio is installed and all Istio pods are started, create a namespace in th
 $ iks-scripts/create-registry.sh
 ```
 
-The container images we will build next are stored in the Container Registry as `us.icr.io/cloud-native/<imagename>:<tag>` if you didn't change the defaults.
+This will create a unique namespace similar to `cloud-native-xxxxxxxxxx` in the Dallas region (us.icr.io):
+
+The container images we will build next are stored in the Container Registry as `us.icr.io/cloud-native-xxxxxxxxxx/<imagename>:<tag>`.
 
 
 ### Initial Deployment of Cloud Native Starter

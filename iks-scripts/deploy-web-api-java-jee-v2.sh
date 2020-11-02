@@ -38,8 +38,10 @@ function setup() {
   rm src/main/java/com/ibm/webapi/business/Service.java
   mv src/main/java/com/ibm/webapi/business/Service2.java src/main/java/com/ibm/webapi/business/Service.java
   
-  # docker build replacement for ICR  
-  ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/web-api:2 .  
+  # docker build for ICR  
+  docker build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/web-api:2 .
+  docker push $REGISTRY/$REGISTRY_NAMESPACE/web-api:2
+  
 
   kubectl delete -f deployment/istio-service-v1.yaml --ignore-not-found
 
