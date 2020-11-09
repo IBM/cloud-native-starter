@@ -42,8 +42,9 @@ function setup() {
   rm src/main/java/com/ibm/webapi/business/Service.java
   mv src/main/java/com/ibm/webapi/business/Service2.java src/main/java/com/ibm/webapi/business/Service.java
 
-  # docker build replacement for ICR  
-  ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/web-api:1 .
+  # docker build for ICR  
+  docker build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/web-api:1 .
+  docker push $REGISTRY/$REGISTRY_NAMESPACE/web-api:1
   
   kubectl apply -f deployment/kubernetes-service.yaml
 

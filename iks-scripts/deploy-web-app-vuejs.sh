@@ -41,9 +41,10 @@ function setup() {
   
   configureVUEminikubeIP
 
-  # docker build replacement for ICR
-  ibmcloud cr build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/web-app:1 .
-
+  # docker build for ICR
+  docker build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/web-app:1 .
+  docker push $REGISTRY/$REGISTRY_NAMESPACE/web-app:1
+  
   # Add ICR tags to K8s deployment.yaml  
   sed "s+web-app:1+$REGISTRY/$REGISTRY_NAMESPACE/web-app:1+g" deployment/kubernetes.yaml > deployment/IKS-kubernetes.yaml
   kubectl apply -f deployment/IKS-kubernetes.yaml

@@ -58,8 +58,9 @@ function setup() {
   
   _out Build Docker Image
   cd ${root_folder}/authors-nodejs
-  # docker build replacement for ICR
-  ibmcloud cr build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/authors:1 .  
+  # docker build for ICR
+  docker build -f Dockerfile --tag $REGISTRY/$REGISTRY_NAMESPACE/authors:1 .
+  docker push $REGISTRY/$REGISTRY_NAMESPACE/authors:1
  
   _out Deploy to IKS
   cd ${root_folder}/authors-nodejs/deployment

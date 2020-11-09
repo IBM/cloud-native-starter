@@ -36,8 +36,9 @@ function setup() {
   fi
   unzip -o liberty-opentracing-zipkintracer-1.3-sample.zip -d liberty-opentracing-zipkintracer/
   
-  # docker build replacement for ICR
-  ibmcloud cr build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/articles:1 .
+  # docker build for ICR
+  docker build -f Dockerfile.nojava --tag $REGISTRY/$REGISTRY_NAMESPACE/articles:1 .
+  docker push $REGISTRY/$REGISTRY_NAMESPACE/articles:1
 
   # Add ICR tags to K8s deployment.yaml  
   sed "s+articles:1+$REGISTRY/$REGISTRY_NAMESPACE/articles:1+g" deployment/kubernetes.yaml > deployment/IKS-kubernetes.yaml

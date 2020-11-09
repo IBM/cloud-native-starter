@@ -34,7 +34,7 @@ function create_cluster() {
   ibmcloud api https://cloud.ibm.com >> $LOG_FILE 2>&1
   ibmcloud login --apikey $IBMCLOUD_API_KEY -r $IBM_CLOUD_REGION >> $LOG_FILE 2>&1
   _out Creating cluster
-  ibmcloud ks cluster create --name $CLUSTER_NAME >> $LOG_FILE 2>&1 
+  ibmcloud ks cluster create classic --name $CLUSTER_NAME >> $LOG_FILE 2>&1 
   # check if something went wrong
    if [ $? == 0 ]; then 
      _out -- Creating a cluster will take some time, please wait at least 20 minutes before
