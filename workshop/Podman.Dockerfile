@@ -4,6 +4,11 @@
 # $ docker build -t cns-tools-image:v1 . 
 # $ docker run -it cns-tools-image:v1 
 
+# *************************************
+#   DOESN'T WORK
+#   See this entry: https://github.com/containers/podman/issues/8275
+# *************************************
+#FROM ubuntu:disco-20190423
 FROM ubuntu:latest
 
 RUN echo "*********** Init *************** "
@@ -15,7 +20,7 @@ RUN apt-get update \
     && apt-get --assume-yes install nano \
 # setup network tools
     && apt-get --assume-yes install apt-utils \
-# RUN apt-get --assume-yes install net-tools
+    && apt-get --assume-yes install net-tools \
 # zip
     && apt-get --assume-yes install unzip \
     && apt-get --assume-yes install zip \
@@ -81,6 +86,7 @@ RUN apt-get update -qq \
     && apt-get update -qq \
     && apt-get --assume-yes install slirp4netns \
     && apt-get update -qq \
+    # && add-apt-repository -y ppa:projectatomic/ppa \
     && apt-get --assume-yes install podman \
     && apt-get --assume-yes install iptables \
     && rm -rf ~/.config/containers
@@ -89,33 +95,38 @@ RUN apt-get update -qq \
 # Kubernetes
 # -----------
 
-RUN echo "*********** Kubernetes *************** "
-RUN apt-get update && apt-get install -y apt-transport-https \
-    && curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
-    && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
-    && apt-get update \
-    && apt-get install -y kubectl 
+#RUN echo "*********** Kubernetes *************** "
+#RUN apt-get update && apt-get install -y apt-transport-https \
+#    && curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
+#    && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
+#    && apt-get update \
+#    && apt-get install -y kubectl 
 
 # -----------
 # IBM Cloud CLI
 # -----------
 
-RUN echo "*********** IBM Cloud CLI *************** "
+#RUN echo "*********** IBM Cloud CLI *************** "
 # RUN  curl -sL http://ibm.biz/idt-installer | bash # Full installation in not needed in that case
 # https://cloud.ibm.com/docs/cli?topic=cloud-cli-install-ibmcloud-cli
-RUN  curl -fsSL https://clis.cloud.ibm.com/install/linux | sh \
-     && ibmcloud plugin install container-service \
-     && ibmcloud plugin install container-registry
+#RUN  curl -fsSL https://clis.cloud.ibm.com/install/linux | sh \
+#     && ibmcloud plugin install container-service \
+#     && ibmcloud plugin install container-registry
 
 # RedHat OpenShift CLI oc
 
-RUN echo "*********** RedHat OpenShift CLI oc *************** "
-WORKDIR /tmp
-RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.5/linux/oc.tar.gz \
-    && tar -zxvf oc.tar.gz \
-    && mv oc /usr/local/bin/oc 
+#RUN echo "*********** RedHat OpenShift CLI oc *************** "
+#WORKDIR /tmp
+#RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.5/linux/oc.tar.gz \
+#    && tar -zxvf oc.tar.gz \
+#    && mv oc /usr/local/bin/oc 
 
+# ------------
 # Expose Ports
-#kiali
-EXPOSE 20001
+# ------------
+#
+# kiali
+# EXPOSE 20001
 
+# To keep it running
+#CMD tail -f /dev/null

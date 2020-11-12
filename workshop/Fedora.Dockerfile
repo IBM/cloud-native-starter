@@ -1,3 +1,7 @@
+# *************************************
+#   DOESN'T WORK
+#   See this entry: https://github.com/containers/podman/issues/8275
+# *************************************
 FROM fedora:latest
 
 # -----------
@@ -10,14 +14,20 @@ RUN dnf  -y install nano
 RUN dnf  -y upgrade --refresh
 RUN dnf  -y install wget
 RUN dnf  -y upgrade --refresh
+# RUN dnf  -y install fuse-overlay
+# RUN dnf  -y upgrade --refresh
+RUN dnf remove fuse-overlayfs
+RUN dnf  -y upgrade --refresh
 
 # -----------
 # Podman/buildah
 # -----------
 RUN dnf  -y install podman
 RUN dnf  -y upgrade --refresh
-RUN dnf  -y install buildah
+RUN dnf  install buildah sudo -y
 RUN dnf  -y upgrade --refresh
+
+
 
 # -----------
 # Kubernetes
