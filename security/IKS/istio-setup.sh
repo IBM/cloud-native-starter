@@ -61,5 +61,5 @@ function configNamespace() {
 
 installIstio
 checkIstioInstallation
-#setuptelemetry  // we don't use Kiali in this exercise
+#setuptelemetry  // we don't use Kiali in this exercise (kubectl port-forward svc/kiali 3000:20001 -n istio-system)
 configNamespace

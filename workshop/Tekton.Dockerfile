@@ -43,13 +43,13 @@ RUN apt-get update \
 # RUN curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
 
 # -----------
-# Docker (replaced with podman)
+# Docker (needed for the CLI "ibmcloud cr")
 # -----------
 
-# WORKDIR /
-# RUN apt install -y gnupg
-# RUN apt install -y docker.io 
-# RUN docker --version
+WORKDIR /
+RUN apt install -y gnupg
+RUN apt install -y docker.io 
+RUN docker --version
 
 # -----------
 # Tekton CLI
@@ -58,46 +58,6 @@ RUN apt-get update \
 RUN curl -LO https://github.com/tektoncd/cli/releases/download/v0.13.1/tkn_0.13.1_Darwin_x86_64.tar.gz \
     # Extract tkn to your PATH (e.g. /usr/local/bin)
     && tar xvzf tkn_0.13.1_Darwin_x86_64.tar.gz -C /usr/local/bin tkn
-
-# -----------
-# Podman
-# -----------
-
-RUN echo "*********** selinux *************** "  
-RUN apt-get update \
-    && apt-get --assume-yes install libselinux1 \
-    && apt-get --assume-yes install selinux-basics 
-    # && apt-get --assume-yes install selinux-uti
-
-RUN echo "*********** auditd *************** "  
-RUN apt-get update \
-    && apt-get --assume-yes install auditd \
-    && apt-get --assume-yes install audispd-plugins
-
-
-RUN echo "*********** Podman *************** "
-RUN adduser root sudo
-RUN apt-get --assume-yes install sudo
-RUN apt-get update -qq \
-    && apt-get install -qq -y software-properties-common uidmap \
-    # && add-apt-repository -y ppa:projectatomic/ppa \
-    && . /etc/os-release \
-    && echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list \
-    && curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | apt-key add - \
-    && apt-get update -qq \
-    # Build
-    && apt-get --assume-yes install buildah \
-    # Run command
-    && apt-get update -qq \
-    && apt-get --assume-yes install runc \
-    # Network
-    && apt-get update -qq \
-    && apt-get --assume-yes install slirp4netns \
-    && apt-get update -qq \
-    # && add-apt-repository -y ppa:projectatomic/ppa \ // not available for the latest Ubuntu version
-    && apt-get --assume-yes install podman \
-    && apt-get --assume-yes install iptables \
-    && rm -rf ~/.config/containers
 
 # -----------
 # Kubernetes
@@ -135,6 +95,3 @@ RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.5/linux/oc.t
 #
 # kiali
 # EXPOSE 20001
-
-# To keep it running
-#CMD tail -f /dev/null
