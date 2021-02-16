@@ -17,7 +17,7 @@ We have defined a ```Dockerfile``` that with the needed configuration to setup a
 
 5. **Execute** you can directly use the image from [dockerhub](https://hub.docker.com/r/tsuedbroecker/cns-workshop-tools) with the following cli command. That opens directly the Docker image in a **terminal session**.
 
-```docker run -it --rm tsuedbroecker/cns-workshop-tools:v3```
+```docker run -it --rm tsuedbroecker/cns-workshop-tools:v5```
 
 6. **Navigate** to **cloud native starter** project inside the Docker image
     ```cd usr/cns/cloud-native-starter```
