@@ -21,7 +21,8 @@ function showCommands () {
  echo "kubectl port-forward svc/prometheus 3000:9090 -n istio-system"
  echo "-----------------------Jaeger------------------------------------------------"
  echo "kubectl port-forward svc/jaeger-query 3000:16686 -n istio-system"
-
+ echo "-----------------------Kiali------------------------------------------------"
+ echo "kubectl port-forward svc/kiali 3000:20001 -n istio-system"
 }
 
 setuptelemetry
