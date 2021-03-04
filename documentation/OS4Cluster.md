@@ -20,7 +20,7 @@ You need a Red Hat account to access this page, and you can register for an acco
 
 When you sign on to this page, you get access to the official documentation, the download links for the `crc` binaries, **and to the 'Pull Secret' and this is the reason to go through this page because the Pull Secret is personalized to your Red Hat account**.
 
-Once you obtained the binary for your operating system and your pull secret, you can follow the CRC [Getting Started Guide](https://code-ready.github.io/crc/) or a blog I wrote about running [Red Hat OpenShift 4 on your laptop](https://haralduebele.blog/2019/09/13/red-hat-openshift-4-on-your-laptop/). 
+Once you obtained the binary for your operating system and your pull secret, you can follow the CRC [Getting Started Guide](https://code-ready.github.io/crc/) or a blog I wrote about running [Red Hat OpenShift 4 on your laptop](https://haralduebele.github.io/2019/09/13/red-hat-openshift-4-on-your-laptop/). 
 
 The default setup of CRC requires at least:
 

@@ -191,7 +191,7 @@ $ curl -X POST "http://localhost:8080/v1/articles" ...
 * [Invoking REST APIs asynchronously with Quarkus](http://heidloff.net/article/invoking-rest-apis-asynchronously-with-quarkus/)
 * [Comparing synchronous and asynchronous Access to Postgres](http://heidloff.net/article/comparing-synchronous-asynchronous-access-postgresql/)
 * [Deployment to the IBM Cloud Kubernetes Service](https://suedbroecker.net/2020/02/03/deploy-the-reactive-cloud-native-starter-example-to-ibm-cloud/)
-* [Deployment to Red Hat OpenShift](https://haralduebele.blog/2020/02/03/cloud-native-and-reactive-microservices-on-red-hat-openshift-4/)
+* [Deployment to Red Hat OpenShift](https://haralduebele.github.io/2020/02/03/cloud-native-and-reactive-microservices-on-red-hat-openshift-4/)
 * [Using the OpenJ9 JVM for Quarkus Applications](http://heidloff.net/article/openj9-jvm-for-quarkus-applications/)
 
 ### Technologies
