@@ -9,7 +9,7 @@ There are blog entries and a workshop that describe how this project has been im
 * [Setting up Keycloak in OpenShift](http://heidloff.net/article/setting-up-keycloak-openshift/)
 * [Security in Quarkus Applications via Keycloak](http://heidloff.net/article/security-quarkus-applications-keycloak/)
 * [Securing Vue.js Applications with Keycloak](http://heidloff.net/article/securing-vue-js-applications-keycloak/)
-* [Application Security from a Platform Perspective](https://haralduebele.blog/2020/09/03/application-security-from-a-platform-perspective/)
+* [Application Security from a Platform Perspective](https://haralduebele.github.io/2020/09/03/application-security-from-a-platform-perspective/)
 * [Hands on Workshop (GitBook)](https://ibm-developer.gitbook.io/get-started-with-security-for-your-java-microservi/)
 
 The workshop linked above is a description on how to use the code.

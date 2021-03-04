@@ -215,5 +215,5 @@ Let's get started with the [Lab - Resiliency](05-resiliency.md).
 
 Resources:
 
-* ['Managing Microservices Traffic with Istio'](https://haralduebele.blog/2019/03/11/managing-microservices-traffic-with-istio/)
+* ['Managing Microservices Traffic with Istio'](https://haralduebele.github.io/2019/03/11/managing-microservices-traffic-with-istio/)
 * ['Demo: Traffic Routing'](../documentation/DemoTrafficRouting.md)

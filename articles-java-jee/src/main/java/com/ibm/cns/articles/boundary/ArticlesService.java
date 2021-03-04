@@ -79,7 +79,7 @@ public class ArticlesService {
         System.out.println("com.ibm.articles.business.Service.addSampleArticles");
         try {
             this.addArticle("Blue Cloud Mirror — (Don’t) Open The Doors!",
-                    "https://haralduebele.blog/2019/02/17/blue-cloud-mirror-dont-open-the-doors/", "Harald Uebele");
+                    "https://haralduebele.github.io/2019/02/17/blue-cloud-mirror-dont-open-the-doors/", "Harald Uebele");
             Thread.sleep(5);
             this.addArticle("Recent Java Updates from IBM", "http://heidloff.net/article/recent-java-updates-from-ibm",
                     "Niklas Heidloff");
@@ -100,7 +100,7 @@ public class ArticlesService {
                     "http://heidloff.net/article/tensorflowjs-visual-recognition", "Niklas Heidloff");
             Thread.sleep(5);
             this.addArticle("Install Istio and Kiali on IBM Cloud or Minikube",
-                    "https://haralduebele.blog/2019/02/22/install-istio-and-kiali-on-ibm-cloud-or-minikube/", "Harald Uebele");
+                    "https://haralduebele.github.io/2019/02/22/install-istio-and-kiali-on-ibm-cloud-or-minikube/", "Harald Uebele");
             Thread.sleep(5);
             this.addArticle("Dockerizing Java MicroProfile Applications",
                     "http://heidloff.net/article/dockerizing-container-java-microprofile", "Niklas Heidloff");
