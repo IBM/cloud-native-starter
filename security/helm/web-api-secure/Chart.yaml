@@ -1,0 +1,7 @@
+apiVersion: v2
+appVersion: "2.0"
+description: A Helm chart for OpenShift
+name: web-api-secure
+version: 1.1.4
+icon: https://static.redhat.com/libs/redhat/brand-assets/latest/corp/logo.svg
+

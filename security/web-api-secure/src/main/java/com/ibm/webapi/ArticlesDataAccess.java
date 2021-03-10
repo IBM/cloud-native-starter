@@ -10,7 +10,9 @@ import java.util.List;
 @ApplicationScoped
 public class ArticlesDataAccess {
 
-    private static final String ARTICLES_DNS = "localhost";
+    private static final String ARTICLES_DNS = "localhost"; // REMINDER
+                                                           // configuration "articles" for pod on Kubernetes or OpenShift
+                                                           // or "localhost" for local pc
     private static final int ARTICLES_PORT = 8082;
 
     private String articlesHost = ARTICLES_DNS;

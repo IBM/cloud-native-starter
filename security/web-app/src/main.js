@@ -22,8 +22,8 @@ if (currentHostname.indexOf('localhost') > -1) {
   store.commit("setAPIAndLogin", urls);
 }
 else {
-  let webapiUrl = 'https://' + currentHostname + '/';
-  let keycloakUrl = 'https://' + currentHostname + '/auth'; 
+  let webapiUrl = 'https://' + currentHostname + '/'; // OpenShift part 1 using http
+  let keycloakUrl = 'https://' + currentHostname + '/auth'; // OpenShift part 1 using http
   urls = {
     api: webapiUrl,
     login: keycloakUrl
@@ -53,11 +53,11 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   }
   if (keycloak.token && keycloak.idToken && keycloak.token != '' && keycloak.idToken != '') {
     store.commit("login", payload);
-    console.log("--> log: get username" + keycloak.subject);
-    // console.log("User has logged in: " + keycloak.subject);
-    // console.log("TokenParsed: "+ JSON.stringify(keycloak.tokenParsed));
-    // console.log("User name: " + keycloak.tokenParsed.preferred_username);
-    // console.log("accessToken: " + store.state.user.accessToken);
+    console.log("--> log: get username : " + keycloak.subject);
+    console.log("--> log: User has logged in: " + keycloak.subject);
+    console.log("--> log: TokenParsed: "+ JSON.stringify(keycloak.tokenParsed));
+    console.log("--> log: User name: " + keycloak.tokenParsed.preferred_username);
+    console.log("--> log: accessToken: " + store.state.user.accessToken);
     payload = {
       name: keycloak.tokenParsed.preferred_username
     };

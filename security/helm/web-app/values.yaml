@@ -1,0 +1,49 @@
+# Default values for template-node-typescript.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+############################################
+# istio-virtual-service.Gateway.metadata.name
+
+istiogatewayname: cloud-native-starter-istio-ingressgateway
+
+############################################
+# istio-virtual-service.VirtualService.metadata.name
+
+istiovirtualservicename: cloud-native-starter-virtualservice
+
+############################################
+# Deployment.metadata.name
+# Deployment.metadata.lables.app
+# Deployment.spec.selector.matchLabels.app
+# Deployment.template.metadata.labels.app
+# Deployment.spec.containers.name
+# ++++++++++++++++++++++++++++++++++++++++++
+# Service.metatdata.name
+# Service.metadata.lables.app
+# Service.spec.selector.app
+name: web-app
+
+############################################
+# Deployment.metadata.namespace
+# Service.metadata.namespace
+namespace: cloud-native-starter
+
+############################################
+# Deployment.template.metadata.version
+version: v1
+
+############################################
+# Deployment.spec.template.spec.containers.image
+image: quay.io/tsuedbroecker/web-app-secure-http:v1
+
+############################################
+# Deployment.spec.template.spec.containers.ports.containerPort
+ports:
+  containerPort: 8080
+
+############################################
+# Service.spec.ports.port
+service:
+  port: 8080
+

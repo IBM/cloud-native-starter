@@ -65,7 +65,7 @@ export default {
         }
       });
       let that = this;
-      console.log("--> log: readArticles");
+      console.log("--> log: readArticles : " + this.webApiUrl);
       axiosService
         .get(this.webApiUrl)
         .then(function(response) {
@@ -74,7 +74,7 @@ export default {
           that.error = "";
         })
         .catch(function(error) {
-          console.log(error);
+          console.log("--> log: " + error);
           that.loading = false;
           that.error = error;
         });
