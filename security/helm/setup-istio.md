@@ -1,12 +1,14 @@
 **--------------------------------------------**
+
 **-------------UNDER CONSTRUCTION-------------**
+
 **--------------------------------------------**
 
-### Setup Istio on your Red Hat OpenShift Cluster
+### Setup Istio on your Red Hat OpenShift cluster
 
 ### Istio and OpenShift
 
-### Step 1: Logon to the Cluster
+### Step 1: Logon to the cluster
 
 ```sh
 oc login --token=TOKEN --server=https://URL

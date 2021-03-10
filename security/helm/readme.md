@@ -1,29 +1,31 @@
 **--------------------------------------------**
+
 **-------------UNDER CONSTRUCTION-------------**
+
 **--------------------------------------------**
 
-# Install the example with Helm and Operater to OpenShift
+# Install the example Application using Helm and Operaters for OpenShift
 
 # 1. Install Istio on OpenShift
 
 Follow the [setup Istio instructions](setup-istio.md).
 
-# 2. Install the Example application using Helm Charts 
+# 2. Install the example application using Helm charts 
 
-### Step 1:
+### Step 1: Logon to your OpenShift cluster
 
 ```sh
 oc login --token=TOKEN --server=https://URL
 ```
 
-### Step 2:
+### Step 2: Create a `cloud-native-starter` project
 
 ```sh
 oc new-project cloud-native-starter
 oc project cloud-native-starter
 ```
 
-### Step 3: Invoke the Helm Charts
+### Step 3: Invoke the Helm charts to install the example application
 
 ```sh
 oc project cloud-native-starter
@@ -34,7 +36,7 @@ helm install web-api-secure ./web-api-secure
 helm install articles-secure ./articles-secure
 ```
 
-### Step 4: Clean Project
+### Step 4: Clean example project
 
 ```sh
 oc project cloud-native-starter
@@ -44,7 +46,6 @@ helm uninstall web-app
 helm uninstall web-api-secure 
 helm uninstall articles-secure
 ```
-
 
 # Additional information
 
