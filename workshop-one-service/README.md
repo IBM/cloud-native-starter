@@ -14,7 +14,6 @@ There are small variations of microservice definitions out there, here is one de
 
 * > [More additional information related to microservices, provided by IBM.](https://www.ibm.com/cloud/learn/microservices)
 
-
 ---
 ## Labs
 
