@@ -16,7 +16,7 @@ spec:
         name: kernel-optimization
     spec:
       hostNetwork: true
-      hostPID: true
+      hostPID: false
       hostIPC: true
       initContainers:
         - command:
