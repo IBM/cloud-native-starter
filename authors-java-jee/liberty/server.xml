@@ -2,7 +2,7 @@
 <server description="OpenLiberty Server">
 	
     <featureManager>
-        <feature>microProfile-3.0</feature>
+        <feature>microProfile-4.1</feature>
     </featureManager>
 
     <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="3000" httpsPort="9443"/>
