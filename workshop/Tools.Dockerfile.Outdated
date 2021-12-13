@@ -6,6 +6,8 @@
 
 FROM ubuntu:latest
 
+# ARG UBUNTU_VERSION=xUbuntu_20.04 / 19.10
+
 RUN apt update \
     && DEBIAN_FRONTEND="noninteractive" apt-get install -y tzdata
 
@@ -18,7 +20,8 @@ RUN echo "*********** Basic tools *************** "
 RUN apt-get update \
     && apt-get --assume-yes install curl \
     && apt-get --assume-yes install git-core \
-    && apt-get --assume-yes install wget
+    && apt-get --assume-yes install wget \
+    && apt-get --assume-yes install gnupg2
 
 # editor
 RUN apt-get --assume-yes install nano
@@ -46,11 +49,23 @@ RUN apt-get --assume-yes install unzip \
 # RUN curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
 
 #Docker CLI
-RUN echo "*********** Docker *************** "
+# RUN echo "*********** Docker *************** "
+# WORKDIR /
+# RUN apt install -y gnupg  \
+#    && apt install -y docker.io \
+#    && docker --version
+
+#Podman CLI
 WORKDIR /
-RUN apt install -y gnupg  \
-    && apt install -y docker.io \
-    && docker --version
+# RUN echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list \
+    
+RUN echo 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list \
+    && wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_20.04/Release.key -O- | apt-key add -  \
+    && apt update  \
+    && apt upgrade \
+    && apt install -y podman \
+    && podman --version \
+    && alias docker=podman
 
 #Maven
 RUN echo "*********** Maven *************** "
@@ -75,13 +90,15 @@ RUN  curl -fsSL https://clis.cloud.ibm.com/install/linux | sh \
      && ibmcloud plugin install container-registry
 
 # RedHat OpenShift cli OC
-RUN echo "*********** RedHat OpenShift CLI*************** "
-WORKDIR /tmp
-RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.5/linux/oc.tar.gz \
-    && tar -zxvf oc.tar.gz \
-    && mv oc /usr/local/bin/oc
+# RUN echo "*********** RedHat OpenShift CLI*************** "
+# WORKDIR /tmp
+# RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.5/linux/oc.tar.gz \
+#    && tar -zxvf oc.tar.gz \
+#    && mv oc /usr/local/bin/oc
 
 # Expose Ports
 #kiali
-EXPOSE 20001
+# EXPOSE 20001
+# Cloud Native Starter - Authors Service 
+EXPOSE 3000
 
