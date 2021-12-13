@@ -1,8 +1,16 @@
 # Let’s get started with cloud native Java applications on Kubernetes
 
-[![Let's get started with cloud native Java applications on Kubernetes](https://img.youtube.com/vi/DQFeqFKQ3dE/0.jpg)](https://www.youtube.com/watch?v=DQFeqFKQ3dE "Click play on youtube")
+---
 
-> **This workshop is under construction!**
+> **This workshop is under construction and is currently not being serviced!**
+> Visit: 
+> * [**Cloud Native Starter Badge - Level 1**](http://ibm.biz/cloud-native-starter-level-1-badge), you can run the workshop as a **self service**.
+> * [Istio Hands-on](https://harald-u.github.io/istio-handson/)
+> * [Deploying Java Microservices to OpenShift on IBM Cloud](https://harald-u.github.io/workshop-openshift-on-ibm-cloud/)
+
+---
+
+[![Let's get started with cloud native Java applications on Kubernetes](https://img.youtube.com/vi/DQFeqFKQ3dE/0.jpg)](https://www.youtube.com/watch?v=DQFeqFKQ3dE "Click play on youtube")
 
 In this hands-workshop we do address the question: 
 
