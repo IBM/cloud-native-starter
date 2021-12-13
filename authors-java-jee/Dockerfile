@@ -5,7 +5,7 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 
-FROM open-liberty:19.0.0.9-kernel-java11
+FROM open-liberty:21.0.0.12-full-java11-openj9
 
 COPY liberty/server.xml /config/
 
