@@ -2,9 +2,9 @@
 
 This workshop demonstrates how to build a microservice with Java and how to deploy it to Kubernetes on the IBM Cloud. The microservice in this workshop is kept as simple as possible, so that it can be used as a starting point for other microservices. The microservice has been developed with Java EE and [Eclipse MicroProfile](https://microprofile.io/).
 
-*  > This workshop is available on GitBook: **[Get your Java Microservice up and running!](https://ibm-developer.gitbook.io/get-your-java-microservice-up-and-running/)** and on **[GitHub Pages](https://ibm.github.io/get-your-java-microservice-up-and-running/)** The version of the workshop uses a unified option to run the workshop for Mac, Linux and Windows users.
+*  > This workshop is available on GitBook: **[Get your Java Microservice up and running!](https://ibm.github.io/get-your-java-microservice-up-and-running/)**. The version of the workshop uses a unified option to run the workshop for Mac, Linux and Windows users.
 
-* > Useful playlist on YouTube related this workshop: [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
+* > Here is an useful playlist on YouTube related to this workshop: [Build and deploy a microservice to Kubernetes](https://ibm.biz/BdzVRY)
 
 ## What's a Microservice?
 
@@ -15,41 +15,14 @@ There are small variations of microservice definitions out there, here is one de
 * > [More additional information related to microservices, provided by IBM.](https://www.ibm.com/cloud/learn/microservices)
 
 ---
-## Labs
-
-This workshop has four labs. It should take between 60 and 90 minutues to complete the workshop. That hands-on workshop is made to run as a self service, or at digital event, or at a face to face event.
-
-* How to develop a microservice? 
-
-> Lab 2 and 3 describe how to develop a microservice with Java EE and Eclipse MicroProfile. If you aren't a developer you can skip these two labs.
-
-* How to deploy a microservice? 
-
-> The last lab shows one way to deploy a microservice to Kubernetes on IBM Cloud.
-
-## The labs
-
-1. Installing prerequisites: [lab](https://ibm.github.io/get-your-java-microservice-up-and-running/pre-work/)
-2. Running the Java microservice locally: [lab](https://ibm.github.io/get-your-java-microservice-up-and-running/exercise-01/) 
-3. Understanding the Java implementation: [lab](https://ibm.github.io/get-your-java-microservice-up-and-running/exercise-02/)
-4. Deploying to Kubernetes: [lab](https://ibm.github.io/get-your-java-microservice-up-and-running/exercise-03/)
-
-_Note:_ If you want to deploy the authors microservice to IBM Cloud without touching any code or commandline, you can use these instructions [Use a IBM Cloud toolchain to deploy a Java Microservices to Kubernetes on IBM Cloud](https://thomas-suedbroecker.gitbook.io/toolchain-one-microservice/) which do automate lab 4.
-
----
 ## Cloud Native Starter Badge - Level 1
+
+The [**Cloud Native Starter Badge - Level 1**](http://ibm.biz/cloud-native-starter-level-1-badge), you can run the workshop as a **self service**.
 
 ![Cloud Native Starter Badge - Level 1](images/cnsl1.png)
 
-> To be prepared to pass the test of the [**Cloud Native Starter Badge - Level 1**](http://ibm.biz/cloud-native-starter-level-1-badge), you should run the hands-on workshop **virtual** or **face to face**, but you can also run the workshop as a **self service**.
 
-* Registration link for the Hands-on workshop in a "digital hands-on workshop" at a "digital meetup" or "digital conference": 
 
-    * __Currently no registration available_
-
-* Registration link for the Hands-on workshop as a face to face workshop at a converence or meetup: 
-
-    * _Currently no registration available_
 
 
 
