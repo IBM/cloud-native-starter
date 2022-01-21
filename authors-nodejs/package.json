@@ -22,6 +22,6 @@
     "appmetrics-zipkin": "^1.1.1",
     "express": "^4.16.4",
     "json-query": "^2.2.2",
-    "log4js": "^4.0.2"
+    "log4js": "^6.4.0"
   }
 }
